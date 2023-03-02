@@ -5,19 +5,23 @@ import React from 'react'
 const PatientData = ({ patientData}) => {
    
     return (
-        <tr>
-            {/* <td>{patientData.pId}</td> */}
-            <td>{patientData.patient.name}</td>
-            <td>{patientData.patient.age}</td>
-            <td>{patientData.patient.sex}</td>
-             <td>{patientData.patient.contact}</td>
-            <td>
+        <div className={classes.plist} >
+            Name:{patientData.name}
+            {/* <div>Age:{patientData.age}</div> */}
+            {/* <div>Sex:{patientData.sex}</div>
+             <div>Contact:{patientData.contact}</div> */}
+            {/* <div>{patientData.patient.name}</div>
+            <div>{patientData.patient.age}</div>
+            <div>{patientData.patient.sex}</div>
+             <div>{patientData.patient.contact}</div> */}
+             <div className={classes.select}>
                 
-                <button className={classes.button}>
+                <button className={classes.select_btn}>
                     select
                 </button>
-            </td>
-        </tr>
+            </div> 
+            
+        </div>
     )
 }
 

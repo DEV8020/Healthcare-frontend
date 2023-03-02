@@ -15,27 +15,69 @@ function App() {
       pid: 'p1',
       name: 'john',
       age: 12,
-      gender:'m',
-      phone:1234567890
+      sex:'m',
+      contact:1234567890
     },
     { pid: 'p2',
     name: 'john',
     age: 12,
-    gender:'m',
-    phone:1234567890},
+    sex:'m',
+    contact:1234567890},
     {
       pid: 'p3',
       name: 'john',
       age: 12,
-      gender:'m',
-      phone:1234567890
+      sex:'m',
+      contact:1234567890
     },
     {
       pid: 'p4',
       name: 'john',
       age: 12,
-      gender:'m',
-      phone:1234567890
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p5',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p6',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p7',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p8',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p9',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
+    },
+    {
+      pid: 'p10',
+      name: 'john',
+      age: 12,
+      sex:'m',
+      contact:1234567890
     },
   ];
   
@@ -65,19 +107,19 @@ catch (exception) {
 useEffect(() => {
   async function fetchData() {
     if (user !== null && user.user_type === 'Doctor') {
-      const patientListObject = await getPatientList();
-      setPatientList(patientListObject)
-      //setPatientList(pList);
+      // const patientListObject = await getPatientList();
+      // setPatientList(patientListObject)
+      setPatientList(pList);
     }
   }
   fetchData()
 }, [user])
 
-// useEffect(() => {
-//   const loggedInUser = window.localStorage.getItem('loggedInUser')
-//   if (loggedInUser)
-//     setUser(loggedInUser)
-// }, [])
+//  useEffect(() => {
+//    const loggedInUser = window.localStorage.getItem('loggedInUser')
+//    if (loggedInUser)
+//      setUser(loggedInUser)
+//  }, [])
 
 
   return (
