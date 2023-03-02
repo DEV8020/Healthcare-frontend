@@ -17,8 +17,10 @@ const PatientList = (props) => {
 
     return (
         <div id="patientlist">
-            <h2 >Patient Appointment List</h2>
-            <table cellPadding={10}>
+            <h1 >Patient Appointment List</h1>
+            <main>
+            <table>
+                <thead>
                 <tr>
                     {/* <th>Patient ID</th> */}
                     <th> Name</th>
@@ -26,6 +28,8 @@ const PatientList = (props) => {
                     <th> Gender</th>
                     <th> Phone</th>
                 </tr>
+                </thead>
+                <tbody>
                 {
                    
                    props.patientList.map(b =>
@@ -35,7 +39,9 @@ const PatientList = (props) => {
                         />
                     )
                 }
+            </tbody>
             </table>
+            </main>
             <button className = {classes.button} type="button"  onClick={logout}>Logout</button>
 
         </div>

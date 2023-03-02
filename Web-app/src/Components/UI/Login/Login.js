@@ -1,16 +1,10 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import AddPatient from "../Front Desk/AddPatient";
 import Button from "../UI Elements/Button/Button";
 import InputField from "../UI Elements/Input Field/InputField";
 import classes from "./Login.module.css";
 
-
-
-
-
 const Login = (props) => {
-
-
   const [userType, setUserType] = useState("Doctor");
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -30,59 +24,55 @@ const Login = (props) => {
   const LoginHandler = (event) => {
     event.preventDefault();
 
-
-
     const userData = {
       user_type: userType,
       user_id: userId,
       user_password: userPassword,
     };
 
-   
     setUserType("");
     setUserId("");
     setUserPassword("");
 
-
     props.onLogin(userData);
-
-  
-    
-}
-
+  };
 
   return (
-    <div className={classes.login}>
-      <form id = "login-form" onSubmit={LoginHandler}>
-      <header>
-      <h2>HOSPITAL SYSTEM</h2>
-      </header>
-   
-   <br />
-       
-        <InputField placeHolder="Email ID" type="email" isRequired={true} onChange={userIdChangeHandler} />
-        <br />
-        
-        
-        <InputField placeHolder="Password" type="password" minLength="8" onChange={userPasswordChangeHandler} />
+    <div className={classes.center}>
+      <h1> Hospital Login</h1>
 
-        <br />
-        
-<label  htmlFor="userType" className={classes.label} >User Type</label>
-<select id="userType" className={classes.select} onChange={userTypeChangeHandler}>
-<option value="Doctor">Doctor</option>
-<option value="Front Desk">Front Desk</option>
-</select>
-<br />
+      <form id="login-form" onSubmit={LoginHandler}>
+        <select
+          id="userType"
+          className={classes.select}
+          onChange={userTypeChangeHandler}
+        >
+          <option value="" className={classes.option}>
+            --User Type--
+          </option>
+          <option value="Doctor" className={classes.option}>
+            Doctor
+          </option>
+          <option value="Front Desk" className={classes.option}>
+            Front Desk
+          </option>
+        </select>
 
+        <div className={classes.txt_field}>
+          <input type="text" required />
+          <span></span>
+          <label>Username</label>
+        </div>
 
+        <div className={classes.txt_field}>
+          <input type="password" required />
+          <span></span>
+          <label>Password</label>
+        </div>
 
+        <div className={classes.pass}>Forgot Password?</div>
 
-
-        <button className = {classes.button} value="Log In" type="submit" form="login-form" >Log in</button>
-
-        <br />
-        <br />
+        <input type="submit" value="Login" />
       </form>
     </div>
   );
