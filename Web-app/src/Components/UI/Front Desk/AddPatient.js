@@ -24,8 +24,16 @@ const AddPatient = (props) => {
   if (!props.user) return null;
 
   return (
+    <div>
+      <h1 className={classes.head}>Front Desk</h1>
+       <div className={classes.NavBar}>
+        <button value="logout" className={classes.logout_btn} onClick={logout}>
+          Log-out
+        </button>
+      </div>
     <div className={classes.center}>
        <h1>Appointment</h1>
+      
       <form  onSubmit={AddAppointmentHandler}>
        
 
@@ -37,9 +45,10 @@ const AddPatient = (props) => {
 
        
         <input type="submit" value="Create Appointment" />
-        <input type="submit" value="Logout" onClick={logout}/>
+       
         
       </form>
+    </div>
     </div>
   );
 };

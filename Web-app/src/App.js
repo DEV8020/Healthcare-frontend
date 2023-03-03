@@ -6,6 +6,8 @@ import AddPatient from "./Components/UI/Front Desk/AddPatient";
 import addAppointment from './Services/Appointment'
 import getPatientList from "./Services/PatientList";
 import PatientList from "./Components/UI/Doctor/PatientList";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 
 function App() {
@@ -100,6 +102,10 @@ try{
   await addAppointment(appointment);
 }
 catch (exception) {
+  <Alert severity="error">
+        <AlertTitle>Error!!!</AlertTitle>
+        
+      </Alert>
   console.log(exception);
 }
 
@@ -107,9 +113,16 @@ catch (exception) {
 useEffect(() => {
   async function fetchData() {
     if (user !== null && user.user_type === 'Doctor') {
-      // const patientListObject = await getPatientList();
-      // setPatientList(patientListObject)
-      setPatientList(pList);
+     try{ const patientListObject = await getPatientList();}
+     catch(exception){
+      <Alert severity="error">
+        <AlertTitle>Error!!!</AlertTitle>
+        
+      </Alert>
+  console.log(exception);
+     }
+      setPatientList(patientListObject)
+    //  setPatientList(pList); 
     }
   }
   fetchData()

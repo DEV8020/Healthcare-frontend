@@ -126,5 +126,26 @@ outline: none;
   background-color: #c81717;
 
 }
-  
-  
+.head {
+  margin-top: 10px;
+  text-align: center;
+}
+.logout_btn {
+  width: 10%;
+  height: 40px;
+  border: 1px solid;
+  background: rgba(0, 0, 0, 0.772);
+  border-radius: 10px;
+  font-size: 15px;
+  color: #e9f4fb;
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 20px;
+  margin-left: 80%;
+}
+
+.logout_btn:hover {
+  background-color: #d25050;
+  border: #db2727;
+}

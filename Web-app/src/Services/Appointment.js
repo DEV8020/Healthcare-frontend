@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-const appointmentUrl = `http://192.168.57.225:9191/addPendingQueue/1`
+const appointmentUrl = `http://192.168.199.225:9191/addPendingQueue/1`
 
 
 const addAppointment = async (PatientId) => {
