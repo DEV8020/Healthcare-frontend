@@ -25,7 +25,7 @@ const PatientList = (props) => {
         {props.patientList.map((patientData) => (
             <PatientData
               patientData={patientData}
-              key={patientData.pid}
+              key={patientData.p_id}
               
             />
           ))}

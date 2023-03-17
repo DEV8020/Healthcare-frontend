@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const patientListUrl =`http://192.168.57.225:9191/pendingQueue/1`
+const patientListUrl =`http://192.168.199.225:9191/pendingQueue/1`
 
 const getPatientList = async (employee) => {
    

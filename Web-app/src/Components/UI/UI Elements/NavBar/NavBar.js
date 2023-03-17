@@ -8,27 +8,14 @@ import Button from '../Button/Button';
 
 
 
-const NavBar = ({ user, setUser }) => {
+const NavBar = (props) => {
   
-  const logout = () => {
-    window.localStorage.removeItem('loggedInUser')
-    setUser(null)
-  }
-
-  if (!user)
-    return null
-
- 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
-      <Toolbar>
-       
-        
-        
-      </Toolbar>
-    </AppBar>
-  </Box>
+    <span className={classes.NavBar}>
+    {props.label}<button value="logout" className={classes.back_btn} onClick={BackButtonHandler}>
+        back
+      </button>
+    </span>
 );
 }
   

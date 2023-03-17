@@ -103,26 +103,7 @@ input[type="submit"]:hover{
   border-color: #2691d9;
   transition: .5s;
 }
-.select{
-  width: 60%;
-background-color: none;
-border:none;
-height: 30px;
-margin-top: 20px;
-margin-bottom:10px;
-margin-left: 5px;
-color: #a6a6a6;
-font-size: 16px;
-outline: none;
 
-} 
-
-.option{
-  background-color:transparent;
-  color:#2691d9;
-  border: none;
-  outline: none;
-}
 
 
 /* .signup_link{
