@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import AddPatient from "../Front Desk/AddPatient";
-import Button from "../UI Elements/Button/Button";
-import InputField from "../UI Elements/Input Field/InputField";
+
 import classes from "./Login.module.css";
+import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
+import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
+import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
+import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -36,43 +39,37 @@ const Login = (props) => {
 
     props.onLogin(userData);
   };
-
+  const hospitalUerTypeOptions = [
+    { option: "Super Admin" },
+    { option: "Admin" },
+    { option: "Supervisor" },
+    { option: "Doctor" },
+    { option: "Front Desk" },
+  ];
   return (
     <div className={classes.center}>
       <h1> Hospital Login</h1>
 
       <form id="login-form" onSubmit={LoginHandler}>
-        <select
-          id="userType"
-          className={classes.select}
+        <UserTypeSelection
+          label="--User Type --"
+          options={hospitalUerTypeOptions}
           onChange={userTypeChangeHandler}
-        >
-          <option value="" className={classes.option}>
-            --User Type--
-          </option>
-          <option value="Doctor" className={classes.option}>
-            Doctor
-          </option>
-          <option value="Front Desk" className={classes.option}>
-            Front Desk
-          </option>
-        </select>
+        />
 
-        <div className={classes.txt_field}>
-          <input type="text" required />
-          <span></span>
-          <label>Username</label>
-        </div>
+        <UsernameInput
+          type="text"
+          label="Username"
+          onChange={userIdChangeHandler}
+        />
+        <UsernameInput
+          type="password"
+          label="Password"
+          onChange={userIdChangeHandler}
+        />
 
-        <div className={classes.txt_field}>
-          <input type="password" required />
-          <span></span>
-          <label>Password</label>
-        </div>
-
-        <div className={classes.pass}>Forgot Password?</div>
-
-        <input type="submit" value="Login" />
+        <ForgotPasswordButton value="Forgot Password?" />
+        <SubmitButton value="Login" />
       </form>
     </div>
   );

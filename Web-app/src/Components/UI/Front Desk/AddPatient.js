@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import InputField from "../UI Elements/Input Field/InputField";
-import Button from "../UI Elements/Button/Button";
+
 import classes from "./AddPatient.module.css";
 
 const AddPatient = (props) => {
@@ -37,14 +36,14 @@ const AddPatient = (props) => {
       <form  onSubmit={AddAppointmentHandler}>
        
 
-    <div className={classes.txt_field}>
-          <input type="text" required  onChange={PatientIdChangeHandler} />
-          <span></span>
-          <label>Patient ID</label>
-        </div>
+        <UsernameInput
+          type="text"
+          label="PatientId"
+          onChange={PatientIdChangeHandler}
+        />
 
        
-        <input type="submit" value="Create Appointment" />
+                <AddButton value="Add Hospital" />
        
         
       </form>

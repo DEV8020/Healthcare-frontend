@@ -1,17 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-body{
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(120deg,#2980b9, #e6dfea);
-  height: 100vh;
-  overflow: hidden;
-}
+
 .center{
   position: absolute;
   top: 50%;
@@ -133,8 +120,8 @@ outline: none;
 .logout_btn {
   width: 10%;
   height: 40px;
-  border: 1px solid;
-  background: rgba(0, 0, 0, 0.772);
+  border: 1px solid black;
+  background: rgb(35, 34, 34);
   border-radius: 10px;
   font-size: 15px;
   color: #e9f4fb;
