@@ -1,0 +1,15 @@
+import axios from 'axios'
+
+
+const addFrontDeskUrl = `http://192.168.199.225:9191/addPendingQueue/1`
+
+
+const AddFrontDeskService = async (frontDeskData) => {
+    
+    const response = await axios.post(`${addFrontDeskUrl}/${frontDeskData}`,{
+        headers:{ 'Content-Type':'application/x-www-form-urlencoded'}
+    })
+    return response.data
+}
+
+export default AddFrontDeskService

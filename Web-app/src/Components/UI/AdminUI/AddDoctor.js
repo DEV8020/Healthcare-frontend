@@ -1,97 +1,122 @@
+
 import React, { useState } from "react";
-import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
-import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
-import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
-import AddHospitalService from "../../../Services/AddHospitalService";
-import classes from './AddOptions.module.css'
 
-const AddHospital = (props) => {
-  const [hospitalName, setHospitalName] = useState("");
-  const [hospitalAddress, setHospitalAddress] = useState("");
-  const [hospitalSupervisorId, setHospitalSupervisorId] = useState("");
-  const [hospitalId, setHospitalId] = useState("");
+import AddDoctorService from "../../../Services/AddDoctorService";
+
+
+import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
+import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+
+import classes from "./AddOptions.module.css";
+
+const AddDoctor = (props) => {
+  const [doctorName, setDoctorName] = useState("");
+  const [doctorPassword, setDoctorPassword] = useState("");
+  const [doctorEmailId, setDoctorEmailId] = useState("");
+  const [doctorSpl, setDoctorSpl] = useState("");
+  const [doctorContact, setDoctorContact] = useState("");
+  const [doctorLId, setDoctorLId] = useState("");
   
-    const hospitalNameChangeHandler=(event)=>{
-        setHospitalName(event.target.value);
-    };
-  const hospitalSupervisorIdChangeHandler = (event) => {
-    setHospitalSupervisorId(event.target.value);
+
+  const doctorNameChangeHandler = (event) => {
+    setDoctorName(event.target.value);
+  };
+  const doctorEmailIdChangeHandler = (event) => {
+    setDoctorEmailId(event.target.value);
   };
 
-  const hospitalIdChangeHandler = (event) => {
-    setHospitalId(event.target.value);
+  const doctorContactChangeHandler = (event) => {
+    setDoctorContact(event.target.value);
+  };
+  const doctorSplChangeHandler = (event) => {
+    setDoctorSpl(event.target.value);
   };
 
-  const hospitalAddressChangeHandler = (event) => {
-    setHospitalAddress(event.target.value);
+  const doctorPasswordChangeHandler = (event) => {
+    setDoctorPassword(event.target.value);
   };
 
-  const AddHospitalDataHandler = (event) => {
-    event.preventDefault();
-
-    const hospitalData = {
-      hospital_name: hospitalName,
-      hospital_id: hospitalId,
-      hospital_address: hospitalAddress,
-      hospital_supervisor_id:hospitalSupervisorId,
-    };
-
-    setHospitalName("");
-    setHospitalSupervisorId("");
-    setHospitalId("");
-    setHospitalAddress("");
-
-    //props.onLogin(hospitalData);
-
-    AddHospitalHandler(hospitalData);
+  const doctorLIdChangeHandler = (event) => {
+    setDoctorLId(event.target.value);
   };
-  const AddHospitalHandler = async (hospitalData) => {
-    console.log(hospitalData);
+
+  
+  const AddDoctorHandler = async (doctorData) => {
+    console.log(doctorData);
 
     try {
-     AddHospitalService(hospitalData);
+      AddDoctorService(doctorData);
     } catch (exception) {
       console.log(exception);
     }
   };
 
-  const hospitalSupervisorIds = [{ option: "1" }, { option: "2" }];
+  const AddDoctorDataHandler = (event) => {
+    event.preventDefault();
+
+    const doctorData = {
+      doctor_name: doctorName,
+      doctor_spl: doctorSpl,
+      doctor_password: doctorPassword,
+      doctor_email_id: doctorEmailId,
+      doctor_contact: doctorContact,
+      doctor_LId: doctorLId
+    };
+
+    setDoctorName("");
+    setDoctorEmailId("");
+    setDoctorSpl("");
+    setDoctorPassword("");
+    setDoctorContact("");
+    setDoctorLId("");
+
+    AddDoctorHandler(doctorData);
+  };
+
   return (
     <div>
-        
-    <div className={classes.center}>
-      <h1> Add Hospital Menu</h1>
+      <div className={classes.center}>
+        <h1> Add Doctor Menu</h1>
 
-      <form id="superAdmin-form" onSubmit={AddHospitalDataHandler}>
-        
-      <UsernameInput
-          type="text"
-          label="Hospital Name"
-          onChange={hospitalNameChangeHandler}
-        />
-        
-        <UsernameInput
-          type="text"
-          label="Address"
-          onChange={hospitalAddressChangeHandler}
-        />
-        <UserTypeSelection
-          options={hospitalSupervisorIds}
-          onChange={hospitalSupervisorIdChangeHandler}
-          label="--Supervisor Id--"
-        />
+        <form id="addDoctor-form" onSubmit={AddDoctorDataHandler}>
+          <InputField
+            type="text"
+            label="Doctor Name"
+            onChange={doctorNameChangeHandler}
+          />
+          <InputField
+            type="text"
+            label="Doctor license ID"
+            onChange={doctorLIdChangeHandler}
+          />
+          <InputField
+            type="text"
+            label="Contact Number"
+            onChange={doctorContactChangeHandler}
+          />
 
-        <UsernameInput
-          type="text"
-          label="Registration Id"
-          onChange={hospitalIdChangeHandler}
-        />
-        
-        <SubmitButton value="Add Hospital" />
-      </form>
-    </div>
+          <InputField
+            type="text"
+            label="Doctor Specialization"
+            onChange={doctorSplChangeHandler}
+          />
+          <InputField
+            type="text"
+            label="Email ID"
+            onChange={doctorEmailIdChangeHandler}
+          />
+
+          <InputField
+            type="text"
+            label="Password"
+            onChange={doctorPasswordChangeHandler}
+          />
+
+          <AddButton value="Register" />
+        </form>
+      </div>
     </div>
   );
 };
 
-export default AddHospital;
+export default AddDoctor;
