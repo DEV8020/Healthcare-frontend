@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddPatient from "../Front Desk/AddPatient";
+import AddPatient from "../Front Desk/CreateAppointment";
 
 import classes from "./Login.module.css";
 import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";

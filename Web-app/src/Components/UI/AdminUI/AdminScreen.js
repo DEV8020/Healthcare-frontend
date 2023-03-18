@@ -4,6 +4,7 @@ import AddHospital from "./AddHospital";
 import AddDoctor from "./AddDoctor"
 import AddFrontDesk from "./AddFrontDesk"
 import { useState } from "react";
+import NavBar from "../UI Elements/NavBar/NavBar";
 
 const AdminScreen = (props) => {
  
@@ -13,47 +14,43 @@ const AdminScreen = (props) => {
     setAdminOption("addHospital");
   };
   const AddDoctorButtonHandler = () => {
-    setAdminOption("addHospital");
+    setAdminOption("addDoctor");
   };
   const AddFrontDeskButtonHandler = () => {
-    setAdminOption("addHospital");
+    setAdminOption("addFrontDesk");
   };
   const logout = () => {
     window.localStorage.removeItem("loggedInUser");
     props.setUser(null);
   };
   if (!props.user) return null;
-  return(<>
-    {
+  return(
+    <div>
+      <NavBar value="Log-out" label="Admin" onClick={logout}/>
+      
+      <div className={classes.center}>
+        <h2> Admin Menu</h2>
+
+        <div className={classes.Admin_menu}>
+          <Button value="Hospital Registration" onClick={AddHospitalButtonHandler} />
+
+          <Button value="Doctor Registration" onClick={AddDoctorButtonHandler} />
+
+          <Button value="FrontDesk Registration" onClick={AddFrontDeskButtonHandler} />
+        </div>
+      </div>
+
+      {
       adminOption === "addHospital" && (<AddHospital adminOption={adminOption} setAdminOption={setAdminOption} />)
     }
     {
-      adminOption === "addDocter" && (<AddDoctor adminOption={adminOption} setAdminOption={setAdminOption}/>)
+      adminOption === "addDoctor" && (<AddDoctor adminOption={adminOption} setAdminOption={setAdminOption}/>)
     }
     {
       adminOption === "addFrontDesk" && (<AddFrontDesk adminOption={adminOption} setAdminOption={setAdminOption} />)
     }
-    { adminOption === "admin" && (
-    <div>
-      <h1 className={classes.head}>Admin</h1>
-      <div className={classes.NavBar}>
-        <button value="logout" className={classes.logout_btn} onClick={logout}>
-          log-out
-        </button>
-      </div>
-      <div className={classes.center}>
-        <h1> Admin Menu</h1>
 
-        <div className={classes.Admin_menu}>
-          <Button value="Add Hospital" onClick={AddHospitalButtonHandler} />
-
-          <Button value="Add Doctor" onClick={AddDoctorButtonHandler} />
-
-          <Button value="Add FrontDesk" onClick={AddFrontDeskButtonHandler} />
-        </div>
-      </div>
-    </div> )
-  }
-  </>);}
+    </div> 
+);}
 
 export default AdminScreen;

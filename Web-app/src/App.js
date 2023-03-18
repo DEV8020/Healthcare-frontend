@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Login from "./Components/UI/Login/Login";
-import AddPatient from "./Components/UI/Front Desk/AddPatient";
+import AddPatient from "./Components/UI/Front Desk/CreateAppointment";
 import addAppointment from "./Services/Appointment";
 import getPatientList from "./Services/PatientList";
 import PatientList from "./Components/UI/Doctor/PatientList";
@@ -11,68 +11,70 @@ import AlertTitle from "@mui/material/AlertTitle";
 import CreateUser from "./Components/UI/SuperAdmin/CreateUser";
 import AddHospital from "./Components/UI/AdminUI/AddHospital";
 import AdminScreen from "./Components/UI/AdminUI/AdminScreen";
+import DoctorScreen from "./Components/UI/Doctor/DoctorScreen";
+import FrontDeskScreen from "./Components/UI/Front Desk/FrontDeskScreen";
 
 function App() {
   const pList = [
     {
-      pid: "p1",
+      p_id: "p1",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
-    { pid: "p2", name: "john", age: 12, sex: "m", contact: 1234567890 },
+    { p_id: "p2", name: "john", age: 12, sex: "m", contact: 1234567890 },
     {
-      pid: "p3",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      pid: "p4",
+      p_id: "p3",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p5",
+      p_id: "p4",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p6",
+      p_id: "p5",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p7",
+      p_id: "p6",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p8",
+      p_id: "p7",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p9",
+      p_id: "p8",
       name: "john",
       age: 12,
       sex: "m",
       contact: 1234567890,
     },
     {
-      pid: "p10",
+      p_id: "p9",
+      name: "john",
+      age: 12,
+      sex: "m",
+      contact: 1234567890,
+    },
+    {
+      p_id: "p10",
       name: "john",
       age: 12,
       sex: "m",
@@ -100,10 +102,10 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       if (user !== null && user.user_type === "Doctor") {
-        const patientListObject = await getPatientList();
+        // const patientListObject = await getPatientList();
 
-        setPatientList(patientListObject);
-        //  setPatientList(pList);
+        // setPatientList(patientListObject);
+        setPatientList(pList);
       }
     }
     fetchData();
@@ -120,16 +122,15 @@ function App() {
       {user === null && <Login onLogin={OnLoginHandler} />}
 
       {user !== null && user.user_type === "Front Desk" && (
-        <AddPatient
-          onCreateAppointment={CreateAppointmentHandler}
+        <FrontDeskScreen
           user={user}
           setUser={setUser}
         />
       )}
       {
         user !== null && user.user_type === "Doctor" && (
-          <PatientList
-            patientList={patientList}
+          <DoctorScreen
+            
             user={user}
             setUser={setUser}
           />

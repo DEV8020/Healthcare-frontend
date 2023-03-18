@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
-import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
-import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import AddHospitalService from "../../../Services/AddHospitalService";
 import classes from './AddOptions.module.css'
 import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
 import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import NavBar from "../UI Elements/NavBar/NavBar";
 
 const AddHospital = (props) => {
   const [hospitalName, setHospitalName] = useState("");
@@ -57,23 +55,25 @@ const AddHospital = (props) => {
     }
   };
 
-  const BackButtonHandler = () => {
-    props.setAdminOption("admin");
-  };
-  if(props.admin === "admin")return null;
-  const hospitalSupervisorIds = [{ option: "1" }, { option: "2" }];
+  // const BackButtonHandler = () => {
+  //   props.setAdminOption("admin");
+  // };
+  
+  // const hospitalSupervisorIds = [{ option: "1" }, { option: "2" }];
   return (
     <div>
       
-      <span className={classes.NavBar}>
+      {/* <span className={classes.NavBar}>
       Admin<button value="logout" className={classes.back_btn} onClick={BackButtonHandler}>
           back
         </button>
-      </span>
+      </span> */}
+      {/* <NavBar value="back" label="Admin" onClick={BackButtonHandler}/> */}
+
     <div className={classes.center}>
       <h1> Add Hospital Menu</h1>
 
-      <form id="superAdmin-form" onSubmit={AddHospitalDataHandler}>
+      <form id="addHospital-form" onSubmit={AddHospitalDataHandler}>
         
       <InputField
           type="text"
@@ -86,11 +86,12 @@ const AddHospital = (props) => {
           label="Address"
           onChange={hospitalAddressChangeHandler}
         />
-        <UserTypeSelection
-          options={hospitalSupervisorIds}
+        <InputField
+          type="text"
+          label="Supervisor ID"
           onChange={hospitalSupervisorIdChangeHandler}
-          label="--Supervisor Id--"
         />
+        
 
         <InputField
           type="text"
@@ -98,7 +99,7 @@ const AddHospital = (props) => {
           onChange={hospitalIdChangeHandler}
         />
         
-        <AddButton value="Add Hospital" />
+        <AddButton value="Register" />
       </form>
     </div>
     </div>

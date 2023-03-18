@@ -4,6 +4,7 @@ import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSe
 import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
 import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import createUser from "../../../Services/CreateUser";
+import NavBar from "../UI Elements/NavBar/NavBar";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
@@ -57,12 +58,7 @@ const CreateUser = (props) => {
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
   return (
     <div>
-      <h1 className={classes.head}>Super Admin</h1>
-      <div className={classes.NavBar}>
-        <button value="logout" className={classes.logout_btn} onClick={logout}>
-          log-out
-        </button>
-      </div>
+      <NavBar value="Logout" label="Super Admin" onClick={logout}/>
       <div className={classes.center}>
         <h1> Super Admin Menu</h1>
 
