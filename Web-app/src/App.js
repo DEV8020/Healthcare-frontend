@@ -1,18 +1,21 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from 'react';
 import { useEffect } from "react";
+import { useState } from "react";
 import Login from "./Components/UI/Login/Login";
 import AddPatient from "./Components/UI/Front Desk/CreateAppointment";
 import addAppointment from "./Services/Appointment";
 import getPatientList from "./Services/PatientList";
 import PatientList from "./Components/UI/Doctor/PatientList";
-import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import CreateUser from "./Components/UI/SuperAdmin/CreateUser";
 import AddHospital from "./Components/UI/AdminUI/AddHospital";
 import AdminScreen from "./Components/UI/AdminUI/AdminScreen";
 import DoctorScreen from "./Components/UI/Doctor/DoctorScreen";
 import FrontDeskScreen from "./Components/UI/Front Desk/FrontDeskScreen";
+import SuperVisorScreen from "./Components/UI/Supervisor/SuperVisorScreen";
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 function App() {
   const pList = [
@@ -84,6 +87,8 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [patientList, setPatientList] = useState([]);
+  const [alertFlag, setAlertFlag] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const OnLoginHandler = (userObject) => {
     console.log(userObject.user_type);
@@ -116,35 +121,56 @@ function App() {
   //    if (loggedInUser)
   //      setUser(loggedInUser)
   //  }, [])
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setAlertFlag(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeId);
+    };
+  }, [alertFlag]);
+
+  
+
+
 
   return (
     <>
+      {alertFlag === true && (
+         <Snackbar open={alertFlag}>
+         <Alert severity="success" sx={{ width: '100%' }}>
+        {alertMessage}</Alert>
+      </Snackbar>
+        
+      )}
       {user === null && <Login onLogin={OnLoginHandler} />}
 
       {user !== null && user.user_type === "Front Desk" && (
-        <FrontDeskScreen
-          user={user}
-          setUser={setUser}
-        />
+        <FrontDeskScreen user={user} setUser={setUser} />
       )}
       {
         user !== null && user.user_type === "Doctor" && (
-          <DoctorScreen
-            
-            user={user}
-            setUser={setUser}
-          />
+          <DoctorScreen user={user} setUser={setUser} />
         )
         //<AddPatient onCreateAppointment={CreateAppointmentHandler} user={user} setUser={setUser} />
       }
       {user !== null && user.user_type === "Super Admin" && (
         <CreateUser user={user} setUser={setUser} />
       )}
-{user !== null && user.user_type === "Admin" && (
-        <AdminScreen  user={user} setUser={setUser} />
+      {user !== null && user.user_type === "Admin" && (
+        <AdminScreen user={user} setUser={setUser} />
       )}
 
-      {/* <h2>Let's get started!!!</h2> */}
+      {user !== null && user.user_type === "Supervisor" && (
+        <SuperVisorScreen
+          user={user}
+          setUser={setUser}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+        />
+      )}
     </>
   );
 }

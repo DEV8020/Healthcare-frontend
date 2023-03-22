@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import RegisterPatientService from "../../../Services/RegisterPatientService";
 import classes from "./PatientRegistration.module.css";
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
-import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import Bdate from "../UI Elements/Date Element/Bdate";
-import TextBox from "../UI Elements/AdminMenuForm Elements/TextBox";
-import RadioButton from "../UI Elements/AdminMenuForm Elements/RadioButton";
+import TextBox from "../UI Elements/MenuForm Elements/TextBox";
+import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
 
 
 const PatientRegistration = (props) => {
@@ -82,7 +82,13 @@ const PatientRegistration = (props) => {
             onChange={patientContactNoChangeHandler}
           />
 
-<RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/>
+<InputField
+            type="text"
+            label="Sex"
+            onChange={patientSexChangeHandler}
+          />
+
+{/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/> */}
 
         
            <Bdate

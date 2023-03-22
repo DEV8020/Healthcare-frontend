@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
 import classes from "./CreateAppointment.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
@@ -15,7 +15,7 @@ const CreateAppointment = (props) => {
     event.preventDefault();
 
     console.log(PatientId);
-    props.onCreateAppointment(PatientId);
+    // props.onCreateAppointment(PatientId);
     setPatientId("");
   };
 
@@ -32,6 +32,7 @@ const CreateAppointment = (props) => {
         <InputField
           type="text"
           label="PatientId"
+          value={PatientId}
           onChange={PatientIdChangeHandler}
         />
 

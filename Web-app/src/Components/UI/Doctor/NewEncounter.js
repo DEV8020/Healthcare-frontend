@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import NewEncounterService from "../../../Services/NewEncounterService";
 import classes from "./NewEncounter.module.css";
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
-import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 //import NavBar from "../UI Elements/NavBar/NavBar";
 
 const NewEncounter = (props) => {
@@ -20,6 +20,7 @@ const NewEncounter = (props) => {
   return (
     <div className={classes.center}>
       <h1> Create New Encounter</h1>
+      <div className={classes.ul}>
       <div className={classes.plist}>
         <div>Name:{patientData.name}</div>
         <div>Age:{patientData.age}</div>
@@ -28,6 +29,7 @@ const NewEncounter = (props) => {
       </div>
       <AddButton value="Create Encounter" />
       
+    </div>
     </div>
   );
 };
