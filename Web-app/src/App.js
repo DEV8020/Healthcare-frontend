@@ -145,22 +145,27 @@ function App() {
       </Snackbar>
         
       )}
-      {user === null && <Login onLogin={OnLoginHandler} />}
+      {user === null && <Login onLogin={OnLoginHandler}  setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}/>}
 
       {user !== null && user.user_type === "Front Desk" && (
-        <FrontDeskScreen user={user} setUser={setUser} />
+        <FrontDeskScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
+        setAlertMessage={setAlertMessage} />
       )}
       {
         user !== null && user.user_type === "Doctor" && (
-          <DoctorScreen user={user} setUser={setUser} />
+          <DoctorScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}/>
         )
         //<AddPatient onCreateAppointment={CreateAppointmentHandler} user={user} setUser={setUser} />
       }
       {user !== null && user.user_type === "Super Admin" && (
-        <CreateUser user={user} setUser={setUser} />
+        <CreateUser user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
+        setAlertMessage={setAlertMessage}/>
       )}
       {user !== null && user.user_type === "Admin" && (
-        <AdminScreen user={user} setUser={setUser} />
+        <AdminScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
+        setAlertMessage={setAlertMessage} />
       )}
 
       {user !== null && user.user_type === "Supervisor" && (

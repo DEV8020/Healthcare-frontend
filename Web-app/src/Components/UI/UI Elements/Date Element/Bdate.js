@@ -5,7 +5,7 @@ const Bdate = (props) => {
     <div className={classes.bdate}>
       
       <input type="date" name="dateofbirth" id="dateofbirth" />
-      <label for="dateofbirth">Date Of Birth</label>
+      <label>Date Of Birth</label>
     </div>
   );
 };

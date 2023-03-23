@@ -17,6 +17,9 @@ const CreateAppointment = (props) => {
     console.log(PatientId);
     // props.onCreateAppointment(PatientId);
     setPatientId("");
+    props.setAlertMessage("Appointment created for Patient ID :" + PatientId);
+    props.setAlertFlag(true);
+
   };
 
 

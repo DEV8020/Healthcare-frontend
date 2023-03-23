@@ -4,12 +4,14 @@ import classes from "./SuperVisorScreen.module.css";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
 import FieldWorkerList from "./FieldWorkerList";
+import FieldWorkerDetails from "../FieldWorker/FieldWorkerDetails";
 
 const SuperVisorScreen = (props) => {
   const [superVisorOption, setSuperVisorOption] = useState("superVisor");
-
+  const[fieldWorkerStatus,setFieldWorkerStatus]=useState(false);
   const NewFollowUpAssignButtonHandler = () => {
     setSuperVisorOption("NewFollowUpAssign");
+    setFieldWorkerStatus(false);
   };
   const FieldWorkerListButtonHandler = () => {
     setSuperVisorOption("FieldWorkerList");
@@ -55,9 +57,13 @@ const SuperVisorScreen = (props) => {
         setSuperVisorOption={setSuperVisorOption}
         setAlertFlag={props.setAlertFlag}
         setAlertMessage={props.setAlertMessage}
+        setFieldWorkerStatus={setFieldWorkerStatus}
       />
-        
+     
       )}
+       {
+        fieldWorkerStatus === true  && (<FieldWorkerDetails/>)
+      }
     </div>
   );
 };

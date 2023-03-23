@@ -37,10 +37,12 @@ const DoctorScreen = (props) => {
     </div>
 
     {
-    doctorOption === "NewEncounter" && (<NewEncounter doctorOption={doctorOption} setDoctorOption={setDoctorOption} />)
+    doctorOption === "NewEncounter" && (<NewEncounter doctorOption={doctorOption} setDoctorOption={setDoctorOption} setAlertMessage ={props.setAlertMessage}
+      setAlertFlag ={props.setAlertFlag}/>)
   }
   {
-    doctorOption === "FWupdates" && (<FWUpdates doctorOption={doctorOption} setDoctorOption={setDoctorOption}/>)
+    doctorOption === "FWupdates" && (<FWUpdates doctorOption={doctorOption} setDoctorOption={setDoctorOption} setAlertMessage ={props.setAlertMessage}
+      setAlertFlag ={props.setAlertFlag}/>)
   }
   
 

@@ -18,17 +18,17 @@
   }
 .center{
     position: absolute;
-    top:53%;
-    left:52%;
+    top:46%;
+    left:82%;
     transform: translate(-50%, -50%);
-    width: 550px;
-    height:550px;
+    width: 300px;
+    height:450px;
     background: white;
     border-radius: 10px;
     box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
     
   }
-  .center h1{
+  .center h2{
     
     text-align: center;
     padding: 20px 0;
@@ -41,7 +41,7 @@
   }
 .plist {
    
-    width: 95%;
+    width: 90%;
     
      border-radius: 10px;
      padding: 10px 20px;
@@ -54,8 +54,8 @@
    }
    
    .plist:nth-child(even) {
-     background: #f6f3f3;
+     background: #fefefe;
    }
    .plist:nth-child(odd) {
-     background: #f1eeee;
+     background: #c0b3f8;
    }

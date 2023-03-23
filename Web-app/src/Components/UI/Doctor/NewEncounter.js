@@ -7,7 +7,10 @@ import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const NewEncounter = (props) => {
 
-
+const CreateEncounterHandler=()=>{
+  props.setAlertMessage(" Encounter Created successfully");
+  props.setAlertFlag(true);
+}
    
 
   const patientData = {
@@ -27,7 +30,7 @@ const NewEncounter = (props) => {
         <div>Sex:{patientData.sex}</div>
         <div>Contact:{patientData.contact}</div>
       </div>
-      <AddButton value="Create Encounter" />
+      <AddButton value="Create Encounter" onClick={CreateEncounterHandler}/>
       
     </div>
     </div>

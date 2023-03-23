@@ -36,7 +36,8 @@ const Login = (props) => {
     setUserType("");
     setUserId("");
     setUserPassword("");
-
+    props.setAlertMessage(userId + " login successfully");
+    props.setAlertFlag(true);
     props.onLogin(userData);
   };
   const hospitalUerTypeOptions = [
@@ -65,7 +66,7 @@ const Login = (props) => {
         <UsernameInput
           type="password"
           label="Password"
-          onChange={userIdChangeHandler}
+          onChange={userPasswordChangeHandler}
         />
 
         <ForgotPasswordButton value="Forgot Password?" />

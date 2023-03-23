@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // import NewEncounterService from "../../../Services/FieldWorkerListService";
 import classes from "./FieldWorkerList.module.css";
-
+import FieldWorkerDetails from "../FieldWorker/FieldWorkerDetails";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const FieldWorkerList = (props) => {
@@ -32,6 +32,8 @@ const FieldWorkerList = (props) => {
   const AssignFollowUpHandler = (data) => {
     props.setAlertMessage(" Selected Field Worker :" + data);
     props.setAlertFlag(true);
+    
+    props.setFieldWorkerStatus(true);
   };
 
   return (
