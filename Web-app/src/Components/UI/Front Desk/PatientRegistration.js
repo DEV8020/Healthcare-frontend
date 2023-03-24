@@ -108,7 +108,7 @@ const PatientRegistration = (props) => {
             value={patientBdate}
             onChange={patientBdateChangeHandler}
           /> */}
-           <TextBox
+           <TextBox.TextBox
             type="text"
             label="Address"
             value={patientAddress}

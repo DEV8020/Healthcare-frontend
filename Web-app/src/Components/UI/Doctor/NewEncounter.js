@@ -6,10 +6,14 @@ import AddButton from "../UI Elements/MenuForm Elements/addButton";
 //import NavBar from "../UI Elements/NavBar/NavBar";
 
 const NewEncounter = (props) => {
+  
+
 
 const CreateEncounterHandler=()=>{
+
   props.setAlertMessage(" Encounter Created successfully");
   props.setAlertFlag(true);
+  props.setCreateEncounter(true);
 }
    
 
@@ -21,6 +25,7 @@ const CreateEncounterHandler=()=>{
     contact: 1234567890,
   };
   return (
+    
     <div className={classes.center}>
       <h1> Create New Encounter</h1>
       <div className={classes.ul}>
@@ -34,6 +39,7 @@ const CreateEncounterHandler=()=>{
       
     </div>
     </div>
+    
   );
 };
 

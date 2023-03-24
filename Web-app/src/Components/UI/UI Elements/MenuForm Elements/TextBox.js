@@ -9,5 +9,15 @@ const TextBox = (props) => {
     </div>
   );
 };
+const TextBox2 = (props) => {
+  return (
+    <div className={classes.txt_box2}>
+      <textarea type={props.type} value ={props.value} onChange={props.onChange} required />
+      <span></span>
+      <label>{props.label}</label>
+    </div>
+  );
+};
 
-export default TextBox;
+const TextBoxObj={TextBox,TextBox2};
+export default TextBoxObj;
