@@ -7,8 +7,8 @@ import React, { useState } from "react";
 import AddFrontDeskService from "../../../Services/AddFrontDeskService";
 //----------------------------------------------------------------- UI Elements ------------------------------------------------------------------------
 
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
-import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 //----------------------------------------------------------------- CSS File --------------------------------------------------------------------------------
 

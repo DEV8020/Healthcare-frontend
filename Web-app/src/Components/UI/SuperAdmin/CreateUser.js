@@ -39,6 +39,8 @@ const CreateUser = (props) => {
     //props.onLogin(registerUserData);
 
     CreateUserHandler(registerUserData);
+    props.setAlertMessage(registerUserId + " registered successfully");
+    props.setAlertFlag(true);
   };
   const CreateUserHandler = async (registerUserData) => {
     console.log(registerUserData);
@@ -64,17 +66,22 @@ const CreateUser = (props) => {
 
         <form id="superAdmin-form" onSubmit={RegisterUserHandler}>
           <UserTypeSelection
+          value={registerUserType}
+            
             options={superAdminUserType}
             onChange={registerUserTypeChangeHandler}
             label="--Use Type--"
           />
 
           <UsernameInput
+          value={registerUserId}
             type="text"
             label="Username"
             onChange={registerUserIdChangeHandler}
           />
           <UsernameInput
+          
+          value={registerUserPassword}
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}

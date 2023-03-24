@@ -1,0 +1,115 @@
+form .txt_box{
+    position: relative;
+   
+    display: inline-block;
+    margin: 30px 60px 20px 20px;
+  }
+  .txt_box textarea{
+   
+    width: 150%;
+    padding: 0 5px;
+    height: 80px;
+    font-size: 16px;
+    border: 1px solid silver;
+    background: none;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    
+   
+  }
+  .txt_box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+    margin-bottom: 30px;
+  }
+  .txt_box span::before{
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+    margin-top: 50px;
+  }
+  .txt_box textarea:focus,
+  .txt_box textarea:valid {
+    border:1px solid  #2691d9;
+    transition: .10s;
+  }
+  .txt_box textarea:focus ~ label,
+  .txt_box textarea:valid ~ label{
+    top: -12px;
+    color: #2691d9;
+  }
+  .txt_box textarea:focus ~ span::before,
+  .txt_box textarea:valid ~ span::before{
+  width: 150%;;
+    
+  }
+/*---------------------------------------------------------------------------------*/
+  form .txt_box2{
+    position: relative;
+    margin: 30px 100px 20px 20px;
+  }
+  .txt_box2 textarea{
+   
+    width: 100%;
+    padding: 15px;
+    height: 80px;
+    font-size: 16px;
+    border: 1px solid silver;
+    background: none;
+    outline: none;
+    margin-top: 30px;
+    border-radius: 5px;
+    
+   
+  }
+  .txt_box2 label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+   
+  }
+  .txt_box2 span::before{
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #2691d9;
+    transition: .5s;
+    margin-top: 70px;
+  }
+  .txt_box2 textarea:focus,
+  .txt_box2 textarea:valid {
+    border:1px solid  #2691d9;
+    transition: .10s;
+  }
+  .txt_box2 textarea:focus ~ label,
+  .txt_box2 textarea:valid ~ label{
+    top: -12px;
+    color: #2691d9;
+  }
+  .txt_box2 textarea:focus ~ span::before,
+  .txt_box2 textarea:valid ~ span::before{
+    width: 100%;
+    
+  }
+
+  

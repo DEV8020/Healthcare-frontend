@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import AddDoctorService from "../../../Services/AddDoctorService";
 
 
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
-import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 import classes from "./AddOptions.module.css";
 
