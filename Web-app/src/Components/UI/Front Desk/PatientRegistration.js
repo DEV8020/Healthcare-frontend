@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import RegisterPatientService from "../../../Services/RegisterPatientService";
 import classes from "./PatientRegistration.module.css";
-import InputField from "../UI Elements/AdminMenuForm Elements/InputField";
-import AddButton from "../UI Elements/AdminMenuForm Elements/addButton";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import Bdate from "../UI Elements/Date Element/Bdate";
-import TextBox from "../UI Elements/AdminMenuForm Elements/TextBox";
-import RadioButton from "../UI Elements/AdminMenuForm Elements/RadioButton";
+import TextBox from "../UI Elements/MenuForm Elements/TextBox";
+import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
+import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
 
 const PatientRegistration = (props) => {
@@ -19,7 +20,7 @@ const PatientRegistration = (props) => {
     setPatientName(event.target.value);
   };
   const patientAddressChangeHandler = (event) => {
-    setPatientContactNo(event.target.value);
+    setPatientAddress(event.target.value);
   };
 
   const patientContactNoChangeHandler = (event) => {
@@ -27,11 +28,11 @@ const PatientRegistration = (props) => {
   };
 
   const patientSexChangeHandler = (event) => {
-    setPatientContactNo(event.target.value);
+    setPatientSex(event.target.value);
   };
 
   const patientBdateChangeHandler = (event) => {
-    setPatientAddress(event.target.value);
+    setPatientBdate(event.target.value);
   };
 
   const AddPatientDataHandler = (event) => {
@@ -44,6 +45,8 @@ const PatientRegistration = (props) => {
       patient_sex: patientSex,
       patient_age: patientBdate,
     };
+    props.setAlertMessage(patientName + "has been registered successfully");
+    props.setAlertFlag(true);
 
     setPatientName("");
     setPatientContactNo("");
@@ -51,9 +54,9 @@ const PatientRegistration = (props) => {
     setPatientAddress("");
     setPatientBdate("");
 
-   
+  
 
-    RegisterPatientHandler(patientData);
+    // RegisterPatientHandler(patientData);
   };
   const RegisterPatientHandler = async (patientData) => {
     console.log(patientData);
@@ -63,6 +66,7 @@ const PatientRegistration = (props) => {
     } catch (exception) {
       console.log(exception);
     }
+  
   };
   return (
     <div>
@@ -73,30 +77,46 @@ const PatientRegistration = (props) => {
           <InputField
             type="text"
             label="Patient Name"
+            value={patientName}
             onChange={patientNameChangeHandler}
           />
          
          <InputField
             type="text"
             label="Contact Number"
+            value={patientContactNo}
             onChange={patientContactNoChangeHandler}
           />
 
-<RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/>
-
-        
-           <Bdate
-            
-            onChange={patientBdateChangeHandler}
+<InputField
+            type="text"
+            label="Sex"
+            value={patientSex}
+            onChange={patientSexChangeHandler}
           />
-           <TextBox
+
+{/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/> */}
+
+       
+           <Bdate
+            value={patientBdate}
+            onChange={patientBdateChangeHandler}
+          /> 
+          {/* <InputField
+            type="text"
+            label="DOB"
+            value={patientBdate}
+            onChange={patientBdateChangeHandler}
+          /> */}
+           <TextBox.TextBox
             type="text"
             label="Address"
+            value={patientAddress}
             onChange={patientAddressChangeHandler}
           />
           
 
-          <AddButton value="Register" />
+          <MenuSubmitButton value="Register" />
         </form>
       </div>
     </div>

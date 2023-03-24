@@ -7,6 +7,8 @@ import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput"
 import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 
+import LoginController from "../../../Controllers/LoginController";
+
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
   const [userId, setUserId] = useState("");
@@ -28,15 +30,19 @@ const Login = (props) => {
     event.preventDefault();
 
     const userData = {
-      user_type: userType,
-      user_id: userId,
-      user_password: userPassword,
+      userType: "doctor",
+      userId: userId,
+      password: userPassword,
     };
+
+
+    LoginController.GetUserLoginData(userData);
 
     setUserType("");
     setUserId("");
     setUserPassword("");
-
+    props.setAlertMessage(userId + " login successfully");
+    props.setAlertFlag(true);
     props.onLogin(userData);
   };
   const hospitalUerTypeOptions = [
@@ -65,7 +71,7 @@ const Login = (props) => {
         <UsernameInput
           type="password"
           label="Password"
-          onChange={userIdChangeHandler}
+          onChange={userPasswordChangeHandler}
         />
 
         <ForgotPasswordButton value="Forgot Password?" />

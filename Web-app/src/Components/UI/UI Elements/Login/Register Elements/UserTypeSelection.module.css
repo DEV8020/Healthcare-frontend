@@ -1,7 +1,8 @@
 select {
   width: 60%;
   background-color: none;
-  border: none;
+  border:1px solid #a6a6a6;
+  border-radius: 10px;
   height: 30px;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -17,3 +18,8 @@ option {
   border: none;
   outline: none;
 }
+select:focus{
+  border:2px solid #2691d9;
+  color: #2691d9;
+}
+

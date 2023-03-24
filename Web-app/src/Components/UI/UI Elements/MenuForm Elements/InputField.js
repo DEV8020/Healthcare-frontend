@@ -1,6 +1,6 @@
-import classes from "./UserNameInput.module.css";
+import classes from "./InputField.module.css";
 
-const UsernameInput = (props) => {
+const InputField = (props) => {
   return (
     <div className={classes.txt_field}>
       <input type={props.type} value={props.value} onChange={props.onChange} required />
@@ -10,4 +10,4 @@ const UsernameInput = (props) => {
   );
 };
 
-export default UsernameInput;
+export default InputField;

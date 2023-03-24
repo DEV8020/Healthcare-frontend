@@ -45,12 +45,16 @@ const FrontDeskScreen = (props) => {
         <PatientRegistration
         frontDeskOption={frontDeskOption}
         setFrontDeskOption={setFrontDeskOption}
+        setAlertMessage ={props.setAlertMessage}
+        setAlertFlag ={props.setAlertFlag}
       />
       )}
       {frontDeskOption === "CreateAppointment" && (
         <CreateAppointment
         frontDeskOption={frontDeskOption}
-        setFrontDeskOption={setFrontDeskOption}
+        setFrontDeskOption={setFrontDeskOption} 
+        setAlertMessage ={props.setAlertMessage}
+        setAlertFlag ={props.setAlertFlag}
       />
         
       )}

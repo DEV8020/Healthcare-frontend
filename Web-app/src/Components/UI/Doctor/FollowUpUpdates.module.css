@@ -1,16 +1,4 @@
-
-.center{
-    position: absolute;
-    top:50%;
-    left:57%;
-    transform: translate(-50%, -50%);
-    width: 700px;
-    height:550px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
-  }
-  .ul {
+.ul {
     position: absolute;
     top: 20%;
     bottom: 20px;
@@ -28,7 +16,19 @@
     border-bottom: 1px solid silver;
     -webkit-overflow-scrolling: touch;
   }
-  .center h1{
+.center{
+    position: absolute;
+    top:43%;
+    left:52%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height:450px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    
+  }
+  .center h2{
     
     text-align: center;
     padding: 20px 0;
@@ -40,7 +40,9 @@
     box-sizing: border-box;
   }
 .plist {
-    width: 95%;
+   
+    width: 100%;
+    
      border-radius: 10px;
      padding: 10px 20px;
      margin-bottom: 5px;
@@ -52,8 +54,8 @@
    }
    
    .plist:nth-child(even) {
-     background: #f8f8f8;
+     background: #c0b3f8;
    }
    .plist:nth-child(odd) {
-     background: #eceaea;
+     background: #c0b3f8;
    }

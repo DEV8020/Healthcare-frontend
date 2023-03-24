@@ -41,13 +41,16 @@ const AdminScreen = (props) => {
       </div>
 
       {
-      adminOption === "addHospital" && (<AddHospital adminOption={adminOption} setAdminOption={setAdminOption} />)
+      adminOption === "addHospital" && (<AddHospital adminOption={adminOption} setAdminOption={setAdminOption} setAlertMessage ={props.setAlertMessage}
+        setAlertFlag ={props.setAlertFlag} />)
     }
     {
-      adminOption === "addDoctor" && (<AddDoctor adminOption={adminOption} setAdminOption={setAdminOption}/>)
+      adminOption === "addDoctor" && (<AddDoctor adminOption={adminOption} setAdminOption={setAdminOption} setAlertMessage ={props.setAlertMessage}
+        setAlertFlag ={props.setAlertFlag}/>)
     }
     {
-      adminOption === "addFrontDesk" && (<AddFrontDesk adminOption={adminOption} setAdminOption={setAdminOption} />)
+      adminOption === "addFrontDesk" && (<AddFrontDesk adminOption={adminOption} setAdminOption={setAdminOption} setAlertMessage ={props.setAlertMessage}
+        setAlertFlag ={props.setAlertFlag} />)
     }
 
     </div> 
