@@ -6,6 +6,7 @@ import InputField from "../UI Elements/MenuForm Elements/InputField";
 // import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
+// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const AddHospital = (props) => {
   const [hospitalName, setHospitalName] = useState("");
@@ -66,19 +67,10 @@ const AddHospital = (props) => {
     showErrorMessageScreen("Hospital Added Successfully");
   };
 
-  // const AddHospitalHandler = async (hospitalData) => {
-  //   console.log(hospitalData);
+  const BackButtonPressedHandler = () => {
+    props.setSuperAdminOption("");
+  };
 
-  //   try {
-  //     AddHospitalService(hospitalData);
-  //   } catch (exception) {
-  //     console.log(exception);
-  //   }
-  // };
-
-  // const BackButtonHandler = () => {
-  //   props.setAdminOption("admin");
-  // };
 
   // const hospitalSupervisorIds = [{ option: "1" }, { option: "2" }];
   return (
@@ -113,6 +105,8 @@ const AddHospital = (props) => {
         /> */}
 
           <MenuSubmitButton value="Register" />
+          <MenuSubmitButton value="Back" onClick={BackButtonPressedHandler}/>
+          {/* <AddButton onCli */}
         </form>
       </div>
     </div>
