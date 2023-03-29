@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import AddHospitalService from "../../../Services/AddHospitalService";
+// import AddHospitalService from "../../../Services/AddHospitalService";
 import classes from "./AddHospital.module.css";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
+// import AddButton from "../UI Elements/MenuForm Elements/addButton";
+// import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 
 const AddHospital = (props) => {
   const [hospitalName, setHospitalName] = useState("");
@@ -32,22 +33,39 @@ const AddHospital = (props) => {
 
     const hospitalData = {
       name: hospitalName,
-      // hospital_id: hospitalId,
       address: hospitalAddress,
-      // hospital_supervisor_id:hospitalSupervisorId,
     };
 
-    setHospitalName("");
-    // setHospitalSupervisorId("");
-    // setHospitalId("");
-    setHospitalAddress("");
+    SuperAdminAPIHandler.AddHospitalData({
+      hospitalData: hospitalData,
+      addHospitalResponseHandler: addHospitalResponseHandler,
+    });
+  };
 
-    //props.onLogin(hospitalData);
+  const addHospitalResponseHandler = (hospitalData) => {
+    if (hospitalData.errorMessage === null) {
+      if (hospitalData.isHospitalAdded === true) {
+        addHospitalSuccessHandler();
+      }
+      if (hospitalData.isHospitalAdded === false) {
+        showErrorMessageScreen("Some error occured.");
+      }
+    } else if (hospitalData.HospitalData === null) {
+      showErrorMessageScreen(hospitalData.errorMessage);
+    }
+  };
 
-    AddHospitalService(hospitalData);
-    props.setAlertMessage(" registered successfully");
+  const showErrorMessageScreen = (errorMessage) => {
+    props.setAlertMessage(errorMessage);
     props.setAlertFlag(true);
   };
+
+  const addHospitalSuccessHandler = () => {
+    setHospitalName("");
+    setHospitalAddress("");
+    showErrorMessageScreen("Hospital Added Successfully");
+  };
+
   // const AddHospitalHandler = async (hospitalData) => {
   //   console.log(hospitalData);
 
@@ -73,12 +91,14 @@ const AddHospital = (props) => {
             type="text"
             label="Hospital Name"
             onChange={hospitalNameChangeHandler}
+            value={hospitalName}
           />
 
           <InputField
             type="text"
             label="Address"
             onChange={hospitalAddressChangeHandler}
+            value={hospitalAddress}
           />
           {/* <InputField
           type="text"

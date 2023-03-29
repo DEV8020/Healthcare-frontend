@@ -9,7 +9,7 @@ const hitPostService = async (props) => {
 
     console.log("URL Hitting in GlobalServiceHandler");
     console.log(url);
-
+    
     const response = await axios.post(url, props.postData);
 
     console.log("Data recieved");
@@ -28,9 +28,9 @@ const hitPostService = async (props) => {
     }
   } catch (error) {
     props.responseDataHandler({
-        responseData: null,
-        responseError: error,
-      });
+      responseData: null,
+      responseError: error,
+    });
   }
 };
 

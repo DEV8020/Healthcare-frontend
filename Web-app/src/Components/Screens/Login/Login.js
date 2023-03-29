@@ -26,8 +26,8 @@ const Login = (props) => {
   };
 
   const userLoginResponseHandler = (userLoginData) => {
-    console.log("LoginResponseHandler login api response is ");
-    console.log(userLoginData);
+    //console.log("LoginResponseHandler login api response is ");
+    //console.log(userLoginData);
 
     if (userLoginData.errorMessage === null) {
       if (userLoginData.isLoginFlag === true) {
@@ -68,8 +68,8 @@ const Login = (props) => {
     };
 
     LoginController.GetUserLoginData({
-      userData,
-      userLoginResponseHandler,
+      userData : userData,
+      userLoginResponseHandler : userLoginResponseHandler,
     });
 
     // setUserType("");
