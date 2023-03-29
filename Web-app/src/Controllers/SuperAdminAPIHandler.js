@@ -27,5 +27,50 @@ const AddHospitalData = async (props) => {
   });
 };
 
-const SuperAdminAPIHandler = { AddHospitalData };
+
+
+// registerUserData : registerUserData,
+    //   addNewUserResponseHandler : addNewUserResponseHandler
+
+const AddNewUserData = async (props) => {
+
+const hospitalID = "55";;
+
+    console.log("addAdmin/55");
+    console.log(props.registerUserData);
+
+    //addAdmin/{hospitalId}
+
+   
+
+    const childURL = "addAdmin/" + hospitalID;
+    console.log(childURL);
+  
+    await GlobalServiceHandler.hitPostService({
+      childURL: childURL,
+      postData: props.registerUserData,
+      responseDataHandler: (addNewUserServiceData) => {
+         console.log("addNewUserServiceData");
+         console.log(addNewUserServiceData);
+       
+          if (addNewUserServiceData.responseError === null) {
+            props.addNewUserResponseHandler({
+              isNewUserAdded: true,
+              newUserData : addNewUserServiceData.responseData.data,
+              errorMessage: null,
+            });
+          } else if (addNewUserServiceData.responseData === null) {
+            props.addNewUserResponseHandler({
+              isNewUserAdded: null,
+              newUserData : null,
+              errorMessage: addNewUserServiceData.responseError.message,
+            });
+          }
+      }
+    });
+  };
+
+
+
+const SuperAdminAPIHandler = { AddHospitalData, AddNewUserData };
 export default SuperAdminAPIHandler;

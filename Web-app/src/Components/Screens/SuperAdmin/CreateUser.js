@@ -3,7 +3,8 @@ import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
-
+import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
+import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
 // import createUser from "../../../Services/CreateUser";
 
@@ -31,25 +32,48 @@ const CreateUser = (props) => {
   };
 
   const RegisterUserHandler = (event) => {
+
+console.log("RegisterUserHandler calleld");
+
     event.preventDefault();
 
+
+// {registerUser_type: 'Admin', 
+// registerUser_id: 'eeee', 
+// registerUser_password: '123456', 
+// registerUserHospitalId: '55'}
+
+// {
+//   "name": "Admin1",
+//   "userId":"admin1",
+//   "password":"admin1",
+//   "userType":"Admin"
+// }
+
+
     const registerUserData = {
-      registerUser_type: registerUserType,
-      registerUser_id: registerUserId,
-      registerUser_password: registerUserPassword,
-      registerUserHospitalId:registerUserHospitalId
+      name: registerUserId,
+      userId: registerUserId,
+      password: registerUserPassword,
+      userType : registerUserType
     };
 
-    setRegisterUserType("");
-    setRegisterUserId("");
-    setRegisterUserPassword("");
-    setRegisterUserHospitalId("");
+
+    SuperAdminAPIHandler.AddNewUserData({
+      registerUserData : registerUserData,
+      addNewUserResponseHandler : addNewUserResponseHandler
+    });
+
+    // setRegisterUserType("");
+    // setRegisterUserId("");
+    // setRegisterUserPassword("");
+    // setRegisterUserHospitalId("");
 
     
 
-    // CreateUserHandler(registerUserData);
-    props.setAlertMessage(registerUserId + " registered successfully");
-    props.setAlertFlag(true);
+    // // CreateUserHandler(registerUserData);
+    // props.setAlertMessage(registerUserId + " registered successfully");
+    // props.setAlertFlag(true);
   };
   // const CreateUserHandler = async (registerUserData) => {
   //   console.log(registerUserData);
@@ -60,7 +84,46 @@ const CreateUser = (props) => {
   //     console.log(exception);
   //   }
   // };
-  
+
+
+//AddNewUserData
+
+// props.addNewUserResponseHandler({
+//   isNewUserAdded: null,
+//   newUserData : null,
+//   errorMessage: addNewUserServiceData.responseError.message,
+// });
+
+
+const addNewUserResponseHandler = (newUserData) => {
+  console.log(newUserData);
+    if (newUserData.errorMessage === null) {
+      if (newUserData.isNewUserAdded === true) {
+        addNewUserSuccessHandler();
+      }
+      if (newUserData.isNewUserAdded === false) {
+        showMessageDisplayScreen("Some error occured.");
+      }
+    } else if (newUserData.newUserData === null) {
+      showMessageDisplayScreen(newUserData.errorMessage);
+    }
+  };
+
+
+  const addNewUserSuccessHandler = () => {
+    setRegisterUserType("");
+    setRegisterUserId("");
+    setRegisterUserPassword("");
+    setRegisterUserHospitalId("");
+    showMessageDisplayScreen(registerUserId + " registered successfully");
+  };
+
+
+  const showMessageDisplayScreen = (emessageToBeDisplayed) => {
+    props.setAlertMessage(emessageToBeDisplayed);
+    props.setAlertFlag(true);
+  };
+
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
   return (
@@ -79,20 +142,20 @@ const CreateUser = (props) => {
           <InputField
             type="text"
             label="User ID"
-            onChange={registerUserIdChangeHandler}
+            onChange={registerUserIdChangeHandler} value={registerUserId}
           />
           <InputField
             type="text"
             label="Password"
-            onChange={registerUserPasswordChangeHandler}
+            onChange={registerUserPasswordChangeHandler} value={registerUserPassword}
           />
           {registerUserType === "Admin" &&<InputField
             type="text"
             label="Hospital ID"
-            onChange={registerUserHospitalIdChangeHandler}
+            onChange={registerUserHospitalIdChangeHandler} value={registerUserHospitalId}
           />
           }
-          <AddButton value="Register" />
+          <MenuSubmitButton value="Register" />
         </form>
       </div>
       </div>
