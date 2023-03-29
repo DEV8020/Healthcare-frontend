@@ -1,44 +1,74 @@
-.center {
+
+.center{
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top:50%;
+  left:57%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height:550px;
   background: white;
   border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
-.center h1 {
+.center h1{
+  
   text-align: center;
   padding: 20px 0;
   border-bottom: 1px solid silver;
+  margin-bottom: 10px;
 }
-.center form {
-  padding: 0 40px;
+.center form{
+  padding-left: 40px;
   box-sizing: border-box;
 }
+.NavBar{
+  width: 100%;
+  display: inline-flex;
+  background-color:black;
+  color: white;
+  padding-bottom: 0.5%;
+  padding-top: 0.5%;
+  padding-left: 7%;
+  height:60px;
+  border: 1px solid rgb(23, 23, 23);
+  border-radius: 2px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.202);
+  font-size: 30px;
 
-.head {
-  margin-top: 10px;
-  text-align: center;
 }
-.logout_btn {
-  width: 10%;
-  height: 40px;
-  border: 1px solid black;
-  background: rgb(35, 34, 34);
-  border-radius: 10px;
+
+
+.back_btn {
+  background:black;
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height:98%;
+  border: white;
+  
+  border-radius: 2px;
   font-size: 15px;
-  color: #e9f4fb;
+  color: white;
   font-weight: 400;
   cursor: pointer;
   outline: none;
-  margin-bottom: 20px;
   margin-left: 80%;
+
 }
 
-.logout_btn:hover {
-  background-color: #d25050;
-  border: #db2727;
+.back_btn:hover {
+  
+  background-color: white;
+  border: red;
+  color: black;
 }
+
+
+
+
+
+
+
+
+
+
