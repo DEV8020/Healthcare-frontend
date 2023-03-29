@@ -6,7 +6,7 @@ import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput"
 import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 
-// import LoginController from "../../../Controllers/LoginController";
+import LoginController from "../../../Controllers/LoginController";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -25,6 +25,39 @@ const Login = (props) => {
     setUserPassword(event.target.value);
   };
 
+  const userLoginResponseHandler = (userLoginData) => {
+    console.log("LoginResponseHandler login api response is ");
+    console.log(userLoginData);
+
+    if (userLoginData.errorMessage === null) {
+      if (userLoginData.isLoginFlag === true) {
+        props.setAlertMessage(userId + " login successfully");
+        setUserAsLoggedIn();
+      } 
+      if (userLoginData.isLoginFlag === false){
+        console.log("userLoginData.isLoginFlag");
+        props.setAlertMessage("Invalid Credentials.");
+        props.setAlertFlag(true);
+      }
+    } else if (userLoginData.isLoginFlag === null) {
+      props.setAlertMessage(userLoginData.errorMessage);
+      props.setAlertFlag(true);
+    }
+  };
+
+  const setUserAsLoggedIn = () => {
+    const userData = {
+      userType: userType,
+      userId: userId,
+      password: userPassword,
+    };
+    setUserType("");
+    setUserId("");
+    setUserPassword("");
+    props.setAlertFlag(true);
+    props.onLogin(userData);
+  };
+
   const LoginHandler = (event) => {
     event.preventDefault();
 
@@ -34,14 +67,17 @@ const Login = (props) => {
       password: userPassword,
     };
 
-    // LoginController.GetUserLoginData(userData);
+    LoginController.GetUserLoginData({
+      userData,
+      userLoginResponseHandler,
+    });
 
-    setUserType("");
-    setUserId("");
-    setUserPassword("");
-    props.setAlertMessage(userId + " login successfully");
-    props.setAlertFlag(true);
-    props.onLogin(userData);
+    // setUserType("");
+    // setUserId("");
+    // setUserPassword("");
+    // props.setAlertMessage(userId + " login successfully");
+    // props.setAlertFlag(true);
+    // props.onLogin(userData);
   };
   const hospitalUerTypeOptions = [
     { option: "Super Admin" },

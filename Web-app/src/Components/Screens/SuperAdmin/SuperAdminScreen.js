@@ -13,7 +13,8 @@ const SuperAdminScreen = (props) => {
     setSuperAdminOption("HospitalRegistration");
   };
   const CreateUserButtonHandler = () => {
-    setSuperAdminOption("CreateUser");
+    console.log("CU");
+    setSuperAdminOption("CreateUserScreen");
   };
 
   const AllRegisteredUserButtonHandler = () => {
@@ -55,7 +56,7 @@ const SuperAdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
         />
       )}
-      {superAdminOption === "CreateUser" && (
+      {superAdminOption === "CreateUserScreen" && (
         <CreateUser
           superAdminOption={superAdminOption}
           setSuperAdminOption={setSuperAdminOption}

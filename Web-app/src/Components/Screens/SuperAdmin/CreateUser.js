@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
-import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
-import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
-import createUser from "../../../Services/CreateUser";
-import NavBar from "../UI Elements/NavBar/NavBar";
+import InputField from "../UI Elements/MenuForm Elements/InputField";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
+
+
+// import createUser from "../../../Services/CreateUser";
+
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
   const [registerUserId, setRegisterUserId] = useState("");
+  const[registerUserHospitalId,setRegisterUserHospitalId]=useState("");
   const [registerUserPassword, setRegisterUserPassword] = useState("");
 
   const registerUserTypeChangeHandler = (event) => {
     setRegisterUserType(event.target.value);
   };
+  const registerUserHospitalIdChangeHandler = (event) => {
+    setRegisterUserHospitalId(event.target.value);
+  };
+  
 
   const registerUserIdChangeHandler = (event) => {
     setRegisterUserId(event.target.value);
@@ -30,11 +37,13 @@ const CreateUser = (props) => {
       registerUser_type: registerUserType,
       registerUser_id: registerUserId,
       registerUser_password: registerUserPassword,
+      registerUserHospitalId:registerUserHospitalId
     };
 
     setRegisterUserType("");
     setRegisterUserId("");
     setRegisterUserPassword("");
+    setRegisterUserHospitalId("");
 
     
 
@@ -42,55 +51,52 @@ const CreateUser = (props) => {
     props.setAlertMessage(registerUserId + " registered successfully");
     props.setAlertFlag(true);
   };
-  const CreateUserHandler = async (registerUserData) => {
-    console.log(registerUserData);
+  // const CreateUserHandler = async (registerUserData) => {
+  //   console.log(registerUserData);
 
-    try {
-      await createUser(registerUserData);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-  const logout = () => {
-    window.localStorage.removeItem("loggedInUser");
-    props.setUser(null);
-  };
-  if (!props.user) return null;
+  //   try {
+  //     await createUser(registerUserData);
+  //   } catch (exception) {
+  //     console.log(exception);
+  //   }
+  // };
+  
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
   return (
-    <div>
-      <NavBar value="Logout" label="Super Admin" onClick={logout}/>
+    <div>   
       <div className={classes.center}>
-        <h1> Super Admin Menu</h1>
-
-        <form id="superAdmin-form" onSubmit={RegisterUserHandler}>
-          <UserTypeSelection
-          value={registerUserType}
-            
-            options={superAdminUserType}
-            onChange={registerUserTypeChangeHandler}
-            label="--Use Type--"
-          />
-
-          <UsernameInput
-          value={registerUserId}
+        <h1> Add Hospital Menu</h1>
+  
+        <form id="createUser-form" onSubmit={RegisterUserHandler}>
+          
+        <UserTypeSelection
+          label="--User Type --"
+          options={superAdminUserType}
+          onChange={registerUserTypeChangeHandler}
+        />
+          
+          <InputField
             type="text"
-            label="Username"
+            label="User ID"
             onChange={registerUserIdChangeHandler}
           />
-          <UsernameInput
-          
-          value={registerUserPassword}
+          <InputField
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
           />
-          <SubmitButton value="Register User" />
+          {registerUserType === "Admin" &&<InputField
+            type="text"
+            label="Hospital ID"
+            onChange={registerUserHospitalIdChangeHandler}
+          />
+          }
+          <AddButton value="Register" />
         </form>
       </div>
-    </div>
-  );
+      </div>
+    );
 };
 
 export default CreateUser;

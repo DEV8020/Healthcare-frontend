@@ -1,44 +1,69 @@
 import axios from "axios";
+import GlobalServiceHandler from "./GlobalServiceHandler";
 
-const loginUrl = `http://192.168.9.225:9191/login`;
+// const loginUrl = `http://192.168.9.225:9191/login`;
 
-const GetUserLoginData = async (userData) => {
-  // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-  // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded'
-  console.log("called from LoginController");
-  console.log(userData);
-  // const response = await axios.post(loginUrl, userData);
-  console.log("LoginController respone recieved");
-  // console.log(response);
+const GetUserLoginData = async (props) => {
+  const response = await GlobalServiceHandler.hitPostService({
+    childURL: "login",
+    postData: props.userData,
+    responseDataHandler: (loginServiceData) => {
+      console.log("loginServiceData called");
+      console.log(loginServiceData.responseData);
+      console.log(loginServiceData.responseError);
 
-  // axios.post("http://172.16.140.248:9191/login", userData, { withCredentials: true })
-  // .then((res) => {
-  //   if (res.status === 200) {
-  //     //all cookies are set in you're browser
-  //     console.log(res);
+      // {console.log(loginServiceData.responseData);
+      //     responseData: response.data,
+      //     responseError: null,
+      //   }
+
+      //   var userResponseData = { isLoginFlag: response.data, errorMessage: null };
+
+      if (loginServiceData.responseError === null) {
+        props.userLoginResponseHandler({
+            isLoginFlag: loginServiceData.responseData.data,
+            errorMessage: null,
+          });
+      } else if (loginServiceData.responseData === null) {
+        props.userLoginResponseHandler({
+          isLoginFlag: null,
+          errorMessage: loginServiceData.responseError.message,
+        });
+      }
+
+    //   var userResponseData = {
+    //     isLoginFlag: loginServiceData.responseData,
+    //     errorMessage: loginServiceData.responseError.message,
+    //   };
+
+    //   props.userLoginResponseHandler(userResponseData);
+    },
+  });
+  //await axios.post(loginUrl, props.userData);
+
+  //   console.log("GetUserLoginData");
+  //   console.log(response);
+
+  //   try {
+  //     console.log("GetUserLoginData called user data");
+  //     console.log(props.userData);
+  //     const response = await axios.post(loginUrl, props.userData);
+
+  //     console.log("Data Response from Login Controller is :" + response.data);
+  //     var userResponseData = { isLoginFlag: response.data, errorMessage: null };
+
+  //     if (response.status === 200) {
+  //       props.userLoginResponseHandler(userResponseData);
+  //     } else {
+  //       props.userLoginResponseHandler(userResponseData);
+  //     }
+  //   } catch (error) {
+  //     props.userLoginResponseHandler({
+  //       isLoginFlag: null,
+  //       errorMessage: error.message,
+  //     });
   //   }
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // });
-
-  //  const response = await axios.post(`${appointmentUrl}/${PatientId}`,{
-  //             headers:{ 'Content-Type':'application/x-www-form-urlencoded'}
-  //         })
-  //         return response.data
 };
 
 const LoginController = { GetUserLoginData };
 export default LoginController;
-
-// import axios from 'axios'
-
-// const appointmentUrl = `http://192.168.199.225:9191/addPendingQueue/1`
-
-// const addAppointment = async (PatientId) => {
-
-//     const response = await axios.post(`${appointmentUrl}/${PatientId}`,{
-//         headers:{ 'Content-Type':'application/x-www-form-urlencoded'}
-//     })
-//     return response.data
-// }
