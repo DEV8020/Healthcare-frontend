@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import AddHospitalService from "../../../Services/AddHospitalService";
-import classes from './AddOptions.module.css'
+import classes from './AddHospital.module.css'
 import InputField from "../UI Elements/MenuForm Elements/InputField";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import NavBar from "../UI Elements/NavBar/NavBar";
 
 const AddHospital = (props) => {
   const [hospitalName, setHospitalName] = useState("");

@@ -36,9 +36,9 @@ const CreateUser = (props) => {
     setRegisterUserId("");
     setRegisterUserPassword("");
 
-    //props.onLogin(registerUserData);
+    
 
-    CreateUserHandler(registerUserData);
+    // CreateUserHandler(registerUserData);
     props.setAlertMessage(registerUserId + " registered successfully");
     props.setAlertFlag(true);
   };

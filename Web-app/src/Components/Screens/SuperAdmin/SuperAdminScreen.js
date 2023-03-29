@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import classes from "./SuperAdminScreen.module.css";
+import NavBar from "../UI Elements/NavBar/NavBar";
+import Button from "../UI Elements/Button/Button";
+import CreateUser from "./CreateUser";
+import AddHospital from "./AddHospital";
+import ShowAllUser from "./ShowAllUser";
+
+const SuperAdminScreen = (props) => {
+  const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
+
+  const HospitalRegistrationButtonHandler = () => {
+    setSuperAdminOption("HospitalRegistration");
+  };
+  const CreateUserButtonHandler = () => {
+    setSuperAdminOption("CreateUser");
+  };
+
+  const AllRegisteredUserButtonHandler = () => {
+    setSuperAdminOption("AllUsers");
+  };
+
+  const logoutSA = () => {
+    window.localStorage.removeItem("loggedInUser");
+    props.setUser(null);
+  };
+  if (!props.user) return null;
+
+  return (
+    <div>
+      <NavBar value="Log-out" label="SuperAdmin" onClick={logoutSA} />
+
+      <div className={classes.center}>
+        <h2> SuperAdmin Menu</h2>
+
+        <div className={classes.SA_menu}>
+          <Button
+            value="Hospital Registration"
+            onClick={HospitalRegistrationButtonHandler}
+          />
+
+          <Button value="Create New User" onClick={CreateUserButtonHandler} />
+          <Button
+            value="All registered Users"
+            onClick={AllRegisteredUserButtonHandler}
+          />
+        </div>
+      </div>
+
+      {superAdminOption === "HospitalRegistration" && (
+        <AddHospital
+          superAdminOption={superAdminOption}
+          setSuperAdminOption={setSuperAdminOption}
+          setAlertMessage={props.setAlertMessage}
+          setAlertFlag={props.setAlertFlag}
+        />
+      )}
+      {superAdminOption === "CreateUser" && (
+        <CreateUser
+          superAdminOption={superAdminOption}
+          setSuperAdminOption={setSuperAdminOption}
+          setAlertMessage={props.setAlertMessage}
+          setAlertFlag={props.setAlertFlag}
+        />
+      )}
+      {superAdminOption === "AllUsers" && (
+        <ShowAllUser
+          superAdminOption={superAdminOption}
+          setSuperAdminOption={setSuperAdminOption}
+          setAlertMessage={props.setAlertMessage}
+          setAlertFlag={props.setAlertFlag}
+        />
+      )}
+    </div>
+  );
+};
+
+export default SuperAdminScreen;

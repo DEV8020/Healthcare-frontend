@@ -1,21 +1,22 @@
 import "./App.css";
-import React from 'react';
+import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import Login from "./Components/UI/Login/Login";
-import AddPatient from "./Components/UI/Front Desk/CreateAppointment";
+import Login from "./Components/Screens/Login/Login";
+import AddPatient from "./Components/Screens/Front Desk/CreateAppointment";
 import addAppointment from "./Services/Appointment";
 import getPatientList from "./Services/PatientList";
-import PatientList from "./Components/UI/Doctor/PatientList";
+import PatientList from "./Components/Screens/Doctor/PatientList";
 import AlertTitle from "@mui/material/AlertTitle";
-import CreateUser from "./Components/UI/SuperAdmin/CreateUser";
-import AddHospital from "./Components/UI/AdminUI/AddHospital";
-import AdminScreen from "./Components/UI/AdminUI/AdminScreen";
-import DoctorScreen from "./Components/UI/Doctor/DoctorScreen";
-import FrontDeskScreen from "./Components/UI/Front Desk/FrontDeskScreen";
-import SuperVisorScreen from "./Components/UI/Supervisor/SuperVisorScreen";
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
+import CreateUser from "./Components/Screens/SuperAdmin/CreateUser";
+import AddHospital from "./Components/Screens/SuperAdmin/AddHospital";
+import AdminScreen from "./Components/Screens/AdminUI/AdminScreen";
+import DoctorScreen from "./Components/Screens/Doctor/DoctorScreen";
+import FrontDeskScreen from "./Components/Screens/Front Desk/FrontDeskScreen";
+import SuperVisorScreen from "./Components/Screens/Supervisor/SuperVisorScreen";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import SuperAdminScreen from "./Components/Screens/SuperAdmin/SuperAdminScreen";
 
 function App() {
   const pList = [
@@ -91,22 +92,22 @@ function App() {
   const [alertMessage, setAlertMessage] = useState("");
 
   const OnLoginHandler = (userObject) => {
-    console.log(userObject.user_type);
+    console.log(userObject.userType);
     window.localStorage.setItem("loggedInUser", userObject);
     setUser(userObject);
   };
-  const CreateAppointmentHandler = async (appointment) => {
-    console.log(appointment);
+  // const CreateAppointmentHandler = async (appointment) => {
+  //   console.log(appointment);
 
-    try {
-      await addAppointment(appointment);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  //   // try {
+  //   //   await addAppointment(appointment);
+  //   // } catch (exception) {
+  //   //   console.log(exception);
+  //   // }
+  // };
   useEffect(() => {
     async function fetchData() {
-      if (user !== null && user.user_type === "Doctor") {
+      if (user !== null && user.userType === "doctor") {
         // const patientListObject = await getPatientList();
 
         // setPatientList(patientListObject);
@@ -132,43 +133,60 @@ function App() {
     };
   }, [alertFlag]);
 
-  
-
-
-
   return (
     <>
       {alertFlag === true && (
-         <Snackbar open={alertFlag}>
-         <Alert severity="success" sx={{ width: '100%' }}>
-        {alertMessage}</Alert>
-      </Snackbar>
-        
+        <Snackbar open={alertFlag}>
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {alertMessage}
+          </Alert>
+        </Snackbar>
       )}
-      {user === null && <Login onLogin={OnLoginHandler}  setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}/>}
+      {user === null && (
+        <Login
+          onLogin={OnLoginHandler}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+        />
+      )}
 
-      {user !== null && user.user_type === "Front Desk" && (
-        <FrontDeskScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
-        setAlertMessage={setAlertMessage} />
+      {user !== null && user.userType === "Front Desk" && (
+        <FrontDeskScreen
+          user={user}
+          setUser={setUser}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+        />
       )}
       {
-        user !== null && user.user_type === "Doctor" && (
-          <DoctorScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}/>
+        user !== null && user.userType === "doctor" && (
+          <DoctorScreen
+            user={user}
+            setUser={setUser}
+            setAlertFlag={setAlertFlag}
+            setAlertMessage={setAlertMessage}
+          />
         )
         //<AddPatient onCreateAppointment={CreateAppointmentHandler} user={user} setUser={setUser} />
       }
-      {user !== null && user.user_type === "Super Admin" && (
-        <CreateUser user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
-        setAlertMessage={setAlertMessage}/>
+      {user !== null && user.userType === "Super Admin" && (
+        <SuperAdminScreen
+          user={user}
+          setUser={setUser}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+        />
       )}
-      {user !== null && user.user_type === "Admin" && (
-        <AdminScreen user={user} setUser={setUser}  setAlertFlag={setAlertFlag}
-        setAlertMessage={setAlertMessage} />
+      {user !== null && user.userType === "Admin" && (
+        <AdminScreen
+          user={user}
+          setUser={setUser}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+        />
       )}
 
-      {user !== null && user.user_type === "Supervisor" && (
+      {user !== null && user.userType === "Supervisor" && (
         <SuperVisorScreen
           user={user}
           setUser={setUser}

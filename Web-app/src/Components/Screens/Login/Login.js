@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AddPatient from "../Front Desk/CreateAppointment";
 
 import classes from "./Login.module.css";
 import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
@@ -7,7 +6,7 @@ import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput"
 import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 
-import LoginController from "../../../Controllers/LoginController";
+// import LoginController from "../../../Controllers/LoginController";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -30,13 +29,12 @@ const Login = (props) => {
     event.preventDefault();
 
     const userData = {
-      userType: "doctor",
+      userType: userType,
       userId: userId,
       password: userPassword,
     };
 
-
-    LoginController.GetUserLoginData(userData);
+    // LoginController.GetUserLoginData(userData);
 
     setUserType("");
     setUserId("");
@@ -49,7 +47,7 @@ const Login = (props) => {
     { option: "Super Admin" },
     { option: "Admin" },
     { option: "Supervisor" },
-    { option: "Doctor" },
+    { option: "doctor" },
     { option: "Front Desk" },
   ];
   return (

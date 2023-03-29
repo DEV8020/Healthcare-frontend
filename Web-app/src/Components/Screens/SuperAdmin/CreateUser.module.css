@@ -1,22 +1,20 @@
-
-
-.center{
+.center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
-  height:500px;
+  height: 500px;
   background: white;
   border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
 }
-.center h1{
+.center h1 {
   text-align: center;
   padding: 20px 0;
   border-bottom: 1px solid silver;
 }
-.center form{
+.center form {
   padding: 0 40px;
   box-sizing: border-box;
 }
@@ -44,7 +42,3 @@
   background-color: #d25050;
   border: #db2727;
 }
-
-
-
-
