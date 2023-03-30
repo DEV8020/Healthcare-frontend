@@ -14,9 +14,6 @@ const CreateAppointment = (props) => {
   const AddAppointmentHandler = (event) => {
     event.preventDefault();
 
-    //     Endpoint : http://localhost:9191/addPendingQueue/{hospitalId}/{patientId}
-    // Default id : hospitalId = 1, patientId = 1
-
     const encounterData = {
       hospitalId: "1",
       patientId: PatientId,
@@ -27,28 +24,7 @@ const CreateAppointment = (props) => {
       addPatientNewEncounterResponseCallBack:
         addPatientNewEncounterResponseCallBack,
     });
-
-    console.log("AddAppointmentHandler called");
-    console.log(PatientId);
-    // props.onCreateAppointment(PatientId);
-    setPatientId("");
-    props.setAlertMessage("Appointment created for Patient ID :" + PatientId);
-    props.setAlertFlag(true);
   };
-
-  // const addPatientNewEncounterResponseCallBack = () => {
-  //   console.log("addPatientNewEncounterResponseCallBack");
-
-  //   // isEncounterAdded: true,
-  //   // NewPatientData: addPatientEncounterResponseData.responseData.data,
-  //   // errorMessage: null,
-
-
-  // };
-
-
-
-
 
   const showErrorMessageScreen = (errorMessage, isError) => {
     console.log(isError);
@@ -56,56 +32,30 @@ const CreateAppointment = (props) => {
     props.setAlertFlag(true);
   };
 
-  const addPatientNewEncounterResponseCallBack = (patientEncounterResponseData) => {
-
+  const addPatientNewEncounterResponseCallBack = (
+    patientEncounterResponseData
+  ) => {
     console.log("addPatientNewEncounterResponseCallBack");
-
-    // isEncounterAdded: true,
-    // NewPatientData: addPatientEncounterResponseData.responseData.data,
-    // errorMessage: null,
-
-    console.log("registerNewPatientResponseHandler response is ");
     console.log(patientEncounterResponseData);
 
-    // if (patientEncounterResponseData.errorMessage === null) {
-    //   if (patientEncounterResponseData.isEncounterAdded === true) {
-    //     showErrorMessageScreen(
-    //       patientName + " has been registered successfully.",
-    //       false
-    //     );
-    //     resetPatientDataAfterRegister();
-    //   }
-    //   if (patientEncounterResponseData.isEncounterAdded === false) {
-    //     showErrorMessageScreen(
-    //       "Some error occured. Please try again later.",
-    //       true
-    //     );
-    //   }
-    // } else if (patientEncounterResponseData.isEncounterAdded === null) {
-    //   showErrorMessageScreen(patientEncounterResponseData.errorMessage, true);
-    // }
+    if (patientEncounterResponseData.errorMessage === null) {
+      if (patientEncounterResponseData.isEncounterAdded === true) {
+        showErrorMessageScreen(
+          "Appointment created for Patient ID :" + PatientId,
+          false
+        );
+        setPatientId("");
+      }
+      if (patientEncounterResponseData.isEncounterAdded === false) {
+        showErrorMessageScreen(
+          "Some error occured. Please try again later.",
+          true
+        );
+      }
+    } else if (patientEncounterResponseData.isEncounterAdded === null) {
+      showErrorMessageScreen(patientEncounterResponseData.errorMessage, true);
+    }
   };
-
-
-  // const resetPatientDataAfterRegister = () => {
-  //   setPatientName("");
-  //   setPatientContactNo("");
-  //   setPatientSex("");
-  //   setPatientAddress("");
-  //   setPatientBdate("");
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div>

@@ -9,7 +9,27 @@ import HospitalDetailsView from "./HospitalDetailsView";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
-  const[hospitalDetailsView,setHospitalDetailsView]=useState("");
+  const [hospitalDetailsView, setHospitalDetailsView] = useState("");
+  const [hospitalsListWithNoAdmin, setHospitalsListtWithNoAdmins] = useState(
+    []
+  );
+  const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] = useState("");
+
+  const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
+    console.log("hospitalListsWithNoAdminsCallBackHandler in super admin .js");
+    console.log(hospitalsList);
+    setHospitalsListtWithNoAdmins(hospitalsList);
+  };
+
+
+  const selectedHospitalInDetailViewCallBackHandler = (hospitalData) => {
+    console.log("sselectedHospitalInDetailViewCallBackHandler in super admin .js");
+    console.log(hospitalData);
+    //setSelectedHospitalForAddUser(hospitalData);
+    setSelectedHospitalIDForAddUser(hospitalData.hospId);
+    // setHospitalsListtWithNoAdmins(hospitalsList);
+  };
+
 
   const HospitalRegistrationButtonHandler = () => {
     setSuperAdminOption("HospitalRegistration");
@@ -65,8 +85,12 @@ const SuperAdminScreen = (props) => {
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
           setHospitalDetailsView={setHospitalDetailsView}
+          hospitalListsWithNoAdminsCallBackHandler={
+            hospitalListsWithNoAdminsCallBackHandler
+          }
+          hospitalsListWithNoAdmin={hospitalsListWithNoAdmin}
+          selectedHospitalIDForAddUser = {selectedHospitalIDForAddUser}
         />
-        
       )}
       {superAdminOption === "AllUsers" && (
         <ShowAllUser
@@ -76,11 +100,14 @@ const SuperAdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
         />
       )}
-      {
-        hospitalDetailsView === "Admin"  && (<HospitalDetailsView />)
-      }
+      {hospitalDetailsView === "Admin" && (
+        <HospitalDetailsView  hospitalsListData={hospitalsListWithNoAdmin}
+          selectedHospitalCallBackHandler = {selectedHospitalInDetailViewCallBackHandler}
+        />
+      )}
     </div>
   );
 };
 
 export default SuperAdminScreen;
+{/* hospitalsListData={hospitalsListWithNoAdmin} */}

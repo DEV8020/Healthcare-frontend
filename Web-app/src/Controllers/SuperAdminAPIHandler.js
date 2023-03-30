@@ -10,67 +10,95 @@ const AddHospitalData = async (props) => {
     responseDataHandler: (addHospitalServiceData) => {
       console.log("addHospitalServiceData");
       console.log(addHospitalServiceData);
-        if (addHospitalServiceData.responseError === null) {
-          props.addHospitalResponseHandler({
-            isHospitalAdded: true,
-            HospitalData : addHospitalServiceData.responseData.data,
-            errorMessage: null,
-          });
-        } else if (addHospitalServiceData.responseData === null) {
-          props.addHospitalResponseHandler({
-            isHospitalAdded: null,
-            HospitalData : null,
-            errorMessage: addHospitalServiceData.responseError.message,
-          });
-        }
+      if (addHospitalServiceData.responseError === null) {
+        props.addHospitalResponseHandler({
+          isHospitalAdded: true,
+          HospitalData: addHospitalServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (addHospitalServiceData.responseData === null) {
+        props.addHospitalResponseHandler({
+          isHospitalAdded: null,
+          HospitalData: null,
+          errorMessage: addHospitalServiceData.responseError.message,
+        });
+      }
     },
   });
 };
 
-
-
 // registerUserData : registerUserData,
-    //   addNewUserResponseHandler : addNewUserResponseHandler
+//   addNewUserResponseHandler : addNewUserResponseHandler
 
 const AddNewUserData = async (props) => {
 
-const hospitalID = "55";;
+    console.log("AddNewUserData hospital id");
+ console.log(props.registerUserData.hospitalId);
 
-    console.log("addAdmin/55");
-    console.log(props.registerUserData);
+//   const hospitalID = "2";
 
-    //addAdmin/{hospitalId}
+//   console.log("addAdmin/55");
+//   console.log(props.registerUserData);
 
-   
+  //addAdmin/{hospitalId}
 
-    const childURL = "addAdmin/" + hospitalID;
-    console.log(childURL);
-  
-    await GlobalServiceHandler.hitPostService({
-      childURL: childURL,
-      postData: props.registerUserData,
-      responseDataHandler: (addNewUserServiceData) => {
-         console.log("addNewUserServiceData");
-         console.log(addNewUserServiceData);
-       
-          if (addNewUserServiceData.responseError === null) {
-            props.addNewUserResponseHandler({
-              isNewUserAdded: true,
-              newUserData : addNewUserServiceData.responseData.data,
-              errorMessage: null,
-            });
-          } else if (addNewUserServiceData.responseData === null) {
-            props.addNewUserResponseHandler({
-              isNewUserAdded: null,
-              newUserData : null,
-              errorMessage: addNewUserServiceData.responseError.message,
-            });
-          }
+  const childURL = "addAdmin/" + props.registerUserData.hospitalId;
+  console.log(childURL);
+
+  await GlobalServiceHandler.hitPostService({
+    childURL: childURL,
+    postData: props.registerUserData,
+    responseDataHandler: (addNewUserServiceData) => {
+      console.log("addNewUserServiceData");
+      console.log(addNewUserServiceData);
+
+      if (addNewUserServiceData.responseError === null) {
+        props.addNewUserResponseHandler({
+          isNewUserAdded: true,
+          newUserData: addNewUserServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (addNewUserServiceData.responseData === null) {
+        props.addNewUserResponseHandler({
+          isNewUserAdded: null,
+          newUserData: null,
+          errorMessage: addNewUserServiceData.responseError.message,
+        });
       }
-    });
-  };
+    },
+  });
+};
 
+const GetHospitalListsDataWithNoAdmins = async (props) => {
+  console.log("GetHospitalListsDataWithNoAdmins");
 
+  await GlobalServiceHandler.hitGetService({
+    childURL: "hospitalsWithNoAdmins",
+    //   postData: props.registerUserData,
+    responseDataHandler: (hospitalsListServiceData) => {
+      console.log("GetHospitalListsDataWithNoAdmins");
+      console.log(hospitalsListServiceData.responseData.data);
 
-const SuperAdminAPIHandler = { AddHospitalData, AddNewUserData };
+      if (hospitalsListServiceData.responseError === null) {
+        props.hopitalListWithNoAdminsResponseHandler({
+          isHospitalListRecieved: true,
+          hospitalListData: hospitalsListServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (hospitalsListServiceData.responseData === null) {
+        props.hopitalListWithNoAdminsResponseHandler({
+          isHospitalListRecieved: null,
+          hospitalListData: null,
+          errorMessage: hospitalsListServiceData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+const SuperAdminAPIHandler = {
+  AddHospitalData,
+  AddNewUserData,
+  GetHospitalListsDataWithNoAdmins,
+};
 export default SuperAdminAPIHandler;
