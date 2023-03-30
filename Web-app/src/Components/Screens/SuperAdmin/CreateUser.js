@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
@@ -14,6 +14,8 @@ const CreateUser = (props) => {
   const [registerUserId, setRegisterUserId] = useState("");
   const[registerUserHospitalId,setRegisterUserHospitalId]=useState("");
   const [registerUserPassword, setRegisterUserPassword] = useState("");
+
+  props.setHospitalDetailsView(registerUserType);
 
   const registerUserTypeChangeHandler = (event) => {
     setRegisterUserType(event.target.value);
@@ -63,36 +65,8 @@ console.log("RegisterUserHandler calleld");
       registerUserData : registerUserData,
       addNewUserResponseHandler : addNewUserResponseHandler
     });
-
-    // setRegisterUserType("");
-    // setRegisterUserId("");
-    // setRegisterUserPassword("");
-    // setRegisterUserHospitalId("");
-
-    
-
-    // // CreateUserHandler(registerUserData);
-    // props.setAlertMessage(registerUserId + " registered successfully");
-    // props.setAlertFlag(true);
   };
-  // const CreateUserHandler = async (registerUserData) => {
-  //   console.log(registerUserData);
 
-  //   try {
-  //     await createUser(registerUserData);
-  //   } catch (exception) {
-  //     console.log(exception);
-  //   }
-  // };
-
-
-//AddNewUserData
-
-// props.addNewUserResponseHandler({
-//   isNewUserAdded: null,
-//   newUserData : null,
-//   errorMessage: addNewUserServiceData.responseError.message,
-// });
 
 
 const addNewUserResponseHandler = (newUserData) => {

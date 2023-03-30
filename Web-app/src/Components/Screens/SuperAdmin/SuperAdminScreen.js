@@ -5,9 +5,11 @@ import Button from "../UI Elements/Button/Button";
 import CreateUser from "./CreateUser";
 import AddHospital from "./AddHospital";
 import ShowAllUser from "./ShowAllUser";
+import HospitalDetailsView from "./HospitalDetailsView";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
+  const[hospitalDetailsView,setHospitalDetailsView]=useState("");
 
   const HospitalRegistrationButtonHandler = () => {
     setSuperAdminOption("HospitalRegistration");
@@ -62,7 +64,9 @@ const SuperAdminScreen = (props) => {
           setSuperAdminOption={setSuperAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
+          setHospitalDetailsView={setHospitalDetailsView}
         />
+        
       )}
       {superAdminOption === "AllUsers" && (
         <ShowAllUser
@@ -72,6 +76,9 @@ const SuperAdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
         />
       )}
+      {
+        hospitalDetailsView === "Admin"  && (<HospitalDetailsView />)
+      }
     </div>
   );
 };
