@@ -7,6 +7,7 @@ import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotP
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 
 import LoginController from "../../../Controllers/LoginController";
+import MessageComponent from "../MessageComponent/MessageComponent";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -33,15 +34,23 @@ const Login = (props) => {
       if (userLoginData.isLoginFlag === true) {
         props.setAlertMessage(userId + " login successfully");
         setUserAsLoggedIn();
-      } 
-      if (userLoginData.isLoginFlag === false){
-        console.log("userLoginData.isLoginFlag");
-        props.setAlertMessage("Invalid Credentials.");
-        props.setAlertFlag(true);
+      }
+      if (userLoginData.isLoginFlag === false) {
+        MessageComponent.showMessageScreen({
+          message: { message: "Invalid Credentials.", isTrueFlag: true },
+          alertMessageElement : props.setAlertMessage,
+          alertMessageFlag : props.setAlertFlag,
+          isErrorMessage : true
+        });
+        // console.log("userLoginData.isLoginFlag");
+        // props.setAlertMessage("Invalid Credentials.");
+        // props.setAlertFlag(true);
       }
     } else if (userLoginData.isLoginFlag === null) {
-      props.setAlertMessage(userLoginData.errorMessage);
-      props.setAlertFlag(true);
+      // props.setAlertMessage(userLoginData.errorMessage);
+      // props.setAlertFlag(true);
+
+      MessageComponent.showMessageScreen({ message: { message: "" } });
     }
   };
 
@@ -68,8 +77,8 @@ const Login = (props) => {
     };
 
     LoginController.GetUserLoginData({
-      userData : userData,
-      userLoginResponseHandler : userLoginResponseHandler,
+      userData: userData,
+      userLoginResponseHandler: userLoginResponseHandler,
     });
 
     // setUserType("");
