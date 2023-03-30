@@ -14,27 +14,69 @@ const RegisterNewPatientAPICall = async (props) => {
       console.log("registerNewPatientResponseData");
       console.log(registerNewPatientResponseData);
       console.log(registerNewPatientResponseData.responseData.data);
-        if (registerNewPatientResponseData.responseError === null) {
-          props.registerNewPatientResponseCallBack({
-            isNewPatientAdded: true,
-            NewPatientData : registerNewPatientResponseData.responseData.data,
-            errorMessage: null,
-          });
-        } else if (registerNewPatientResponseData.responseData === null) {
-          props.registerNewPatientResponseCallBack({
-            isNewPatientAdded: null,
-            NewPatientData : null,
-            errorMessage: registerNewPatientResponseData.responseError.message,
-          });
-        }
+      if (registerNewPatientResponseData.responseError === null) {
+        props.registerNewPatientResponseCallBack({
+          isNewPatientAdded: true,
+          NewPatientData: registerNewPatientResponseData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (registerNewPatientResponseData.responseData === null) {
+        props.registerNewPatientResponseCallBack({
+          isNewPatientAdded: null,
+          NewPatientData: null,
+          errorMessage: registerNewPatientResponseData.responseError.message,
+        });
+      }
     },
   });
 };
 
+//     Endpoint : http://localhost:9191/addPendingQueue/{hospitalId}/{patientId}
+// Default id : hospitalId = 1, patientId = 1
 
+// const encounterData = {
+//     hospitalId : "1",
+//     patientId : patientId
+//   };
+
+const AddPatientEncounterAPICall = async (props) => {
+  console.log("AddPatientEncounterAPICall");
+  console.log(props.encounterData);
+
+  const modifiedChildURL =
+    "addPendingQueue/" +
+    props.encounterData.hospitalId +
+    "/" +
+    props.encounterData.patientId;
+
+  console.log(modifiedChildURL);
+
+  await GlobalServiceHandler.hitPostService({
+    childURL: modifiedChildURL,
+    postData: {},
+    responseDataHandler: (addPatientEncounterResponseData) => {
+      console.log("addPatientEncounterResponseData");
+      console.log(addPatientEncounterResponseData);
+      console.log(addPatientEncounterResponseData.responseData.data);
+      if (addPatientEncounterResponseData.responseError === null) {
+        props.addPatientNewEncounterResponseCallBack({
+          isEncounterAdded: true,
+          NewPatientData: addPatientEncounterResponseData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (addPatientEncounterResponseData.responseData === null) {
+        props.addPatientNewEncounterResponseCallBack({
+          isEncounterAdded: null,
+          NewPatientData: null,
+          errorMessage: addPatientEncounterResponseData.responseError.message,
+        });
+      }
+    },
+  });
+};
 
 // registerUserData : registerUserData,
-    //   addNewUserResponseHandler : addNewUserResponseHandler
+//   addNewUserResponseHandler : addNewUserResponseHandler
 
 // const AddNewUserData = async (props) => {
 
@@ -45,18 +87,16 @@ const RegisterNewPatientAPICall = async (props) => {
 
 //     //addAdmin/{hospitalId}
 
-   
-
 //     const childURL = "addAdmin/" + hospitalID;
 //     console.log(childURL);
-  
+
 //     await GlobalServiceHandler.hitPostService({
 //       childURL: childURL,
 //       postData: props.registerUserData,
 //       responseDataHandler: (addNewUserServiceData) => {
 //          console.log("addNewUserServiceData");
 //          console.log(addNewUserServiceData);
-       
+
 //           if (addNewUserServiceData.responseError === null) {
 //             props.addNewUserResponseHandler({
 //               isNewUserAdded: true,
@@ -74,6 +114,8 @@ const RegisterNewPatientAPICall = async (props) => {
 //     });
 //   };
 
-
-const FrontDeskAPIHandler = { RegisterNewPatientAPICall };
+const FrontDeskAPIHandler = {
+  RegisterNewPatientAPICall,
+  AddPatientEncounterAPICall,
+};
 export default FrontDeskAPIHandler;

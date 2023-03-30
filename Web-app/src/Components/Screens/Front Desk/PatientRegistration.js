@@ -90,16 +90,6 @@ const PatientRegistration = (props) => {
     setPatientBdate("");
   };
 
-  // const RegisterPatientHandler = async (patientData) => {
-  //   console.log(patientData);
-
-  //   try {
-  //     RegisterPatientService(patientData);
-  //   } catch (exception) {
-  //     console.log(exception);
-  //   }
-  // };
-
 
 const cancelButtonHandler = () => {
   props.setFrontDeskOption("frontDesk");
