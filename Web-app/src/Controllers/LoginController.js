@@ -1,6 +1,7 @@
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const GetUserLoginData = async (props) => {
+    console.log(props.userData);
   await GlobalServiceHandler.hitPostService({
     childURL: "login",
     postData: props.userData,

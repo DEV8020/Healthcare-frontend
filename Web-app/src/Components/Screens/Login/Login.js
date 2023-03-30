@@ -83,7 +83,7 @@ const Login = (props) => {
     { option: "Super Admin" },
     { option: "Admin" },
     { option: "Supervisor" },
-    { option: "doctor" },
+    { option: "Doctor" },
     { option: "Front Desk" },
   ];
   return (
