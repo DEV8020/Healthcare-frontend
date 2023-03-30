@@ -54,6 +54,8 @@ const CreateUser = (props) => {
   //   }
   // };
   
+    props.setHospitalDetailsView(registerUserType);
+
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
   return (

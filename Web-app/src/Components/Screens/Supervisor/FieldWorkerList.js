@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 // import NewEncounterService from "../../../Services/FieldWorkerListService";
 import classes from "./FieldWorkerList.module.css";
-import FieldWorkerDetails from "../FieldWorker/FieldWorkerDetails";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const FieldWorkerList = (props) => {
@@ -29,7 +28,7 @@ const FieldWorkerList = (props) => {
       contact: 1234567890,
     },
   ];
-  const AssignFollowUpHandler = (data) => {
+  const getFieldWorkerDetailsHandler = (data) => {
     props.setAlertMessage(" Selected Field Worker :" + data);
     props.setAlertFlag(true);
     
@@ -47,7 +46,7 @@ const FieldWorkerList = (props) => {
 
             <AddButton
               value="Details"
-              onClick={() => AssignFollowUpHandler(fieldworkerdata.name)}
+              onClick={() => getFieldWorkerDetailsHandler(fieldworkerdata.name)}
             />
           </div>
         ))}
