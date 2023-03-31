@@ -1,6 +1,6 @@
 import classes from "./AdminScreen.module.css";
 import Button from "../UI Elements/Button/Button";
-import AddHospital from "../SuperAdmin/AddHospital";
+import ShowHospitalUsers from "./ShowHospitalUsers";
 import AddDoctor from "./AddDoctor";
 import AddFrontDesk from "./AddFrontDesk";
 import { useState } from "react";
@@ -9,8 +9,8 @@ import NavBar from "../UI Elements/NavBar/NavBar";
 const AdminScreen = (props) => {
   const [adminOption, setAdminOption] = useState("admin");
 
-  const AddHospitalButtonHandler = () => {
-    setAdminOption("addHospital");
+  const ShowHospitalUsersButtonHandler = () => {
+    setAdminOption("showHospitalUsers");
   };
   const AddDoctorButtonHandler = () => {
     setAdminOption("addDoctor");
@@ -32,8 +32,8 @@ const AdminScreen = (props) => {
 
         <div className={classes.Admin_menu}>
           <Button
-            value="Hospital Registration"
-            onClick={AddHospitalButtonHandler}
+            value="Show Hospital Users"
+            onClick={ShowHospitalUsersButtonHandler}
           />
 
           <Button
@@ -48,8 +48,8 @@ const AdminScreen = (props) => {
         </div>
       </div>
 
-      {adminOption === "addHospital" && (
-        <AddHospital
+      {adminOption === "showHospitalUsers" && (
+        <ShowHospitalUsers
           adminOption={adminOption}
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
