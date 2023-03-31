@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import AddPatient from "../Front Desk/CreateAppointment";
 
 import classes from "./Login.module.css";
 import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
 import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
+
+import LoginController from "../../../Controllers/LoginController";
+import MessageComponent from "../MessageComponent/MessageComponent";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -24,21 +26,67 @@ const Login = (props) => {
     setUserPassword(event.target.value);
   };
 
+  const userLoginResponseHandler = (userLoginData) => {
+    //console.log("LoginResponseHandler login api response is ");
+    //console.log(userLoginData);
+
+    if (userLoginData.errorMessage === null) {
+      if (userLoginData.isLoginFlag === true) {
+        props.setAlertMessage(userId + " login successfully");
+        setUserAsLoggedIn();
+      }
+      if (userLoginData.isLoginFlag === false) {
+        MessageComponent.showMessageScreen({
+          message: { message: "Invalid Credentials.", isTrueFlag: true },
+          alertMessageElement : props.setAlertMessage,
+          alertMessageFlag : props.setAlertFlag,
+          isErrorMessage : true
+        });
+        // console.log("userLoginData.isLoginFlag");
+        // props.setAlertMessage("Invalid Credentials.");
+        // props.setAlertFlag(true);
+      }
+    } else if (userLoginData.isLoginFlag === null) {
+      // props.setAlertMessage(userLoginData.errorMessage);
+      // props.setAlertFlag(true);
+
+      MessageComponent.showMessageScreen({ message: { message: "" } });
+    }
+  };
+
+  const setUserAsLoggedIn = () => {
+    const userData = {
+      userType: userType,
+      userId: userId,
+      password: userPassword,
+    };
+    setUserType("");
+    setUserId("");
+    setUserPassword("");
+    props.setAlertFlag(true);
+    props.onLogin(userData);
+  };
+
   const LoginHandler = (event) => {
     event.preventDefault();
 
     const userData = {
-      user_type: userType,
-      user_id: userId,
-      user_password: userPassword,
+      userType: userType,
+      userId: userId,
+      password: userPassword,
     };
 
-    setUserType("");
-    setUserId("");
-    setUserPassword("");
-    props.setAlertMessage(userId + " login successfully");
-    props.setAlertFlag(true);
-    props.onLogin(userData);
+    LoginController.GetUserLoginData({
+      userData: userData,
+      userLoginResponseHandler: userLoginResponseHandler,
+    });
+
+    // setUserType("");
+    // setUserId("");
+    // setUserPassword("");
+    // props.setAlertMessage(userId + " login successfully");
+    // props.setAlertFlag(true);
+    // props.onLogin(userData);
   };
   const hospitalUerTypeOptions = [
     { option: "Super Admin" },

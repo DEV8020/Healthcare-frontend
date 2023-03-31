@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import RegisterPatientService from "../../../Services/RegisterPatientService";
 import classes from "./PatientRegistration.module.css";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import Bdate from "../UI Elements/Date Element/Bdate";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
-import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
+// import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-
+import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 
 const PatientRegistration = (props) => {
   const [patientName, setPatientName] = useState("");
@@ -39,35 +39,64 @@ const PatientRegistration = (props) => {
     event.preventDefault();
 
     const patientData = {
-      patient_name: patientName,
-      patient_address: patientAddress,
-      patient_Contact: patientContactNo,
-      patient_sex: patientSex,
-      patient_age: patientBdate,
+      name: patientName,
+      address: patientAddress,
+      contact: patientContactNo,
+      sex: patientSex,
+      age: "22",
+      // age: patientBdate,
     };
-    props.setAlertMessage(patientName + "has been registered successfully");
-    props.setAlertFlag(true);
 
+    FrontDeskAPIHandler.RegisterNewPatientAPICall({
+      patientData: patientData,
+      registerNewPatientResponseCallBack: registerNewPatientResponseCallBack,
+    });
+  };
+
+  const showErrorMessageScreen = (errorMessage, isError) => {
+    console.log(isError);
+    props.setAlertMessage(errorMessage);
+    props.setAlertFlag(true);
+  };
+
+  const registerNewPatientResponseCallBack = (newPatientResponseData) => {
+    console.log("registerNewPatientResponseHandler response is ");
+    console.log(newPatientResponseData);
+
+    if (newPatientResponseData.errorMessage === null) {
+      if (newPatientResponseData.isNewPatientAdded === true) {
+        showErrorMessageScreen(
+          patientName + " has been registered successfully.",
+          false
+        );
+        resetPatientDataAfterRegister();
+      }
+      if (newPatientResponseData.isNewPatientAdded === false) {
+        showErrorMessageScreen(
+          "Some error occured. Please try again later.",
+          true
+        );
+      }
+    } else if (newPatientResponseData.isNewPatientAdded === null) {
+      showErrorMessageScreen(newPatientResponseData.errorMessage, true);
+    }
+  };
+
+  const resetPatientDataAfterRegister = () => {
     setPatientName("");
     setPatientContactNo("");
     setPatientSex("");
     setPatientAddress("");
     setPatientBdate("");
-
-  
-
-    // RegisterPatientHandler(patientData);
   };
-  const RegisterPatientHandler = async (patientData) => {
-    console.log(patientData);
 
-    try {
-      RegisterPatientService(patientData);
-    } catch (exception) {
-      console.log(exception);
-    }
-  
-  };
+
+const cancelButtonHandler = () => {
+  props.setFrontDeskOption("frontDesk");
+};
+
+
+
   return (
     <div>
       <div className={classes.center}>
@@ -80,43 +109,40 @@ const PatientRegistration = (props) => {
             value={patientName}
             onChange={patientNameChangeHandler}
           />
-         
-         <InputField
+
+          <InputField
             type="text"
             label="Contact Number"
             value={patientContactNo}
             onChange={patientContactNoChangeHandler}
           />
 
-<InputField
+          <InputField
             type="text"
             label="Sex"
             value={patientSex}
             onChange={patientSexChangeHandler}
           />
 
-{/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/> */}
+          {/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/> */}
 
-       
-           <Bdate
-            value={patientBdate}
-            onChange={patientBdateChangeHandler}
-          /> 
+          <Bdate value={patientBdate} onChange={patientBdateChangeHandler} />
           {/* <InputField
             type="text"
             label="DOB"
             value={patientBdate}
             onChange={patientBdateChangeHandler}
           /> */}
-           <TextBox.TextBox
+          <TextBox.TextBox
             type="text"
             label="Address"
             value={patientAddress}
             onChange={patientAddressChangeHandler}
           />
-          
-
+<div>
           <MenuSubmitButton value="Register" />
+          <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler}/>
+          </div>
         </form>
       </div>
     </div>
