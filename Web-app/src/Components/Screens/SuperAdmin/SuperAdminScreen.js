@@ -43,6 +43,13 @@ const SuperAdminScreen = (props) => {
     setSuperAdminOption("AllUsers");
   };
 
+// const addHospitalWithSuccessHandler = () => {
+//   console.log("addHospitalWithSucceessHandler");
+//   setSelectedHospitalIDForAddUser("");
+// }
+
+
+
   const logoutSA = () => {
     window.localStorage.removeItem("loggedInUser");
     props.setUser(null);
@@ -90,6 +97,7 @@ const SuperAdminScreen = (props) => {
           }
           hospitalsListWithNoAdmin={hospitalsListWithNoAdmin}
           selectedHospitalIDForAddUser = {selectedHospitalIDForAddUser}
+          
         />
       )}
       {superAdminOption === "AllUsers" && (
@@ -100,7 +108,7 @@ const SuperAdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
         />
       )}
-      {hospitalDetailsView === "Admin" && (
+      {hospitalDetailsView === "Admin" && superAdminOption === "CreateUserScreen" && (
         <HospitalDetailsView  hospitalsListData={hospitalsListWithNoAdmin}
           selectedHospitalCallBackHandler = {selectedHospitalInDetailViewCallBackHandler}
         />
