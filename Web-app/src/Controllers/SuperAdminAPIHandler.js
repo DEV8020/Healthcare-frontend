@@ -50,7 +50,7 @@ const AddNewUserData = async (props) => {
     postData: props.registerUserData,
     responseDataHandler: (addNewUserServiceData) => {
       console.log("addNewUserServiceData");
-      console.log(addNewUserServiceData);
+      console.log(addNewUserServiceData.responseData.data);
 
       if (addNewUserServiceData.responseError === null) {
         props.addNewUserResponseHandler({

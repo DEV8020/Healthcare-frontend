@@ -31,10 +31,10 @@ const AdminScreen = (props) => {
         <h2> Admin Menu</h2>
 
         <div className={classes.Admin_menu}>
-          <Button
+          {/* <Button
             value="Hospital Registration"
             onClick={AddHospitalButtonHandler}
-          />
+          /> */}
 
           <Button
             value="Doctor Registration"
@@ -48,14 +48,14 @@ const AdminScreen = (props) => {
         </div>
       </div>
 
-      {adminOption === "addHospital" && (
+      {/* {adminOption === "addHospital" && (
         <AddHospital
           adminOption={adminOption}
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
         />
-      )}
+      )} */}
       {adminOption === "addDoctor" && (
         <AddDoctor
           adminOption={adminOption}

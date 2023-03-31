@@ -4,31 +4,24 @@ import React from "react";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const HospitalDetailsView = (props) => {
-  const hospitalList = [
-    {
-      H_id: "f1",
-      p_id: "p1",
-      status: "Completed",
-    },
-    {
-      H_id: "f2",
-      p_id: "p2",
-      status: "Pending",
-    },
-    {
-      fl_id: "f3",
-      p_id: "p3",
-      status: "Completed",
-    },
-  ];
+//   const hospitalList = [
+//     {
+//       H_id: "f1",
+//       p_id: "p1",
+//       status: "Completed",
+//     },
+//     {
+//       H_id: "f2",
+//       p_id: "p2",
+//       status: "Pending",
+//     },
+//     {
+//       fl_id: "f3",
+//       p_id: "p3",
+//       status: "Completed",
+//     },
+//   ];
 
-  // {hospId: 2, name: 'HospitalNew', address: '400001', supId: {…}}
-  // length
-  // :
-  // 1
-  // [[Prototype]]
-  // :
-  // Array(0)
 
   const addHospitalCallBackHandler = (hospitalData) => {
     console.log("addHospitalCallBackHandler called");

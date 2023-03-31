@@ -110,4 +110,3 @@ const SuperAdminScreen = (props) => {
 };
 
 export default SuperAdminScreen;
-{/* hospitalsListData={hospitalsListWithNoAdmin} */}

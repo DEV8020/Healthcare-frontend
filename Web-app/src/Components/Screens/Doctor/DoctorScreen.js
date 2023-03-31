@@ -8,6 +8,7 @@ import EncounterScreen from "./EncounterScreen";
 import FieldWorkerUpdates from "./FieldWorkerUpdates";
 
 const DoctorScreen = (props) => {
+  const [doctorOption, setDoctorOption] = useState("");
   const [createEncounter, setCreateEncounter] = useState(false);
 
   const logoutD = () => {
@@ -16,7 +17,7 @@ const DoctorScreen = (props) => {
   };
   if (!props.user) return null;
 
-  const [doctorOption, setDoctorOption] = useState("");
+  
 
   const NewEncounterButtonHandler = () => {
     setDoctorOption("NewEncounter");
