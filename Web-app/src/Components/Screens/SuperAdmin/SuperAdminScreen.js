@@ -13,23 +13,35 @@ const SuperAdminScreen = (props) => {
   const [hospitalsListWithNoAdmin, setHospitalsListtWithNoAdmins] = useState(
     []
   );
-  const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] = useState("");
+  const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
+    useState("");
+
+  const [
+    selectedHospitalDataForAdminCreation,
+    setSelectedHospitalDataForAdminCreation,
+  ] = useState({
+    name: "",
+    userId: "",
+    password: "",
+    userType: "",
+    hospitalId: "",
+  });
 
   const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
-    console.log("hospitalListsWithNoAdminsCallBackHandler in super admin .js");
-    console.log(hospitalsList);
+    // console.log("hospitalListsWithNoAdminsCallBackHandler in super admin .js");
+    // console.log(hospitalsList);
     setHospitalsListtWithNoAdmins(hospitalsList);
   };
 
-
   const selectedHospitalInDetailViewCallBackHandler = (hospitalData) => {
-    console.log("sselectedHospitalInDetailViewCallBackHandler in super admin .js");
-    console.log(hospitalData);
-    //setSelectedHospitalForAddUser(hospitalData);
-    setSelectedHospitalIDForAddUser(hospitalData.hospId);
-    // setHospitalsListtWithNoAdmins(hospitalsList);
+    setSelectedHospitalDataForAdminCreation((hospitalAdminData) => {
+      return { ...hospitalAdminData, hospitalId: hospitalData.hospId };
+    });
   };
 
+  const HospitalRegistrationDataUpdateCallBackHandler = (updatedData) => {
+    setSelectedHospitalDataForAdminCreation(updatedData);
+  };
 
   const HospitalRegistrationButtonHandler = () => {
     setSuperAdminOption("HospitalRegistration");
@@ -42,13 +54,6 @@ const SuperAdminScreen = (props) => {
   const AllRegisteredUserButtonHandler = () => {
     setSuperAdminOption("AllUsers");
   };
-
-// const addHospitalWithSuccessHandler = () => {
-//   console.log("addHospitalWithSucceessHandler");
-//   setSelectedHospitalIDForAddUser("");
-// }
-
-
 
   const logoutSA = () => {
     window.localStorage.removeItem("loggedInUser");
@@ -96,8 +101,14 @@ const SuperAdminScreen = (props) => {
             hospitalListsWithNoAdminsCallBackHandler
           }
           hospitalsListWithNoAdmin={hospitalsListWithNoAdmin}
-          selectedHospitalIDForAddUser = {selectedHospitalIDForAddUser}
-          
+          selectedHospitalIDForAddUser={selectedHospitalIDForAddUser}
+          selectedHospitalDataForAdminCreation={
+            selectedHospitalDataForAdminCreation
+          }
+          setSelectedHospitalDataForAdminCreation = {setSelectedHospitalDataForAdminCreation}
+          HospitalRegistrationDataUpdateCallBackHandler={
+            HospitalRegistrationDataUpdateCallBackHandler
+          }
         />
       )}
       {superAdminOption === "AllUsers" && (
@@ -108,11 +119,15 @@ const SuperAdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
         />
       )}
-      {hospitalDetailsView === "Admin" && superAdminOption === "CreateUserScreen" && (
-        <HospitalDetailsView  hospitalsListData={hospitalsListWithNoAdmin}
-          selectedHospitalCallBackHandler = {selectedHospitalInDetailViewCallBackHandler}
-        />
-      )}
+      {hospitalDetailsView === "Admin" &&
+        superAdminOption === "CreateUserScreen" && (
+          <HospitalDetailsView
+            hospitalsListData={hospitalsListWithNoAdmin}
+            selectedHospitalCallBackHandler={
+              selectedHospitalInDetailViewCallBackHandler
+            }
+          />
+        )}
     </div>
   );
 };
