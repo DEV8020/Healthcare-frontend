@@ -15,6 +15,7 @@ const UpdateCredentialPopup = (props) => {
    const UpdateCredentialSubmitHandler=(event)=>{
         event.preventDefault();
         const updatedCredentials={
+            updatedId:props.d_id,
             updatedUserId:updatedUserId,
             updatedUserPassword:updatedUserPassword,
         }

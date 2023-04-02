@@ -3,12 +3,7 @@ import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import UpdateCredentialPopup from "../UI Elements/Pop-ups/UpdateCredentialPopup";
 
 import React, { useState } from "react";
-
-const ShowHospitalUsers = (props) => {
-  const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
-    useState(false);
-  const [UpdateCredentialUserId, setUpdateCredentialUserId] = useState("");
-  const HospitalUserList = [
+var HospitalUserList = [
     {
       d_id: "d1",
       userType: "Doctor",
@@ -34,18 +29,35 @@ const ShowHospitalUsers = (props) => {
       Password: "2",
     },
   ];
+const ShowHospitalUsers = (props) => {
+  const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
+    useState(false);
+  const [UpdateCredentialUserId, setUpdateCredentialUserId] = useState("");
+  
   const changeHospitalUserDataHandler = (user_id) => {
     console.log(user_id);
     setUpdateCredentialUserId(user_id);
     setShowUpdateCredentialPopup(true);
   };
   const handleCredentialPopupUpdate = (UpdateCredentials) => {
-    props.setAlertFlag(true);
-
-    props.setAlertMessage(
-      UpdateCredentialUserId + " Credentials Updated successfully"
-    );
+   
     setShowUpdateCredentialPopup(false);
+    const updatedUserList = HospitalUserList.map((user) => {
+        if (user.d_id === UpdateCredentials.updatedId) {
+          return {
+            ...user,
+            userID: UpdateCredentials.updatedUserId,
+            Password: UpdateCredentials.updatedUserPassword,
+          };
+        } else {
+          return user;
+        }
+      });
+  
+      // The above code will update the object with d_id "d1" with the new values
+      // and return a new array with the updated object.
+      // You can then store the updated array back in the same variable:
+      HospitalUserList = updatedUserList;
     props.setAlertFlag(true);
 
     props.setAlertMessage(
@@ -80,6 +92,7 @@ const ShowHospitalUsers = (props) => {
         <UpdateCredentialPopup
           onUpdate={handleCredentialPopupUpdate}
           onClose={handleCredentialPopupClose}
+          d_id={UpdateCredentialUserId}
         />
       )}
     </div>
