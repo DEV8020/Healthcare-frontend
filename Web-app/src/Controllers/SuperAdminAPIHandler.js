@@ -32,22 +32,14 @@ const AddHospitalData = async (props) => {
 
 const AddNewUserData = async (props) => {
 
-    console.log("AddNewUserData hospital id");
- console.log(props.registerUserData.hospitalId);
-
-//   const hospitalID = "2";
-
-//   console.log("addAdmin/55");
-//   console.log(props.registerUserData);
-
-  //addAdmin/{hospitalId}
-
+  const updatedData = {...props.registerUserData, "name" : props.registerUserData.userId};
+ 
   const childURL = "addAdmin/" + props.registerUserData.hospitalId;
   console.log(childURL);
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
-    postData: props.registerUserData,
+    postData: updatedData,
     responseDataHandler: (addNewUserServiceData) => {
       console.log("addNewUserServiceData");
       console.log(addNewUserServiceData.responseData.data);

@@ -28,8 +28,6 @@ const SuperAdminScreen = (props) => {
   });
 
   const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
-    // console.log("hospitalListsWithNoAdminsCallBackHandler in super admin .js");
-    // console.log(hospitalsList);
     setHospitalsListtWithNoAdmins(hospitalsList);
   };
 

@@ -2,37 +2,23 @@ import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-
+import MessageComponent from "../MessageComponent/MessageComponent";
 
 const CreateUser = (props) => {
-
   const [registerUserType, setRegisterUserType] = useState("");
-  const [registerUserId, setRegisterUserId] = useState("");
-  const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
-    useState("");
-  const [registerUserPassword, setRegisterUserPassword] = useState("");
+  // const [registerUserId, setRegisterUserId] = useState("");
+  // const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
+  useState("");
+  //  const [registerUserPassword, setRegisterUserPassword] = useState("");
 
-  const [hospitalDataForAdminCreation, setHospitalDataForAdminCreation] =
-    useState({});
+  // const [hospitalDataForAdminCreation, setHospitalDataForAdminCreation] =
+  //   useState({});
 
-  useEffect(() => {
-    setHospitalDataForAdminCreation(props.selectedHospitalDataForAdminCreation);
-  }, [props.selectedHospitalDataForAdminCreation]);
-
- 
-
-  useEffect(() => {
-    setSelectedHospitalIDForAddUser(props.selectedHospitalIDForAddUser);
-  }, [props.selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser]);
-
-  useEffect(() => {
-    // props.HospitalRegistrationDataUpdateCallBackHandler(
-    //   hospitalDataForAdminCreation
-    // );
-  }, [hospitalDataForAdminCreation, props.HospitalRegistrationDataUpdateCallBackHandler, props.hospitalDataForAdminCreation]);
+  // useEffect(() => {
+  //   setHospitalDataForAdminCreation(props.selectedHospitalDataForAdminCreation);
+  // }, [props.selectedHospitalDataForAdminCreation]);
 
   useEffect(() => {
     SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
@@ -40,7 +26,6 @@ const CreateUser = (props) => {
         hopitalListWithNoAdminsResponseHandler,
     });
   }, [registerUserType]);
-  
 
   useEffect(() => {
     props.setHospitalDetailsView(registerUserType);
@@ -51,31 +36,22 @@ const CreateUser = (props) => {
     setRegisterUserType(event.target.value);
   };
 
-
   var setHospitalData = (updateData) => {
-    console.log("setHospitalData updateData");
-    console.log(updateData);
-    console.log(".props.selectedHospitalDataForAdminCreation, updateData");
-    console.log(props.selectedHospitalDataForAdminCreation);
-    console.log(updateData);
-    console.log({...props.selectedHospitalDataForAdminCreation, ...updateData});
-    // HospitalRegistrationDataUpdateCallBackHandler(r);
-    props.HospitalRegistrationDataUpdateCallBackHandler({...props.selectedHospitalDataForAdminCreation, ...updateData});
-    //props.HospitalRegistrationDataUpdateCallBackHandler({...props.hospitalDataForAdminCreation, ...props});
-    // props.setHospitalDataForAdminCreation((hospitalData) => {
-    //   // console.log("Block run for the setHospitalDataForAdminCreation");
-    //   // console.log({ ...hospitalData, ...props });
-    //   return { ...hospitalData, ...props };
-    // });
+    props.HospitalRegistrationDataUpdateCallBackHandler({
+      ...props.selectedHospitalDataForAdminCreation,
+      ...updateData,
+    });
   };
 
   const registerUserHospitalIdChangeHandler = (event) => {
-   
+    // if(props.hospitalsListWithNoAdmin.count === 0){
+    //   showErrroMessage("Please add hospital, then proceed to register.");
+    //   return;
+    // }
+    showErrroMessage("Please choose hospital id from the list.");
   };
 
   const registerUserIdChangeHandler = (event) => {
-    // console.log("event.target.value");
-    // console.log(event.target.value);
     setHospitalData({ userId: event.target.value });
   };
 
@@ -88,17 +64,23 @@ const CreateUser = (props) => {
 
     event.preventDefault();
 
-    const registerUserData = {
-      name: registerUserId,
-      userId: registerUserId,
-      password: registerUserPassword,
-      userType: registerUserType,
-      hospitalId: selectedHospitalIDForAddUser,
-    };
+    // if (props.selectedHospitalDataForAdminCreation.trim.length === 0) {
+    //   showErrroMessage("Please enter userid to proceed.");
+    //   return;
+    // }
 
     SuperAdminAPIHandler.AddNewUserData({
-      registerUserData: registerUserData,
+      registerUserData: props.selectedHospitalDataForAdminCreation,
       addNewUserResponseHandler: addNewUserResponseHandler,
+    });
+  };
+
+  const showErrroMessage = (message) => {
+    MessageComponent.showMessageScreen({
+      message: { message: message, isTrueFlag: true },
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+      isErrorMessage: true,
     });
   };
 
@@ -124,12 +106,18 @@ const CreateUser = (props) => {
   };
 
   const addNewUserSuccessHandler = () => {
-    showMessageDisplayScreen(registerUserId + " registered successfully");
+    showMessageDisplayScreen(
+      props.selectedHospitalDataForAdminCreation.userId +
+        " registered successfully"
+    );
     setRegisterUserType("");
-    setRegisterUserId("");
-    setRegisterUserPassword("");
-    setSelectedHospitalIDForAddUser("");
-    console.log("addNewUserSuccessHandler called 2");
+    props.HospitalRegistrationDataUpdateCallBackHandler({
+      name: "",
+      userId: "",
+      password: "",
+      userType: "",
+      hospitalId: "",
+    });
   };
 
   const showMessageDisplayScreen = (emessageToBeDisplayed) => {
@@ -142,8 +130,6 @@ const CreateUser = (props) => {
   };
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
-
-  
 
   return (
     <div>
@@ -162,7 +148,7 @@ const CreateUser = (props) => {
             label="User ID"
             onChange={registerUserIdChangeHandler}
             //value={registerUserId}
-             value={props.selectedHospitalDataForAdminCreation.userId}
+            value={props.selectedHospitalDataForAdminCreation.userId}
           />
           <InputField
             type="text"
@@ -176,7 +162,7 @@ const CreateUser = (props) => {
               type="text"
               label="Hospital ID"
               onChange={registerUserHospitalIdChangeHandler}
-              value={hospitalDataForAdminCreation.hospitalId}
+              value={props.selectedHospitalDataForAdminCreation.hospitalId}
               //value={selectedHospitalIDForAddUser}
             />
           )}
