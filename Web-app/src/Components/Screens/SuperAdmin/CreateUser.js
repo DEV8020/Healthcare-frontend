@@ -8,17 +8,6 @@ import MessageComponent from "../MessageComponent/MessageComponent";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
-  // const [registerUserId, setRegisterUserId] = useState("");
-  // const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
-  useState("");
-  //  const [registerUserPassword, setRegisterUserPassword] = useState("");
-
-  // const [hospitalDataForAdminCreation, setHospitalDataForAdminCreation] =
-  //   useState({});
-
-  // useEffect(() => {
-  //   setHospitalDataForAdminCreation(props.selectedHospitalDataForAdminCreation);
-  // }, [props.selectedHospitalDataForAdminCreation]);
 
   useEffect(() => {
     SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
@@ -44,10 +33,6 @@ const CreateUser = (props) => {
   };
 
   const registerUserHospitalIdChangeHandler = (event) => {
-    // if(props.hospitalsListWithNoAdmin.count === 0){
-    //   showErrroMessage("Please add hospital, then proceed to register.");
-    //   return;
-    // }
     showErrroMessage("Please choose hospital id from the list.");
   };
 
@@ -61,14 +46,7 @@ const CreateUser = (props) => {
 
   const RegisterUserHandler = (event) => {
     console.log("RegisterUserHandler calleld");
-
     event.preventDefault();
-
-    // if (props.selectedHospitalDataForAdminCreation.trim.length === 0) {
-    //   showErrroMessage("Please enter userid to proceed.");
-    //   return;
-    // }
-
     SuperAdminAPIHandler.AddNewUserData({
       registerUserData: props.selectedHospitalDataForAdminCreation,
       addNewUserResponseHandler: addNewUserResponseHandler,
