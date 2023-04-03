@@ -97,6 +97,7 @@ const CreateUser = (props) => {
       hospitalId: "",
     });
   };
+  //name,contact,address
 
   const showMessageDisplayScreen = (emessageToBeDisplayed) => {
     props.setAlertMessage(emessageToBeDisplayed);
@@ -109,18 +110,11 @@ const CreateUser = (props) => {
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
 
-  return (
-    <div>
-      <div className={classes.center}>
-        <h1> Add Hospital Menu</h1>
-
-        <form id="createUser-form" onSubmit={RegisterUserHandler}>
-          <UserTypeSelection
-            label="--User Type --"
-            options={superAdminUserType}
-            onChange={registerUserTypeChangeHandler}
-          />
-
+  let formFields;
+  switch (registerUserType) {
+    case "Admin":
+      formFields = (
+        <>
           <InputField
             type="text"
             label="User ID"
@@ -135,15 +129,72 @@ const CreateUser = (props) => {
             //value={registerUserPassword}
             value={props.selectedHospitalDataForAdminCreation.password}
           />
-          {registerUserType === "Admin" && (
-            <InputField
-              type="text"
-              label="Hospital ID"
-              onChange={registerUserHospitalIdChangeHandler}
-              value={props.selectedHospitalDataForAdminCreation.hospitalId}
-              //value={selectedHospitalIDForAddUser}
-            />
-          )}
+
+          <InputField
+            type="text"
+            label="Hospital ID"
+            onChange={registerUserHospitalIdChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.hospitalId}
+            //value={selectedHospitalIDForAddUser}
+          />
+        </>
+      );
+      break;
+    case "Supervisor":
+      formFields = (
+        <>
+          <InputField
+            type="text"
+            label="User ID"
+            onChange={registerUserIdChangeHandler}
+            value={props.selectedHospitalDataForSupervisorCreation.userId}
+          />
+          <InputField
+            type="text"
+            label="Password"
+            onChange={registerUserPasswordChangeHandler}
+            value={props.selectedHospitalDataForSupervisorCreation.password}
+          />
+
+          <InputField
+            type="text"
+            label="Name"
+            onChange={registerUserHospitalIdChangeHandler}
+            value={props.selectedHospitalDataForSupervisorCreation.name}
+          />
+
+          <InputField
+            type="text"
+            label="Contact"
+            onChange={registerUserHospitalIdChangeHandler}
+            value={props.selectedHospitalDataForSupervisorCreation.contact}
+          />
+
+          <InputField
+            type="text"
+            label="Address"
+            onChange={registerUserHospitalIdChangeHandler}
+            value={props.selectedHospitalDataForSupervisorCreation.address}
+          />
+        </>
+      );
+      break;
+    default:
+      formFields = null;
+  }
+
+  return (
+    <div>
+      <div className={classes.center}>
+        <h1> Create User Menu</h1>
+
+        <form id="createUser-form" onSubmit={RegisterUserHandler}>
+          <UserTypeSelection
+            label="--User Type --"
+            options={superAdminUserType}
+            onChange={registerUserTypeChangeHandler}
+          />
+          {formFields}
           <div>
             <MenuSubmitButton value="Register" />
             <MenuSubmitButton
