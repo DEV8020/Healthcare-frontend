@@ -30,10 +30,6 @@ const AddHospitalData = async (props) => {
 
 const AddNewUserData = async (props) => {
   const updatedData = props.registerUserData;
-  // {
-  //   ...props.registerUserData,
-  //   name: props.registerUserData.userId,
-  // };
 
   var childURL = "addAdmin/" + props.registerUserData.hospitalId;
   if (props.registerUserData.userType === "Supervisor") {

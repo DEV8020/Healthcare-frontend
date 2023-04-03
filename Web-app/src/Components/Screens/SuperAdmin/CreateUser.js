@@ -53,7 +53,9 @@ const CreateUser = (props) => {
     setHospitalData({ name: event.target.value });
   };
 
-  //registerUserNameChangeHandler
+  //************************* Data Handler Methods Ends Here... *************************//
+
+
 
   const RegisterUserHandler = (event) => {
     event.preventDefault();
