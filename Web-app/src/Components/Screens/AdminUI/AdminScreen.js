@@ -48,9 +48,10 @@ const AdminScreen = (props) => {
         </div>
       </div>
 
-      {/* Code removed while merging */}
-      {adminOption === "addHospital" && (
-        <AddHospital
+      {adminOption === "showHospitalUsers" && (
+        <ShowHospitalUsers
+          // {adminOption === "addHospital" && (
+          //   <AddHospital
           adminOption={adminOption}
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
