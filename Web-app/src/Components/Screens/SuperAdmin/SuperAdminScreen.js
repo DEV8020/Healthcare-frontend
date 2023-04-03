@@ -17,7 +17,13 @@ const SuperAdminScreen = (props) => {
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
     useState("");
-    const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
+  const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
+
+  const [supervisorDataForAdminCreation, setSupervisorDataForAdminCreation] =
+    useState({
+      contact: "",
+      address: "",
+    });
 
   const [
     selectedHospitalDataForAdminCreation,
@@ -55,7 +61,6 @@ const SuperAdminScreen = (props) => {
       showAllRegisteredUserResponseHandler:
         showAllRegisteredUserResponseHandler,
     });
-    // }
   }, [isUserListDataToLoad]);
 
   const showAllRegisteredUserResponseHandler = (
@@ -70,7 +75,6 @@ const SuperAdminScreen = (props) => {
         allRegisteredUsersResponseData.registeredUserListData
       );
     }
-    
   };
 
   //########################## Getting List Of All Registered Users... ##########################
@@ -85,9 +89,13 @@ const SuperAdminScreen = (props) => {
     });
   };
 
+  const SuperVisorDataUpdateCallBackHandler = (updatedSupervisorData) => {
+    setSupervisorDataForAdminCreation((hospitalAdminData) => {
+      return { ...hospitalAdminData, ...updatedSupervisorData };
+    });
+  };
+
   const HospitalRegistrationDataUpdateCallBackHandler = (updatedData) => {
-    // console.log("HospitalRegistrationDataUpdateCallBackHandler");
-    // console.log(updatedData);
     setSelectedHospitalDataForAdminCreation(updatedData);
   };
 
@@ -158,6 +166,10 @@ const SuperAdminScreen = (props) => {
           }
           HospitalRegistrationDataUpdateCallBackHandler={
             HospitalRegistrationDataUpdateCallBackHandler
+          }
+          supervisorDataForAdminCreation={supervisorDataForAdminCreation}
+          SuperVisorDataUpdateCallBackHandler={
+            SuperVisorDataUpdateCallBackHandler
           }
         />
       )}

@@ -35,25 +35,52 @@ const CreateUser = (props) => {
   console.log("props.selectedHospitalDataForAdminCreation in reateuser.js");
   console.log(props.selectedHospitalDataForAdminCreation);
 
-  //************************* Data Handler Methods... *************************//
+  console.log("supervisor data in reateuser.js");
+  console.log(props.supervisorDataForAdminCreation);
 
+
+  var setSupervisorData = (updateSupervisorData) => {
+    props.SuperVisorDataUpdateCallBackHandler({
+     ...props.supervisorDataForAdminCreation,
+     ...updateSupervisorData
+    });
+  };
+
+
+
+  //***************** Text Inputs Text Change Handler Methods... *****************//
+
+  //Method for handling the hospital id change handler event...
   const registerUserHospitalIdChangeHandler = (event) => {
     showErrroMessage("Please choose hospital id from the list.");
   };
 
+  //Method for handling the user id change handler event...
   const registerUserIdChangeHandler = (event) => {
     setHospitalData({ userId: event.target.value });
   };
 
+  //Method for handling the user password change handler event...
   const registerUserPasswordChangeHandler = (event) => {
     setHospitalData({ password: event.target.value });
   };
 
+  //Method for handling the user name change handler event...
   const registerUserNameChangeHandler = (event) => {
     setHospitalData({ name: event.target.value });
   };
 
-  //************************* Data Handler Methods Ends Here... *************************//
+  //Method for handling the user contact change handler event...
+  const registerUserContactChangeHandler = (event) => {
+    setSupervisorData({ contact: event.target.value });
+  };
+
+  //Method for handling the user address change handler event...
+  const registerUserAddressChangeHandler = (event) => {
+    setSupervisorData({ address: event.target.value });
+  };
+
+  //***************** Text Inputs Text Change Handler Methods Ends Here... *****************//
 
 
 
@@ -120,6 +147,12 @@ const CreateUser = (props) => {
       userType: "",
       hospitalId: "",
     });
+
+
+    props.SuperVisorDataUpdateCallBackHandler({
+      contact: "",
+      address: "",
+    });
   };
   //name,contact,address
 
@@ -177,34 +210,34 @@ const CreateUser = (props) => {
             type="text"
             label="User ID"
             onChange={registerUserIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.userId}
+            value={props.selectedHospitalDataForAdminCreation.userId}
           />
           <InputField
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.password}
+            value={props.selectedHospitalDataForAdminCreation.password}
           />
 
           <InputField
             type="text"
             label="Name"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.name}
+            onChange={registerUserNameChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.name}
           />
 
           <InputField
             type="text"
             label="Contact"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.contact}
+            onChange={registerUserContactChangeHandler}
+            value={props.supervisorDataForAdminCreation.contact}
           />
 
           <InputField
             type="text"
             label="Address"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.address}
+            onChange={registerUserAddressChangeHandler}
+            value={props.supervisorDataForAdminCreation.address}
           />
         </>
       );
