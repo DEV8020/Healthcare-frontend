@@ -29,16 +29,19 @@ const AddHospitalData = async (props) => {
 
 
 const AddNewUserData = async (props) => {
-  const updatedData = {
-    ...props.registerUserData,
-    name: props.registerUserData.userId,
-  };
+  const updatedData = props.registerUserData;
+  // {
+  //   ...props.registerUserData,
+  //   name: props.registerUserData.userId,
+  // };
 
   var childURL = "addAdmin/" + props.registerUserData.hospitalId;
   if (props.registerUserData.userType === "Supervisor") {
     childURL = "addSupervisor";
   }
   console.log(childURL);
+  console.log("Data hit with user data");
+  console.log(updatedData);
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,

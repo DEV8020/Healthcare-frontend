@@ -32,6 +32,11 @@ const CreateUser = (props) => {
     });
   };
 
+  console.log("props.selectedHospitalDataForAdminCreation in reateuser.js");
+  console.log(props.selectedHospitalDataForAdminCreation);
+
+  //************************* Data Handler Methods... *************************//
+
   const registerUserHospitalIdChangeHandler = (event) => {
     showErrroMessage("Please choose hospital id from the list.");
   };
@@ -44,18 +49,23 @@ const CreateUser = (props) => {
     setHospitalData({ password: event.target.value });
   };
 
+  const registerUserNameChangeHandler = (event) => {
+    setHospitalData({ name: event.target.value });
+  };
+
+  //registerUserNameChangeHandler
+
   const RegisterUserHandler = (event) => {
-    
     event.preventDefault();
 
-    var addUserData = { name: "dhruv", contact: "khaddj", address: "400001"};
+    var addUserData = { name: "dhruv", contact: "khaddj", address: "400001" };
 
     if (props.selectedHospitalDataForAdminCreation.userType === "Supervisor") {
       addUserData = {
         ...addUserData,
         ...props.selectedHospitalDataForAdminCreation,
       };
-    }else{
+    } else {
       addUserData = props.selectedHospitalDataForAdminCreation;
     }
 
@@ -137,8 +147,8 @@ const CreateUser = (props) => {
           <InputField
             type="text"
             label="Name"
-            // onChange={registerUserNameChangeHandler}
-            // value={props.selectedHospitalDataForAdminCreation.name}
+            onChange={registerUserNameChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.name}
           />
           <InputField
             type="text"
