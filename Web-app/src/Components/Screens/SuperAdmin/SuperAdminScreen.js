@@ -38,6 +38,8 @@ const SuperAdminScreen = (props) => {
   };
 
   const HospitalRegistrationDataUpdateCallBackHandler = (updatedData) => {
+    // console.log("HospitalRegistrationDataUpdateCallBackHandler");
+    // console.log(updatedData);
     setSelectedHospitalDataForAdminCreation(updatedData);
   };
 

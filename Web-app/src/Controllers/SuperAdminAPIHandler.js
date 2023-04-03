@@ -27,14 +27,17 @@ const AddHospitalData = async (props) => {
   });
 };
 
-// registerUserData : registerUserData,
-//   addNewUserResponseHandler : addNewUserResponseHandler
 
 const AddNewUserData = async (props) => {
+  const updatedData = {
+    ...props.registerUserData,
+    name: props.registerUserData.userId,
+  };
 
-  const updatedData = {...props.registerUserData, "name" : props.registerUserData.userId};
- 
-  const childURL = "addAdmin/" + props.registerUserData.hospitalId;
+  var childURL = "addAdmin/" + props.registerUserData.hospitalId;
+  if (props.registerUserData.userType === "Supervisor") {
+    childURL = "addSupervisor";
+  }
   console.log(childURL);
 
   await GlobalServiceHandler.hitPostService({
@@ -66,7 +69,6 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
 
   await GlobalServiceHandler.hitGetService({
     childURL: "hospitalsWithNoAdmins",
-    //   postData: props.registerUserData,
     responseDataHandler: (hospitalsListServiceData) => {
       console.log("GetHospitalListsDataWithNoAdmins");
       console.log(hospitalsListServiceData.responseData.data);

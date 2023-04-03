@@ -45,10 +45,22 @@ const CreateUser = (props) => {
   };
 
   const RegisterUserHandler = (event) => {
-    console.log("RegisterUserHandler calleld");
+    
     event.preventDefault();
+
+    var addUserData = { name: "dhruv", contact: "khaddj", address: "400001"};
+
+    if (props.selectedHospitalDataForAdminCreation.userType === "Supervisor") {
+      addUserData = {
+        ...addUserData,
+        ...props.selectedHospitalDataForAdminCreation,
+      };
+    }else{
+      addUserData = props.selectedHospitalDataForAdminCreation;
+    }
+
     SuperAdminAPIHandler.AddNewUserData({
-      registerUserData: props.selectedHospitalDataForAdminCreation,
+      registerUserData: addUserData,
       addNewUserResponseHandler: addNewUserResponseHandler,
     });
   };
