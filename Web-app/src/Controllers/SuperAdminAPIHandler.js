@@ -90,9 +90,38 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
   });
 };
 
+
+
+const GetSuperAdminAllRegisteredUserList = async (props) => {
+  console.log("GetSuperAdminAllRegisteredUserList");
+
+  await GlobalServiceHandler.hitGetService({
+    childURL: "getAllUsers",
+    responseDataHandler: (allRegisteredUserListServiceData) => {
+      console.log("allRegisteredUserListServiceData");
+      console.log(allRegisteredUserListServiceData.responseData.data);
+
+      if (allRegisteredUserListServiceData.responseError === null) {
+        props.showAllRegisteredUserResponseHandler({
+          isRegisteredUsersListRecieved: true,
+          registeredUserListData: allRegisteredUserListServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (allRegisteredUserListServiceData.responseData === null) {
+        props.showAllRegisteredUserResponseHandler({
+          isRegisteredUsersListRecieved: null,
+          registeredUserListData: null,
+          errorMessage: "Some error occured. Please try again later.",
+        });
+      }
+    },
+  });
+};
+
 const SuperAdminAPIHandler = {
   AddHospitalData,
   AddNewUserData,
   GetHospitalListsDataWithNoAdmins,
+  GetSuperAdminAllRegisteredUserList
 };
 export default SuperAdminAPIHandler;
