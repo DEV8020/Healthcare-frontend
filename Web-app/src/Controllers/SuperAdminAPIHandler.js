@@ -27,14 +27,17 @@ const AddHospitalData = async (props) => {
   });
 };
 
-// registerUserData : registerUserData,
-//   addNewUserResponseHandler : addNewUserResponseHandler
 
 const AddNewUserData = async (props) => {
+  const updatedData = {
+    ...props.registerUserData,
+    name: props.registerUserData.userId,
+  };
 
-  const updatedData = {...props.registerUserData, "name" : props.registerUserData.userId};
- 
-  const childURL = "addAdmin/" + props.registerUserData.hospitalId;
+  var childURL = "addAdmin/" + props.registerUserData.hospitalId;
+  if (props.registerUserData.userType === "Supervisor") {
+    childURL = "addSupervisor";
+  }
   console.log(childURL);
 
   await GlobalServiceHandler.hitPostService({
@@ -66,7 +69,6 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
 
   await GlobalServiceHandler.hitGetService({
     childURL: "hospitalsWithNoAdmins",
-    //   postData: props.registerUserData,
     responseDataHandler: (hospitalsListServiceData) => {
       console.log("GetHospitalListsDataWithNoAdmins");
       console.log(hospitalsListServiceData.responseData.data);
@@ -88,9 +90,38 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
   });
 };
 
+
+
+const GetSuperAdminAllRegisteredUserList = async (props) => {
+  console.log("GetSuperAdminAllRegisteredUserList");
+
+  await GlobalServiceHandler.hitGetService({
+    childURL: "getAllUsers",
+    responseDataHandler: (allRegisteredUserListServiceData) => {
+      console.log("allRegisteredUserListServiceData");
+      console.log(allRegisteredUserListServiceData.responseData.data);
+
+      if (allRegisteredUserListServiceData.responseError === null) {
+        props.showAllRegisteredUserResponseHandler({
+          isRegisteredUsersListRecieved: true,
+          registeredUserListData: allRegisteredUserListServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (allRegisteredUserListServiceData.responseData === null) {
+        props.showAllRegisteredUserResponseHandler({
+          isRegisteredUsersListRecieved: null,
+          registeredUserListData: null,
+          errorMessage: "Some error occured. Please try again later.",
+        });
+      }
+    },
+  });
+};
+
 const SuperAdminAPIHandler = {
   AddHospitalData,
   AddNewUserData,
   GetHospitalListsDataWithNoAdmins,
+  GetSuperAdminAllRegisteredUserList
 };
 export default SuperAdminAPIHandler;
