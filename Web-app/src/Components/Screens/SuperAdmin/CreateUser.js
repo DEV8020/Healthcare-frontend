@@ -2,109 +2,68 @@ import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-
-// import createUser from "../../../Services/CreateUser";
+import MessageComponent from "../MessageComponent/MessageComponent";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
-  const [registerUserId, setRegisterUserId] = useState("");
-  const [selectedHospitalDataForAddUser, setSelectedHospitalDataForAddUser] = useState();
-  const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] = useState("");
-  const [registerUserPassword, setRegisterUserPassword] = useState("");
 
+  useEffect(() => {
+    SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
+      hopitalListWithNoAdminsResponseHandler:
+        hopitalListWithNoAdminsResponseHandler,
+    });
+  }, [registerUserType]);
 
-  // selectedHospitalForAddUser
-
-  // const [hospitalsListWithNoAdmin, setHospitalsListtWithNoAdmins] = useState(
-  //   null
-  // );
-
-//selectedHospitalIDForAddUser
-
-
-useEffect(() => {
-  setSelectedHospitalIDForAddUser(props.selectedHospitalIDForAddUser);
-  }
-);
-
-
-
-// setSelectedHospitalIDForAddUser(props.selectedHospitalIDForAddUser);
-
-  console.log("props.selectedHospitalForAddUser");
-  console.log(props.selectedHospitalIDForAddUser);
-  // console.log(selectedHospitalDataForAddUser);
-  // console.log(selectedHospitalDataForAddUser);
-  //selectedHospitalDataForAddUser.hospId
-
-  //setSelectedHospitalDataForAddUser(props.selectedHospitalForAddUser);
-
-  props.setHospitalDetailsView(registerUserType);
+  useEffect(() => {
+    props.setHospitalDetailsView(registerUserType);
+  }, [registerUserType, props.setHospitalDetailsView]);
 
   const registerUserTypeChangeHandler = (event) => {
+    setHospitalData({ userType: event.target.value });
     setRegisterUserType(event.target.value);
   };
+
+  var setHospitalData = (updateData) => {
+    props.HospitalRegistrationDataUpdateCallBackHandler({
+      ...props.selectedHospitalDataForAdminCreation,
+      ...updateData,
+    });
+  };
+
   const registerUserHospitalIdChangeHandler = (event) => {
-    // setRegisterUserHospitalId(event.target.value);
+    showErrroMessage("Please choose hospital id from the list.");
   };
 
   const registerUserIdChangeHandler = (event) => {
-    console.log(selectedHospitalDataForAddUser);
-    setRegisterUserId(event.target.value);
+    setHospitalData({ userId: event.target.value });
   };
 
   const registerUserPasswordChangeHandler = (event) => {
-    setRegisterUserPassword(event.target.value);
+    setHospitalData({ password: event.target.value });
   };
 
   const RegisterUserHandler = (event) => {
     console.log("RegisterUserHandler calleld");
-
     event.preventDefault();
-
-    // {registerUser_type: 'Admin',
-    // registerUser_id: 'eeee',
-    // registerUser_password: '123456',
-    // registerUserHospitalId: '55'}
-
-    // {
-    //   "name": "Admin1",
-    //   "userId":"admin1",
-    //   "password":"admin1",
-    //   "userType":"Admin"
-    // }
-
-    const registerUserData = {
-      name: registerUserId,
-      userId: registerUserId,
-      password: registerUserPassword,
-      userType: registerUserType,
-      hospitalId : selectedHospitalIDForAddUser
-    };
-
-    // SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
-    //   hopitalListWithNoAdminsResponseHandler:
-    //     hopitalListWithNoAdminsResponseHandler,
-    // });
-
     SuperAdminAPIHandler.AddNewUserData({
-      registerUserData: registerUserData,
+      registerUserData: props.selectedHospitalDataForAdminCreation,
       addNewUserResponseHandler: addNewUserResponseHandler,
     });
   };
 
+  const showErrroMessage = (message) => {
+    MessageComponent.showMessageScreen({
+      message: { message: message, isTrueFlag: true },
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+      isErrorMessage: true,
+    });
+  };
+
   const hopitalListWithNoAdminsResponseHandler = (hospitalListResponseData) => {
-    // isHospitalListRecieved: true,
-    // hospitalListData: hospitalsListServiceData.responseData.data,
-    // errorMessage: null,
-    console.log("hopitalListWithNoAdminsResponseHandler called");
-    console.log(hospitalListResponseData);
     if (hospitalListResponseData.isHospitalListRecieved === true) {
-      //setHospitalsListtWithNoAdmins(hospitalListResponseData.hospitalListData);
-      console.log("hopitalListWithNoAdminsResponseHandler inner loop  called");
       props.hospitalListsWithNoAdminsCallBackHandler(
         hospitalListResponseData.hospitalListData
       );
@@ -112,7 +71,6 @@ useEffect(() => {
   };
 
   const addNewUserResponseHandler = (newUserData) => {
-    console.log(newUserData);
     if (newUserData.errorMessage === null) {
       if (newUserData.isNewUserAdded === true) {
         addNewUserSuccessHandler();
@@ -126,11 +84,18 @@ useEffect(() => {
   };
 
   const addNewUserSuccessHandler = () => {
+    showMessageDisplayScreen(
+      props.selectedHospitalDataForAdminCreation.userId +
+        " registered successfully"
+    );
     setRegisterUserType("");
-    setRegisterUserId("");
-    setRegisterUserPassword("");
-    // setRegisterUserHospitalId("");
-    showMessageDisplayScreen(registerUserId + " registered successfully");
+    props.HospitalRegistrationDataUpdateCallBackHandler({
+      name: "",
+      userId: "",
+      password: "",
+      userType: "",
+      hospitalId: "",
+    });
   };
 
   const showMessageDisplayScreen = (emessageToBeDisplayed) => {
@@ -138,22 +103,11 @@ useEffect(() => {
     props.setAlertFlag(true);
   };
 
-  const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
+  const BackButtonPressedHandler = () => {
+    props.setSuperAdminOption("");
+  };
 
-  useEffect(() => {
-    if (
-      registerUserType === "Admin" &&
-      props.hospitalsListWithNoAdmin.length === 0
-    ) {
-      console.log(
-        "SuperAdminAPIHandler GetHospitalListsDataWithNoAdmins API Called"
-      );
-      SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
-        hopitalListWithNoAdminsResponseHandler:
-          hopitalListWithNoAdminsResponseHandler,
-      });
-    }
-  });
+  const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
 
   return (
     <div>
@@ -171,23 +125,32 @@ useEffect(() => {
             type="text"
             label="User ID"
             onChange={registerUserIdChangeHandler}
-            value={registerUserId}
+            //value={registerUserId}
+            value={props.selectedHospitalDataForAdminCreation.userId}
           />
           <InputField
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
-            value={registerUserPassword}
+            //value={registerUserPassword}
+            value={props.selectedHospitalDataForAdminCreation.password}
           />
           {registerUserType === "Admin" && (
             <InputField
               type="text"
               label="Hospital ID"
               onChange={registerUserHospitalIdChangeHandler}
-              value={selectedHospitalIDForAddUser}
+              value={props.selectedHospitalDataForAdminCreation.hospitalId}
+              //value={selectedHospitalIDForAddUser}
             />
           )}
-          <MenuSubmitButton value="Register" />
+          <div>
+            <MenuSubmitButton value="Register" />
+            <MenuSubmitButton
+              value="Cancel"
+              onClick={BackButtonPressedHandler}
+            />
+          </div>
         </form>
       </div>
     </div>

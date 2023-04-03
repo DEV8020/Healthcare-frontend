@@ -14,6 +14,20 @@ const Login = (props) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  //Function to handle forgot password fucntionality...
+  const forgotPasswordButtonClickHandler = () => {
+    //MessageComponent showMessageScreen method to display appropriate message...
+    MessageComponent.showMessageScreen({
+      message: {
+        message: "Please contact admin to recover your password.",
+        isTrueFlag: true,
+      },
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+      isErrorMessage: true,
+    });
+  };
+
   const userTypeChangeHandler = (event) => {
     setUserType(event.target.value);
   };
@@ -38,9 +52,9 @@ const Login = (props) => {
       if (userLoginData.isLoginFlag === false) {
         MessageComponent.showMessageScreen({
           message: { message: "Invalid Credentials.", isTrueFlag: true },
-          alertMessageElement : props.setAlertMessage,
-          alertMessageFlag : props.setAlertFlag,
-          isErrorMessage : true
+          alertMessageElement: props.setAlertMessage,
+          alertMessageFlag: props.setAlertFlag,
+          isErrorMessage: true,
         });
         // console.log("userLoginData.isLoginFlag");
         // props.setAlertMessage("Invalid Credentials.");
@@ -117,7 +131,10 @@ const Login = (props) => {
           onChange={userPasswordChangeHandler}
         />
 
-        <ForgotPasswordButton value="Forgot Password?" />
+        <ForgotPasswordButton
+          value="Forgot Password?"
+          onClickHandler={forgotPasswordButtonClickHandler}
+        />
         <SubmitButton value="Login" />
       </form>
     </div>

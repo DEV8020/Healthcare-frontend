@@ -8,16 +8,16 @@ import EncounterScreen from "./EncounterScreen";
 import FieldWorkerUpdates from "./FieldWorkerUpdates";
 
 const DoctorScreen = (props) => {
+  const [doctorOption, setDoctorOption] = useState("");
   const [createEncounter, setCreateEncounter] = useState(false);
 
-  const [doctorOption, setDoctorOption] = useState("");
-  
+  // const [doctorOption, setDoctorOption] = useState("");
+
   const logoutD = () => {
     window.localStorage.removeItem("loggedInUser");
     props.setUser(null);
   };
   if (!props.user) return null;
-
 
   const NewEncounterButtonHandler = () => {
     setDoctorOption("NewEncounter");
