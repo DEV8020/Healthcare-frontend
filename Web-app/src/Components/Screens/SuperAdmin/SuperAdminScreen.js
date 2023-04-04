@@ -7,6 +7,7 @@ import AddHospital from "./AddHospital";
 import ShowAllUser from "./ShowAllUser";
 import HospitalDetailsView from "./HospitalDetailsView";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
@@ -17,7 +18,7 @@ const SuperAdminScreen = (props) => {
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
     useState("");
-    const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
+  const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
 
   const [
     selectedHospitalDataForAdminCreation,
@@ -70,10 +71,7 @@ const SuperAdminScreen = (props) => {
         allRegisteredUsersResponseData.registeredUserListData
       );
     }
-    
   };
-
-
 
   const updateUserListAfterDataUpdateHandler = () => {
     // console.log("updateUserListAfterDataUpdateHandler called in superadminscreen.js");
@@ -82,10 +80,18 @@ const SuperAdminScreen = (props) => {
     });
   };
 
-
-
-
-
+  const displayMessagesInParentViewHandler = (prop) => {
+    console.log(
+      "displayMessagesInParentViewHandler displayMessagesInParentViewHandler in superadminscreen"
+    );
+    console.log(prop);
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
+  };
 
   //########################## Getting List Of All Registered Users... ##########################
 
@@ -186,7 +192,12 @@ const SuperAdminScreen = (props) => {
           registeredUserUpdateHandleCallBack={
             registeredUserUpdateHandleCallBack
           }
-          updateUserListAfterDataUpdateHandler = {updateUserListAfterDataUpdateHandler}
+          updateUserListAfterDataUpdateHandler={
+            updateUserListAfterDataUpdateHandler
+          }
+          displayMessagesInParentViewHandler={
+            displayMessagesInParentViewHandler
+          }
         />
       )}
       {hospitalDetailsView === "Admin" &&

@@ -1,11 +1,14 @@
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const updateUserData = async (props) => {
-
   console.log("updateUserData in super admin user related api handler");
   console.log(props.userData);
 
-  var childURL = "updateAdmin"; 
+  var childURL = "updateAdmin";
+
+  if (props.userData.userType === "Supervisor") {
+    childURL = "updateSupervisor";
+  }
 
   await GlobalServiceHandler.hitPutService({
     childURL: childURL,
@@ -32,7 +35,6 @@ const updateUserData = async (props) => {
     },
   });
 };
-
 
 const SuperAdminUserRelatedAPIHandler = {
   updateUserData,

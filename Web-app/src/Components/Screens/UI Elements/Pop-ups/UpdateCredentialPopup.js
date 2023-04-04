@@ -18,6 +18,9 @@ const UpdateCredentialPopup = (props) => {
   console.log("userDataToBeUpdated UpdateCredentialPopup pop up");
   console.log(userDataToBeUpdated);
 
+
+
+
   //########################## Data Handler Methods  ##########################
   //User ID Change Handler...
   const UpdatedUserIdChangeHandler = (event) => {
@@ -44,6 +47,9 @@ const UpdateCredentialPopup = (props) => {
     updateUserData({ address: event.target.value });
   };
   //########################## Data Handler Methods Ends Here  ##########################
+
+
+
 
   const updateUserData = (userDataToUpdated) => {
     // console.log("updateUserData");
@@ -89,6 +95,16 @@ const UpdateCredentialPopup = (props) => {
       return;
     }
 
+    if (userDataToBeUpdated.userType === "Supervisor" &&
+      UtilitiesMethods.getSpaceTrimmedLenght(userDataToBeUpdated.contact) === 0
+    ) {
+      props.displayMessagesInParentViewHandler({
+        message: "Please enter contact number to proceed, It can't be left blank.",
+        isErrorMessage: true,
+      });
+      return;
+    }
+
     SuperAdminUserRelatedAPIHandler.updateUserData({
       userData: userDataToBeUpdated,
       modifyUserDataResponseHandler: modifyUserDataResponseHandler,
@@ -124,10 +140,17 @@ const UpdateCredentialPopup = (props) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
       message: prop.message,
       isErrorMessage: prop.isErrorMessage,
-      setAlertMessageElement: props.setAlertMessage,
-      setAlertMessageFlag: props.setAlertFlag,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
     });
   };
+
+  // MessageComponent.showMessageScreen({
+  //   message: { message: props.message, isTrueFlag: props.isErrorMessage },
+  //   alertMessageElement: props.alertMessageElement,
+  //   alertMessageFlag: props.alertMessageFlag,
+  //   isErrorMessage: props.isErrorMessage,
+  // });
 
   return (
     <div className={classes.popup}>
