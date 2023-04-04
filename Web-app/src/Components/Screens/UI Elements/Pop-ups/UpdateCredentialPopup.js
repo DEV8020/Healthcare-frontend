@@ -83,41 +83,39 @@ const UpdateCredentialPopup = (props) => {
           />
 
           {/*if userDatatoBeUpdated has userName field than this will be shown  */}
-          {userDataToBeUpdated.userName && (
-            <>
-              <label htmlFor="userName">Name:</label>
-              <input
-                type="text"
-                id="userName"
-                value={userDataToBeUpdated.userName}
-                onChange={UpdatedUserNameChangeHandler}
-              />
-            </>
-          )}
 
-          {userDataToBeUpdated.userContact  && (
+          <label htmlFor="userName">Name:</label>
+          <input
+            type="text"
+            id="userName"
+            value={userDataToBeUpdated.name}
+            onChange={UpdatedUserNameChangeHandler}
+          />
+
+          {userDataToBeUpdated.userType !== "Admin" && (
             <>
               <label htmlFor="userContact">Contact:</label>
               <input
                 type="text"
                 id="userContact"
-                value={userDataToBeUpdated.userContact}
+                value={userDataToBeUpdated.contact}
                 onChange={UpdatedUserContactChangeHandler}
               />
             </>
           )}
 
-          {userDataToBeUpdated.userAddress && userDataToBeUpdated.userType !== "Supervisor" && (
-            <>
-              <label htmlFor="userAddress">Address:</label>
-              <input
-                type="text"
-                id="userAddress"
-                value={userDataToBeUpdated.userAddress}
-                onChange={UpdatedUserAddressChangeHandler}
-              />
-            </>
-          )}
+          {userDataToBeUpdated.userType !== "Admin" &&
+            userDataToBeUpdated.userType !== "Supervisor" && (
+              <>
+                <label htmlFor="userAddress">Address:</label>
+                <input
+                  type="text"
+                  id="userAddress"
+                  value={userDataToBeUpdated.address}
+                  onChange={UpdatedUserAddressChangeHandler}
+                />
+              </>
+            )}
 
           <label htmlFor="password">Password:</label>
           <input

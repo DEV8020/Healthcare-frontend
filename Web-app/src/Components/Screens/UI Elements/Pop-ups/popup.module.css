@@ -12,7 +12,9 @@
 
 .popup_content {
   background-color: white;
-  padding: 30px;
+  width: 70%;
+
+  padding: 15px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
@@ -22,11 +24,14 @@
 }
 
 .popup_content form {
-  display: inline;
+  
+  display:flex;
+  flex-direction: column;
 }
 
 .popup_content label {
   margin-bottom: 5px;
+  margin-left: 10px;
 }
 
 .popup_content input {
