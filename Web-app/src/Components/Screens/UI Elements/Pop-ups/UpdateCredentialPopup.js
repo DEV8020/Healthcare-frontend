@@ -2,6 +2,7 @@ import React, { useEffect, useState, useSyncExternalStore } from "react";
 import classes from "./popup.module.css";
 import SuperAdminUserRelatedAPIHandler from "../../../../Controllers/SuperAdminUserRelatedAPIHandler";
 import MessageComponent from "../../MessageComponent/MessageComponent";
+import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 
 const UpdateCredentialPopup = (props) => {
   const [updatedUserId, setUpdatedUserId] = useState("");
@@ -17,8 +18,6 @@ const UpdateCredentialPopup = (props) => {
   console.log("userDataToBeUpdated UpdateCredentialPopup pop up");
   console.log(userDataToBeUpdated);
 
-
-  
   //########################## Data Handler Methods  ##########################
   //User ID Change Handler...
   const UpdatedUserIdChangeHandler = (event) => {
@@ -46,8 +45,6 @@ const UpdateCredentialPopup = (props) => {
   };
   //########################## Data Handler Methods Ends Here  ##########################
 
-
-
   const updateUserData = (userDataToUpdated) => {
     // console.log("updateUserData");
     // console.log(userDataToUpdated);
@@ -61,26 +58,59 @@ const UpdateCredentialPopup = (props) => {
 
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
+
+    if (
+      UtilitiesMethods.getSpaceTrimmedLenght(userDataToBeUpdated.userId) === 0
+    ) {
+      props.displayMessagesInParentViewHandler({
+        message: "Please enter user Id to proceed, It can't be left blank.",
+        isErrorMessage: true,
+      });
+      return;
+    }
+
+    if (
+      UtilitiesMethods.getSpaceTrimmedLenght(userDataToBeUpdated.name) === 0
+    ) {
+      props.displayMessagesInParentViewHandler({
+        message: "Please enter name to proceed, It can't be left blank.",
+        isErrorMessage: true,
+      });
+      return;
+    }
+
+    if (
+      UtilitiesMethods.getSpaceTrimmedLenght(userDataToBeUpdated.password) === 0
+    ) {
+      props.displayMessagesInParentViewHandler({
+        message: "Please enter password to proceed, It can't be left blank.",
+        isErrorMessage: true,
+      });
+      return;
+    }
+
     SuperAdminUserRelatedAPIHandler.updateUserData({
       userData: userDataToBeUpdated,
       modifyUserDataResponseHandler: modifyUserDataResponseHandler,
     });
-    // console.log("UpdateCredentialSubmitHandler userDataToBeUpdated");
-    // console.log(userDataToBeUpdated);
   };
 
   const modifyUserDataResponseHandler = (modifiedUserData) => {
-    // console.log("modifiedUserData");
-    // console.log(modifiedUserData);
     if (modifiedUserData.errorMessage === null) {
       if (modifiedUserData.isUserDataUpdated === true) {
         updateUserDataSuccessHandler(modifiedUserData.userUpdatedData);
       }
       if (modifiedUserData.isUserDataUpdated === false) {
-        showErrroMessage("Some error occured.");
+        showErrorMessage({
+          message: "Some error occured.",
+          isErrorMessage: true,
+        });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
-      showErrroMessage(modifiedUserData.errorMessage);
+      showErrorMessage({
+        message: modifiedUserData.errorMessage,
+        isErrorMessage: true,
+      });
     }
   };
 
@@ -90,13 +120,12 @@ const UpdateCredentialPopup = (props) => {
   };
 
   //message , isErrorMessage
-  const showErrroMessage = (message) => {
-    // MessageComponent
-    MessageComponent.showMessageScreen({
-      message: { message: message, isTrueFlag: true },
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-      isErrorMessage: true,
+  const showErrorMessage = (prop) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
+      setAlertMessageElement: props.setAlertMessage,
+      setAlertMessageFlag: props.setAlertFlag,
     });
   };
 

@@ -5,6 +5,7 @@ import UpdateCredentialPopup from "../UI Elements/Pop-ups/UpdateCredentialPopup"
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MessageComponent from "../MessageComponent/MessageComponent";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const ShowAllUser = (props) => {
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
@@ -18,7 +19,6 @@ const ShowAllUser = (props) => {
     setAllRegisteredUsersList(props.registeredUsersList);
   }, [props.registeredUsersList]);
 
-
   const changeUserDataHandler = (userDataToBeUpdated) => {
     // console.log(userDataToBeUpdated);
     // console.log("changeUserDataHandler called");
@@ -28,19 +28,28 @@ const ShowAllUser = (props) => {
 
   const onUserDataUpdateHandler = (UpdateUserData) => {
     setShowUpdateCredentialPopup(false);
-    // console.log("handleCredentialPopupUpdate called with data");
-    // console.log(UpdateUserData);
-    showErrroMessage("User data updated successfully.");
+    displayMessagesInParentViewHandler({message : "User data updated successfully.", isErrorMessage : false});
     props.updateUserListAfterDataUpdateHandler();
   };
 
-  //message , isErrorMessage
-  const showErrroMessage = (message) => {
-    MessageComponent.showMessageScreen({
-      message: { message: message, isTrueFlag: true },
+
+  // const showErrorMessage = (prop) => {
+  //   // displayMessagesInParentViewHandler({message : , isErrorMessage : });
+  //   // MessageComponent.showMessageScreen({
+  //   //   message: { message: message, isTrueFlag: true },
+  //   //   alertMessageElement: props.setAlertMessage,
+  //   //   alertMessageFlag: props.setAlertFlag,
+  //   //   isErrorMessage: true,
+  //   // });
+  // };
+  
+
+  const displayMessagesInParentViewHandler = (prop) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
       alertMessageElement: props.setAlertMessage,
       alertMessageFlag: props.setAlertFlag,
-      isErrorMessage: true,
     });
   };
 
@@ -54,14 +63,13 @@ const ShowAllUser = (props) => {
     props.registeredUserUpdateHandleCallBack(updatedData);
   };
 
-
   return (
     <div className={classes.center}>
       <h2> User List</h2>
       <div className={classes.ul}>
         {allRegisteredUsersList.map((userData) => (
           <div key={userData.authId} className={classes.plist}>
-          <div>User ID : {userData.userId}</div>
+            <div>User ID : {userData.userId}</div>
             <div>User Type : {userData.userType}</div>
             <div>User Name: {userData.name}</div>
             <div>Password : {userData.password}</div>
@@ -78,6 +86,9 @@ const ShowAllUser = (props) => {
           onClose={handleCredentialPopupClose}
           // d_id={UpdateCredentialUserId}
           userDataToBeUpdated={userDataToBeUpdated}
+          displayMessagesInParentViewHandler={
+            displayMessagesInParentViewHandler
+          }
           // updateDataToUpdateHandler={updateDataToUpdateHandler}
         />
       )}
