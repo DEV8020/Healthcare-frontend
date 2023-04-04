@@ -136,6 +136,12 @@ const CreateUser = (props) => {
           />
           <InputField
             type="text"
+            label="Name"
+            // onChange={registerUserNameChangeHandler}
+            // value={props.selectedHospitalDataForAdminCreation.name}
+          />
+          <InputField
+            type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
             //value={registerUserPassword}
