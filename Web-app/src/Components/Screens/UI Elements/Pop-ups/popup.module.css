@@ -22,8 +22,7 @@
 }
 
 .popup_content form {
-  display: flex;
-  flex-direction: column;
+  display: inline;
 }
 
 .popup_content label {
