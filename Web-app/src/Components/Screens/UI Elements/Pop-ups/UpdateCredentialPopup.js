@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import classes from "./popup.module.css";
+import SuperAdminUserRelatedAPIHandler from "../../../../Controllers/SuperAdminUserRelatedAPIHandler";
+import MessageComponent from "../../MessageComponent/MessageComponent";
 
 const UpdateCredentialPopup = (props) => {
   const [updatedUserId, setUpdatedUserId] = useState("");
@@ -9,35 +11,25 @@ const UpdateCredentialPopup = (props) => {
   const [dataNeedToUpdate, setDataNeedToUpdate] = useState(false);
 
   useEffect(() => {
-    // if(){
-
-    // }
     setUserDataToBeUpdated(props.userDataToBeUpdated);
-    //dataNeedToUpdate= true;
-    // console.log("setUserDataToBeUpdated use effect called");
   }, []);
 
   console.log("userDataToBeUpdated UpdateCredentialPopup pop up");
   console.log(userDataToBeUpdated);
 
   const UpdatedUserIdChangeHandler = (event) => {
-    // setUpdatedUserId(event.target.value);
     updateUserData({ userId: event.target.value });
   };
   const UpdatedUserPasswordChangeHandler = (event) => {
-    // setUpdatedUserPassword(event.target.value);
     updateUserData({ password: event.target.value });
   };
   const UpdatedUserNameChangeHandler = (event) => {
-    // setUpdatedUserPassword(event.target.value);
     updateUserData({ name: event.target.value });
   };
   const UpdatedUserContactChangeHandler = (event) => {
-    // setUpdatedUserPassword(event.target.value);
     updateUserData({ contact: event.target.value });
   };
   const UpdatedUserAddressChangeHandler = (event) => {
-    // setUpdatedUserPassword(event.target.value);
     updateUserData({ address: event.target.value });
   };
   const updateUserData = (userDataToUpdated) => {
@@ -49,24 +41,49 @@ const UpdateCredentialPopup = (props) => {
       console.log({ ...userData, ...userDataToUpdated });
       return { ...userData, ...userDataToUpdated };
     });
-
-    //props.updateDataToUpdateHandler({ ...userDataToBeUpdated, ...userDataToUpdated });
-
-    // setUserDataToBeUpdated((userData) => {
-    //   console.log("updateUserData setUpdatedUserId");
-    //   console.log({ ...userData, ...userDataToBeUpdated });
-    //   return { ...userData, ...userDataToUpdated };
-    // });
   };
 
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
-    const updatedCredentials = {
-      updatedId: props.d_id,
-      updatedUserId: updatedUserId,
-      updatedUserPassword: updatedUserPassword,
-    };
-    props.onUpdate(updatedCredentials);
+
+    SuperAdminUserRelatedAPIHandler.updateUserData({
+      userData: userDataToBeUpdated,
+      modifyUserDataResponseHandler: modifyUserDataResponseHandler,
+    });
+    console.log("UpdateCredentialSubmitHandler userDataToBeUpdated");
+    console.log(userDataToBeUpdated);
+  };
+
+  const modifyUserDataResponseHandler = (modifiedUserData) => {
+    console.log("modifiedUserData");
+    console.log(modifiedUserData);
+
+    if (modifiedUserData.errorMessage === null) {
+      if (modifiedUserData.isUserDataUpdated === true) {
+        updateUserDataSuccessHandler(modifiedUserData.userUpdatedData);
+      }
+      if (modifiedUserData.isUserDataUpdated === false) {
+        showErrroMessage("Some error occured.");
+      }
+    } else if (modifiedUserData.userUpdatedData === null) {
+      showErrroMessage(modifiedUserData.errorMessage);
+    }
+  };
+
+  const updateUserDataSuccessHandler = (userModifiedData) => {
+    console.log("updateUserDataSuccessHandler");
+    props.onUserDataUpdateHandler(userModifiedData);
+  };
+
+  //message , isErrorMessage
+  const showErrroMessage = (message) => {
+    // MessageComponent
+    MessageComponent.showMessageScreen({
+      message: { message: message, isTrueFlag: true },
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+      isErrorMessage: true,
+    });
   };
 
   return (
@@ -83,41 +100,42 @@ const UpdateCredentialPopup = (props) => {
           />
 
           {/*if userDatatoBeUpdated has userName field than this will be shown  */}
-          {userDataToBeUpdated.userName && (
+          {userDataToBeUpdated.name && (
             <>
               <label htmlFor="userName">Name:</label>
               <input
                 type="text"
                 id="userName"
-                value={userDataToBeUpdated.userName}
+                value={userDataToBeUpdated.name}
                 onChange={UpdatedUserNameChangeHandler}
               />
             </>
           )}
 
-          {userDataToBeUpdated.userContact  && (
+          {userDataToBeUpdated.contact && (
             <>
               <label htmlFor="userContact">Contact:</label>
               <input
                 type="text"
                 id="userContact"
-                value={userDataToBeUpdated.userContact}
+                value={userDataToBeUpdated.contact}
                 onChange={UpdatedUserContactChangeHandler}
               />
             </>
           )}
 
-          {userDataToBeUpdated.userAddress && userDataToBeUpdated.userType !== "Supervisor" && (
-            <>
-              <label htmlFor="userAddress">Address:</label>
-              <input
-                type="text"
-                id="userAddress"
-                value={userDataToBeUpdated.userAddress}
-                onChange={UpdatedUserAddressChangeHandler}
-              />
-            </>
-          )}
+          {userDataToBeUpdated.userAddress &&
+            userDataToBeUpdated.userType !== "Supervisor" && (
+              <>
+                <label htmlFor="userAddress">Address:</label>
+                <input
+                  type="text"
+                  id="userAddress"
+                  value={userDataToBeUpdated.userAddress}
+                  onChange={UpdatedUserAddressChangeHandler}
+                />
+              </>
+            )}
 
           <label htmlFor="password">Password:</label>
           <input
