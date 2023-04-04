@@ -83,7 +83,7 @@ const UpdateCredentialPopup = (props) => {
           />
 
           {/*if userDatatoBeUpdated has userName field than this will be shown  */}
-          {userDataToBeUpdated.userName !==null && (
+          {userDataToBeUpdated.userName && (
             <>
               <label htmlFor="userName">Name:</label>
               <input
@@ -95,7 +95,7 @@ const UpdateCredentialPopup = (props) => {
             </>
           )}
 
-          {userDataToBeUpdated.userContact !==null  && (
+          {userDataToBeUpdated.userContact  && (
             <>
               <label htmlFor="userContact">Contact:</label>
               <input
@@ -107,7 +107,7 @@ const UpdateCredentialPopup = (props) => {
             </>
           )}
 
-          {userDataToBeUpdated.userAddress !==null && userDataToBeUpdated.userType !== "Supervisor" && (
+          {userDataToBeUpdated.userAddress && userDataToBeUpdated.userType !== "Supervisor" && (
             <>
               <label htmlFor="userAddress">Address:</label>
               <input
