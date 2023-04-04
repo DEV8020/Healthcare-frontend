@@ -4,6 +4,7 @@ import classes from "./popup.module.css";
 const UpdateCredentialPopup = (props) => {
   const [updatedUserId, setUpdatedUserId] = useState("");
   const [updatedUserPassword, setUpdatedUserPassword] = useState("");
+
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
   const [dataNeedToUpdate, setDataNeedToUpdate] = useState(false);
 
@@ -27,7 +28,18 @@ const UpdateCredentialPopup = (props) => {
     // setUpdatedUserPassword(event.target.value);
     updateUserData({ password: event.target.value });
   };
-
+  const UpdatedUserNameChangeHandler = (event) => {
+    // setUpdatedUserPassword(event.target.value);
+    updateUserData({ name: event.target.value });
+  };
+  const UpdatedUserContactChangeHandler = (event) => {
+    // setUpdatedUserPassword(event.target.value);
+    updateUserData({ contact: event.target.value });
+  };
+  const UpdatedUserAddressChangeHandler = (event) => {
+    // setUpdatedUserPassword(event.target.value);
+    updateUserData({ address: event.target.value });
+  };
   const updateUserData = (userDataToUpdated) => {
     console.log("updateUserData");
     console.log(userDataToUpdated);
@@ -60,7 +72,7 @@ const UpdateCredentialPopup = (props) => {
   return (
     <div className={classes.popup}>
       <div className={classes.popup_content}>
-        <h2> Update Credentials </h2>
+        <h2> Update User Data </h2>
         <form onSubmit={UpdateCredentialSubmitHandler}>
           <label htmlFor="userID">User ID:</label>
           <input
@@ -69,6 +81,43 @@ const UpdateCredentialPopup = (props) => {
             value={userDataToBeUpdated.userId}
             onChange={UpdatedUserIdChangeHandler}
           />
+
+          {/*if userDatatoBeUpdated has userName field than this will be shown  */}
+          {userDataToBeUpdated.userName !==null && (
+            <>
+              <label htmlFor="userName">Name:</label>
+              <input
+                type="text"
+                id="userName"
+                value={userDataToBeUpdated.userName}
+                onChange={UpdatedUserNameChangeHandler}
+              />
+            </>
+          )}
+
+          {userDataToBeUpdated.userContact !==null  && (
+            <>
+              <label htmlFor="userContact">Contact:</label>
+              <input
+                type="text"
+                id="userContact"
+                value={userDataToBeUpdated.userContact}
+                onChange={UpdatedUserContactChangeHandler}
+              />
+            </>
+          )}
+
+          {userDataToBeUpdated.userAddress !==null && userDataToBeUpdated.userType !== "Supervisor" && (
+            <>
+              <label htmlFor="userAddress">Address:</label>
+              <input
+                type="text"
+                id="userAddress"
+                value={userDataToBeUpdated.userAddress}
+                onChange={UpdatedUserAddressChangeHandler}
+              />
+            </>
+          )}
 
           <label htmlFor="password">Password:</label>
           <input

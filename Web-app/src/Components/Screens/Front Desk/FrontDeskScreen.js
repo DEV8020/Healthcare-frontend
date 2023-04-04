@@ -4,9 +4,12 @@ import classes from "./FrontDeskScreen.module.css";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
 import CreateAppointment from "./CreateAppointment";
+import PatientDetailsView from "../Patient/PatientDetailsView"
 
 const FrontDeskScreen = (props) => {
   const [frontDeskOption, setFrontDeskOption] = useState("frontDesk");
+  const[patientDetailsView,setPatientDetailsView]=useState(false);
+  const[viewDetalsPatientID,setViewDetalsPatientID]=useState("");
 
   const PatientRegistrationButtonHandler = () => {
     setFrontDeskOption("PatientRegistration");
@@ -55,9 +58,14 @@ const FrontDeskScreen = (props) => {
         setFrontDeskOption={setFrontDeskOption} 
         setAlertMessage ={props.setAlertMessage}
         setAlertFlag ={props.setAlertFlag}
+        setPatientDetailsView={setPatientDetailsView}
+        setViewDetalsPatientID={setViewDetalsPatientID}
       />
         
       )}
+       {
+        patientDetailsView === true  && (<PatientDetailsView setPatientDetailsView ={setPatientDetailsView} viewDetalsPatientID={viewDetalsPatientID}/>)
+      }
     </div>
   );
 };

@@ -3,12 +3,14 @@ import InputField from "../UI Elements/MenuForm Elements/InputField";
 import classes from "./CreateAppointment.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const CreateAppointment = (props) => {
   const [PatientId, setPatientId] = useState("");
 
   const PatientIdChangeHandler = (event) => {
     setPatientId(event.target.value);
+    
   };
 
   const AddAppointmentHandler = (event) => {
@@ -56,6 +58,11 @@ const CreateAppointment = (props) => {
       showErrorMessageScreen(patientEncounterResponseData.errorMessage, true);
     }
   };
+  const getPatientDetailsHandler = (data) => {
+    props.setViewDetalsPatientID(PatientId);
+    props.setPatientDetailsView(true);
+   
+  };
 
   return (
     <div>
@@ -71,6 +78,10 @@ const CreateAppointment = (props) => {
           />
 
           <MenuSubmitButton value="Create Appointment" />
+          <AddButton
+            value="Details"
+            onClick={() => getPatientDetailsHandler(PatientId)}
+          />
         </form>
       </div>
     </div>
