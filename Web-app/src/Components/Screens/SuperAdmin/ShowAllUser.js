@@ -9,7 +9,7 @@ import MessageComponent from "../MessageComponent/MessageComponent";
 const ShowAllUser = (props) => {
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
     useState(false);
-  const [UpdateCredentialUserId, setUpdateCredentialUserId] = useState("");
+  // const [UpdateCredentialUserId, setUpdateCredentialUserId] = useState("");
 
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
@@ -20,17 +20,18 @@ const ShowAllUser = (props) => {
 
 
   const changeUserDataHandler = (userDataToBeUpdated) => {
-    console.log(userDataToBeUpdated);
-    console.log("changeUserDataHandler called");
+    // console.log(userDataToBeUpdated);
+    // console.log("changeUserDataHandler called");
     setUserDataToBeUpdated(userDataToBeUpdated);
     setShowUpdateCredentialPopup(true);
   };
 
   const onUserDataUpdateHandler = (UpdateUserData) => {
     setShowUpdateCredentialPopup(false);
-    console.log("handleCredentialPopupUpdate called with data");
-    console.log(UpdateUserData);
+    // console.log("handleCredentialPopupUpdate called with data");
+    // console.log(UpdateUserData);
     showErrroMessage("User data updated successfully.");
+    props.updateUserListAfterDataUpdateHandler();
   };
 
   //message , isErrorMessage
@@ -60,6 +61,7 @@ const ShowAllUser = (props) => {
       <div className={classes.ul}>
         {allRegisteredUsersList.map((userData) => (
           <div key={userData.authId} className={classes.plist}>
+          <div>User ID : {userData.userId}</div>
             <div>User Type : {userData.userType}</div>
             <div>User Name: {userData.name}</div>
             <div>Password : {userData.password}</div>
@@ -74,9 +76,9 @@ const ShowAllUser = (props) => {
         <UpdateCredentialPopup
           onUserDataUpdateHandler={onUserDataUpdateHandler}
           onClose={handleCredentialPopupClose}
-          d_id={UpdateCredentialUserId}
+          // d_id={UpdateCredentialUserId}
           userDataToBeUpdated={userDataToBeUpdated}
-          updateDataToUpdateHandler={updateDataToUpdateHandler}
+          // updateDataToUpdateHandler={updateDataToUpdateHandler}
         />
       )}
     </div>

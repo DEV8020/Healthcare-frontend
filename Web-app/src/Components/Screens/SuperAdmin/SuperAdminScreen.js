@@ -73,6 +73,20 @@ const SuperAdminScreen = (props) => {
     
   };
 
+
+
+  const updateUserListAfterDataUpdateHandler = () => {
+    // console.log("updateUserListAfterDataUpdateHandler called in superadminscreen.js");
+    setIsUserListDataToLoad((isListToUpdate) => {
+      return !isListToUpdate;
+    });
+  };
+
+
+
+
+
+
   //########################## Getting List Of All Registered Users... ##########################
 
   const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
@@ -172,6 +186,7 @@ const SuperAdminScreen = (props) => {
           registeredUserUpdateHandleCallBack={
             registeredUserUpdateHandleCallBack
           }
+          updateUserListAfterDataUpdateHandler = {updateUserListAfterDataUpdateHandler}
         />
       )}
       {hospitalDetailsView === "Admin" &&

@@ -17,47 +17,61 @@ const UpdateCredentialPopup = (props) => {
   console.log("userDataToBeUpdated UpdateCredentialPopup pop up");
   console.log(userDataToBeUpdated);
 
+
+  
+  //########################## Data Handler Methods  ##########################
+  //User ID Change Handler...
   const UpdatedUserIdChangeHandler = (event) => {
     updateUserData({ userId: event.target.value });
   };
+
+  //User Password Change Handler...
   const UpdatedUserPasswordChangeHandler = (event) => {
     updateUserData({ password: event.target.value });
   };
+
+  //User Name Change Handler...
   const UpdatedUserNameChangeHandler = (event) => {
     updateUserData({ name: event.target.value });
   };
+
+  //User Contact Change Handler...
   const UpdatedUserContactChangeHandler = (event) => {
     updateUserData({ contact: event.target.value });
   };
+
+  //User Address Change Handler...
   const UpdatedUserAddressChangeHandler = (event) => {
     updateUserData({ address: event.target.value });
   };
+  //########################## Data Handler Methods Ends Here  ##########################
+
+
+
   const updateUserData = (userDataToUpdated) => {
-    console.log("updateUserData");
-    console.log(userDataToUpdated);
+    // console.log("updateUserData");
+    // console.log(userDataToUpdated);
 
     setUserDataToBeUpdated((userData) => {
-      console.log("setUserDataToBeUpdated");
-      console.log({ ...userData, ...userDataToUpdated });
+      // console.log("setUserDataToBeUpdated");
+      // console.log({ ...userData, ...userDataToUpdated });
       return { ...userData, ...userDataToUpdated };
     });
   };
 
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
-
     SuperAdminUserRelatedAPIHandler.updateUserData({
       userData: userDataToBeUpdated,
       modifyUserDataResponseHandler: modifyUserDataResponseHandler,
     });
-    console.log("UpdateCredentialSubmitHandler userDataToBeUpdated");
-    console.log(userDataToBeUpdated);
+    // console.log("UpdateCredentialSubmitHandler userDataToBeUpdated");
+    // console.log(userDataToBeUpdated);
   };
 
   const modifyUserDataResponseHandler = (modifiedUserData) => {
-    console.log("modifiedUserData");
-    console.log(modifiedUserData);
-
+    // console.log("modifiedUserData");
+    // console.log(modifiedUserData);
     if (modifiedUserData.errorMessage === null) {
       if (modifiedUserData.isUserDataUpdated === true) {
         updateUserDataSuccessHandler(modifiedUserData.userUpdatedData);
