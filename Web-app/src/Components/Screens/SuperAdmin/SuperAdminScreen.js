@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./SuperAdminScreen.module.css";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
@@ -6,6 +6,7 @@ import CreateUser from "./CreateUser";
 import AddHospital from "./AddHospital";
 import ShowAllUser from "./ShowAllUser";
 import HospitalDetailsView from "./HospitalDetailsView";
+import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
@@ -13,8 +14,10 @@ const SuperAdminScreen = (props) => {
   const [hospitalsListWithNoAdmin, setHospitalsListtWithNoAdmins] = useState(
     []
   );
+  const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
     useState("");
+    const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
 
   const [
     selectedHospitalDataForAdminCreation,
@@ -27,6 +30,51 @@ const SuperAdminScreen = (props) => {
     hospitalId: "",
   });
 
+  const allRegisteredListHandleCallBack = (registeredUsersList) => {
+    console.log("registeredUsersList");
+    console.log(registeredUsersList);
+    setAllRegisteredUsersList(registeredUsersList);
+  };
+
+  const registeredUserUpdateHandleCallBack = (registeredUsersList) => {
+    console.log("registeredUsersList");
+    console.log(registeredUsersList);
+    setAllRegisteredUsersList(registeredUsersList);
+  };
+
+  //########################## Getting List Of All Registered Users... ##########################
+
+  // Clean Code
+
+  // console.log("user list after getting all user data");
+  // console.log(allRegisteredUsersList);
+
+  useEffect(() => {
+    console.log("All registered user list API called");
+    SuperAdminAPIHandler.GetSuperAdminAllRegisteredUserList({
+      showAllRegisteredUserResponseHandler:
+        showAllRegisteredUserResponseHandler,
+    });
+    // }
+  }, [isUserListDataToLoad]);
+
+  const showAllRegisteredUserResponseHandler = (
+    allRegisteredUsersResponseData
+  ) => {
+    console.log(
+      "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData in super admin screen"
+    );
+    console.log(allRegisteredUsersResponseData);
+    if (allRegisteredUsersResponseData.isRegisteredUsersListRecieved === true) {
+      setAllRegisteredUsersList(
+        allRegisteredUsersResponseData.registeredUserListData
+      );
+    }
+    
+  };
+
+  //########################## Getting List Of All Registered Users... ##########################
+
   const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
     setHospitalsListtWithNoAdmins(hospitalsList);
   };
@@ -38,6 +86,8 @@ const SuperAdminScreen = (props) => {
   };
 
   const HospitalRegistrationDataUpdateCallBackHandler = (updatedData) => {
+    // console.log("HospitalRegistrationDataUpdateCallBackHandler");
+    // console.log(updatedData);
     setSelectedHospitalDataForAdminCreation(updatedData);
   };
 
@@ -103,7 +153,9 @@ const SuperAdminScreen = (props) => {
           selectedHospitalDataForAdminCreation={
             selectedHospitalDataForAdminCreation
           }
-          setSelectedHospitalDataForAdminCreation = {setSelectedHospitalDataForAdminCreation}
+          setSelectedHospitalDataForAdminCreation={
+            setSelectedHospitalDataForAdminCreation
+          }
           HospitalRegistrationDataUpdateCallBackHandler={
             HospitalRegistrationDataUpdateCallBackHandler
           }
@@ -115,6 +167,11 @@ const SuperAdminScreen = (props) => {
           setSuperAdminOption={setSuperAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
+          registeredUsersList={allRegisteredUsersList}
+          allRegisteredListHandleCallBack={allRegisteredListHandleCallBack}
+          registeredUserUpdateHandleCallBack={
+            registeredUserUpdateHandleCallBack
+          }
         />
       )}
       {hospitalDetailsView === "Admin" &&
