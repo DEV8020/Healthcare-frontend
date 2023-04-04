@@ -147,34 +147,34 @@ const CreateUser = (props) => {
             type="text"
             label="User ID"
             onChange={registerUserIdChangeHandler}
-            value={props.selectedHospitalDataForSupervisorCreation.userId}
+            // value={props.selectedHospitalDataForSupervisorCreation.userId}
           />
           <InputField
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
-            value={props.selectedHospitalDataForSupervisorCreation.password}
+            // value={props.selectedHospitalDataForSupervisorCreation.password}
           />
 
           <InputField
             type="text"
             label="Name"
             onChange={registerUserHospitalIdChangeHandler}
-            value={props.selectedHospitalDataForSupervisorCreation.name}
+            // value={props.selectedHospitalDataForSupervisorCreation.name}
           />
 
           <InputField
             type="text"
             label="Contact"
             onChange={registerUserHospitalIdChangeHandler}
-            value={props.selectedHospitalDataForSupervisorCreation.contact}
+            // value={props.selectedHospitalDataForSupervisorCreation.contact}
           />
 
           <InputField
             type="text"
             label="Address"
             onChange={registerUserHospitalIdChangeHandler}
-            value={props.selectedHospitalDataForSupervisorCreation.address}
+            // value={props.selectedHospitalDataForSupervisorCreation.address}
           />
         </>
       );
