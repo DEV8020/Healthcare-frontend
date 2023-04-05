@@ -6,7 +6,6 @@ import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const AddDoctor = (props) => {
-
   const [doctorData, setDoctorData] = useState({
     userId: "",
     password: "",
@@ -63,7 +62,8 @@ const AddDoctor = (props) => {
       userId: "",
       docSpecialization: "",
     });
-
+    // refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
+    props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
   };
 
@@ -75,7 +75,6 @@ const AddDoctor = (props) => {
       alertMessageFlag: props.setAlertFlag,
     });
   };
-
 
   const doctorNameChangeHandler = (event) => {
     updateDoctorData({ name: event.target.value });
@@ -100,7 +99,6 @@ const AddDoctor = (props) => {
   const doctorLIdChangeHandler = (event) => {
     updateDoctorData({ licId: event.target.value });
   };
-
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();

@@ -106,6 +106,7 @@ const AddFrontDesk = (props) => {
       password: "",
       name: "",
     });
+    props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
   };
 

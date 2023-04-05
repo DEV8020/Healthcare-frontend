@@ -100,6 +100,7 @@ const AdminScreen = (props) => {
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
+          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
         />
       )}
       {adminOption === "addFrontDesk" && (
@@ -108,6 +109,7 @@ const AdminScreen = (props) => {
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
+          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
         />
       )}
     </div>

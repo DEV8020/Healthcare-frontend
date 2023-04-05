@@ -104,7 +104,6 @@ const ShowHospitalUsers = (props) => {
 
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
-   
   };
 
   //  hospitalUserList.map((hospitalUserData) => {console.log(hospitalUserData);});
