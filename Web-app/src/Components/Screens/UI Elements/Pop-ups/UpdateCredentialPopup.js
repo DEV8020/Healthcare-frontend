@@ -143,7 +143,6 @@ const UpdateCredentialPopup = (props) => {
     });
   };
 
-
   const modifyAdminUserDataResponseHandler = (modifiedUserData) => {
     console.log("modifyAdminUserDataResponseHandler response data is :");
     console.log(modifiedUserData);
@@ -164,9 +163,6 @@ const UpdateCredentialPopup = (props) => {
       });
     }
   };
-
-
-
 
   const modifyUserDataResponseHandler = (modifiedUserData) => {
     if (modifiedUserData.errorMessage === null) {
@@ -231,21 +227,23 @@ const UpdateCredentialPopup = (props) => {
             onChange={UpdatedUserNameChangeHandler}
           />
 
-          {userDataToBeUpdated.userType !== "Admin" && (
-            <>
-              <label htmlFor="userContact">Contact:</label>
-              <input
-                type="text"
-                id="userContact"
-                value={userDataToBeUpdated.contact}
-                onChange={UpdatedUserContactChangeHandler}
-              />
-            </>
-          )}
+          {userDataToBeUpdated.userType !== "Admin" &&
+            userDataToBeUpdated.userType !== "Front Desk" && (
+              <>
+                <label htmlFor="userContact">Contact:</label>
+                <input
+                  type="text"
+                  id="userContact"
+                  value={userDataToBeUpdated.contact}
+                  onChange={UpdatedUserContactChangeHandler}
+                />
+              </>
+            )}
 
           {userDataToBeUpdated.userType !== "Admin" &&
             userDataToBeUpdated.userType !== "Supervisor" &&
-            userDataToBeUpdated.userType !== "Doctor" && (
+            userDataToBeUpdated.userType !== "Doctor" &&
+            userDataToBeUpdated.userType !== "Front Desk" && (
               <>
                 <label htmlFor="userAddress">Address:</label>
                 <input

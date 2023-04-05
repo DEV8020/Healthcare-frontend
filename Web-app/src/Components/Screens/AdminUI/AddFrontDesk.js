@@ -136,7 +136,7 @@ const AddFrontDesk = (props) => {
           /> */}
           <InputField
             type="text"
-            label="Email ID"
+            label="FrontDesk User Id"
             onChange={frontDeskUserIdChangeHandler}
             value={frontDeskRegistrationData.userId}
           />
