@@ -80,18 +80,7 @@ const SuperAdminScreen = (props) => {
     });
   };
 
-  const displayMessagesInParentViewHandler = (prop) => {
-    console.log(
-      "displayMessagesInParentViewHandler displayMessagesInParentViewHandler in superadminscreen"
-    );
-    console.log(prop);
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-    });
-  };
+
 
   //########################## Getting List Of All Registered Users... ##########################
 
@@ -194,9 +183,6 @@ const SuperAdminScreen = (props) => {
           }
           updateUserListAfterDataUpdateHandler={
             updateUserListAfterDataUpdateHandler
-          }
-          displayMessagesInParentViewHandler={
-            displayMessagesInParentViewHandler
           }
         />
       )}

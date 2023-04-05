@@ -1,19 +1,17 @@
 import classes from "./ShowAllUser.module.css";
-
 import React, { useEffect, useState } from "react";
 import UpdateCredentialPopup from "../UI Elements/Pop-ups/UpdateCredentialPopup";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
-// import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
-// import MessageComponent from "../MessageComponent/MessageComponent";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
+
 const ShowAllUser = (props) => {
+
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
     useState(false);
-  // const [UpdateCredentialUserId, setUpdateCredentialUserId] = useState("");
-
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
+
 
   useEffect(() => {
     setAllRegisteredUsersList(props.registeredUsersList);
@@ -29,7 +27,7 @@ const ShowAllUser = (props) => {
     });
   };
 
-  
+
   const changeUserDataHandler = (userDataToBeUpdated) => {
     setUserDataToBeUpdated(userDataToBeUpdated);
     setShowUpdateCredentialPopup(true);
@@ -44,17 +42,16 @@ const ShowAllUser = (props) => {
     props.updateUserListAfterDataUpdateHandler();
   };
 
-  
 
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
   };
 
-  const updateDataToUpdateHandler = (updatedData) => {
-    console.log("updateDataToUpdateHandler called");
-    console.log(updatedData);
-    props.registeredUserUpdateHandleCallBack(updatedData);
-  };
+  // const updateDataToUpdateHandler = (updatedData) => {
+  //   console.log("updateDataToUpdateHandler called");
+  //   console.log(updatedData);
+  //   props.registeredUserUpdateHandleCallBack(updatedData);
+  // };
 
   return (
     <div className={classes.center}>

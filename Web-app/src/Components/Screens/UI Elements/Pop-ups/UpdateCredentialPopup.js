@@ -145,13 +145,6 @@ const UpdateCredentialPopup = (props) => {
     });
   };
 
-  // MessageComponent.showMessageScreen({
-  //   message: { message: props.message, isTrueFlag: props.isErrorMessage },
-  //   alertMessageElement: props.alertMessageElement,
-  //   alertMessageFlag: props.alertMessageFlag,
-  //   isErrorMessage: props.isErrorMessage,
-  // });
-
   return (
     <div className={classes.popup}>
       <div className={classes.popup_content}>
