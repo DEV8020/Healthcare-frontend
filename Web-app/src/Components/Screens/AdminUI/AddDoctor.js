@@ -1,22 +1,11 @@
 import React, { useState } from "react";
-
-import AddDoctorService from "../../../Services/AddDoctorService";
-
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
-
 import classes from "./AddOptions.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const AddDoctor = (props) => {
-  // const [doctorName, setDoctorName] = useState("");
-  // const [doctorPassword, setDoctorPassword] = useState("");
-  // const [doctorEmailId, setDoctorEmailId] = useState("");
-  // const [doctorSpl, setDoctorSpl] = useState("");
-  // const [doctorContact, setDoctorContact] = useState("");
-  // const [doctorLId, setDoctorLId] = useState("");
 
   const [doctorData, setDoctorData] = useState({
     userId: "",
@@ -28,33 +17,9 @@ const AddDoctor = (props) => {
     docSpecialization: "",
   });
 
-  //   Add doctor
-  // EndPoint: http://localhost:9191/addDoctor/{HospitalId}
-  // Data:
-  // {
-  //    "userId": “doctor1”,
-  //    "password": “doctor1”,
-  //    "name": "Rajesh",
-  //    "licId": "HSHSH",
-  //    "phoneNum": "9090909090",
-  //    "docSpecialization": "Ortho"
-  // }
-
-  //   SuperAdminUserRelatedAPIHandler.updateUserData({
-  //     userData: userDataToBeUpdated,
-  //     modifyUserDataResponseHandler: modifyUserDataResponseHandler,
-  //   });
-  // };
-
-
-  // isDoctorRegisteredSuccessfully: true,
-  // registeredDoctorData: registeredDoctorData.responseData.data,
-  // errorMessage: null,
-
   const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
-    console.log("doctorRegisterResponseData");
-    console.log(doctorRegisterResponseData);
-    // return;
+    // console.log("doctorRegisterResponseData");
+    // console.log(doctorRegisterResponseData);
     if (doctorRegisterResponseData.errorMessage === null) {
       if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
         cleanDataAfterDoctorRegistrationHandler(
@@ -76,38 +41,33 @@ const AddDoctor = (props) => {
   };
 
   const updateDoctorData = (doctorDataToUpdate) => {
-    console.log("updateDoctorData called");
-    console.log({ ...doctorData, ...doctorDataToUpdate });
+    // console.log("updateDoctorData called");
+    // console.log({ ...doctorData, ...doctorDataToUpdate });
     setDoctorData((doctorData) => {
       return { ...doctorData, ...doctorDataToUpdate };
     });
   };
 
   const cleanDataAfterDoctorRegistrationHandler = (doctorData) => {
-    // console.log();
-    // console.log();
     showMessageBarAtTheBottom({
       message: "Doctor registered successfully.",
       isErrorMessage: false,
     });
 
+    setDoctorData({
+      userId: "",
+      password: "",
+      name: "",
+      licId: "",
+      phoneNum: "",
+      userId: "",
+      docSpecialization: "",
+    });
 
-setDoctorData({
-  userId: "",
-  password: "",
-  name: "",
-  licId: "",
-  phoneNum: "",
-  userId: "",
-  docSpecialization: "",
-});
-
-BackButtonPressedHandler();
-
+    BackButtonPressedHandler();
   };
 
   const showMessageBarAtTheBottom = (propData) => {
-    //({message : message, isErrorMessage : isErrorMessage}) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
       message: propData.message,
       isErrorMessage: propData.isErrorMessage,
@@ -116,8 +76,6 @@ BackButtonPressedHandler();
     });
   };
 
-  // setAlertMessage={props.setAlertMessage}
-  // setAlertFlag={props.setAlertFlag}
 
   const doctorNameChangeHandler = (event) => {
     updateDoctorData({ name: event.target.value });
@@ -143,37 +101,9 @@ BackButtonPressedHandler();
     updateDoctorData({ licId: event.target.value });
   };
 
-  const AddDoctorHandler = async (doctorData) => {
-    console.log(doctorData);
-
-    try {
-      AddDoctorService(doctorData);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();
-
-    // const doctorData = {
-    //   doctor_name: doctorName,
-    //   doctor_spl: doctorSpl,
-    //   doctor_password: doctorPassword,
-    //   doctor_email_id: doctorEmailId,
-    //   doctor_contact: doctorContact,
-    //   doctor_LId: doctorLId,
-    // };
-
-    // setDoctorName("");
-    // setDoctorEmailId("");
-    // setDoctorSpl("");
-    // setDoctorPassword("");
-    // setDoctorContact("");
-    // setDoctorLId("");
-
-    // AddDoctorHandler(doctorData);
-
     AdminAPIHandler.registerDoctor({
       doctorData: doctorData,
       registerDoctorResponseHandler: registerDoctorResponseHandler,

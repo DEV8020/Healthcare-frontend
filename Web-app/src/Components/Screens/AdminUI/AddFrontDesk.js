@@ -13,68 +13,104 @@ import AddButton from "../UI Elements/MenuForm Elements/addButton";
 //----------------------------------------------------------------- CSS File --------------------------------------------------------------------------------
 
 import classes from "./AddOptions.module.css";
+import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 //----------------------------------------------------------------- Component Function ------------------------------------------------------------------------
 
 const AddFrontDesk = (props) => {
   //----------------------------------------------------------------- Input Variables ------------------------------------------------------------------------
 
-  const [frontDeskName, setFrontDeskName] = useState("");
+  const [frontDeskRegistrationData, setFrontDeskRegistrationData] = useState({
+    userId: "",
+    password: "",
+    name: "",
+  });
 
-  const [frontDeskEmailId, setFrontDeskEmailId] = useState("");
+  const updateFrontDeskRegistrationData = (dataToUpdate) => {
+    setFrontDeskRegistrationData((frontDeskData) => {
+      console.log({ ...frontDeskData, ...dataToUpdate });
+      return { ...frontDeskData, ...dataToUpdate };
+    });
+  };
 
-  const [frontDeskContact, setFrontDeskContact] = useState("");
-
-  const [frontDeskPassword, setFrontDeskPassword] = useState("");
-
-  //------------------------------------------------------------ Field Change Handlers ----------------------------------------------------------------
+  //########################## Data Change Event Handler Methods  ##########################
+  //Front Desk Name Data Change Event Handler Method...
   const frontDeskNameChangeHandler = (event) => {
-    setFrontDeskName(event.target.value);
+    updateFrontDeskRegistrationData({ name: event.target.value });
   };
-  const frontDeskEmailIdChangeHandler = (event) => {
-    setFrontDeskEmailId(event.target.value);
+
+  //Front Desk User Id Data Change Event Handler Method...
+  const frontDeskUserIdChangeHandler = (event) => {
+    updateFrontDeskRegistrationData({ userId: event.target.value });
   };
-  const frontDeskContactChangeHandler = (event) => {
-    setFrontDeskContact(event.target.value);
-  };
+
+  //Front Desk Password Data Change Event Handler Method...
   const frontDeskPasswordChangeHandler = (event) => {
-    setFrontDeskPassword(event.target.value);
+    updateFrontDeskRegistrationData({ password: event.target.value });
   };
+  //########################## Data Change Event Handler Methods Ends Here  ##########################
 
-  //-----------------------------------------------------------------   API Service Function -----------------------------------------------------------------------
-
-  const AddFrontDeskHandler = async (frontDeskData) => {
-    console.log(frontDeskData);
-
-    try {
-      AddFrontDeskService(frontDeskData);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  //----------------------------------------------------------------- Form Submit Handler ------------------------------------------------------------------------
 
   const AddFrontDeskDataHandler = (event) => {
     event.preventDefault();
+    AdminAPIHandler.registerFrontDesk({
+      frontDeskData: frontDeskRegistrationData,
+      registerFrontDeskResponseHandler: registerFrontDeskResponseHandler,
+    });
+  };
 
-    const frontDeskData = {
-      frontDesk_name: frontDeskName,
-      frontDesk_email_id: frontDeskEmailId,
-      frontDesk_contact: frontDeskContact,
-      frontDesk_password: frontDeskPassword,
-    };
+  const registerFrontDeskResponseHandler = (frontDeskRegistrationData) => {
+    if (frontDeskRegistrationData.errorMessage === null) {
+      if (
+        frontDeskRegistrationData.isFrontDeskRegisteredSuccessfully === true
+      ) {
+        cleanDataAfterFrontDeskRegistrationHandler(
+          frontDeskRegistrationData.registeredFrontDeskData
+        );
+      }
+      if (
+        frontDeskRegistrationData.isFrontDeskRegisteredSuccessfully === false
+      ) {
+        showMessageBarAtTheBottom({
+          message: "Some error occured. Please try again later.",
+          isErrorMessage: true,
+        });
+      }
+    } else if (frontDeskRegistrationData.registeredDoctorData === null) {
+      showMessageBarAtTheBottom({
+        message: frontDeskRegistrationData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
+  };
 
-    //----------------------------------------------------------------- Reset Input Fields ------------------------------------------------------------------------
+  const showMessageBarAtTheBottom = (propData) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: propData.message,
+      isErrorMessage: propData.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
+  };
 
-    setFrontDeskName("");
-    setFrontDeskEmailId("");
-    setFrontDeskContact("");
-    setFrontDeskPassword("");
+  const cleanDataAfterFrontDeskRegistrationHandler = () => {
+    showMessageBarAtTheBottom({
+      message: "Front Desk registered successfully.",
+      isErrorMessage: true,
+    });
 
-    //----------------------------------------------------------------- API Call ------------------------------------------------------------------------
+    setFrontDeskRegistrationData({
+      userId: "",
+      password: "",
+      name: "",
+    });
+    BackButtonPressedHandler();
+  };
 
-    AddFrontDeskHandler(frontDeskData);
+  const BackButtonPressedHandler = () => {
+    props.setAdminOption("");
   };
 
   //----------------------------------------------------------------- JSX Code ------------------------------------------------------------------------
@@ -89,26 +125,34 @@ const AddFrontDesk = (props) => {
             type="text"
             label="FrontDesk Name"
             onChange={frontDeskNameChangeHandler}
+            value={frontDeskRegistrationData.name}
           />
 
-          <InputField
+          {/* <InputField
             type="text"
             label="Contact Number"
             onChange={frontDeskContactChangeHandler}
-          />
+          /> */}
           <InputField
             type="text"
             label="Email ID"
-            onChange={frontDeskEmailIdChangeHandler}
+            onChange={frontDeskUserIdChangeHandler}
+            value={frontDeskRegistrationData.userId}
           />
 
           <InputField
             type="text"
             label="Password"
             onChange={frontDeskPasswordChangeHandler}
+            value={frontDeskRegistrationData.password}
           />
-
-          <AddButton value="Register" />
+          <div>
+            <MenuSubmitButton value="Register" />
+            <MenuSubmitButton
+              value="Cancel"
+              onClick={BackButtonPressedHandler}
+            />
+          </div>
         </form>
       </div>
     </div>
