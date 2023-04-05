@@ -3,11 +3,44 @@ import Button from "../UI Elements/Button/Button";
 import ShowHospitalUsers from "./ShowHospitalUsers";
 import AddDoctor from "./AddDoctor";
 import AddFrontDesk from "./AddFrontDesk";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "../UI Elements/NavBar/NavBar";
+import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 
 const AdminScreen = (props) => {
   const [adminOption, setAdminOption] = useState("admin");
+  const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
+  const [registeredUserList, setRegisteredUserList] = useState(true);
+
+  useEffect(() => {
+    console.log("All registered user list API called in Admin View");
+    AdminAPIHandler.GetAdminAllRegisteredUserList({
+      showAllRegisteredUserResponseHandler:
+        showAllRegisteredUserResponseHandler,
+    });
+  }, [isUserListDataToLoad]);
+
+  const refreshUsersListResponseHandler = () => {
+    setIsUserListDataToLoad((isToBeLoad) => {
+      return !isToBeLoad;
+    });
+  };
+
+  const showAllRegisteredUserResponseHandler = (
+    allRegisteredUsersResponseData
+  ) => {
+    console.log(
+      "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData in admin screen"
+    );
+    console.log(allRegisteredUsersResponseData);
+    if (allRegisteredUsersResponseData.isRegisteredUsersListRecieved === true) {
+      console.log("Response of user egistered list recieved...");
+      console.log(allRegisteredUsersResponseData.registeredUserListData);
+      setRegisteredUserList(
+        allRegisteredUsersResponseData.registeredUserListData
+      );
+    }
+  };
 
   const ShowHospitalUsersButtonHandler = () => {
     setAdminOption("showHospitalUsers");
@@ -56,6 +89,8 @@ const AdminScreen = (props) => {
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
+          registeredUserList={registeredUserList}
+          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
         />
       )}
 

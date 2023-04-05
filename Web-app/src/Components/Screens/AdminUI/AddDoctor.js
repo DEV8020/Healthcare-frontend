@@ -12,7 +12,7 @@ const AddDoctor = (props) => {
     password: "",
     name: "",
     licId: "",
-    phoneNum: "",
+    contact: "",
     userId: "",
     docSpecialization: "",
   });
@@ -86,7 +86,7 @@ const AddDoctor = (props) => {
   };
 
   const doctorContactChangeHandler = (event) => {
-    updateDoctorData({ phoneNum: event.target.value });
+    updateDoctorData({ contact: event.target.value });
   };
 
   const doctorSplChangeHandler = (event) => {
