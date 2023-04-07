@@ -37,13 +37,20 @@ const FieldWorkerDetails = (props) => {
   console.log("Field Worker details page");
   console.log(props.fieldWorkerFollowUpsList);
 
+  props.fieldWorkerFollowUpsList.map((followUpData) => {
+    console.log(followUpData.flag);
+    console.log(followUpData);
+  });
+
   return (
     <div className={classes.center}>
       <h2> Follow Up Status</h2>
 
       {props.fieldWorkerFollowUpsList.length === 0 && (
         <div>
-          <h4 style={{textAlign:"center"}}>No Follow Ups assigned to the selected field worker.</h4>
+          <h4 style={{ textAlign: "center" }}>
+            No Follow Ups assigned to the selected field worker.
+          </h4>
         </div>
       )}
 
@@ -52,7 +59,7 @@ const FieldWorkerDetails = (props) => {
           <div key={followUpData.followUpId} className={classes.plist}>
             <div>ID : {followUpData.followUpId}</div>
             <div>Patient ID : {followUpData.patient.patientId}</div>
-            <div>Status : {followUpData.status}</div>
+            <div>Status : {followUpData.flag === false ? "Pending" : "Completed"}</div>
           </div>
         ))}
       </div>
