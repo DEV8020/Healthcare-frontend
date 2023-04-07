@@ -105,17 +105,17 @@ function App() {
   //   //   console.log(exception);
   //   // }
   // };
-  useEffect(() => {
-    async function fetchData() {
-      if (user !== null && user.userType === "doctor") {
-        // const patientListObject = await getPatientList();
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     if (user !== null && user.userType === "doctor") {
+  //       // const patientListObject = await getPatientList();
 
-        // setPatientList(patientListObject);
-        setPatientList(pList);
-      }
-    }
-    fetchData();
-  }, [user]);
+  //       // setPatientList(patientListObject);
+  //       setPatientList(pList);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [user]);
 
   //  useEffect(() => {
   //    const loggedInUser = window.localStorage.getItem('loggedInUser')
@@ -159,7 +159,7 @@ function App() {
         />
       )}
       {
-        user !== null && user.userType === "doctor" && (
+        user !== null && user.userType === "Doctor" && (
           <DoctorScreen
             user={user}
             setUser={setUser}

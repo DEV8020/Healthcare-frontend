@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./Prescription.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
-
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");
@@ -21,39 +21,38 @@ const Prescription = (props) => {
     console.log(PrescriptionData);
     // props.onPrescription(PrescriptionData);
     setPrescriptionData("");
-    props.setAlertMessage("Prescription successfully added :" + PrescriptionData);
+    props.setAlertMessage(
+      "Prescription successfully added :" + PrescriptionData
+    );
     props.setAlertFlag(true);
-
   };
-
 
   return (
     <div>
-      
-    <div className={classes.center}>
-       <h1>Appointment</h1>
-      
-      <form  onSubmit={PrescriptionSubmitHandler}>
-       
+      <div className={classes.center}>
+        <h1>Appointment</h1>
 
-        <TextBox.TextBox2
-          type="text"
-          label="Prescription"
-          value={PrescriptionData}
-          onChange={PrescriptionDataChangeHandler}
-        />
-        <TextBox.TextBox2
-          type="text"
-          label="Additional Notes"
-          value={AdditionalNotes}
-          onChange={AdditionalNotesChangeHandler}
-        />
-       
-        <MenuSubmitButton value="Submit" />
-       
-        
-      </form>
-    </div>
+        <form onSubmit={PrescriptionSubmitHandler}>
+          <TextBox.TextBox2
+            type="text"
+            label="Prescription"
+            value={PrescriptionData}
+            onChange={PrescriptionDataChangeHandler}
+          />
+          <TextBox.TextBox2
+            type="text"
+            label="Additional Notes"
+            value={AdditionalNotes}
+            onChange={AdditionalNotesChangeHandler}
+          />
+
+          <MenuSubmitButton value="Submit" />
+          <MenuSubmitButton
+            value="Add Followup"
+            onClick={() => props.setAddFollowup(true)}
+          />
+        </form>
+      </div>
     </div>
   );
 };

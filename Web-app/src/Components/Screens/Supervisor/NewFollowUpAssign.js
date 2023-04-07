@@ -8,64 +8,74 @@ import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
 const NewFollowUpAssign = (props) => {
   const [fieldWorkerId, setFieldWorkerId] = useState([""]);
-  
 
-  const FieldWorkerIdChangeHandler = (index,event) => {
+  const FieldWorkerIdChangeHandler = (index, event) => {
     const values = [...fieldWorkerId];
     values[index] = event.target.value;
     setFieldWorkerId(values);
   };
   const AssignFollowUpHandler = (index) => {
     // props.setAlertFlag("True")
-    
+
     const values = [...fieldWorkerId];
     values[index] = "";
     setFieldWorkerId(values);
-    props.setAlertMessage(" Follow up Assigned to field Worker ID: " + fieldWorkerId[index]);
+    props.setAlertMessage(
+      " Follow up Assigned to field Worker ID: " + fieldWorkerId[index]
+    );
     props.setAlertFlag(true);
-    
   };
 
-  const patientList = [
-    {
-      p_id: "p1",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-      
-    },
-    {
-      p_id: "p2",
-      name: "johny",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-      
-    },
-  ];
-  return (
-    <div className={classes.center}>
-      <h1> Assign Follow ups </h1>
-      <div className={classes.ul}>
+  const renderFolloups = () => {
+    const patientList = [
+      {
+        p_id: "p1",
+        name: "john",
+        age: 12,
+        sex: "m",
+        contact: 1234567890,
+      },
+      {
+        p_id: "p2",
+        name: "johny",
+        age: 12,
+        sex: "m",
+        contact: 1234567890,
+      },
+    ];
+
+    return (
+      <>
         {patientList.map((patientdata) => (
           <div key={patientdata.p_id} className={classes.plist}>
             <div>Name:{patientdata.name}</div>
             <div>Age:{patientdata.age}</div>
             <div>Sex:{patientdata.sex}</div>
             <div>Contact:{patientdata.contact}</div>
-            
+
             <SmallInputField
-                type="text"
-                label="Field Worker Id"
-                value={fieldWorkerId[patientdata.p_id]}
-                id={patientdata.p_id}
-                onChange={event=>FieldWorkerIdChangeHandler(patientdata.p_id,event)}
-              /> 
-              <AddButton value="Assign Follow ups" onClick={()=>AssignFollowUpHandler(patientdata.p_id)} />
-            
+              type="text"
+              label="Field Worker Id"
+              value={fieldWorkerId[patientdata.p_id]}
+              id={patientdata.p_id}
+              onChange={(event) =>
+                FieldWorkerIdChangeHandler(patientdata.p_id, event)
+              }
+            />
+            <AddButton
+              value="Assign Follow ups"
+              onClick={() => AssignFollowUpHandler(patientdata.p_id)}
+            />
           </div>
         ))}
+      </>
+    );
+  };
+  return (
+    <div className={classes.center}>
+      <h1> Assign Follow ups </h1>
+      <div className={classes.ul}>
+        <renderFolloups />
       </div>
     </div>
   );

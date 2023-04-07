@@ -90,12 +90,9 @@ const PatientRegistration = (props) => {
     setPatientBdate("");
   };
 
-
-const cancelButtonHandler = () => {
-  props.setFrontDeskOption("frontDesk");
-};
-
-
+  const cancelButtonHandler = () => {
+    props.setFrontDeskOption("frontDesk");
+  };
 
   return (
     <div>
@@ -139,9 +136,9 @@ const cancelButtonHandler = () => {
             value={patientAddress}
             onChange={patientAddressChangeHandler}
           />
-<div>
-          <MenuSubmitButton value="Register" />
-          <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler}/>
+          <div>
+            <MenuSubmitButton value="Register" />
+            <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} />
           </div>
         </form>
       </div>
