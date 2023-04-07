@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./FieldWorkerList.module.css";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
+import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 
 const FieldWorkerList = (props) => {
+
+  const [fieldWorkerList, setFieldWorkerList] = useState([]);
+
+
   const getFieldWorkerDetailsHandler = (fieldWorkerData) => {
     console.log("getFieldWorkerDetailsHandler is  ");
     console.log(fieldWorkerData);
@@ -14,21 +20,30 @@ const FieldWorkerList = (props) => {
   console.log("props.fieldWorkerList in field worker list screen");
   console.log(props.fieldWorkerList);
 
+// SupervisorAPIHandler
+  useEffect(() => {
+    //Hard Coded supervisor ID...
+    SupervisorAPIHandler.getAllFieldWorkerListAPI({
+      supervisorID: "supervisorID",
+      getAllFieldWorkerListAPIHandler: getAllFieldWorkerListAPIHandler,
+    });
+  }, []);
+
+  const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
+    setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
+    console.log("getAllFieldWorkerListAPIHandler added called response");
+    console.log(fieldWorkerListData.fieldWorkerListData);
+  };
+
+
+
+
   return (
-    // address : "400001"
-    // authId : 52
-    // contact : "1111111111"
-    // name : "Rajeev"
-    // password : "FieldWorker1"
-    // supervisor:
-    // {authId: 1, userId: 'supervisor1', password: 'supervisor1', userType: 'Supervisor', name: 'supervisor1', …}
-    // userId : "FieldWorker1"
-    // userType : "FieldWorker"
 
     <div className={classes.center}>
       <h1> Field Worker List</h1>
       <div className={classes.ul}>
-        {props.fieldWorkerList.map((fieldworkerdata) => (
+        {fieldWorkerList.map((fieldworkerdata) => (
           <div key={fieldworkerdata.authId} className={classes.plist}>
             <div>ID : {fieldworkerdata.authId}</div>
             <div>userId : {fieldworkerdata.userId}</div>

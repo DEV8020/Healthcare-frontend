@@ -12,57 +12,63 @@ const SuperVisorScreen = (props) => {
   const [superVisorOption, setSuperVisorOption] = useState("superVisor");
   const [fieldWorkerStatus, setFieldWorkerStatus] = useState(false);
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
-  const [selectedFieldWorkerDetailsData, setSelectedFieldWorkerDetailsData] =
-    useState([]);
-  const [unassignedFollowUpsList, setUnassignedFollowUpsList] = useState([]);
+  const [fieldWorkerFollowUpsList, setFieldWorkerFollowUpsList] = useState([]);
+  // const [selectedFieldWorkerDetailsData, setSelectedFieldWorkerDetailsData] =
+  //   useState([]);
+  // const [unassignedFollowUpsList, setUnassignedFollowUpsList] = useState([]);
 
+  // useEffect(() => {
+  //   //Hard Coded supervisor ID...
+  //   SupervisorAPIHandler.getAllFieldWorkerListAPI({
+  //     supervisorID: "supervisorID",
+  //     getAllFieldWorkerListAPIHandler: getAllFieldWorkerListAPIHandler,
+  //   });
+  // }, []);
 
-
-  useEffect(() => {
-    //Hard Coded supervisor ID...
-    SupervisorAPIHandler.getAllFieldWorkerListAPI({
-      supervisorID: "supervisorID",
-      getAllFieldWorkerListAPIHandler: getAllFieldWorkerListAPIHandler,
-    });
-  }, []);
-
-  const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
-    setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
-    console.log("getAllFieldWorkerListAPIHandler added called response");
-    console.log(fieldWorkerListData.fieldWorkerListData);
-  };
+  // const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
+  //   setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
+  //   console.log("getAllFieldWorkerListAPIHandler added called response");
+  //   console.log(fieldWorkerListData.fieldWorkerListData);
+  // };
 
   //Method to get the Unassigned Follows Ups for a supervisor...
-  useEffect(() => {
-    //Hard Coded supervisor ID...
-    SupervisorAPIHandler.GetSupervisorUnassignedFollowUpsAPICall({
-      supervisorID: "supervisorID",
-      getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
-    });
-  }, [superVisorOption]);
+  // useEffect(() => {
+  //   //Hard Coded supervisor ID...
+  //   SupervisorAPIHandler.GetSupervisorUnassignedFollowUpsAPICall({
+  //     supervisorID: "supervisorID",
+  //     getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
+  //   });
+  // }, [superVisorOption]);
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
     console.log("loadFieldWorkerDetailsData");
     console.log(fieldWorkerData);
 
-    SupervisorAPIHandler.GetFieldWorkerDetailsAPICall({
+    SupervisorAPIHandler.GetFieldWorkerFollowUpsAPICall({
       fieldWorkerData: fieldWorkerData,
-      getFieldWorkerDetailsAPIHandler: getFieldWorkerDetailsAPIHandler,
+      getFieldWorkerFollowUpsAPIHandler: getFieldWorkerFollowUpsAPIHandler,
     });
   };
 
+  // const getUnassignedFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
+  //   // setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
+  //   console.log("getAllFieldWorkerListAPIHandler added called response");
+  //   console.log(fieldWorkerDetailsData.fieldWorkerListData);
+  // };
 
-  
-  const getUnassignedFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
-    // setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
-    console.log("getAllFieldWorkerListAPIHandler added called response");
-    console.log(fieldWorkerDetailsData.fieldWorkerListData);
-  };
-
-  const getFieldWorkerDetailsAPIHandler = (fieldWorkerDetailsData) => {
-    setFieldWorkerList(fieldWorkerDetailsData.fieldWorkerListData);
+  const getFieldWorkerFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
     console.log("UnassignedFollowUpsData added called response");
-    console.log(fieldWorkerDetailsData.fieldWorkerListData);
+    console.log(fieldWorkerDetailsData);
+    console.log(fieldWorkerDetailsData.FollowUpsData);
+
+    if (fieldWorkerDetailsData.isFollowUpsDataRecieved === true) {
+      setFieldWorkerFollowUpsList(fieldWorkerDetailsData.FollowUpsData);
+    } else {
+      showMessageAtBottomBar({
+        message: fieldWorkerDetailsData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
   };
 
   // const assignPendingFollowUpHandler = (prop) => {
@@ -141,7 +147,11 @@ const SuperVisorScreen = (props) => {
           loadFieldWorkerDetailsData={loadFieldWorkerDetailsData}
         />
       )}
-      {fieldWorkerStatus === true && <FieldWorkerDetails />}
+      {fieldWorkerStatus === true && (
+        <FieldWorkerDetails
+          fieldWorkerFollowUpsList={fieldWorkerFollowUpsList}
+        />
+      )}
     </div>
   );
 };
