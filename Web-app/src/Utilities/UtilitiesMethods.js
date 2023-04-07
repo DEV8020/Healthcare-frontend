@@ -5,6 +5,10 @@ const getSpaceTrimmedLenght = (stringToMeasure) => {
     return lengthOfSpace;
 }
 
+const getSupervisorIDForGlobalUserAPICalls = () => {
+  return "1";
+}
+
 const showMessageBarAtTheBottom = (props) => {
     console.log(props);
     //props.isErrorMessage is to be replcaed from true...
@@ -19,7 +23,8 @@ const showMessageBarAtTheBottom = (props) => {
 
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
-  showMessageBarAtTheBottom
+  showMessageBarAtTheBottom,
+  getSupervisorIDForGlobalUserAPICalls
 };
 
 export default UtilitiesMethods;

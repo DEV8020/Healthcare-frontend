@@ -6,9 +6,9 @@ const FieldWorkerList = (props) => {
   const getFieldWorkerDetailsHandler = (fieldWorkerData) => {
     console.log("getFieldWorkerDetailsHandler is  ");
     console.log(fieldWorkerData);
-    // props.setAlertMessage(" Selected Field Worker :" + data);
-    // props.setAlertFlag(true);
-    // props.setFieldWorkerStatus(true);
+    props.showMessageAtBottomBar({message : "Selected Field Worker : " + fieldWorkerData.name, isErrorMessage : false});
+    props.loadFieldWorkerDetailsData(fieldWorkerData);
+    props.setFieldWorkerStatus(true);
   };
 
   console.log("props.fieldWorkerList in field worker list screen");
