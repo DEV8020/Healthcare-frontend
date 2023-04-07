@@ -6,6 +6,7 @@ import SmallInputField from "../UI Elements/MenuForm Elements/SmallInputField";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import UnAssignedFollowUpCell from "./UnAssignedFollowUpCell";
 // import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 
 const NewFollowUpAssign = (props) => {
@@ -59,15 +60,18 @@ const NewFollowUpAssign = (props) => {
     console.log("AssignFollowUpHandler");
     console.log(unassignedFollowUpData);
 
-    if (UtilitiesMethods.getSpaceTrimmedLenght(unassignedFollowUpData.fieldWorkerID
-      ) === 0) {
-      props.showMessageAtBottomBar({
-        message:
-          "Please enter field worker Id to proceed. It can't be left blank.",
-        isErrorMessage: true,
-      });
-      return;
-    }
+    // if (
+    //   UtilitiesMethods.getSpaceTrimmedLenght(
+    //     unassignedFollowUpData.fieldWorkerID
+    //   ) === 0
+    // ) {
+    //   props.showMessageAtBottomBar({
+    //     message:
+    //       "Please enter field worker Id to proceed. It can't be left blank.",
+    //     isErrorMessage: true,
+    //   });
+    //   return;
+    // }
 
     //   const [unAssignedFollowUpsData, setUnAssignedFollowUpsData] = useState([]);
     // const [fieldWorkerIDField, setF
@@ -144,29 +148,13 @@ const NewFollowUpAssign = (props) => {
             )}
 
             {unAssignedFollowUpsData.map((unassignedFollowUpData) => (
-              <div
-                key={unassignedFollowUpData.patientId}
-                className={classes.plist}
-              >
-                <div>Name:{unassignedFollowUpData.name}</div>
-                <div>Age:{unassignedFollowUpData.age}</div>
-                <div>Sex:{unassignedFollowUpData.sex}</div>
-                <div>Contact:{unassignedFollowUpData.contact}</div>
-
-                <SmallInputField
-                  type="text"
-                  label="Field Worker Id"
-                  // value={unassignedFollowUpData.fieldWorkerID}
-                  id={unassignedFollowUpData.patientId}
-                  onChange={(event) =>
-                    FieldWorkerIdChangeHandler(unassignedFollowUpData, event)
-                  }
-                />
-                <AddButton
-                  value="Assign Follow ups"
-                  onClick={() => AssignFollowUpHandler(unassignedFollowUpData)}
-                />
-              </div>
+              <>
+                <UnAssignedFollowUpCell
+                  unassignedFollowUpData={unassignedFollowUpData}
+                  showMessageAtBottomBar = {props.showMessageAtBottomBar}
+                  AssignFollowUpHandler = {AssignFollowUpHandler}
+                ></UnAssignedFollowUpCell>
+              </>
             ))}
           </div>
         </div>
