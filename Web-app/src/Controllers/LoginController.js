@@ -8,12 +8,14 @@ const GetUserLoginData = async (props) => {
     responseDataHandler: (loginServiceData) => {
       if (loginServiceData.responseError === null) {
         props.userLoginResponseHandler({
-          isLoginFlag: loginServiceData.responseData.data,
+          userLoginData : loginServiceData.responseData.data,
+          isLoginFlag: true,
           errorMessage: null,
         });
       } else if (loginServiceData.responseData === null) {
         props.userLoginResponseHandler({
-          isLoginFlag: null,
+          userLoginData : null,
+          isLoginFlag: false,
           errorMessage: loginServiceData.responseError.message,
         });
       }
