@@ -16,6 +16,8 @@ const SuperVisorScreen = (props) => {
     useState([]);
   const [unassignedFollowUpsList, setUnassignedFollowUpsList] = useState([]);
 
+
+
   useEffect(() => {
     //Hard Coded supervisor ID...
     SupervisorAPIHandler.getAllFieldWorkerListAPI({

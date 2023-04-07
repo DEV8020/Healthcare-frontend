@@ -151,9 +151,10 @@ const AssignUnAssignedFollowUpAPICall = async (props) => {
   // Endpoint: http://localhost:9191/getFieldWorkers/{FieldWorkerId}/{PatientId}
   // Default: FieldWorkerId = 6, PatientId = 1
   //
-
+  // Endpoint: http://localhost:9191/assignFollowUp/{fieldWorkerId}/{patientId}
+// unassignedPatientData
   const modifiedChildURL =
-    "getFieldWorkers/" +
+    "assignFollowUp/" +
     props.unassignedPatientData.fieldWorkerID +
     "/" +
     props.unassignedPatientData.patientId;
@@ -162,7 +163,7 @@ const AssignUnAssignedFollowUpAPICall = async (props) => {
 
   // return;
 
-  await GlobalServiceHandler.hitPostService({
+  await GlobalServiceHandler.hitPutService({
     childURL: modifiedChildURL,
     postData: props.unassignedPatientData,
     responseDataHandler: (assignUnAssignedFollowUpResponseData) => {
@@ -178,7 +179,7 @@ const AssignUnAssignedFollowUpAPICall = async (props) => {
         });
       } else if (assignUnAssignedFollowUpResponseData.responseData === null) {
         props.assignUnAssignedFollowUpResponseHanlder({
-          isFollowUpAssigned: null,
+          isFollowUpAssigned: false,
           assignedFollowUpData: null,
           errorMessage:
             assignUnAssignedFollowUpResponseData.responseError.message,

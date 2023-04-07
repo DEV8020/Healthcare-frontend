@@ -8,20 +8,20 @@ const UnAssignedFollowUpCell = (props) => {
   const [patientUnassignedFollowUpData, setPatientUnassignedFollowUpData] =
     useState(props.unassignedFollowUpData);
 
-  const FieldWorkerIdChangeHandler = (unassignedFollowUpData, event) => {
+  const FieldWorkerIdChangeHandler = (event) => {
     setPatientUnassignedFollowUpData((patientData) => {
       console.log({ ...patientData, ...{ fieldWorkerID: event.target.value } });
       return { ...patientData, ...{ fieldWorkerID: event.target.value } };
     });
   };
 
-  const AssignFollowUpHandler = (unassignedFollowUpData) => {
+  const AssignFollowUpHandler = () => {
     console.log("FieldWorkerIdChangeHandler");
-    console.log(unassignedFollowUpData);
+    console.log(patientUnassignedFollowUpData);
 
     if (
       UtilitiesMethods.getSpaceTrimmedLenght(
-        unassignedFollowUpData.fieldWorkerID
+        patientUnassignedFollowUpData.fieldWorkerID
       ) === 0
     ) {
       props.showMessageAtBottomBar({
@@ -31,7 +31,7 @@ const UnAssignedFollowUpCell = (props) => {
       });
       return;
     }
-    props.AssignFollowUpHandler(unassignedFollowUpData);
+    props.AssignFollowUpHandler(patientUnassignedFollowUpData);
   };
 
   return (
@@ -48,15 +48,10 @@ const UnAssignedFollowUpCell = (props) => {
         type="text"
         label="Field Worker Id"
         id={patientUnassignedFollowUpData.patientId}
-        onChange={(event) =>
-          FieldWorkerIdChangeHandler(patientUnassignedFollowUpData, event)
-        }
-        value = {patientUnassignedFollowUpData.fieldWorkerID}
+        onChange={FieldWorkerIdChangeHandler}
+        value={patientUnassignedFollowUpData.fieldWorkerID}
       />
-      <AddButton
-        value="Assign Follow ups"
-        onClick={() => AssignFollowUpHandler(patientUnassignedFollowUpData)}
-      />
+      <AddButton value="Assign Follow ups" onClick={AssignFollowUpHandler} />
     </div>
   );
 };
