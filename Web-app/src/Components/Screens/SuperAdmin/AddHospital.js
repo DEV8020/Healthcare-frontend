@@ -1,42 +1,34 @@
 import React, { useState } from "react";
-// import AddHospitalService from "../../../Services/AddHospitalService";
 import classes from "./AddHospital.module.css";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
-// import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+
 
 const AddHospital = (props) => {
+  //#################### Use State Variables  ####################
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalAddress, setHospitalAddress] = useState("");
-  // const [hospitalSupervisorId, setHospitalSupervisorId] = useState("");
-  // const [hospitalId, setHospitalId] = useState("");
 
+  //########################## Data Change Event Handler Methods  ##########################
+  //Hospital Name Data Change Event Handler Method...
   const hospitalNameChangeHandler = (event) => {
     setHospitalName(event.target.value);
   };
-  // const hospitalSupervisorIdChangeHandler = (event) => {
-  //   setHospitalSupervisorId(event.target.value);
-  // };
 
-  // const hospitalIdChangeHandler = (event) => {
-  //   setHospitalId(event.target.value);
-  // };
-
+  //Hospital Address Data Change Event Handler Method...
   const hospitalAddressChangeHandler = (event) => {
     setHospitalAddress(event.target.value);
   };
+  //########################## Data Change Event Handler Methods Ends Here  ##########################
 
   const AddHospitalDataHandler = (event) => {
     event.preventDefault();
-
     const hospitalData = {
       name: hospitalName,
       address: hospitalAddress,
     };
-
     SuperAdminAPIHandler.AddHospitalData({
       hospitalData: hospitalData,
       addHospitalResponseHandler: addHospitalResponseHandler,
@@ -44,35 +36,43 @@ const AddHospital = (props) => {
   };
 
   const addHospitalResponseHandler = (hospitalData) => {
-    if (hospitalData.errorMessage === null) {
-      if (hospitalData.isHospitalAdded === true) {
-        addHospitalSuccessHandler();
-      }
-      if (hospitalData.isHospitalAdded === false) {
-        showErrorMessageScreen("Some error occured.");
-      }
-    } else if (hospitalData.HospitalData === null) {
-      showErrorMessageScreen(hospitalData.errorMessage);
+    if (hospitalData.isHospitalAdded === true) {
+      addHospitalSuccessHandler();
+    } else if (hospitalData.isHospitalAdded === false) {
+      showMessageAtBottomBar({
+        message: hospitalData.errorMessage,
+        isErrorMessage: true,
+      });
     }
   };
 
-  const showErrorMessageScreen = (errorMessage) => {
-    props.setAlertMessage(errorMessage);
-    props.setAlertFlag(true);
+  const showMessageAtBottomBar = (prop) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
   };
+
+  // const showErrorMessageScreen = (errorMessage) => {
+  //   props.setAlertMessage(errorMessage);
+  //   props.setAlertFlag(true);
+  // };
 
   const addHospitalSuccessHandler = () => {
     setHospitalName("");
     setHospitalAddress("");
-    showErrorMessageScreen("Hospital Added Successfully");
+    showMessageAtBottomBar({
+      message: "Hospital Added Successfully.",
+      isErrorMessage: true,
+    });
   };
 
   const BackButtonPressedHandler = () => {
     props.setSuperAdminOption("");
   };
 
-
-  // const hospitalSupervisorIds = [{ option: "1" }, { option: "2" }];
   return (
     <div>
       <div className={classes.center}>
@@ -92,21 +92,9 @@ const AddHospital = (props) => {
             onChange={hospitalAddressChangeHandler}
             value={hospitalAddress}
           />
-          {/* <InputField
-          type="text"
-          label="Supervisor ID"
-          onChange={hospitalSupervisorIdChangeHandler}
-        /> */}
-
-          {/* <InputField
-          type="text"
-          label="Registration Id"
-          onChange={hospitalIdChangeHandler}
-        /> */}
 
           <MenuSubmitButton value="Register" />
-          <MenuSubmitButton value="Back" onClick={BackButtonPressedHandler}/>
-          {/* <AddButton onCli */}
+          <MenuSubmitButton value="Back" onClick={BackButtonPressedHandler} />
         </form>
       </div>
     </div>

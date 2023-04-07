@@ -18,7 +18,7 @@ const AddHospitalData = async (props) => {
         });
       } else if (addHospitalServiceData.responseData === null) {
         props.addHospitalResponseHandler({
-          isHospitalAdded: null,
+          isHospitalAdded: false,
           HospitalData: null,
           errorMessage: addHospitalServiceData.responseError.message,
         });
