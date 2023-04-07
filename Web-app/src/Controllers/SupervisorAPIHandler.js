@@ -144,32 +144,16 @@ const GetSupervisorUnassignedFollowUpsAPICall = async (props) => {
 // assignUnAssignedFollowUpResponseHanlder : assignUnAssignedFollowUpResponseHanlder
 
 const AssignUnAssignedFollowUpAPICall = async (props) => {
-  console.log("AssignUnAssignedFollowUpAPICall");
-  console.log(props.unassignedPatientData);
-  console.log(props.unassignedPatientData);
-
-  // Endpoint: http://localhost:9191/getFieldWorkers/{FieldWorkerId}/{PatientId}
-  // Default: FieldWorkerId = 6, PatientId = 1
-  //
-  // Endpoint: http://localhost:9191/assignFollowUp/{fieldWorkerId}/{patientId}
-// unassignedPatientData
   const modifiedChildURL =
     "assignFollowUp/" +
     props.unassignedPatientData.fieldWorkerID +
     "/" +
     props.unassignedPatientData.patientId;
 
-  console.log(modifiedChildURL);
-
-  // return;
-
   await GlobalServiceHandler.hitPutService({
     childURL: modifiedChildURL,
     postData: props.unassignedPatientData,
     responseDataHandler: (assignUnAssignedFollowUpResponseData) => {
-      console.log("AssignUnAssignedFollowUpAPICall");
-      console.log(assignUnAssignedFollowUpResponseData);
-      console.log(assignUnAssignedFollowUpResponseData.responseData.data);
       if (assignUnAssignedFollowUpResponseData.responseError === null) {
         props.assignUnAssignedFollowUpResponseHanlder({
           isFollowUpAssigned: true,
@@ -225,8 +209,6 @@ const SupervisorAPIHandler = {
   GetSupervisorUnassignedFollowUpsAPICall,
   GetUnassignedPatientListAPICall,
   AssignUnAssignedFollowUpAPICall,
-  //   AddPatientEncounterAPICall,
-  //   GetPatientDetailsData,
 };
 
 export default SupervisorAPIHandler;
