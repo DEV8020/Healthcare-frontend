@@ -45,16 +45,22 @@ const Login = (props) => {
     //console.log("LoginResponseHandler login api response is ");
     //console.log(userLoginData);
 
-if(userLoginData.isLoginFlag === true){
-  showMessageAtBottomBar({message : "", isErrorMessage : false});
-}else{
-  showMessageAtBottomBar({message : userLoginData.errorMessage, isErrorMessage : true});
-}
+    if (userLoginData.isLoginFlag === true) {
+      showMessageAtBottomBar({ message: "", isErrorMessage: false });
+      UtilitiesMethods.processUserLoginData(userLoginData.loggedInUserData);
+    } else {
+      showMessageAtBottomBar({
+        message: userLoginData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
 
-// isLoginFlag: false,
-//           loggedInUserData : null,
-//           errorMessage: loginServiceData.responseError.message,
-// UtilitiesMethods
+
+    // UtilitiesMethods
+    // isLoginFlag: false,
+    //           loggedInUserData : null,
+    //           errorMessage: loginServiceData.responseError.message,
+    // UtilitiesMethods
 
     if (userLoginData.errorMessage === null) {
       if (userLoginData.isLoginFlag === true) {
@@ -80,7 +86,6 @@ if(userLoginData.isLoginFlag === true){
     }
   };
 
-
   const showMessageAtBottomBar = (prop) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
       message: prop.message,
@@ -89,11 +94,6 @@ if(userLoginData.isLoginFlag === true){
       alertMessageFlag: props.setAlertFlag,
     });
   };
-
-
-
-
-
 
   const setUserAsLoggedIn = () => {
     const userData = {

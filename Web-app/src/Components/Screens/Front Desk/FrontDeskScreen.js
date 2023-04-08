@@ -5,6 +5,7 @@ import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
 import CreateAppointment from "./CreateAppointment";
 import PatientDetailsView from "../Patient/PatientDetailsView"
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FrontDeskScreen = (props) => {
   const [frontDeskOption, setFrontDeskOption] = useState("frontDesk");
@@ -20,8 +21,10 @@ const FrontDeskScreen = (props) => {
 
   const logoutFD = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
+
   if (!props.user) return null;
 
   return (
