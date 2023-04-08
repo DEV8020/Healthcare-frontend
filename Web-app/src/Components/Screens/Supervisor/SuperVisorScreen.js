@@ -15,6 +15,8 @@ const SuperVisorScreen = (props) => {
   const [selectedFieldWorkerDetailsData, setSelectedFieldWorkerDetailsData] =
     useState([]);
   const [unassignedFollowUpsList, setUnassignedFollowUpsList] = useState([]);
+  const [isNewAssignedFollowUpsToRefresh, setIsNewAssignedFollowUpsToRefresh] =
+    useState(false);
 
   useEffect(() => {
     //Hard Coded supervisor ID...
@@ -37,6 +39,7 @@ const SuperVisorScreen = (props) => {
       supervisorID: "supervisorID",
       getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
     });
+    console.log("getUnassignedFollowUpsAPIHandler called in supervisor screen");
   }, [superVisorOption]);
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
@@ -49,8 +52,6 @@ const SuperVisorScreen = (props) => {
     });
   };
 
-
-  
   const getUnassignedFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
     // setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
     console.log("getAllFieldWorkerListAPIHandler added called response");
@@ -85,10 +86,18 @@ const SuperVisorScreen = (props) => {
 
   const NewFollowUpAssignButtonHandler = () => {
     setSuperVisorOption("NewFollowUpAssign");
+    refreshNewAssignedFollowUpsList();
     setFieldWorkerStatus(false);
   };
   const FieldWorkerListButtonHandler = () => {
     setSuperVisorOption("FieldWorkerList");
+    refreshNewAssignedFollowUpsList();
+  };
+
+  const refreshNewAssignedFollowUpsList = () => {
+    setIsNewAssignedFollowUpsToRefresh((isRefresh) => {
+      return !isRefresh;
+    });
   };
 
   const logoutSV = () => {
@@ -125,6 +134,7 @@ const SuperVisorScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
           setAlertMessage={props.setAlertMessage}
           showMessageAtBottomBar={showMessageAtBottomBar}
+          isNewAssignedFollowUpsToRefresh = {isNewAssignedFollowUpsToRefresh}
           //assignPendingFollowUpHandler={assignPendingFollowUpHandler}
         />
       )}

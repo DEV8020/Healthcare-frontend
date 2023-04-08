@@ -18,10 +18,18 @@ const NewFollowUpAssign = (props) => {
     SupervisorAPIHandler.GetUnassignedPatientListAPICall({
       getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
     });
-  }, [isUnAssignedFollowUpListToRefresh]);
+  }, [props.isNewAssignedFollowUpsToRefresh]);
 
   //Corresponding API Call Handler...
   const getUnassignedFollowUpsAPIHandler = (unAssignedFollowUpsData) => {
+    if(unAssignedFollowUpsData.UnAssignedFollowUpData === null){
+       if(unAssignedFollowUpsData.isUnassignedListRecieved === false){
+        props.showMessageAtBottomBar({
+          message: unAssignedFollowUpsData.errorMessage,
+          isErrorMessage: true,
+        });
+       }
+      return;}
     setUnAssignedFollowUpsData(unAssignedFollowUpsData.UnAssignedFollowUpData);
     const modifiedData = unAssignedFollowUpsData.UnAssignedFollowUpData.map(
       (patientData) => {
