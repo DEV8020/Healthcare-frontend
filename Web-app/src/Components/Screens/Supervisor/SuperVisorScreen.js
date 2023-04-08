@@ -14,32 +14,7 @@ const SuperVisorScreen = (props) => {
   const [fieldWorkerStatus, setFieldWorkerStatus] = useState(false);
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
   const [fieldWorkerFollowUpsList, setFieldWorkerFollowUpsList] = useState([]);
-  // const [selectedFieldWorkerDetailsData, setSelectedFieldWorkerDetailsData] =
-  //   useState([]);
-  // const [unassignedFollowUpsList, setUnassignedFollowUpsList] = useState([]);
-
-  // useEffect(() => {
-  //   //Hard Coded supervisor ID...
-  //   SupervisorAPIHandler.getAllFieldWorkerListAPI({
-  //     supervisorID: "supervisorID",
-  //     getAllFieldWorkerListAPIHandler: getAllFieldWorkerListAPIHandler,
-  //   });
-  // }, []);
-
-  // const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
-  //   setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
-  //   console.log("getAllFieldWorkerListAPIHandler added called response");
-  //   console.log(fieldWorkerListData.fieldWorkerListData);
-  // };
-
-  //Method to get the Unassigned Follows Ups for a supervisor...
-  // useEffect(() => {
-  //   //Hard Coded supervisor ID...
-  //   SupervisorAPIHandler.GetSupervisorUnassignedFollowUpsAPICall({
-  //     supervisorID: "supervisorID",
-  //     getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
-  //   });
-  // }, [superVisorOption]);
+  
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
     console.log("loadFieldWorkerDetailsData");
@@ -51,11 +26,6 @@ const SuperVisorScreen = (props) => {
     });
   };
 
-  // const getUnassignedFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
-  //   // setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
-  //   console.log("getAllFieldWorkerListAPIHandler added called response");
-  //   console.log(fieldWorkerDetailsData.fieldWorkerListData);
-  // };
 
   const getFieldWorkerFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
     console.log("UnassignedFollowUpsData added called response");
@@ -72,16 +42,7 @@ const SuperVisorScreen = (props) => {
     }
   };
 
-  // const assignPendingFollowUpHandler = (prop) => {
-  //   console.log("assignPendingFollowUpHandler called");
-  //   console.log(prop);
-  // };
 
-  // const getUnassignedFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
-  //   // setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
-  //   console.log("getAllFieldWorkerListAPIHandler added called response");
-  //   console.log(fieldWorkerDetailsData.fieldWorkerListData);
-  // };
 
   const showMessageAtBottomBar = (prop) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
