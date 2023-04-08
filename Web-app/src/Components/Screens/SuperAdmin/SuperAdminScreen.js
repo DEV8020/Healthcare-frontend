@@ -29,6 +29,8 @@ const SuperAdminScreen = (props) => {
     password: "",
     userType: "",
     hospitalId: "",
+    address : "",
+    contact : ""
   });
 
   const allRegisteredListHandleCallBack = (registeredUsersList) => {
@@ -102,14 +104,17 @@ const SuperAdminScreen = (props) => {
 
   const HospitalRegistrationButtonHandler = () => {
     setSuperAdminOption("HospitalRegistration");
+    updateUserListAfterDataUpdateHandler();
   };
   const CreateUserButtonHandler = () => {
     console.log("CU");
     setSuperAdminOption("CreateUserScreen");
+    updateUserListAfterDataUpdateHandler();
   };
 
   const AllRegisteredUserButtonHandler = () => {
     setSuperAdminOption("AllUsers");
+    updateUserListAfterDataUpdateHandler();
   };
 
   const logoutSA = () => {

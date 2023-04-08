@@ -15,7 +15,7 @@ function AddFollowup(props) {
     const formValues = {};
     for (let i = 0; i < numInputs; i++) {
       formValues[i] = {
-        input: event.target[`followup-${i}`].value,
+        doctor_remark: event.target[`followup-${i}`].value,
         date: event.target[`date-${i}`].value,
       };
     }

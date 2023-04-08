@@ -40,24 +40,43 @@ const CreateUser = (props) => {
     setHospitalData({ userId: event.target.value });
   };
 
+  const registerUserContactChangeHandler = (event) => {
+    setHospitalData({ contact: event.target.value });
+  };
+
+  const registerUserAddressChangeHandler = (event) => {
+    setHospitalData({ address: event.target.value });
+  };
+
+  //registerUserContactChangeHandler
+
   const registerUserPasswordChangeHandler = (event) => {
     setHospitalData({ password: event.target.value });
+  };
+
+  const registerUserNameChangeHandler = (event) => {
+    setHospitalData({ name: event.target.value });
   };
 
   const RegisterUserHandler = (event) => {
     
     event.preventDefault();
 
-    var addUserData = { name: "dhruv", contact: "khaddj", address: "400001"};
+    var addUserData = props.selectedHospitalDataForAdminCreation;
+    //= { name: "dhruv", contact: "khaddj", address: "400001"};
 
-    if (props.selectedHospitalDataForAdminCreation.userType === "Supervisor") {
-      addUserData = {
-        ...addUserData,
-        ...props.selectedHospitalDataForAdminCreation,
-      };
-    }else{
-      addUserData = props.selectedHospitalDataForAdminCreation;
-    }
+    console.log(props.selectedHospitalDataForAdminCreation);
+
+    //return;
+
+    // if (props.selectedHospitalDataForAdminCreation.userType === "Supervisor") {
+    //   addUserData = {
+    //     ...addUserData,
+    //     ...props.selectedHospitalDataForAdminCreation,
+    //   };
+    // }else{
+    //   addUserData = props.selectedHospitalDataForAdminCreation;
+    // }
 
     SuperAdminAPIHandler.AddNewUserData({
       registerUserData: addUserData,
@@ -107,9 +126,11 @@ const CreateUser = (props) => {
       password: "",
       userType: "",
       hospitalId: "",
+      address : "",
+      contact : ""
     });
   };
-  //name,contact,address
+ 
 
   const showMessageDisplayScreen = (emessageToBeDisplayed) => {
     props.setAlertMessage(emessageToBeDisplayed);
@@ -137,8 +158,8 @@ const CreateUser = (props) => {
           <InputField
             type="text"
             label="Name"
-            // onChange={registerUserNameChangeHandler}
-            // value={props.selectedHospitalDataForAdminCreation.name}
+            onChange={registerUserNameChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.name}
           />
           <InputField
             type="text"
@@ -165,34 +186,34 @@ const CreateUser = (props) => {
             type="text"
             label="User ID"
             onChange={registerUserIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.userId}
+            value={props.selectedHospitalDataForAdminCreation.userId}
           />
           <InputField
             type="text"
             label="Password"
             onChange={registerUserPasswordChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.password}
+            value={props.selectedHospitalDataForAdminCreation.password}
           />
 
           <InputField
             type="text"
             label="Name"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.name}
+            onChange={registerUserNameChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.name}
           />
 
           <InputField
             type="text"
             label="Contact"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.contact}
+            onChange={registerUserContactChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.contact}
           />
 
           <InputField
             type="text"
             label="Address"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.address}
+            onChange={registerUserAddressChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.address}
           />
         </>
       );
