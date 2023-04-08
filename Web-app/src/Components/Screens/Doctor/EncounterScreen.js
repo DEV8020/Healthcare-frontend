@@ -6,7 +6,8 @@ import Button from "../UI Elements/Button/Button";
 import Prescription from "./Prescription";
 import ViewHistory from "./ViewHistory";
 import FollowUpUpdates from "./FollowUpUpdates";
-import AddFollowup from "./AddFollowup";
+import AddFollowup from "./AddFollowup"
+// import AddFollowup from "./AddFollowup";
 
 const EncounterScreen = (props) => {
   const [encounterOption, setEncounterOption] = useState("");
@@ -25,6 +26,7 @@ const EncounterScreen = (props) => {
   const backButtonD = () => {
     props.setCreateEncounter(false);
   };
+  // AddFollowup
 
   return (
     <div>

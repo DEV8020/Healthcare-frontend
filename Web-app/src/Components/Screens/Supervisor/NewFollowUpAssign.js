@@ -1,83 +1,97 @@
-import React, { useState } from "react";
-
-// import NewEncounterService from "../../../Services/NewEncounterService";
+import React, { useEffect, useState } from "react";
 import classes from "./NewFollowUpAssign.module.css";
-import SmallInputField from "../UI Elements/MenuForm Elements/SmallInputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
+import UnAssignedFollowUpCell from "./UnAssignedFollowUpCell";
+
 
 const NewFollowUpAssign = (props) => {
-  const [fieldWorkerId, setFieldWorkerId] = useState([""]);
+  const [unAssignedFollowUpsData, setUnAssignedFollowUpsData] = useState([]);
+  const [
+    isUnAssignedFollowUpListToRefresh,
+    setIsUnAssignedFollowUpListToRefresh,
+  ] = useState(true);
 
-  const FieldWorkerIdChangeHandler = (index, event) => {
-    const values = [...fieldWorkerId];
-    values[index] = event.target.value;
-    setFieldWorkerId(values);
-  };
-  const AssignFollowUpHandler = (index) => {
-    // props.setAlertFlag("True")
+  //########################  Unassigned Patient Follow Ups  ########################
 
-    const values = [...fieldWorkerId];
-    values[index] = "";
-    setFieldWorkerId(values);
-    props.setAlertMessage(
-      " Follow up Assigned to field Worker ID: " + fieldWorkerId[index]
+  //API Call...
+  useEffect(() => {
+    SupervisorAPIHandler.GetUnassignedPatientListAPICall({
+      getUnassignedFollowUpsAPIHandler: getUnassignedFollowUpsAPIHandler,
+    });
+  }, [isUnAssignedFollowUpListToRefresh]);
+
+  //Corresponding API Call Handler...
+  const getUnassignedFollowUpsAPIHandler = (unAssignedFollowUpsData) => {
+    setUnAssignedFollowUpsData(unAssignedFollowUpsData.UnAssignedFollowUpData);
+    const modifiedData = unAssignedFollowUpsData.UnAssignedFollowUpData.map(
+      (patientData) => {
+        return { ...patientData, ...{ fieldWorkerID: "" } };
+      }
     );
-    props.setAlertFlag(true);
+    setUnAssignedFollowUpsData(modifiedData);
   };
 
-  const renderFolloups = () => {
-    const patientList = [
-      {
-        p_id: "p1",
-        name: "john",
-        age: 12,
-        sex: "m",
-        contact: 1234567890,
-      },
-      {
-        p_id: "p2",
-        name: "johny",
-        age: 12,
-        sex: "m",
-        contact: 1234567890,
-      },
-    ];
+  //########################  Unassigned Patient Follow Ups Ends Here  ########################
 
-    return (
-      <>
-        {patientList.map((patientdata) => (
-          <div key={patientdata.p_id} className={classes.plist}>
-            <div>Name:{patientdata.name}</div>
-            <div>Age:{patientdata.age}</div>
-            <div>Sex:{patientdata.sex}</div>
-            <div>Contact:{patientdata.contact}</div>
+  const AssignFollowUpHandler = (unassignedFollowUpData) => {
+    console.log("AssignFollowUpHandler");
+    console.log(unassignedFollowUpData);
 
-            <SmallInputField
-              type="text"
-              label="Field Worker Id"
-              value={fieldWorkerId[patientdata.p_id]}
-              id={patientdata.p_id}
-              onChange={(event) =>
-                FieldWorkerIdChangeHandler(patientdata.p_id, event)
-              }
-            />
-            <AddButton
-              value="Assign Follow ups"
-              onClick={() => AssignFollowUpHandler(patientdata.p_id)}
-            />
-          </div>
-        ))}
-      </>
-    );
+    SupervisorAPIHandler.AssignUnAssignedFollowUpAPICall({
+      unassignedPatientData: unassignedFollowUpData,
+      assignUnAssignedFollowUpResponseHanlder:
+        assignUnAssignedFollowUpResponseHanlder,
+    });
   };
+
+  const assignUnAssignedFollowUpResponseHanlder = (assignedFollowUpData) => {
+    if (assignedFollowUpData.isFollowUpAssigned === true) {
+      props.showMessageAtBottomBar({
+        message: "Follow Ups Assigned to Field Worker.",
+        isErrorMessage: false,
+      });
+      setUnAssignedFollowUpsData([]);
+      setIsUnAssignedFollowUpListToRefresh((isRefresh) => {
+        return !isRefresh;
+      });
+      return;
+    }
+
+    props.showMessageAtBottomBar({
+      message: assignedFollowUpData.errorMessage,
+      isErrorMessage: true,
+    });
+  };
+
+  
+
   return (
-    <div className={classes.center}>
-      <h1> Assign Follow ups </h1>
-      <div className={classes.ul}>
-        <renderFolloups />
-      </div>
-    </div>
+    <>
+      {
+        <div className={classes.center}>
+          <h1> Assign Follow ups </h1>
+          <div className={classes.ul}>
+            {unAssignedFollowUpsData.length === 0 && (
+              <div>
+                <h3 style={{ textAlign: "center" }}>
+                  No unassigned follow ups available.
+                </h3>
+              </div>
+            )}
+
+            {unAssignedFollowUpsData.map((unassignedFollowUpData) => (
+              <>
+                <UnAssignedFollowUpCell
+                  unassignedFollowUpData={unassignedFollowUpData}
+                  showMessageAtBottomBar={props.showMessageAtBottomBar}
+                  AssignFollowUpHandler={AssignFollowUpHandler}
+                ></UnAssignedFollowUpCell>
+              </>
+            ))}
+          </div>
+        </div>
+      }
+    </>
   );
 };
 
