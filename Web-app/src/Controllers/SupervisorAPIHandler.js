@@ -9,11 +9,11 @@ const getAllFieldWorkerListAPI = async (props) => {
   //We have to use this id in API Calls...
   const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
   await GlobalServiceHandler.hitGetService({
-    childURL: "getFieldWorkers/" + "supervisor1", //+ supervisorID,
+    childURL: "getFieldWorkers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
     responseDataHandler: (fieldWorkerListResponseData) => {
       console.log("fieldWorkerListResponseData");
       console.log(fieldWorkerListResponseData);
-      console.log(fieldWorkerListResponseData.responseData.data);
+      // console.log(fieldWorkerListResponseData.responseData);
       if (fieldWorkerListResponseData.responseError === null) {
         props.getAllFieldWorkerListAPIHandler({
           isFieldWorkerListRecieved: true,
