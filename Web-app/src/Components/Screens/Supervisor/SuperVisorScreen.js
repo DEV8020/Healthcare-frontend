@@ -14,7 +14,6 @@ const SuperVisorScreen = (props) => {
   const [fieldWorkerStatus, setFieldWorkerStatus] = useState(false);
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
   const [fieldWorkerFollowUpsList, setFieldWorkerFollowUpsList] = useState([]);
-  
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
     console.log("loadFieldWorkerDetailsData");
@@ -25,7 +24,6 @@ const SuperVisorScreen = (props) => {
       getFieldWorkerFollowUpsAPIHandler: getFieldWorkerFollowUpsAPIHandler,
     });
   };
-
 
   const getFieldWorkerFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
     console.log("UnassignedFollowUpsData added called response");
@@ -42,8 +40,6 @@ const SuperVisorScreen = (props) => {
     }
   };
 
-
-
   const showMessageAtBottomBar = (prop) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
       message: prop.message,
@@ -59,6 +55,10 @@ const SuperVisorScreen = (props) => {
   };
   const FieldWorkerListButtonHandler = () => {
     setSuperVisorOption("FieldWorkerList");
+  };
+
+  const FieldWorkerRegistrationButtonHandler = () => {
+    setSuperVisorOption("FieldWorkerRegistration");
   };
 
   const logoutSV = () => {
@@ -84,6 +84,11 @@ const SuperVisorScreen = (props) => {
           <Button
             value="Field Worker List"
             onClick={FieldWorkerListButtonHandler}
+          />
+
+          <Button
+            value="Field Worker Registration"
+            onClick={FieldWorkerRegistrationButtonHandler}
           />
         </div>
       </div>
@@ -121,6 +126,7 @@ const SuperVisorScreen = (props) => {
       {fieldWorkerStatus === true && (
         <FieldWorkerDetails
           fieldWorkerFollowUpsList={fieldWorkerFollowUpsList}
+          showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
     </div>

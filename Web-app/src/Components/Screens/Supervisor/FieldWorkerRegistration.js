@@ -1,97 +1,98 @@
 import React, { useState } from "react";
-// import RegisterFieldWorkerService from "../../../Services/RegisterFieldWorkerService";
 import classes from "./FieldWorkerRegistration.module.css";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import Bdate from "../UI Elements/Date Element/Bdate";
-import TextBox from "../UI Elements/MenuForm Elements/TextBox";
-// import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-// import SuperVisorAPIHandler from "../../../Controllers/SuperVisorAPIHandler";
-import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
+import FieldWorkerAPIHandler from "../../../Controllers/FieldWorkerAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FieldWorkerRegistration = (props) => {
-  const [fieldWorkerName, setFieldWorkerName] = useState("");
-  const [fieldWorkerAddress, setFieldWorkerAddress] = useState("");
-  const [fieldWorkerContactNo, setFieldWorkerContactNo] = useState("");
-  const [fieldWorkerBdate, setFieldWorkerBdate] = useState("");
-  const [fieldWorkerSex, setFieldWorkerSex] = useState("");
+  const [
+    selectedDataFromFieldWorkerRegistration,
+    setSelectedDataFromFieldWorkerRegistration,
+  ] = useState({
+    name: "",
+    userId: "",
+    password: "",
+    contact: "",
+    address: "",
+  });
+
+  var setFieldWorkerData = (updateData) => {
+    setSelectedDataFromFieldWorkerRegistration((fieldWorkerData) => {
+      return { ...fieldWorkerData, ...updateData };
+    });
+  };
+
+  const fieldWorkerUserIdChangeHandler = (event) => {
+    setFieldWorkerData({ userId: event.target.value });
+    console.log(selectedDataFromFieldWorkerRegistration);
+  };
 
   const fieldWorkerNameChangeHandler = (event) => {
-    setFieldWorkerName(event.target.value);
+    setFieldWorkerData({ name: event.target.value });
+    console.log(selectedDataFromFieldWorkerRegistration);
   };
+
+  const fieldWorkerPasswordChangeHandler = (event) => {
+    setFieldWorkerData({ password: event.target.value });
+    console.log(selectedDataFromFieldWorkerRegistration);
+  };
+
+  const fieldWorkerContactChangeHandler = (event) => {
+    setFieldWorkerData({ contact: event.target.value });
+    console.log(selectedDataFromFieldWorkerRegistration);
+  };
+
   const fieldWorkerAddressChangeHandler = (event) => {
-    setFieldWorkerAddress(event.target.value);
-  };
-
-  const fieldWorkerContactNoChangeHandler = (event) => {
-    setFieldWorkerContactNo(event.target.value);
-  };
-
-  const fieldWorkerSexChangeHandler = (event) => {
-    setFieldWorkerSex(event.target.value);
-  };
-
-  const fieldWorkerBdateChangeHandler = (event) => {
-    setFieldWorkerBdate(event.target.value);
+    setFieldWorkerData({ address: event.target.value });
+    console.log(selectedDataFromFieldWorkerRegistration);
   };
 
   const AddFieldWorkerDataHandler = (event) => {
     event.preventDefault();
 
-    const fieldWorkerData = {
-      name: fieldWorkerName,
-      address: fieldWorkerAddress,
-      contact: fieldWorkerContactNo,
-      sex: fieldWorkerSex,
-      age: "22",
-      // age: fieldWorkerBdate,
-    };
+    console.log("selectedDataFromFieldWorkerRegistration");
+    console.log(selectedDataFromFieldWorkerRegistration);
 
-    SupervisorAPIHandler.RegisterNewFieldWorkerAPICall({
-      fieldWorkerData: fieldWorkerData,
+    FieldWorkerAPIHandler.registerFieldWorker({
+      fieldWorkerData: selectedDataFromFieldWorkerRegistration,
       registerNewFieldWorkerResponseCallBack:
         registerNewFieldWorkerResponseCallBack,
     });
   };
 
-  const showErrorMessageScreen = (errorMessage, isError) => {
-    console.log(isError);
-    props.setAlertMessage(errorMessage);
-    props.setAlertFlag(true);
-  };
-
   const registerNewFieldWorkerResponseCallBack = (
-    newFieldWorkerResponseData
+    fieldWorkerRegistrationResponseData
   ) => {
-    console.log("registerNewFieldWorkerResponseHandler response is ");
-    console.log(newFieldWorkerResponseData);
-
-    if (newFieldWorkerResponseData.errorMessage === null) {
-      if (newFieldWorkerResponseData.isNewFieldWorkerAdded === true) {
-        showErrorMessageScreen(
-          fieldWorkerName + " has been registered successfully.",
-          false
-        );
-        resetFieldWorkerDataAfterRegister();
-      }
-      if (newFieldWorkerResponseData.isNewFieldWorkerAdded === false) {
-        showErrorMessageScreen(
-          "Some error occured. Please try again later.",
-          true
-        );
-      }
-    } else if (newFieldWorkerResponseData.isNewFieldWorkerAdded === null) {
-      showErrorMessageScreen(newFieldWorkerResponseData.errorMessage, true);
+    if (fieldWorkerRegistrationResponseData.isFieldWorkerRegistered === false) {
+      showMessageAtBottomBar({
+        message: fieldWorkerRegistrationResponseData.errorMessage,
+        isErrorMessage: true,
+      });
+      return;
     }
+
+    showMessageAtBottomBar({
+      message: "Field Worker registered successfully.",
+      isErrorMessage: false,
+    });
+
+    setSelectedDataFromFieldWorkerRegistration({
+      name: "",
+      userId: "",
+      password: "",
+      contact: "",
+      address: "",
+    });
   };
 
-  const resetFieldWorkerDataAfterRegister = () => {
-    setFieldWorkerName("");
-    setFieldWorkerContactNo("");
-    setFieldWorkerSex("");
-    setFieldWorkerAddress("");
-    setFieldWorkerBdate("");
+  const showMessageAtBottomBar = (prop) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
   };
 
   const cancelButtonHandler = () => {
@@ -106,43 +107,39 @@ const FieldWorkerRegistration = (props) => {
         <form id="addFieldWorker-form" onSubmit={AddFieldWorkerDataHandler}>
           <InputField
             type="text"
+            label="FieldWorker UserId"
+            value={selectedDataFromFieldWorkerRegistration.userId}
+            onChange={fieldWorkerUserIdChangeHandler}
+          />
+
+          <InputField
+            type="text"
+            label="FieldWorker Password"
+            value={selectedDataFromFieldWorkerRegistration.password}
+            onChange={fieldWorkerPasswordChangeHandler}
+          />
+
+          <InputField
+            type="text"
             label="FieldWorker Name"
-            value={fieldWorkerName}
+            value={selectedDataFromFieldWorkerRegistration.name}
             onChange={fieldWorkerNameChangeHandler}
           />
 
           <InputField
             type="text"
-            label="Contact Number"
-            value={fieldWorkerContactNo}
-            onChange={fieldWorkerContactNoChangeHandler}
+            label="Contact"
+            value={selectedDataFromFieldWorkerRegistration.contact}
+            onChange={fieldWorkerContactChangeHandler}
           />
 
           <InputField
             type="text"
-            label="Sex"
-            value={fieldWorkerSex}
-            onChange={fieldWorkerSexChangeHandler}
-          />
-
-          {/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={fieldWorkerSexChangeHandler}/> */}
-
-          <Bdate
-            value={fieldWorkerBdate}
-            onChange={fieldWorkerBdateChangeHandler}
-          />
-          {/* <InputField
-            type="text"
-            label="DOB"
-            value={fieldWorkerBdate}
-            onChange={fieldWorkerBdateChangeHandler}
-          /> */}
-          <TextBox.TextBox
-            type="text"
             label="Address"
-            value={fieldWorkerAddress}
             onChange={fieldWorkerAddressChangeHandler}
+            value={selectedDataFromFieldWorkerRegistration.address}
           />
+
           <div>
             <MenuSubmitButton value="Register" />
             <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} />
