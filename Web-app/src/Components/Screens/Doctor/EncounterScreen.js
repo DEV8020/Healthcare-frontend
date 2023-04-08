@@ -38,7 +38,7 @@ const EncounterScreen = (props) => {
 
         <Button value="View History" onClick={ViewHistoryButtonHandler} />
 
-        <Button value="Follow-up Updates" onClick={FollowUpUpdatesButtonHandler} />
+        {/* <Button value="Follow-up Updates" onClick={FollowUpUpdatesButtonHandler} /> */}
 
       </div>
     </div>
@@ -51,10 +51,10 @@ const EncounterScreen = (props) => {
     encounterOption === "ViewHistory" && (<ViewHistory encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
       setAlertFlag ={props.setAlertFlag}/>)
   }
-  {
+  {/* {
     encounterOption === "FollowUpUpdates" && (<FollowUpUpdates encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
       setAlertFlag ={props.setAlertFlag}/>)
-  }
+  } */}
   
 
   </div> )

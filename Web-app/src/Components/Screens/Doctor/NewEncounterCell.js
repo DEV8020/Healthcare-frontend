@@ -13,6 +13,7 @@ const NewEncounterCell = (props) => {
   const CreateEncounterHandler = () => {
     console.log("CreateEncounterHandler");
     console.log(props.encounterUserData);
+    props.CreateEncounterHandler(props.encounterUserData);
   };
 
   return (
