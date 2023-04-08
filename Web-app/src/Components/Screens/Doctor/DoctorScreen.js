@@ -11,8 +11,23 @@ import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 const DoctorScreen = (props) => {
   const [doctorOption, setDoctorOption] = useState("");
   const [createEncounter, setCreateEncounter] = useState(false);
+  const [isFollowUpListNeedToRefresh, setIsFollowUpListNeedToRefresh] =
+    useState(false);
 
   // const [doctorOption, setDoctorOption] = useState("");
+
+  const showMessageHandler = (prop) => {
+    showMessageBarAtTheBottom(prop);
+  };
+
+  const showMessageBarAtTheBottom = (propData) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: propData.message,
+      isErrorMessage: propData.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
+  };
 
   const logoutD = () => {
     window.localStorage.removeItem("loggedInUser");
@@ -26,6 +41,14 @@ const DoctorScreen = (props) => {
   };
   const FieldWorkerUpdateButtonHandler = () => {
     setDoctorOption("FWupdates");
+    refreshFollowUpListHanlder();
+  };
+
+  const refreshFollowUpListHanlder = () => {
+    console.log("refreshFollowUpListHanlder called");
+    setIsFollowUpListNeedToRefresh((isRefresh) => {
+      return !isRefresh;
+    });
   };
 
   return (
@@ -71,6 +94,8 @@ const DoctorScreen = (props) => {
               setDoctorOption={setDoctorOption}
               setAlertMessage={props.setAlertMessage}
               setAlertFlag={props.setAlertFlag}
+              isFollowUpListNeedToRefresh={isFollowUpListNeedToRefresh}
+              showMessageHandler={showMessageHandler}
             />
           )}
         </div>
