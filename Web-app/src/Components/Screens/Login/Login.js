@@ -18,15 +18,15 @@ const Login = (props) => {
   //Function to handle forgot password fucntionality...
   const forgotPasswordButtonClickHandler = () => {
     //MessageComponent showMessageScreen method to display appropriate message...
-    MessageComponent.showMessageScreen({
-      message: {
-        message: "Please contact admin to recover your password.",
-        isTrueFlag: true,
-      },
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-      isErrorMessage: true,
-    });
+    // MessageComponent.showMessageScreen({
+    //   message: {
+    //     message: "Please contact admin to recover your password.",
+    //     isTrueFlag: true,
+    //   },
+    //   alertMessageElement: props.setAlertMessage,
+    //   alertMessageFlag: props.setAlertFlag,
+    //   isErrorMessage: true,
+    // });
   };
 
   const userTypeChangeHandler = (event) => {
@@ -42,25 +42,30 @@ const Login = (props) => {
   };
 
   const userLoginResponseHandler = (userLoginData) => {
-    console.log(userLoginData);
-    if(userLoginData.isLoginFlag === true){
-      if(userLoginData.userLoginData === false){
-        showMessageAtBottomBar({
-          message: "Invalid Credentials.",
-          isErrorMessage: false,
-        });
-      }else{
-        showMessageAtBottomBar({
-          message: userId + " login successfully.",
-          isErrorMessage: false,
-        });
-        setUserAsLoggedIn();
-      }
-    }else if(userLoginData.isLoginFlag === false){
+    if (userLoginData.isLoginFlag === true) {
+      showMessageAtBottomBar({ message: "", isErrorMessage: false });
+      UtilitiesMethods.processUserLoginData(userLoginData.loggedInUserData);
+    } else {
       showMessageAtBottomBar({
         message: userLoginData.errorMessage,
         isErrorMessage: true,
       });
+    }
+    if (userLoginData.errorMessage === null) {
+      if (userLoginData.isLoginFlag === true) {
+        props.setAlertMessage(userId + " login successfully");
+        setUserAsLoggedIn();
+      }
+      if (userLoginData.isLoginFlag === false) {
+        MessageComponent.showMessageScreen({
+          message: { message: "Invalid Credentials.", isTrueFlag: true },
+          alertMessageElement: props.setAlertMessage,
+          alertMessageFlag: props.setAlertFlag,
+          isErrorMessage: true,
+        });
+      }
+    } else if (userLoginData.isLoginFlag === null) {
+      MessageComponent.showMessageScreen({ message: { message: "" } });
     }
   };
 

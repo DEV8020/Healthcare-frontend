@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RegisterFieldWorkerService from "../../../Services/RegisterFieldWorkerService";
+// import RegisterFieldWorkerService from "../../../Services/RegisterFieldWorkerService";
 import classes from "./FieldWorkerRegistration.module.css";
 import InputField from "../UI Elements/MenuForm Elements/InputField";
 // import AddButton from "../UI Elements/MenuForm Elements/addButton";
@@ -7,7 +7,8 @@ import Bdate from "../UI Elements/Date Element/Bdate";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
 // import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-import SuperVisorAPIHandler from "../../../Controllers/SuperVisorAPIHandler";
+// import SuperVisorAPIHandler from "../../../Controllers/SuperVisorAPIHandler";
+import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 
 const FieldWorkerRegistration = (props) => {
   const [fieldWorkerName, setFieldWorkerName] = useState("");
@@ -47,7 +48,7 @@ const FieldWorkerRegistration = (props) => {
       // age: fieldWorkerBdate,
     };
 
-    SuperVisorAPIHandler.RegisterNewFieldWorkerAPICall({
+    SupervisorAPIHandler.RegisterNewFieldWorkerAPICall({
       fieldWorkerData: fieldWorkerData,
       registerNewFieldWorkerResponseCallBack:
         registerNewFieldWorkerResponseCallBack,
