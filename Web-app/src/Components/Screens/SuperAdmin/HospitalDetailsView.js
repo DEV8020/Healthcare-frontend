@@ -3,8 +3,6 @@ import React from "react";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const HospitalDetailsView = (props) => {
-
-
   const addHospitalCallBackHandler = (hospitalData) => {
     console.log("addHospitalCallBackHandler called");
     console.log(hospitalData);
@@ -14,7 +12,11 @@ const HospitalDetailsView = (props) => {
   console.log("props.hospitalsListWithNoAdmin in Hospitaldetailsview screen");
   console.log(props.hospitalsListData);
 
-  var innerLoopData = <h4>Please add hospitals in the list to add user.</h4>;
+  var innerLoopData = (
+    <h4 style={{ textAlign: "center" }}>
+      Please add hospitals in the list to add user.
+    </h4>
+  );
 
   if (props.hospitalsListData.length !== 0) {
     innerLoopData = props.hospitalsListData.map((hospitalData) => (
