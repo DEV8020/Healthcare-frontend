@@ -10,7 +10,6 @@ import FollowUpUpdates from "./FollowUpUpdates";
 
 const EncounterScreen = (props) => {
   
-
   const [encounterOption,setEncounterOption] = useState("");
 
   const PrescriptionButtonHandler = () => {
@@ -19,9 +18,14 @@ const EncounterScreen = (props) => {
   const ViewHistoryButtonHandler = () => {
     setEncounterOption("ViewHistory");
   };
-  const FollowUpUpdatesButtonHandler = () => {
-    setEncounterOption("FollowUpUpdates");
-  };
+  // const FollowUpUpdatesButtonHandler = () => {
+  //   setEncounterOption("FollowUpUpdates");
+  // };
+
+  console.log("props.selectedDoctorEncounterData in encounter screen");
+console.log(props.selectedDoctorEncounterData);
+
+
   const backButtonD = () => {
   props.setCreateEncounter(false);
   };
@@ -49,7 +53,7 @@ const EncounterScreen = (props) => {
   }
   {
     encounterOption === "ViewHistory" && (<ViewHistory encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
-      setAlertFlag ={props.setAlertFlag}/>)
+      setAlertFlag ={props.setAlertFlag} selectedEncounterData={props.selectedDoctorEncounterData}/>)
   }
   {/* {
     encounterOption === "FollowUpUpdates" && (<FollowUpUpdates encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}

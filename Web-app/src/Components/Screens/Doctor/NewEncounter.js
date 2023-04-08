@@ -8,25 +8,22 @@ import NewEncounterCell from "./NewEncounterCell";
 
 const NewEncounter = (props) => {
 
-  const CreateEncounterHandler = () => {
+  console.log("daddadaddada");
+  console.log(props.doctorEncounterData);
+
+  const CreateEncounterHandler = (encounterData) => {
     props.setAlertMessage(" Encounter Created successfully");
+    props.encounterCreateDataHandler(encounterData);
+    
     props.setAlertFlag(true);
     props.setCreateEncounter(true);
   };
-
-  // const patientData = {
-  //   p_id: "p1",
-  //   name: "john",
-  //   age: 12,
-  //   sex: "m",
-  //   contact: 1234567890,
-  // };
 
   return (
     <div className={classes.center}>
       <h1> Create New Encounter</h1>
 
-      {props.doctorEncounterData.length === 0 && (
+      {(props.doctorEncounterData.length === 0) && (
         <div>
           {" "}
           <h3 style={{ textAlign: "center" }}>

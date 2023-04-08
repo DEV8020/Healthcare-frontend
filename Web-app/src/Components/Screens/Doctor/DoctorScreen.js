@@ -17,7 +17,9 @@ const DoctorScreen = (props) => {
   const [isDoctorEncounterToRefresh, setIsDoctorEncounterToRefresh] =
     useState(false);
     const [doctorEncounterData, setDoctorEncounterData] =
-    useState(false);
+    useState([]);
+    const [selectedDoctorEncounterData, setSelectedDoctorEncounterData] =
+    useState({});
 
   // const [doctorOption, setDoctorOption] = useState("");
 
@@ -41,13 +43,16 @@ const DoctorScreen = (props) => {
   const doctorEncounterUpdatesData = (doctorEncounterData) => {
     console.log("doctorEncounterData called");
     console.log(doctorEncounterData);
-
+    // setDoctorEncounterData([{}]);
     if (doctorEncounterData.isEncounterDataRecieved === false) {
       showMessageHandler({
         message: doctorEncounterData.errorMessage,
         isErrorMessage: true,
       });
+      return;
     }
+    // console.log("setDoctorEncounterData(doctorEncounterData.encounterData);");
+    // console.log(doctorEncounterData.encounterData);
     setDoctorEncounterData(doctorEncounterData.encounterData);
   };
 
@@ -76,6 +81,14 @@ const DoctorScreen = (props) => {
     refreshFollowUpListHanlder();
   };
 
+const encounterCreateDataHandler = (encounterData) => {
+console.log("encounterCreateDataHandler called in doctor screen js");
+  console.log(encounterData);
+  setSelectedDoctorEncounterData(encounterData);
+};
+
+
+
 
   //Method to change the Refresh Variable and Load the follow up list...
   const refreshFollowUpListHanlder = () => {
@@ -100,6 +113,7 @@ const DoctorScreen = (props) => {
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
           setCreateEncounter={setCreateEncounter}
+          selectedDoctorEncounterData={selectedDoctorEncounterData}
         />
       )}
       {createEncounter === false && (
@@ -129,6 +143,7 @@ const DoctorScreen = (props) => {
               setAlertFlag={props.setAlertFlag}
               setCreateEncounter={setCreateEncounter}
               doctorEncounterData = {doctorEncounterData}
+              encounterCreateDataHandler={encounterCreateDataHandler}
             />
           )}
           {doctorOption === "FWupdates" && (
