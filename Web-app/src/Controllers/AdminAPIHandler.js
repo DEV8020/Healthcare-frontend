@@ -6,8 +6,8 @@ const registerDoctor = async (props) => {
   console.log("Register Doctor Data In Admin Menu...");
   console.log(props.userData);
 
-  const hospitalID = "1";
-  var childURL = "addDoctor/" + hospitalID;
+  // const hospitalID = "1";
+  var childURL = "addDoctor/" + UtilitiesMethods.getUSerIDForLoggedInUser();//hospitalID;
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
