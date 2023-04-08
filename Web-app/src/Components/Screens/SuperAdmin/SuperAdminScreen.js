@@ -7,6 +7,7 @@ import AddHospital from "./AddHospital";
 import ShowAllUser from "./ShowAllUser";
 import HospitalDetailsView from "./HospitalDetailsView";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
@@ -17,7 +18,7 @@ const SuperAdminScreen = (props) => {
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [selectedHospitalIDForAddUser, setSelectedHospitalIDForAddUser] =
     useState("");
-    const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
+  const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
 
   const [
     selectedHospitalDataForAdminCreation,
@@ -70,8 +71,16 @@ const SuperAdminScreen = (props) => {
         allRegisteredUsersResponseData.registeredUserListData
       );
     }
-    
   };
+
+  const updateUserListAfterDataUpdateHandler = () => {
+    // console.log("updateUserListAfterDataUpdateHandler called in superadminscreen.js");
+    setIsUserListDataToLoad((isListToUpdate) => {
+      return !isListToUpdate;
+    });
+  };
+
+
 
   //########################## Getting List Of All Registered Users... ##########################
 
@@ -171,6 +180,9 @@ const SuperAdminScreen = (props) => {
           allRegisteredListHandleCallBack={allRegisteredListHandleCallBack}
           registeredUserUpdateHandleCallBack={
             registeredUserUpdateHandleCallBack
+          }
+          updateUserListAfterDataUpdateHandler={
+            updateUserListAfterDataUpdateHandler
           }
         />
       )}

@@ -64,8 +64,41 @@ const AddPatientEncounterAPICall = async (props) => {
   });
 };
 
+
+//Get All Users List In Admin Menu API Handler Method...
+const GetPatientDetailsData = async (props) => {
+  console.log("GetSuperAdminAllRegisteredUserList");
+
+  var patientID = props.patientID;
+
+  await GlobalServiceHandler.hitGetService({
+    childURL: "getPatientById/" + patientID,
+    responseDataHandler: (getPatientDetailsServiceData) => {
+      console.log("getPatientDetailsServiceData");
+      console.log(getPatientDetailsServiceData.responseData.data);
+
+      if (getPatientDetailsServiceData.responseError === null) {
+        props.getPatientDetailsResponseHandler({
+          isPatientDetailsRecievedSuccessFully: true,
+          patientDetailsData:
+          getPatientDetailsServiceData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (getPatientDetailsServiceData.responseData === null) {
+        props.getPatientDetailsResponseHandler({
+          isPatientDetailsRecievedSuccessFully: null,
+          patientDetailsData: null,
+          errorMessage: getPatientDetailsServiceData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
 const FrontDeskAPIHandler = {
   RegisterNewPatientAPICall,
   AddPatientEncounterAPICall,
+  GetPatientDetailsData,
 };
+
 export default FrontDeskAPIHandler;

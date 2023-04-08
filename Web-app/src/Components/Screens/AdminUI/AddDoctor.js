@@ -1,76 +1,116 @@
-
 import React, { useState } from "react";
-
-import AddDoctorService from "../../../Services/AddDoctorService";
-
-
 import InputField from "../UI Elements/MenuForm Elements/InputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
-
 import classes from "./AddOptions.module.css";
+import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const AddDoctor = (props) => {
-  const [doctorName, setDoctorName] = useState("");
-  const [doctorPassword, setDoctorPassword] = useState("");
-  const [doctorEmailId, setDoctorEmailId] = useState("");
-  const [doctorSpl, setDoctorSpl] = useState("");
-  const [doctorContact, setDoctorContact] = useState("");
-  const [doctorLId, setDoctorLId] = useState("");
-  
+  const [doctorData, setDoctorData] = useState({
+    userId: "",
+    password: "",
+    name: "",
+    licId: "",
+    contact: "",
+    userId: "",
+    docSpecialization: "",
+  });
+
+  const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
+    // console.log("doctorRegisterResponseData");
+    // console.log(doctorRegisterResponseData);
+    if (doctorRegisterResponseData.errorMessage === null) {
+      if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
+        cleanDataAfterDoctorRegistrationHandler(
+          doctorRegisterResponseData.registeredDoctorData
+        );
+      }
+      if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === false) {
+        showMessageBarAtTheBottom({
+          message: "Some error occured. Please try again later.",
+          isErrorMessage: true,
+        });
+      }
+    } else if (doctorRegisterResponseData.registeredDoctorData === null) {
+      showMessageBarAtTheBottom({
+        message: doctorRegisterResponseData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
+  };
+
+  const updateDoctorData = (doctorDataToUpdate) => {
+    // console.log("updateDoctorData called");
+    // console.log({ ...doctorData, ...doctorDataToUpdate });
+    setDoctorData((doctorData) => {
+      return { ...doctorData, ...doctorDataToUpdate };
+    });
+  };
+
+  const cleanDataAfterDoctorRegistrationHandler = (doctorData) => {
+    showMessageBarAtTheBottom({
+      message: "Doctor registered successfully.",
+      isErrorMessage: false,
+    });
+
+    setDoctorData({
+      userId: "",
+      password: "",
+      name: "",
+      licId: "",
+      phoneNum: "",
+      userId: "",
+      docSpecialization: "",
+    });
+    // refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
+    props.refreshUsersListResponseHandler();
+    BackButtonPressedHandler();
+  };
+
+  const showMessageBarAtTheBottom = (propData) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: propData.message,
+      isErrorMessage: propData.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
+  };
 
   const doctorNameChangeHandler = (event) => {
-    setDoctorName(event.target.value);
+    updateDoctorData({ name: event.target.value });
   };
-  const doctorEmailIdChangeHandler = (event) => {
-    setDoctorEmailId(event.target.value);
+
+  const doctorUserIdChangeHandler = (event) => {
+    updateDoctorData({ userId: event.target.value });
   };
 
   const doctorContactChangeHandler = (event) => {
-    setDoctorContact(event.target.value);
+    updateDoctorData({ contact: event.target.value });
   };
+
   const doctorSplChangeHandler = (event) => {
-    setDoctorSpl(event.target.value);
+    updateDoctorData({ docSpecialization: event.target.value });
   };
 
   const doctorPasswordChangeHandler = (event) => {
-    setDoctorPassword(event.target.value);
+    updateDoctorData({ password: event.target.value });
   };
 
   const doctorLIdChangeHandler = (event) => {
-    setDoctorLId(event.target.value);
-  };
-
-  
-  const AddDoctorHandler = async (doctorData) => {
-    console.log(doctorData);
-
-    try {
-      AddDoctorService(doctorData);
-    } catch (exception) {
-      console.log(exception);
-    }
+    updateDoctorData({ licId: event.target.value });
   };
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();
+    AdminAPIHandler.registerDoctor({
+      doctorData: doctorData,
+      registerDoctorResponseHandler: registerDoctorResponseHandler,
+    });
+  };
 
-    const doctorData = {
-      doctor_name: doctorName,
-      doctor_spl: doctorSpl,
-      doctor_password: doctorPassword,
-      doctor_email_id: doctorEmailId,
-      doctor_contact: doctorContact,
-      doctor_LId: doctorLId
-    };
-
-    setDoctorName("");
-    setDoctorEmailId("");
-    setDoctorSpl("");
-    setDoctorPassword("");
-    setDoctorContact("");
-    setDoctorLId("");
-
-    AddDoctorHandler(doctorData);
+  const BackButtonPressedHandler = () => {
+    console.log("BackButtonPressedHandler");
+    props.setAdminOption("");
   };
 
   return (
@@ -83,36 +123,47 @@ const AddDoctor = (props) => {
             type="text"
             label="Doctor Name"
             onChange={doctorNameChangeHandler}
+            value={doctorData.name}
           />
           <InputField
             type="text"
             label="Doctor license ID"
             onChange={doctorLIdChangeHandler}
+            value={doctorData.licId}
           />
           <InputField
             type="text"
             label="Contact Number"
             onChange={doctorContactChangeHandler}
+            value={doctorData.phoneNum}
           />
 
           <InputField
             type="text"
             label="Doctor Specialization"
             onChange={doctorSplChangeHandler}
+            value={doctorData.docSpecialization}
           />
           <InputField
             type="text"
-            label="Email ID"
-            onChange={doctorEmailIdChangeHandler}
+            label="User Id"
+            onChange={doctorUserIdChangeHandler}
+            value={doctorData.userId}
           />
 
           <InputField
             type="text"
             label="Password"
             onChange={doctorPasswordChangeHandler}
+            value={doctorData.password}
           />
-
-          <AddButton value="Register" />
+          <div>
+            <MenuSubmitButton value="Register" />
+            <MenuSubmitButton
+              value="Cancel"
+              onClick={BackButtonPressedHandler}
+            />
+          </div>
         </form>
       </div>
     </div>
