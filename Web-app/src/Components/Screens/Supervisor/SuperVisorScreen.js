@@ -7,6 +7,7 @@ import FieldWorkerList from "./FieldWorkerList";
 import FieldWorkerDetails from "../FieldWorker/FieldWorkerDetails";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import FieldWorkerRegistration from "./FieldWorkerRegistration";
 
 const SuperVisorScreen = (props) => {
   const [superVisorOption, setSuperVisorOption] = useState("superVisor");
@@ -145,6 +146,14 @@ const SuperVisorScreen = (props) => {
           fieldWorkerList={fieldWorkerList}
           showMessageAtBottomBar={showMessageAtBottomBar}
           loadFieldWorkerDetailsData={loadFieldWorkerDetailsData}
+        />
+      )}
+      {superVisorOption === "FieldWorkerRegistration" && (
+        <FieldWorkerRegistration
+          superVisorOption={superVisorOption}
+          setSuperVisorOption={setSuperVisorOption}
+          setAlertFlag={props.setAlertFlag}
+          setAlertMessage={props.setAlertMessage}
         />
       )}
       {fieldWorkerStatus === true && (
