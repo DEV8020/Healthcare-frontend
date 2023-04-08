@@ -9,11 +9,13 @@ const hitPostService = async (props) => {
 
     console.log("URL Hitting in GlobalServiceHandler");
     console.log(url);
+    console.log(props.postData);
 
     const response = await axios.post(url, props.postData);
 
     console.log("Data recieved");
     console.log(response);
+    //return;
 
     if (response.status === 200) {
       props.responseDataHandler({

@@ -42,12 +42,20 @@ const Login = (props) => {
   };
 
   const userLoginResponseHandler = (userLoginData) => {
+    console.log(userLoginData);
     if(userLoginData.isLoginFlag === true){
-      showMessageAtBottomBar({
-        message: userId + " login successfully.",
-        isErrorMessage: false,
-      });
-      setUserAsLoggedIn();
+      if(userLoginData.userLoginData === false){
+        showMessageAtBottomBar({
+          message: "Invalid Credentials.",
+          isErrorMessage: false,
+        });
+      }else{
+        showMessageAtBottomBar({
+          message: userId + " login successfully.",
+          isErrorMessage: false,
+        });
+        setUserAsLoggedIn();
+      }
     }else if(userLoginData.isLoginFlag === false){
       showMessageAtBottomBar({
         message: userLoginData.errorMessage,

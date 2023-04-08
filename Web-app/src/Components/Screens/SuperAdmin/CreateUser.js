@@ -9,6 +9,8 @@ import MessageComponent from "../MessageComponent/MessageComponent";
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
 
+  console.log(props.selectedHospitalDataForAdminCreation);
+
   useEffect(() => {
     SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
       hopitalListWithNoAdminsResponseHandler:
@@ -39,6 +41,20 @@ const CreateUser = (props) => {
   const registerUserIdChangeHandler = (event) => {
     setHospitalData({ userId: event.target.value });
   };
+  
+  const registerUserNameChangeHandler = (event) => {
+    setHospitalData({ name: event.target.value });
+  };
+
+  //registerUserNameChangeHandler
+
+  const registerUserContactChangeHandler = (event) => {
+    setHospitalData({ contact: event.target.value });
+  };
+
+  const registerUserAddressChangeHandler = (event) => {
+    setHospitalData({ address: event.target.value });
+  };
 
   const registerUserPasswordChangeHandler = (event) => {
     setHospitalData({ password: event.target.value });
@@ -52,7 +68,7 @@ const CreateUser = (props) => {
 
     if (props.selectedHospitalDataForAdminCreation.userType === "Supervisor") {
       addUserData = {
-        ...addUserData,
+        //...addUserData,
         ...props.selectedHospitalDataForAdminCreation,
       };
     }else{
@@ -60,7 +76,7 @@ const CreateUser = (props) => {
     }
 
     SuperAdminAPIHandler.AddNewUserData({
-      registerUserData: addUserData,
+      registerUserData: props.selectedHospitalDataForAdminCreation,
       addNewUserResponseHandler: addNewUserResponseHandler,
     });
   };
@@ -177,21 +193,27 @@ const CreateUser = (props) => {
           <InputField
             type="text"
             label="Name"
-            onChange={registerUserHospitalIdChangeHandler}
-            // value={props.selectedHospitalDataForSupervisorCreation.name}
+            onChange={registerUserNameChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.name}
           />
 
           <InputField
             type="text"
             label="Contact"
-            onChange={registerUserHospitalIdChangeHandler}
+            onChange={registerUserContactChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.contact}
+            // onChange={registerUserHospitalIdChangeHandler}
             // value={props.selectedHospitalDataForSupervisorCreation.contact}
           />
 
           <InputField
             type="text"
             label="Address"
-            onChange={registerUserHospitalIdChangeHandler}
+            onChange={registerUserAddressChangeHandler}
+            value={props.selectedHospitalDataForAdminCreation.address}
+
+            //registerUserAddressChangeHandler
+            // onChange={registerUserHospitalIdChangeHandler}
             // value={props.selectedHospitalDataForSupervisorCreation.address}
           />
         </>

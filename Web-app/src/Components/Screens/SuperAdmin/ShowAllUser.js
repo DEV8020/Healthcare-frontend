@@ -4,19 +4,15 @@ import UpdateCredentialPopup from "../UI Elements/Pop-ups/UpdateCredentialPopup"
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
-
 const ShowAllUser = (props) => {
-
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
     useState(false);
   const [allRegisteredUsersList, setAllRegisteredUsersList] = useState([]);
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
 
-
   useEffect(() => {
     setAllRegisteredUsersList(props.registeredUsersList);
   }, [props.registeredUsersList]);
-
 
   const displayMessagesInParentViewHandler = (prop) => {
     UtilitiesMethods.showMessageBarAtTheBottom({
@@ -26,7 +22,6 @@ const ShowAllUser = (props) => {
       alertMessageFlag: props.setAlertFlag,
     });
   };
-
 
   const changeUserDataHandler = (userDataToBeUpdated) => {
     setUserDataToBeUpdated(userDataToBeUpdated);
@@ -42,7 +37,6 @@ const ShowAllUser = (props) => {
     props.updateUserListAfterDataUpdateHandler();
   };
 
-
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
   };
@@ -56,6 +50,13 @@ const ShowAllUser = (props) => {
   return (
     <div className={classes.center}>
       <h2> User List</h2>
+
+      {allRegisteredUsersList.length === 0 && (
+        <div>
+          <h3 style={{textAlign : "center"}}>No users to display. Please add some.</h3>
+        </div>
+      )}
+
       <div className={classes.ul}>
         {allRegisteredUsersList.map((userData) => (
           <div key={userData.authId} className={classes.plist}>

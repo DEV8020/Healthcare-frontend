@@ -23,5 +23,7 @@ const GetUserLoginData = async (props) => {
   });
 };
 
+
+
 const LoginController = { GetUserLoginData };
 export default LoginController;
