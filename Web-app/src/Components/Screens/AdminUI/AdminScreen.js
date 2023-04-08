@@ -29,21 +29,24 @@ const AdminScreen = (props) => {
   const showAllRegisteredUserResponseHandler = (
     allRegisteredUsersResponseData
   ) => {
-    console.log(
-      "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData in admin screen"
-    );
+    // console.log(
+    //   "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData"
+    // );
     console.log(allRegisteredUsersResponseData);
     if (allRegisteredUsersResponseData.isRegisteredUsersListRecieved === true) {
-      console.log("Response of user egistered list recieved...");
-      console.log(allRegisteredUsersResponseData.registeredUserListData);
+      // console.log("Response of user egistered list recieved...");
+      // console.log(allRegisteredUsersResponseData.registeredUserListData);
       setRegisteredUserList(
         allRegisteredUsersResponseData.registeredUserListData
       );
+    }else{
+      setRegisteredUserList([]);
     }
   };
 
   const ShowHospitalUsersButtonHandler = () => {
     setAdminOption("showHospitalUsers");
+    refreshUsersListResponseHandler();
   };
   const AddDoctorButtonHandler = () => {
     setAdminOption("addDoctor");
@@ -90,7 +93,7 @@ const AdminScreen = (props) => {
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
           registeredUserList={registeredUserList}
-          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
+          refreshUsersListResponseHandler={refreshUsersListResponseHandler}
         />
       )}
 
@@ -100,7 +103,7 @@ const AdminScreen = (props) => {
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
-          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
+          refreshUsersListResponseHandler={refreshUsersListResponseHandler}
         />
       )}
       {adminOption === "addFrontDesk" && (
@@ -109,7 +112,7 @@ const AdminScreen = (props) => {
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
-          refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
+          refreshUsersListResponseHandler={refreshUsersListResponseHandler}
         />
       )}
     </div>

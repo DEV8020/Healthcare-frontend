@@ -1,3 +1,4 @@
+import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 //Register Doctor In Admin Menu API Handler Method...
@@ -37,8 +38,7 @@ const registerFrontDesk = async (props) => {
   console.log("Register Front Desk Data In Admin Menu...");
   console.log(props.frontDeskData);
 
-  const hospitalID = "1";
-  var childURL = "addFrontDesk/" + hospitalID;
+  var childURL = "addFrontDesk/" + UtilitiesMethods.getUSerIDForLoggedInUser();
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
@@ -68,15 +68,16 @@ const registerFrontDesk = async (props) => {
 const GetAdminAllRegisteredUserList = async (props) => {
   console.log("GetSuperAdminAllRegisteredUserList");
 
-  var hospitalID = "1";
+  // var hospitalID = "1";
 
   await GlobalServiceHandler.hitGetService({
-    childURL: "getAllHospitalUsers/" + hospitalID,
+    childURL: "getAllHospitalUsers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
-      console.log(allRegisteredUserListServiceData.responseData.data);
+      //console.log(allRegisteredUserListServiceData.responseData.data);
 
       if (allRegisteredUserListServiceData.responseError === null) {
+        // console.log("error not null");
         props.showAllRegisteredUserResponseHandler({
           isRegisteredUsersListRecieved: true,
           registeredUserListData:
@@ -84,8 +85,9 @@ const GetAdminAllRegisteredUserList = async (props) => {
           errorMessage: null,
         });
       } else if (allRegisteredUserListServiceData.responseData === null) {
+        // console.log("error  null");
         props.showAllRegisteredUserResponseHandler({
-          isRegisteredUsersListRecieved: null,
+          isRegisteredUsersListRecieved: false,
           registeredUserListData: null,
           errorMessage: "Some error occured. Please try again later.",
         });
