@@ -74,7 +74,7 @@ const GetUnassignedPatientListAPICall = async (props) => {
   //We have to use this id in API Calls...
   const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
 
-  const modifiedChildURL = "unassignedPatients/" + supervisorID;
+  const modifiedChildURL = "unassignedPatients/" + UtilitiesMethods.getUSerIDForLoggedInUser();//+ supervisorID;
 
   console.log(modifiedChildURL);
 
