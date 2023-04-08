@@ -47,18 +47,12 @@ const SuperAdminScreen = (props) => {
 
   //########################## Getting List Of All Registered Users... ##########################
 
-  // Clean Code
-
-  // console.log("user list after getting all user data");
-  // console.log(allRegisteredUsersList);
-
   useEffect(() => {
     console.log("All registered user list API called");
     SuperAdminAPIHandler.GetSuperAdminAllRegisteredUserList({
       showAllRegisteredUserResponseHandler:
         showAllRegisteredUserResponseHandler,
     });
-    // }
   }, [isUserListDataToLoad]);
 
   const showAllRegisteredUserResponseHandler = (
@@ -68,6 +62,7 @@ const SuperAdminScreen = (props) => {
       "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData in super admin screen"
     );
     console.log(allRegisteredUsersResponseData);
+    
     if (allRegisteredUsersResponseData.isRegisteredUsersListRecieved === true) {
       setAllRegisteredUsersList(
         allRegisteredUsersResponseData.registeredUserListData
@@ -104,12 +99,12 @@ const SuperAdminScreen = (props) => {
 
   const HospitalRegistrationButtonHandler = () => {
     setSuperAdminOption("HospitalRegistration");
-    updateUserListAfterDataUpdateHandler();
+    // updateUserListAfterDataUpdateHandler();
   };
   const CreateUserButtonHandler = () => {
     console.log("CU");
     setSuperAdminOption("CreateUserScreen");
-    updateUserListAfterDataUpdateHandler();
+    // updateUserListAfterDataUpdateHandler();
   };
 
   const AllRegisteredUserButtonHandler = () => {

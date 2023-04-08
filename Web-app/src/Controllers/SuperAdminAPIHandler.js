@@ -74,13 +74,11 @@ const updateUserData = async (props) => {
 
 
 const AddNewUserData = async (props) => {
-  const updatedData = {
-    ...props.registerUserData,
-    name: props.registerUserData.userId,
-  };
 
-  var childURL = "addAdmin/" + props.registerUserData.hospitalId;
-  if (props.registerUserData.userType === "Supervisor") {
+  const updatedData = props.registerUserData;
+
+  var childURL = "addAdmin/" + updatedData.hospitalId;
+  if (updatedData.userType === "Supervisor") {
     childURL = "addSupervisor";
   }
   console.log(childURL);
@@ -140,11 +138,11 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
 const GetSuperAdminAllRegisteredUserList = async (props) => {
   console.log("GetSuperAdminAllRegisteredUserList");
 
-  await GlobalServiceHandler.hitGetService({
+  await GlobalServiceHandler.hitCustomResponseGetService({
     childURL: "getAllUsers",
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
-      console.log(allRegisteredUserListServiceData.responseData.data);
+      console.log(allRegisteredUserListServiceData.responseData);
 
       if (allRegisteredUserListServiceData.responseError === null) {
         props.showAllRegisteredUserResponseHandler({
