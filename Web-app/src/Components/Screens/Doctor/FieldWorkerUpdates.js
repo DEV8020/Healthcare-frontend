@@ -22,47 +22,8 @@ const FieldWorkerUpdates = (props) => {
         message: followUpUpdateData.errorMessage,
         isErrorMessage: true,
       });
-      // return;
     }
-
     setFollowUpUpdateList(followUpUpdateData.followUpsData);
-    console.log("fieldWorkerFollowUpsUpdates called set data");
-
-    // followUpUpdateData.followUpsData.map((followUpData) => {
-    //   console.log(followUpData);
-    // });
-
-    // {followUpId: 1, encounter: {…}, date: '09-04-2023', fieldWorkerRemarks: null, doctorRemarks: 'Hello hi', …}
-    // date
-    // :
-    // "09-04-2023"
-    // doctorRemarks
-    // :
-    // "Hello hi"
-    // encounter
-    // :
-    // {encounterId: 2, flag: true, doctor: {…}, prescription: 'DOLO', symptoms: 'Headache, Fever', …}
-    // fieldWorkerRemarks
-    // :
-    // null
-    // flag
-    // :
-    // false
-    // followUpId
-    // :
-    // 1
-    // hospital
-    // :
-    // {hospId: 1, name: 'Dharavi Charitable', address: '141001', supId: {…}}
-    // lastSyncDate
-    // :
-    // null
-    // patient
-    // :
-    // {patientId: 1, name: 'mareez', address: '565220', age: 22, sex: 'Nhi btaunga', …}
-    // [[Prototype]]
-    // :
-    // Object
   };
 
   return (
