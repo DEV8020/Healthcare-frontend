@@ -38,12 +38,18 @@ const processUserLoginData = (userLoggedInData) => {
   // }
 };
 
+const getUSerIDForLoggedInUser = () => {
+  return localStorage.getItem("userId");
+};
+
+
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
   showMessageBarAtTheBottom,
   getSupervisorIDForGlobalUserAPICalls,
   processUserLoginData,
-  cleanUpUserDataOnLogOut
+  cleanUpUserDataOnLogOut,
+  getUSerIDForLoggedInUser
 };
 
 export default UtilitiesMethods;

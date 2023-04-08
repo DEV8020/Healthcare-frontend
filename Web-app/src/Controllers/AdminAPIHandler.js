@@ -1,3 +1,4 @@
+import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 //Register Doctor In Admin Menu API Handler Method...
@@ -5,8 +6,11 @@ const registerDoctor = async (props) => {
   console.log("Register Doctor Data In Admin Menu...");
   console.log(props.userData);
 
-  const hospitalID = "1";
-  var childURL = "addDoctor/" + hospitalID;
+  // const hospitalID = "1";
+  var childURL = "addDoctor/" + UtilitiesMethods.getUSerIDForLoggedInUser();
+
+  console.log(childURL);
+  console.log(props.doctorData);
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
@@ -37,8 +41,7 @@ const registerFrontDesk = async (props) => {
   console.log("Register Front Desk Data In Admin Menu...");
   console.log(props.frontDeskData);
 
-  const hospitalID = "1";
-  var childURL = "addFrontDesk/" + hospitalID;
+  var childURL = "addFrontDesk/" + UtilitiesMethods.getUSerIDForLoggedInUser();
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,

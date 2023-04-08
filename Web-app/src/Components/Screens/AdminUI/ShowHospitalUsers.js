@@ -129,6 +129,16 @@ const ShowHospitalUsers = (props) => {
   return (
     <div className={classes.center}>
       <h2> All Hospital Users</h2>
+
+      {hospitalUserList.length === 0 && (
+        <div>
+          {" "}
+          <h3 style={{textAlign:"center"}}>No users to display. Please add some to proceed.</h3>
+        </div>
+      )}
+
+
+
       <div className={classes.ul}>
         {hospitalUserList.map((hospitalUserData) => (
           <div key={hospitalUserData.userID} className={classes.plist}>
