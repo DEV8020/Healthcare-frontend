@@ -71,11 +71,11 @@ const GetPatientDetailsData = async (props) => {
 
   var patientID = props.patientID;
 
-  await GlobalServiceHandler.hitGetService({
+  await GlobalServiceHandler.hitCustomResponseGetService({
     childURL: "getPatientById/" + patientID,
     responseDataHandler: (getPatientDetailsServiceData) => {
       console.log("getPatientDetailsServiceData");
-      console.log(getPatientDetailsServiceData.responseData.data);
+      //console.log(getPatientDetailsServiceData.responseData.data);
 
       if (getPatientDetailsServiceData.responseError === null) {
         props.getPatientDetailsResponseHandler({
@@ -86,7 +86,7 @@ const GetPatientDetailsData = async (props) => {
         });
       } else if (getPatientDetailsServiceData.responseData === null) {
         props.getPatientDetailsResponseHandler({
-          isPatientDetailsRecievedSuccessFully: null,
+          isPatientDetailsRecievedSuccessFully: false,
           patientDetailsData: null,
           errorMessage: getPatientDetailsServiceData.responseError.message,
         });

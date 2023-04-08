@@ -2,6 +2,7 @@ import classes from "./PatientDetailsView.module.css";
 import React, { useEffect, useState } from "react";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const PatientDetailsView = (props) => {
   const [patientDetailsData, setPatientDetailsData] = useState({
@@ -17,6 +18,7 @@ const PatientDetailsView = (props) => {
   console.log(props.viewDetalsPatientID);
 
   useEffect(() => {
+    
     FrontDeskAPIHandler.GetPatientDetailsData({
       patientID: props.viewDetalsPatientID,
       getPatientDetailsResponseHandler: getPatientDetailsResponseHandler,
@@ -27,11 +29,32 @@ const PatientDetailsView = (props) => {
   const getPatientDetailsResponseHandler = (patientDetailsResponseData) => {
     console.log("getPatientDetailsResponseHandler called");
     console.log(patientDetailsResponseData.patientDetailsData);
+
+    console.log(patientDetailsResponseData);
+
+    if (
+      patientDetailsResponseData.isPatientDetailsRecievedSuccessFully === false
+    ) {
+      props.showMessageBarAtTheBottom({
+        message: patientDetailsResponseData.errorMessage,
+        isErrorMessage: true,
+      });
+      props.setPatientDetailsView(false);
+      return;
+    }
+    
     setPatientDetailsData((patientDetailsData) => {
-      console.log({ ...patientDetailsData, ...patientDetailsResponseData.patientDetailsData });
-      return { ...patientDetailsData, ...patientDetailsResponseData.patientDetailsData };
+      console.log({
+        ...patientDetailsData,
+        ...patientDetailsResponseData.patientDetailsData,
+      });
+      return {
+        ...patientDetailsData,
+        ...patientDetailsResponseData.patientDetailsData,
+      };
     });
   };
+  
 
   return (
     <div className={classes.center}>

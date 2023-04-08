@@ -4,18 +4,29 @@ import classes from "./FrontDeskScreen.module.css";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
 import CreateAppointment from "./CreateAppointment";
-import PatientDetailsView from "../Patient/PatientDetailsView"
+import PatientDetailsView from "../Patient/PatientDetailsView";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FrontDeskScreen = (props) => {
   const [frontDeskOption, setFrontDeskOption] = useState("frontDesk");
-  const[patientDetailsView,setPatientDetailsView]=useState(false);
-  const[viewDetalsPatientID,setViewDetalsPatientID]=useState("");
+  const [patientDetailsView, setPatientDetailsView] = useState(false);
+  const [viewDetalsPatientID, setViewDetalsPatientID] = useState("");
+
 
   const PatientRegistrationButtonHandler = () => {
     setFrontDeskOption("PatientRegistration");
   };
   const CreateAppointmentButtonHandler = () => {
     setFrontDeskOption("CreateAppointment");
+  };
+
+  const showMessageBarAtTheBottom = (propData) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: propData.message,
+      isErrorMessage: propData.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
   };
 
   const logoutFD = () => {
@@ -46,26 +57,29 @@ const FrontDeskScreen = (props) => {
 
       {frontDeskOption === "PatientRegistration" && (
         <PatientRegistration
-        frontDeskOption={frontDeskOption}
-        setFrontDeskOption={setFrontDeskOption}
-        setAlertMessage ={props.setAlertMessage}
-        setAlertFlag ={props.setAlertFlag}
-      />
+          frontDeskOption={frontDeskOption}
+          setFrontDeskOption={setFrontDeskOption}
+          setAlertMessage={props.setAlertMessage}
+          setAlertFlag={props.setAlertFlag}
+        />
       )}
       {frontDeskOption === "CreateAppointment" && (
         <CreateAppointment
-        frontDeskOption={frontDeskOption}
-        setFrontDeskOption={setFrontDeskOption} 
-        setAlertMessage ={props.setAlertMessage}
-        setAlertFlag ={props.setAlertFlag}
-        setPatientDetailsView={setPatientDetailsView}
-        setViewDetalsPatientID={setViewDetalsPatientID}
-      />
-        
+          frontDeskOption={frontDeskOption}
+          setFrontDeskOption={setFrontDeskOption}
+          setAlertMessage={props.setAlertMessage}
+          setAlertFlag={props.setAlertFlag}
+          setPatientDetailsView={setPatientDetailsView}
+          setViewDetalsPatientID={setViewDetalsPatientID}
+        />
       )}
-       {
-        patientDetailsView === true  && (<PatientDetailsView setPatientDetailsView ={setPatientDetailsView} viewDetalsPatientID={viewDetalsPatientID}/>)
-      }
+      {patientDetailsView === true && (
+        <PatientDetailsView
+          showMessageBarAtTheBottom={showMessageBarAtTheBottom}
+          setPatientDetailsView={setPatientDetailsView}
+          viewDetalsPatientID={viewDetalsPatientID}
+        />
+      )}
     </div>
   );
 };
