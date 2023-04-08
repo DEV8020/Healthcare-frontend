@@ -31,6 +31,7 @@ const FrontDeskScreen = (props) => {
 
   const logoutFD = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
   if (!props.user) return null;

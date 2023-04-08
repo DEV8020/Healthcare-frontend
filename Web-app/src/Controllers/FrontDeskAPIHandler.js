@@ -1,3 +1,4 @@
+import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const RegisterNewPatientAPICall = async (props) => {
@@ -34,7 +35,7 @@ const AddPatientEncounterAPICall = async (props) => {
 
   const modifiedChildURL =
     "addPendingQueue/" +
-    props.encounterData.hospitalId +
+    UtilitiesMethods.getUSerIDForLoggedInUser() +
     "/" +
     props.encounterData.patientId;
 

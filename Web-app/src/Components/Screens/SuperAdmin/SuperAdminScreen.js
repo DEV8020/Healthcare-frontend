@@ -114,6 +114,7 @@ const SuperAdminScreen = (props) => {
 
   const logoutSA = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
   if (!props.user) return null;

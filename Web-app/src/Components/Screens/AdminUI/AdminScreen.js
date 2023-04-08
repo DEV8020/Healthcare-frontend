@@ -6,6 +6,7 @@ import AddFrontDesk from "./AddFrontDesk";
 import { useState, useEffect } from "react";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const AdminScreen = (props) => {
   const [adminOption, setAdminOption] = useState("admin");
@@ -56,6 +57,7 @@ const AdminScreen = (props) => {
   };
   const logout = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
   if (!props.user) return null;

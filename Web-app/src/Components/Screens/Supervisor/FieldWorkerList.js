@@ -42,6 +42,14 @@ const FieldWorkerList = (props) => {
 
     <div className={classes.center}>
       <h1> Field Worker List</h1>
+
+      {fieldWorkerList.length === 0 && (
+        <div>
+          <h3 style={{textAlign : "center"}}>No Field Worker to display. Please add some.</h3>
+        </div>
+      )}
+
+
       <div className={classes.ul}>
         {fieldWorkerList.map((fieldworkerdata) => (
           <div key={fieldworkerdata.authId} className={classes.plist}>
