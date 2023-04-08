@@ -159,7 +159,7 @@ function App() {
         />
       )}
       {
-        user !== null && user.userType === "doctor" && (
+        user !== null && user.userType === "Doctor" && (
           <DoctorScreen
             user={user}
             setUser={setUser}
