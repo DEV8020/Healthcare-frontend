@@ -68,9 +68,41 @@ const getDoctorEncounterUpdates = async (props) => {
   };
 
 
+
+   //Register Field Worker In Supervisor Menu API Handler Method...
+const getPatientHistoryUpdates = async (props) => {
+  
+    var childURL = "getMedicalHistory/" + props.patientID;
+    console.log(childURL);
+  
+    await GlobalServiceHandler.hitCustomResponseGetService({
+      childURL: childURL,
+      responseDataHandler: (historyData) => {
+        console.log("Register hisotry data In Admin Menu Response Data...");
+        console.log(historyData.responseData);
+  
+        if (historyData.responseError === null) {
+          props.patientHistoryAPIResponseHandler({
+            isHistoryDataRecieved: true,
+            historyData: historyData.responseData.data,
+            errorMessage: null,
+          });
+        } else if (historyData.responseData === null) {
+          props.patientHistoryAPIResponseHandler({
+            isHistoryDataRecieved: false,
+            historyData: null,
+            errorMessage: historyData.responseError.message,
+          });
+        }
+      },
+    });
+  };
+
+
   const DoctorAPIHandler = {
     getFollowUpUpdates,
-    getDoctorEncounterUpdates
+    getDoctorEncounterUpdates,
+    getPatientHistoryUpdates
   };
   
   export default DoctorAPIHandler;
