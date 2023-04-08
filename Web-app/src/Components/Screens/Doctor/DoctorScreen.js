@@ -6,6 +6,7 @@ import Button from "../UI Elements/Button/Button";
 import NewEncounter from "./NewEncounter";
 import EncounterScreen from "./EncounterScreen";
 import FieldWorkerUpdates from "./FieldWorkerUpdates";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const DoctorScreen = (props) => {
   const [doctorOption, setDoctorOption] = useState("");
@@ -15,6 +16,7 @@ const DoctorScreen = (props) => {
 
   const logoutD = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
   if (!props.user) return null;

@@ -32,10 +32,10 @@ const processUserLoginData = (userLoggedInData) => {
   console.log("processUserLoginData");
   console.log(userLoggedInData);
 
-  if (userLoggedInData.userType === "Front Desk") {
+  // if (userLoggedInData.userType === "Front Desk") {
     localStorage.setItem("authId", userLoggedInData.authId);
     localStorage.setItem("userId", userLoggedInData.userId);
-  }
+  // }
 };
 
 const UtilitiesMethods = {

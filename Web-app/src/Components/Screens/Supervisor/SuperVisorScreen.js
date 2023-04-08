@@ -93,6 +93,7 @@ const SuperVisorScreen = (props) => {
 
   const logoutSV = () => {
     window.localStorage.removeItem("loggedInUser");
+    UtilitiesMethods.cleanUpUserDataOnLogOut();
     props.setUser(null);
   };
   if (!props.user) return null;
