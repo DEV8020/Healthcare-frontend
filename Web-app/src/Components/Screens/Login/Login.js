@@ -8,6 +8,7 @@ import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSe
 
 import LoginController from "../../../Controllers/LoginController";
 import MessageComponent from "../MessageComponent/MessageComponent";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const Login = (props) => {
   const [userType, setUserType] = useState("Doctor");
@@ -44,6 +45,17 @@ const Login = (props) => {
     //console.log("LoginResponseHandler login api response is ");
     //console.log(userLoginData);
 
+if(userLoginData.isLoginFlag === true){
+  showMessageAtBottomBar({message : "", isErrorMessage : false});
+}else{
+  showMessageAtBottomBar({message : userLoginData.errorMessage, isErrorMessage : true});
+}
+
+// isLoginFlag: false,
+//           loggedInUserData : null,
+//           errorMessage: loginServiceData.responseError.message,
+// UtilitiesMethods
+
     if (userLoginData.errorMessage === null) {
       if (userLoginData.isLoginFlag === true) {
         props.setAlertMessage(userId + " login successfully");
@@ -67,6 +79,21 @@ const Login = (props) => {
       MessageComponent.showMessageScreen({ message: { message: "" } });
     }
   };
+
+
+  const showMessageAtBottomBar = (prop) => {
+    UtilitiesMethods.showMessageBarAtTheBottom({
+      message: prop.message,
+      isErrorMessage: prop.isErrorMessage,
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+    });
+  };
+
+
+
+
+
 
   const setUserAsLoggedIn = () => {
     const userData = {
