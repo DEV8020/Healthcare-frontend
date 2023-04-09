@@ -16,11 +16,11 @@ const DoctorScreen = (props) => {
     useState(false);
   const [isDoctorEncounterToRefresh, setIsDoctorEncounterToRefresh] =
     useState(false);
-    const [doctorEncounterData, setDoctorEncounterData] =
-    useState([]);
-    const [selectedDoctorEncounterData, setSelectedDoctorEncounterData] =
+  const [doctorEncounterData, setDoctorEncounterData] = useState([]);
+  const [selectedDoctorEncounterData, setSelectedDoctorEncounterData] =
     useState({});
 
+  const [selectedEncounterID, setSelectedEncounterID] = useState("");
   // const [doctorOption, setDoctorOption] = useState("");
 
   const showMessageHandler = (prop) => {
@@ -38,13 +38,13 @@ const DoctorScreen = (props) => {
   // encounterData: encounterData.responseData.data,
   // errorMessage: null,
 
-
   //Call Back Method for recieving Doctor Encounter data...
   const doctorEncounterUpdatesData = (doctorEncounterData) => {
     console.log("doctorEncounterData called");
     console.log(doctorEncounterData);
     // setDoctorEncounterData([{}]);
     if (doctorEncounterData.isEncounterDataRecieved === false) {
+      setDoctorEncounterData([]);
       showMessageHandler({
         message: doctorEncounterData.errorMessage,
         isErrorMessage: true,
@@ -81,14 +81,22 @@ const DoctorScreen = (props) => {
     refreshFollowUpListHanlder();
   };
 
-const encounterCreateDataHandler = (encounterData) => {
-console.log("encounterCreateDataHandler called in doctor screen js");
-  console.log(encounterData);
-  setSelectedDoctorEncounterData(encounterData);
-};
+  const encounterCreateDataHandler = (encounterData) => {
+    console.log("encounterCreateDataHandler called in doctor screen js");
+    console.log(encounterData);
+    setSelectedDoctorEncounterData(encounterData);
+    setSelectedEncounterID(encounterData.encounterId);
+    console.log(selectedEncounterID);
+  };
 
+  // const refreshEncounterIDHandler = (encounterData) => {
+  //   console.log("encounterData");
+  //   console.log(encounterData);
+  //   setSelectedEncounterID(encounterData.encounterId);
+  //   console.log(selectedEncounterID);
+  // };
 
-
+  // consol);
 
   //Method to change the Refresh Variable and Load the follow up list...
   const refreshFollowUpListHanlder = () => {
@@ -98,7 +106,7 @@ console.log("encounterCreateDataHandler called in doctor screen js");
     });
   };
 
-   //Method to change the Refresh Variable and Load the Encounter Data...
+  //Method to change the Refresh Variable and Load the Encounter Data...
   const refreshDoctorEncounterListHanlder = () => {
     // console.log("refreshFollowUpListHanlder called");
     setIsDoctorEncounterToRefresh((isRefresh) => {
@@ -114,6 +122,7 @@ console.log("encounterCreateDataHandler called in doctor screen js");
           setAlertFlag={props.setAlertFlag}
           setCreateEncounter={setCreateEncounter}
           selectedDoctorEncounterData={selectedDoctorEncounterData}
+          selectedEncounterID={selectedEncounterID}
         />
       )}
       {createEncounter === false && (
@@ -142,8 +151,10 @@ console.log("encounterCreateDataHandler called in doctor screen js");
               setAlertMessage={props.setAlertMessage}
               setAlertFlag={props.setAlertFlag}
               setCreateEncounter={setCreateEncounter}
-              doctorEncounterData = {doctorEncounterData}
+              doctorEncounterData={doctorEncounterData}
               encounterCreateDataHandler={encounterCreateDataHandler}
+              // refreshEncounterIDHandler={refreshEncounterIDHandler}
+              selectedEncounterID={selectedEncounterID}
             />
           )}
           {doctorOption === "FWupdates" && (

@@ -99,10 +99,91 @@ const getPatientHistoryUpdates = async (props) => {
   };
 
 
+
+  //Register Field Worker In Supervisor Menu API Handler Method...
+const savePatientEncounterData = async (props) => {
+    console.log("create patient encounter In Doctor Menu...");
+    console.log(props);
+
+    // prescriptionData: props.doctorPrescriptionData,
+    //   //  followUpData : props.followUpData,
+    //   savePatientEncounterDataResponseHanlder:
+    //     savePatientEncounterDataResponseHanlder,
+  
+    var childURL = "addFieldWorker/" + UtilitiesMethods.getUSerIDForLoggedInUser();
+    console.log(childURL);
+  
+    await GlobalServiceHandler.hitCustomResponsePostService({
+      childURL: childURL,
+      postData: props.fieldWorkerData,
+      responseDataHandler: (createdEncounterData) => {
+        console.log("Create patient encounter Data In Admin Menu Response Data...");
+        console.log(createdEncounterData.responseData);
+  
+        if (createdEncounterData.responseError === null) {
+          props.savePatientEncounterDataResponseHanlder({
+            isEncounterCreated: true,
+            encounterData: createdEncounterData.responseData.data,
+            errorMessage: null,
+          });
+        } else if (createdEncounterData.responseData === null) {
+          props.savePatientEncounterDataResponseHanlder({
+            isEncounterCreated: false,
+            encounterData: null,
+            errorMessage: createdEncounterData.responseError.message,
+          });
+        }
+      },
+    });
+  };
+
+
+
+
+  const addPatientEncounterData = async (props) => {
+    console.log("create patient encounter In Doctor Menu...");
+    console.log(props.patientData);
+
+    // patientData: encounterData,
+    //   addPatientEncounterResponseHandler: addPatientEncounterResponseHandler,
+
+    //http://localhost:9191/addEncounter/{patientId}/{userId}
+  
+    var childURL = "addEncounter/" + props.patientData.patient.patientId + "/" + UtilitiesMethods.getUSerIDForLoggedInUser();
+    console.log(childURL);
+    console.log("child URL present");
+
+    await GlobalServiceHandler.hitCustomResponsePostService({
+      childURL: childURL,
+    //   postData: props.fieldWorkerData,
+      responseDataHandler: (createdEncounterData) => {
+        console.log("Create patient encounter Data In Admin Menu Response Data...");
+        console.log(createdEncounterData.responseData);
+  
+        if (createdEncounterData.responseError === null) {
+          props.addPatientEncounterResponseHandler({
+            isEncounterCreated: true,
+            encounterData: createdEncounterData.responseData.data,
+            errorMessage: null,
+          });
+        } else if (createdEncounterData.responseData === null) {
+          props.addPatientEncounterResponseHandler({
+            isEncounterCreated: false,
+            encounterData: null,
+            errorMessage: createdEncounterData.responseError.message,
+          });
+        }
+      },
+    });
+  };
+
+
   const DoctorAPIHandler = {
     getFollowUpUpdates,
     getDoctorEncounterUpdates,
-    getPatientHistoryUpdates
+    getPatientHistoryUpdates,
+    savePatientEncounterData,
+    addPatientEncounterData
   };
   
   export default DoctorAPIHandler;

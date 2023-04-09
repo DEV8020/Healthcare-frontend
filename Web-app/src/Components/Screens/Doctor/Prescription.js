@@ -2,44 +2,57 @@ import React, { useState } from "react";
 import classes from "./Prescription.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
+import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");
   const [AdditionalNotes, setAdditionalNotes] = useState("");
 
-  //doctorPrescriptionData={doctorEncounterData}
-  //setDoctorPrescriptionData={setDoctorEncounterData}
-  console.log("props.doctorPrescriptionData in Prescritpion");
-  console.log(props.doctorPrescriptionData);
-
   const PrescriptionDataChangeHandler = (event) => {
-    console.log(event.target.value);
-    updateDoctorPresciptionData({prescription : event.target.value});
+    updateDoctorPresciptionData({ prescription: event.target.value });
   };
 
   const AdditionalNotesChangeHandler = (event) => {
-    console.log(event.target.value);
-    updateDoctorPresciptionData({additionalNotes : event.target.value});
+    updateDoctorPresciptionData({ additionalNotes: event.target.value });
   };
 
-  //seState({prescription : "", additionalNotes : ""});
   const updateDoctorPresciptionData = (prescriptionData) => {
     props.setDoctorPrescriptionData((encounterData) => {
-      console.log({ ...encounterData, ...prescriptionData });
       return { ...encounterData, ...prescriptionData };
     });
   };
 
+
+
   const PrescriptionSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log(PrescriptionData);
-    // props.onPrescription(PrescriptionData);
+    console.log("Data to be sent in precription is to be sent to server is");
+    console.log(props.doctorPrescriptionData);
+
+    return;
+    //Hitting the API call for Create Patient Encounter...
+    DoctorAPIHandler.savePatientEncounterData({
+      prescriptionData: props.doctorPrescriptionData,
+      //  followUpData : props.followUpData,
+      savePatientEncounterDataResponseHanlder:
+        savePatientEncounterDataResponseHanlder,
+    });
+
     setPrescriptionData("");
     props.setAlertMessage(
       "Prescription successfully added :" + PrescriptionData
     );
     props.setAlertFlag(true);
+  };
+
+  //Create Patient Encounter API call response handler...
+  const savePatientEncounterDataResponseHanlder = (encounterResponseData) => {
+    console.log("savePatientEncounterDataResponseHanlder");
+    console.log(encounterResponseData);
+    // isEncounterCreated: true,
+    //         encounterData: createdEncounterData.responseData.data,
+    //         errorMessage: null,
   };
 
   return (

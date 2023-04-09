@@ -25,6 +25,9 @@ const EncounterScreen = (props) => {
 
   console.log("props.selectedDoctorEncounterData in encounter screen");
 console.log(props.selectedDoctorEncounterData);
+console.log(props.selectedEncounterID);
+
+// selectedEncounterID={selectedEncounterID}
 
 
   const backButtonD = () => {
