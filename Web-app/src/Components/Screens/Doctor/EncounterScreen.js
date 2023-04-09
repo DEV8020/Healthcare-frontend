@@ -6,7 +6,7 @@ import Button from "../UI Elements/Button/Button";
 import Prescription from "./Prescription";
 import ViewHistory from "./ViewHistory";
 import FollowUpUpdates from "./FollowUpUpdates";
-import AddFollowup from "./AddFollowup"
+import AddFollowup from "./AddFollowup";
 // import AddFollowup from
 
 const EncounterScreen = (props) => {
@@ -17,16 +17,13 @@ const EncounterScreen = (props) => {
     prescription: "",
     additionalNotes: "",
   });
-  const [patientEncounterID, setPatientEncounterID]  = useState("");
+  const [patientEncounterID, setPatientEncounterID] = useState("");
 
+  console.log("folloupsData");
+  console.log(folloupsData);
 
-console.log("folloupsData");
-console.log(folloupsData);
-
-
-
-//   // AddFollowup
-// AddFollowup
+  //   // AddFollowup
+  // AddFollowup
   const PrescriptionButtonHandler = () => {
     setEncounterOption("Prescription");
   };
@@ -45,6 +42,11 @@ console.log(folloupsData);
 
   const backButtonD = () => {
     props.setCreateEncounter(false);
+  };
+
+  const callBackHandlerOnEncounterCreate = () => {
+    props.setCreateEncounter(false);
+    console.log("callBackHandlerOnEncounterCreate called");
   };
 
   return (
@@ -73,6 +75,7 @@ console.log(folloupsData);
           setAddFollowup={setAddFollowup}
           folloupsData={folloupsData}
           encounterID={props.selectedEncounterID}
+          callBackHandlerOnEncounterCreate={callBackHandlerOnEncounterCreate}
         />
       )}
       {encounterOption === "ViewHistory" && (
@@ -91,7 +94,6 @@ console.log(folloupsData);
           setAddFollowup={setAddFollowup}
         />
       )}
-
 
       {/* {
     encounterOption === "FollowUpUpdates" && (<FollowUpUpdates encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}

@@ -3,6 +3,7 @@ import classes from "./Prescription.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
+import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");
@@ -22,8 +23,7 @@ const Prescription = (props) => {
     });
   };
 
-//  
- 
+  //
 
   const PrescriptionSubmitHandler = (event) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ const Prescription = (props) => {
     console.log("Data to be sent in precription is to be sent to server is");
     console.log(props.doctorPrescriptionData);
 
-console.log(props.folloupsData);
+    console.log(props.folloupsData);
 
     //folloupsData
 
@@ -40,26 +40,29 @@ console.log(props.folloupsData);
     //Hitting the API call for Create Patient Encounter...
     DoctorAPIHandler.savePatientEncounterData({
       prescriptionData: props.doctorPrescriptionData,
-      followUpData : props.folloupsData,
-      encounterID : props.encounterID,
+      followUpData: props.folloupsData,
+      encounterID: props.encounterID,
       savePatientEncounterDataResponseHanlder:
         savePatientEncounterDataResponseHanlder,
     });
 
-    setPrescriptionData("");
-    props.setAlertMessage(
-      "Prescription successfully added :" + PrescriptionData
-    );
-    props.setAlertFlag(true);
+    
   };
 
   //Create Patient Encounter API call response handler...
   const savePatientEncounterDataResponseHanlder = (encounterResponseData) => {
     console.log("savePatientEncounterDataResponseHanlder");
     console.log(encounterResponseData);
-    // isEncounterCreated: true,
-    //         encounterData: createdEncounterData.responseData.data,
-    //         errorMessage: null,
+    if (encounterResponseData.isEncounterCreated === false) {
+      props.setAlertMessage(encounterResponseData.errorMessage);
+      return;
+    }
+    setPrescriptionData("");
+    props.setAlertMessage(
+      "Prescription successfully added :" + PrescriptionData
+    );
+    props.setAlertFlag(true);
+    props.callBackHandlerOnEncounterCreate();
   };
 
   return (
@@ -80,13 +83,14 @@ console.log(props.folloupsData);
             value={props.doctorPrescriptionData.additionalNotes}
             onChange={AdditionalNotesChangeHandler}
           />
-
+<div>
           <MenuSubmitButton value="Submit" />
 
-          <MenuSubmitButton
+          <AddButton
             value="Add Followup"
             onClick={() => props.setAddFollowup(true)}
           />
+          </div>
         </form>
       </div>
     </div>
