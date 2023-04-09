@@ -11,6 +11,7 @@ import FollowUpUpdates from "./FollowUpUpdates";
 const EncounterScreen = (props) => {
   
   const [encounterOption,setEncounterOption] = useState("");
+  const [doctorEncounterData, setDoctorEncounterData] = useState({prescription : "", additionalNotes : ""});
 
   const PrescriptionButtonHandler = () => {
     setEncounterOption("Prescription");
@@ -49,11 +50,11 @@ console.log(props.selectedDoctorEncounterData);
 
     {
     encounterOption === "Prescription" && (<Prescription  setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
-      setAlertFlag ={props.setAlertFlag}/>)
+      setAlertFlag ={props.setAlertFlag} doctorPrescriptionData={doctorEncounterData} setDoctorPrescriptionData={setDoctorEncounterData}/>)
   }
   {
     encounterOption === "ViewHistory" && (<ViewHistory encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
-      setAlertFlag ={props.setAlertFlag} selectedEncounterData={props.selectedDoctorEncounterData}/>)
+      setAlertFlag ={props.setAlertFlag} selectedEncounterData={props.selectedDoctorEncounterData} />)
   }
   {/* {
     encounterOption === "FollowUpUpdates" && (<FollowUpUpdates encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
