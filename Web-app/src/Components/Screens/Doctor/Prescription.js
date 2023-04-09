@@ -22,7 +22,8 @@ const Prescription = (props) => {
     });
   };
 
-
+//  
+ 
 
   const PrescriptionSubmitHandler = (event) => {
     event.preventDefault();
@@ -30,11 +31,17 @@ const Prescription = (props) => {
     console.log("Data to be sent in precription is to be sent to server is");
     console.log(props.doctorPrescriptionData);
 
-    return;
+console.log(props.folloupsData);
+
+    //folloupsData
+
+    // return;
+
     //Hitting the API call for Create Patient Encounter...
     DoctorAPIHandler.savePatientEncounterData({
       prescriptionData: props.doctorPrescriptionData,
-      //  followUpData : props.followUpData,
+      followUpData : props.folloupsData,
+      encounterID : props.encounterID,
       savePatientEncounterDataResponseHanlder:
         savePatientEncounterDataResponseHanlder,
     });
@@ -75,6 +82,11 @@ const Prescription = (props) => {
           />
 
           <MenuSubmitButton value="Submit" />
+
+          <MenuSubmitButton
+            value="Add Followup"
+            onClick={() => props.setAddFollowup(true)}
+          />
         </form>
       </div>
     </div>

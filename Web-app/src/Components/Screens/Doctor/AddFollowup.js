@@ -13,12 +13,13 @@ function AddFollowup(props) {
     const formValues = {};
     for (let i = 0; i < numInputs; i++) {
       formValues[i] = {
-        doctor_remark: event.target[`doctor_remark-${i}`].value,
+        doctorRemarks: event.target[`doctorRemarks-${i}`].value,
         date: event.target[`date-${i}`].value,
       };
     }
     props.setFollowupsData(formValues);
     setNumInputs("");
+    props.setAddFollowup(false);
   };
 
   const RenderFormInputs = () => {
@@ -26,8 +27,8 @@ function AddFollowup(props) {
     for (let i = 0; i < numInputs; i++) {
       inputs.push(
         <div key={i} className={classes.ul}>
-          <label htmlFor={`doctor_remark-${i}`}>followup {i + 1}:</label>
-          <input type="text" name={`doctor_remark-${i}`} />
+          <label htmlFor={`doctorRemarks-${i}`}>followup {i + 1}:</label>
+          <input type="text" name={`doctorRemarks-${i}`} />
           <label htmlFor={`date-${i}`}>Date {i + 1}:</label>
           <input type="date" name={`date-${i}`} />
         </div>
