@@ -123,6 +123,7 @@ const DoctorScreen = (props) => {
           setCreateEncounter={setCreateEncounter}
           selectedDoctorEncounterData={selectedDoctorEncounterData}
           selectedEncounterID={selectedEncounterID}
+          refreshDoctorEncounterListHanlder= {refreshDoctorEncounterListHanlder}
         />
       )}
       {createEncounter === false && (

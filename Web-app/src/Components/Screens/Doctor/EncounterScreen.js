@@ -47,6 +47,7 @@ const EncounterScreen = (props) => {
   const callBackHandlerOnEncounterCreate = () => {
     props.setCreateEncounter(false);
     console.log("callBackHandlerOnEncounterCreate called");
+    props.refreshDoctorEncounterListHanlder();
   };
 
   return (
