@@ -22,6 +22,7 @@ const FieldWorkerUpdates = (props) => {
         message: followUpUpdateData.errorMessage,
         isErrorMessage: true,
       });
+      return;
     }
     setFollowUpUpdateList(followUpUpdateData.followUpsData);
   };

@@ -29,8 +29,15 @@ const FieldWorkerList = (props) => {
     });
   }, []);
 
+  // isFieldWorkerListRecieved: true,
+  //         fieldWorkerListData: fieldWorkerListResponseData.responseData.data,
+  //         errorMessage: null,
+
   const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
-    setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
+    if(fieldWorkerListData.isFieldWorkerListRecieved === true){
+      setFieldWorkerList(fieldWorkerListData.fieldWorkerListData);
+    }
+    
     console.log("getAllFieldWorkerListAPIHandler added called response");
     console.log(fieldWorkerListData.fieldWorkerListData);
   };
