@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./AddHospital.module.css";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKey";
 
 const AddHospital = (props) => {
-  //Initial Data for our Hospital Data...
+  //Initial Data for Hospital Registration...
   const hospitalRegistrationInitialData = {
-    name: "",
-    address: "",
+    [UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey]: "",
+    [UtilitiesKeys.getHospitalRegistrationDataKeys().addressKey]: "",
   };
 
   //########################## Use State Variables  ##########################
@@ -57,10 +58,11 @@ const AddHospital = (props) => {
     });
   };
 
+
   const addHospitalSuccessHandler = () => {
     setHospitalRegistrationData(hospitalRegistrationInitialData);
     showMessageAtBottomBar({
-      message: "Hospital Added Successfully.",
+      message: UtilitiesKeys.getHospitalRegistrationMessagesText().successMessage,
       isErrorMessage: true,
     });
   };
@@ -77,17 +79,19 @@ const AddHospital = (props) => {
         <form id="addHospital-form" onSubmit={AddHospitalDataHandler}>
           <InputTextField
             type="text"
-            label="Hospital Name"
+            label={UtilitiesKeys.getHospitalRegistrationFormLabelKeys().nameKey}
             onChange={HospitalDataChangeHandler}
-            mappedKey="name"
+            mappedKey={UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey}
             value={hospitalRegistrationData.name}
           />
 
           <InputTextField
             type="text"
-            label="Hospital Address"
+            label={UtilitiesKeys.getHospitalRegistrationFormLabelKeys().addressKey}
             onChange={HospitalDataChangeHandler}
-            mappedKey="address"
+            mappedKey={
+              UtilitiesKeys.getHospitalRegistrationDataKeys().addressKey
+            }
             value={hospitalRegistrationData.address}
           />
 
