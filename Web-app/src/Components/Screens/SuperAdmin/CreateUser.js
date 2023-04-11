@@ -5,6 +5,8 @@ import InputField from "../UI Elements/MenuForm Elements/InputField";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import MessageComponent from "../MessageComponent/MessageComponent";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
@@ -41,7 +43,19 @@ const CreateUser = (props) => {
   const registerUserIdChangeHandler = (event) => {
     setHospitalData({ userId: event.target.value });
   };
-  
+
+  const CreateUserDataInputFieldChangeHandler = (userEnteredData) => {
+    console.log("CreateUserDataInputFieldChangeHandler");
+    console.log(userEnteredData);
+
+    const hospitalIDKey = UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey;
+    if (hospitalIDKey in userEnteredData) {
+      showErrroMessage("Please choose hospital id from the list.");
+      return;
+    }
+    setHospitalData(userEnteredData);
+  };
+
   const registerUserNameChangeHandler = (event) => {
     setHospitalData({ name: event.target.value });
   };
@@ -131,29 +145,35 @@ const CreateUser = (props) => {
     case "Admin":
       formFields = (
         <>
-          <InputField
+          <InputTextField
             type="text"
-            label="User ID"
-            onChange={registerUserIdChangeHandler}
+            label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
+            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userIdKey}
+            onChange={CreateUserDataInputFieldChangeHandler}
             value={props.selectedHospitalDataForAdminCreation.userId}
           />
-          <InputField
+
+          <InputTextField
             type="text"
-            label="Name"
-            onChange={registerUserNameChangeHandler}
+            label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
+            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userNameKey}
+            onChange={CreateUserDataInputFieldChangeHandler}
             value={props.selectedHospitalDataForAdminCreation.name}
           />
-          <InputField
+
+          <InputTextField
             type="text"
-            label="Password"
-            onChange={registerUserPasswordChangeHandler}
+            label={UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel}
+            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
+            onChange={CreateUserDataInputFieldChangeHandler}
             value={props.selectedHospitalDataForAdminCreation.password}
           />
 
-          <InputField
+          <InputTextField
             type="text"
-            label="Hospital ID"
-            onChange={registerUserHospitalIdChangeHandler}
+            label={UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel}
+            mappedKey={UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
+            onChange={CreateUserDataInputFieldChangeHandler}
             value={props.selectedHospitalDataForAdminCreation.hospitalId}
           />
         </>
