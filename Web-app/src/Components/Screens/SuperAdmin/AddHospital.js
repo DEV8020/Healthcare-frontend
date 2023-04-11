@@ -1,36 +1,38 @@
 import React, { useState } from "react";
 import classes from "./AddHospital.module.css";
-import InputField from "../UI Elements/MenuForm Elements/InputField";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-
+import InputTextField from "../../../Component/InputTextField/InputTextField";
 
 const AddHospital = (props) => {
-  //#################### Use State Variables  ####################
-  const [hospitalName, setHospitalName] = useState("");
-  const [hospitalAddress, setHospitalAddress] = useState("");
+  //Initial Data for our Hospital Data...
+  const hospitalRegistrationInitialData = {
+    name: "",
+    address: "",
+  };
+
+  //########################## Use State Variables  ##########################
+  const [hospitalRegistrationData, setHospitalRegistrationData] = useState(
+    hospitalRegistrationInitialData
+  );
 
   //########################## Data Change Event Handler Methods  ##########################
-  //Hospital Name Data Change Event Handler Method...
-  const hospitalNameChangeHandler = (event) => {
-    setHospitalName(event.target.value);
+
+  //Single Data Handler for Input TextField change...
+  const HospitalDataChangeHandler = (prop) => {
+    setHospitalRegistrationData((hospitalData) => {
+      return { ...hospitalData, ...prop };
+    });
   };
 
-  //Hospital Address Data Change Event Handler Method...
-  const hospitalAddressChangeHandler = (event) => {
-    setHospitalAddress(event.target.value);
-  };
   //########################## Data Change Event Handler Methods Ends Here  ##########################
 
   const AddHospitalDataHandler = (event) => {
     event.preventDefault();
-    const hospitalData = {
-      name: hospitalName,
-      address: hospitalAddress,
-    };
+
     SuperAdminAPIHandler.AddHospitalData({
-      hospitalData: hospitalData,
+      hospitalData: hospitalRegistrationData,
       addHospitalResponseHandler: addHospitalResponseHandler,
     });
   };
@@ -55,14 +57,8 @@ const AddHospital = (props) => {
     });
   };
 
-  // const showErrorMessageScreen = (errorMessage) => {
-  //   props.setAlertMessage(errorMessage);
-  //   props.setAlertFlag(true);
-  // };
-
   const addHospitalSuccessHandler = () => {
-    setHospitalName("");
-    setHospitalAddress("");
+    setHospitalRegistrationData(hospitalRegistrationInitialData);
     showMessageAtBottomBar({
       message: "Hospital Added Successfully.",
       isErrorMessage: true,
@@ -79,18 +75,20 @@ const AddHospital = (props) => {
         <h1> Add Hospital Menu</h1>
 
         <form id="addHospital-form" onSubmit={AddHospitalDataHandler}>
-          <InputField
+          <InputTextField
             type="text"
             label="Hospital Name"
-            onChange={hospitalNameChangeHandler}
-            value={hospitalName}
+            onChange={HospitalDataChangeHandler}
+            mappedKey="name"
+            value={hospitalRegistrationData.name}
           />
 
-          <InputField
+          <InputTextField
             type="text"
-            label="Address"
-            onChange={hospitalAddressChangeHandler}
-            value={hospitalAddress}
+            label="Hospital Address"
+            onChange={HospitalDataChangeHandler}
+            mappedKey="address"
+            value={hospitalRegistrationData.address}
           />
 
           <MenuSubmitButton value="Register" />
