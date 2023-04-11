@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import classes from "./Login.module.css";
-import SubmitButton from "../UI Elements/Login/Register Elements/submitButton";
-import UsernameInput from "../UI Elements/Login/Register Elements/UserNameInput";
-import ForgotPasswordButton from "../UI Elements/Login/Register Elements/ForgotPasswordButton";
-import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
+import SubmitButton from "../../../Components/Screens/UI Elements/Login/Register Elements/submitButton";
+import UsernameInput from "../../../Components/Screens/UI Elements/Login/Register Elements/UserNameInput";
+import ForgotPasswordButton from "../../../Components/Screens/UI Elements/Login/Register Elements/ForgotPasswordButton";
+import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
 
 import LoginController from "../../../Controllers/LoginController";
-import MessageComponent from "../MessageComponent/MessageComponent";
+import MessageComponent from "../../../Components/Screens/MessageComponent/MessageComponent";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const Login = (props) => {

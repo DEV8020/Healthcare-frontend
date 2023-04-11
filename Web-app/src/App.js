@@ -1,15 +1,6 @@
 import "./App.css";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import Login from "./Components/Screens/Login/Login";
-// import AddPatient from "./Components/Screens/Front Desk/CreateAppointment";
-// import addAppointment from "./Services/Appointment";
-// import getPatientList from "./Services/PatientList";
-// import PatientList from "./Components/Screens/Doctor/PatientList";
-// import AlertTitle from "@mui/material/AlertTitle";
-// import CreateUser from "./Components/Screens/SuperAdmin/CreateUser";
-// import AddHospital from "./Components/Screens/SuperAdmin/AddHospital";
+import React, { useEffect, useState } from "react";
+import Login from "./UIScreens/LoginModule/Login/Login";
 import AdminScreen from "./Components/Screens/AdminUI/AdminScreen";
 import DoctorScreen from "./Components/Screens/Doctor/DoctorScreen";
 import FrontDeskScreen from "./Components/Screens/Front Desk/FrontDeskScreen";
@@ -96,32 +87,17 @@ function App() {
     window.localStorage.setItem("loggedInUser", userObject);
     setUser(userObject);
   };
-  // const CreateAppointmentHandler = async (appointment) => {
-  //   console.log(appointment);
-
-  //   // try {
-  //   //   await addAppointment(appointment);
-  //   // } catch (exception) {
-  //   //   console.log(exception);
-  //   // }
-  // };
+  
   useEffect(() => {
     async function fetchData() {
       if (user !== null && user.userType === "doctor") {
-        // const patientListObject = await getPatientList();
-
-        // setPatientList(patientListObject);
         setPatientList(pList);
       }
     }
     fetchData();
   }, [user]);
 
-  //  useEffect(() => {
-  //    const loggedInUser = window.localStorage.getItem('loggedInUser')
-  //    if (loggedInUser)
-  //      setUser(loggedInUser)
-  //  }, [])
+  
   useEffect(() => {
     const timeId = setTimeout(() => {
       // After 3 seconds set the show value to false
@@ -167,7 +143,6 @@ function App() {
             setAlertMessage={setAlertMessage}
           />
         )
-        //<AddPatient onCreateAppointment={CreateAppointmentHandler} user={user} setUser={setUser} />
       }
       {user !== null && user.userType === "Super Admin" && (
         <SuperAdminScreen
