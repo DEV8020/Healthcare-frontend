@@ -2,12 +2,12 @@
 
 //Hopspital Registration Data Keys...
 const getHospitalRegistrationDataKeys = () => {
-  return { nameKey: "name", addressKey: "address" };
+  return { nameKey: "name", addressKey: "address",  pinCodeKey: "pincode"};
 };
 
 //Hopspital Registration Form Input Field Label Keys...
 const getHospitalRegistrationFormLabelKeys = () => {
-  return { nameKey: "Hospital Name", addressKey: "Hospital Address" };
+  return { nameKey: "Hospital Name", addressKey: "Hospital Address", pinCodeKey: "Hospital Pincode" };
 };
 
 //Hopspital Registration Messages Keys...
@@ -57,6 +57,11 @@ const getInputFieldLengthValidationKeys = () => {
   };
 };
 
+
+const getGeneralValidationMessagesText = () => {
+  return { pinCodeNotValidMessage: "Please enter valid Pin Code. It must of 6 digits." };
+};
+
 const UtilitiesKeys = {
   getHospitalRegistrationDataKeys,
   getHospitalRegistrationFormLabelKeys,
@@ -64,6 +69,7 @@ const UtilitiesKeys = {
   getCreateUserDataKeys,
   getCreateUserFormLabelKeys,
   getInputFieldLengthValidationKeys,
+  getGeneralValidationMessagesText
 };
 
 export default UtilitiesKeys;
