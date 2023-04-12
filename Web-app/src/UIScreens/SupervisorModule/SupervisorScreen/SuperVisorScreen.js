@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import NewFollowUpAssign from "./NewFollowUpAssign";
+import NewFollowUpAssign from "../NewFollowUpAssignmentScreen/NewFollowUpAssign";
 import classes from "./SuperVisorScreen.module.css";
-import NavBar from "../UI Elements/NavBar/NavBar";
-import Button from "../UI Elements/Button/Button";
-import FieldWorkerList from "./FieldWorkerList";
-import FieldWorkerDetails from "../FieldWorker/FieldWorkerDetails";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
+import Button from "../../../Components/Screens/UI Elements/Button/Button";
+import FieldWorkerList from "../FieldWorkerListScreen/FieldWorkerList";
+import FieldWorkerDetails from "../../../Components/Screens/FieldWorker/FieldWorkerDetails";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-import FieldWorkerRegistration from "./FieldWorkerRegistration";
+import FieldWorkerRegistration from "../FieldWorkerRegistrationScreen/FieldWorkerRegistration";
 
 const SuperVisorScreen = (props) => {
   const [superVisorOption, setSuperVisorOption] = useState("superVisor");

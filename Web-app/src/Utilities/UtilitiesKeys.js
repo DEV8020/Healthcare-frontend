@@ -79,3 +79,12 @@ const UtilitiesKeys = {
 };
 
 export default UtilitiesKeys;
+
+
+
+
+//Files to delete...
+
+//C:\Users\nmgar\OneDrive\Documents\React Projects\Web-app\src\Components\Screens\Front Desk\AddPatient.js
+//C:\Users\nmgar\OneDrive\Documents\React Projects\Web-app\src\Components\Screens\Front Desk\AddPatient.module.css
+

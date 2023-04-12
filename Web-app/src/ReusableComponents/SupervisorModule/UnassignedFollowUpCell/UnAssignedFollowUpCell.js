@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from "./UnAssignedFollowUpCell.module.css";
-import SmallInputField from "../UI Elements/MenuForm Elements/SmallInputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import SmallInputField from "../../../Components/Screens/UI Elements/MenuForm Elements/SmallInputField";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const UnAssignedFollowUpCell = (props) => {

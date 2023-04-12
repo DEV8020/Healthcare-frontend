@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "./NewFollowUpAssign.module.css";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
-import UnAssignedFollowUpCell from "./UnAssignedFollowUpCell";
+import UnAssignedFollowUpCell from "../../../ReusableComponents/SupervisorModule/UnassignedFollowUpCell/UnAssignedFollowUpCell";
 
 
 const NewFollowUpAssign = (props) => {
