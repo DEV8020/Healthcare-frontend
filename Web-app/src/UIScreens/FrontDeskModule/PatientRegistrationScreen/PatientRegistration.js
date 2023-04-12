@@ -12,7 +12,7 @@ const PatientRegistration = (props) => {
   const [patientRegistrationData, setPatientRegistrationData] = useState(
     FrontDeskUtilitiesKeys.getPatientRegistrationInitialData()
   );
-  
+
   //Single Data Handler for Input TextField change...
   const PatientDataChangeHandler = (userModifiedData) => {
     setPatientRegistrationData((patientData) => {
@@ -21,7 +21,6 @@ const PatientRegistration = (props) => {
   };
 
   const patientBdateChangeHandler = (event) => {
-    setPatientBdate(event.target.value);
     PatientDataChangeHandler({ dob: event.target.value });
   };
 
@@ -182,7 +181,7 @@ const PatientRegistration = (props) => {
             }
           />
 
-{/* Patient's Date Of Birth Text Field... */}
+          {/* Patient's Date Of Birth Text Field... */}
           <Bdate
             value={
               patientRegistrationData[
