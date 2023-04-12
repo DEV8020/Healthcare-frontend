@@ -7,7 +7,7 @@ import FrontDeskScreen from "./Components/Screens/Front Desk/FrontDeskScreen";
 import SuperVisorScreen from "./Components/Screens/Supervisor/SuperVisorScreen";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-import SuperAdminScreen from "./Components/Screens/SuperAdmin/SuperAdminScreen";
+import SuperAdminScreen from "./UIScreens/SuperAdminModule/SuperAdminScreen/SuperAdminScreen";
 
 function App() {
   const pList = [

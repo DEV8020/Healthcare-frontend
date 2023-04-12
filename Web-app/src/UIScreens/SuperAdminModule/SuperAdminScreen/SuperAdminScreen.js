@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import classes from "./SuperAdminScreen.module.css";
-import NavBar from "../UI Elements/NavBar/NavBar";
-import Button from "../UI Elements/Button/Button";
-import CreateUser from "./CreateUser";
-import AddHospital from "./AddHospital";
-import ShowAllUser from "./ShowAllUser";
-import HospitalDetailsView from "./HospitalDetailsView";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
+import Button from "../../../Components/Screens/UI Elements/Button/Button";
+import CreateUser from "../CreateUserScreen/CreateUser";
+import AddHospital from "../AddHospitalScreen/AddHospital";
+import ShowAllUser from "../AllUsersListScreen/ShowAllUser";
+import HospitalDetailsView from "../HospitalDetailsScreen/HospitalDetailsView";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 

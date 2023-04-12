@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
-import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
+import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
 // import InputField from "../UI Elements/MenuForm Elements/InputField";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-import MessageComponent from "../MessageComponent/MessageComponent";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MessageComponent from "../../../Components/Screens/MessageComponent/MessageComponent";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";

@@ -1,6 +1,6 @@
 import classes from "./HospitalDetailsView.module.css";
 import React from "react";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const HospitalDetailsView = (props) => {
 

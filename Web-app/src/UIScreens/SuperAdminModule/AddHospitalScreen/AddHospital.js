@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./AddHospital.module.css";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
