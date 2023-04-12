@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import classes from "./FieldWorkerRegistration.module.css";
-// import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FieldWorkerAPIHandler from "../../../Controllers/FieldWorkerAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-// import InputTextField from "../../../Component/InputTextField/InputTextField";
 import SupervisorUtilitiesKeys from "../SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
@@ -15,15 +13,7 @@ const FieldWorkerRegistration = (props) => {
     selectedDataFromFieldWorkerRegistration,
     setSelectedDataFromFieldWorkerRegistration,
   ] = useState(SupervisorUtilitiesKeys.getFieldWorkerRegistrationInitialData());
-  // ] = useState({
-  //   name: "",
-  //   userId: "",
-  //   password: "",
-  //   contact: "",
-  //   address: "",
-  //   pincode: "",
-  // });
-
+  
   var setFieldWorkerData = (updateData) => {
     setSelectedDataFromFieldWorkerRegistration((fieldWorkerData) => {
       console.log(fieldWorkerData);
@@ -32,30 +22,6 @@ const FieldWorkerRegistration = (props) => {
     });
   };
 
-  // const fieldWorkerUserIdChangeHandler = (event) => {
-  //   setFieldWorkerData({ userId: event.target.value });
-  //   console.log(selectedDataFromFieldWorkerRegistration);
-  // };
-
-  // const fieldWorkerNameChangeHandler = (event) => {
-  //   setFieldWorkerData({ name: event.target.value });
-  //   console.log(selectedDataFromFieldWorkerRegistration);
-  // };
-
-  // const fieldWorkerPasswordChangeHandler = (event) => {
-  //   setFieldWorkerData({ password: event.target.value });
-  //   console.log(selectedDataFromFieldWorkerRegistration);
-  // };
-
-  // const fieldWorkerContactChangeHandler = (event) => {
-  //   setFieldWorkerData({ contact: event.target.value });
-  //   console.log(selectedDataFromFieldWorkerRegistration);
-  // };
-
-  // const fieldWorkerAddressChangeHandler = (event) => {
-  //   setFieldWorkerData({ address: event.target.value });
-  //   console.log(selectedDataFromFieldWorkerRegistration);
-  // };
 
   const AddFieldWorkerDataHandler = (event) => {
     event.preventDefault();
@@ -128,14 +94,6 @@ const FieldWorkerRegistration = (props) => {
     setSelectedDataFromFieldWorkerRegistration(
       SupervisorUtilitiesKeys.getFieldWorkerRegistrationInitialData()
     );
-
-    // setSelectedDataFromFieldWorkerRegistration({
-    //   name: "",
-    //   userId: "",
-    //   password: "",
-    //   contact: "",
-    //   address: "",
-    // });
   };
 
   const showMessageAtBottomBar = (prop) => {
@@ -176,20 +134,6 @@ const FieldWorkerRegistration = (props) => {
             }
           />
 
-          {/* <InputField
-            type="text"
-            label="FieldWorker UserId"
-            value={selectedDataFromFieldWorkerRegistration.userId}
-            onChange={fieldWorkerUserIdChangeHandler}
-          /> */}
-
-          {/* <InputField
-            type="text"
-            label="FieldWorker Password"
-            value={selectedDataFromFieldWorkerRegistration.password}
-            onChange={fieldWorkerPasswordChangeHandler}
-          /> */}
-
           {/* Field Worker Password Input Text Field */}
           <InputTextField
             label={
@@ -209,13 +153,6 @@ const FieldWorkerRegistration = (props) => {
             }
           />
 
-          {/* <InputField
-            type="text"
-            label="FieldWorker Name"
-            value={selectedDataFromFieldWorkerRegistration.name}
-            onChange={fieldWorkerNameChangeHandler}
-          /> */}
-
           {/* Field Worker Name Input Text Field */}
           <InputTextField
             label={
@@ -234,13 +171,6 @@ const FieldWorkerRegistration = (props) => {
               ]
             }
           />
-
-          {/* <InputField
-            type="text"
-            label="Contact"
-            value={selectedDataFromFieldWorkerRegistration.contact}
-            onChange={fieldWorkerContactChangeHandler}
-          /> */}
 
           {/* Field Worker Contact Number Input Text Field */}
           <InputNumericTextField
@@ -264,13 +194,6 @@ const FieldWorkerRegistration = (props) => {
                 .userContactNumberLength
             }
           />
-
-          {/* <InputField
-            type="text"
-            label="Address"
-            onChange={fieldWorkerAddressChangeHandler}
-            value={selectedDataFromFieldWorkerRegistration.address}
-          /> */}
 
           {/* Field Worker Address Input Text Field */}
           <InputTextField
@@ -313,22 +236,6 @@ const FieldWorkerRegistration = (props) => {
                 .userPinCodeLength
             }
           />
-
-          {/* <InputTextField
-            label={
-                SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().pinCodeKey
-            }
-            onChange={setFieldWorkerData}
-            mappedKey={
-              SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys().pinCodeKey
-            }
-            // value={
-            //   patientRegistrationData[
-            //     FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-            //       .patientGenderKey
-            //   ]
-            // }
-          /> */}
 
           <div>
             <MenuSubmitButton value="Register" />
