@@ -8,11 +8,23 @@ import MessageComponent from "../../../Components/Screens/MessageComponent/Messa
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
+import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
 
-  console.log(props.selectedHospitalDataForAdminCreation);
+  //Constants declared for Admin & Supervisor Options...
+  const createUserAdminOption =
+    SuperAdminUtilitiesKeys.getCreateUserOptionKeys().createUserAdminOption;
+  const createUserSupervisorOption =
+    SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
+      .createUserSupervisorOption;
+
+  //   console.log("[registerUserType, setRegisterUserType] = useState");
+  //   console.log(createUserAdminOption);
+  //   console.log(createUserSupervisorOption);
+
+  // console.log(props.selectedHospitalDataForAdminCreation);
 
   useEffect(() => {
     SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
@@ -88,7 +100,10 @@ const CreateUser = (props) => {
     );
 
     //Show Alert Message in case of Invalid Contact Number...
-    if (userContactNumber.length !== userContactNumberRequiredLength) {
+    if (
+      registerUserType === createUserSupervisorOption &&
+      userContactNumber.length !== userContactNumberRequiredLength
+    ) {
       showErrroMessage(
         "Please enter valid contact number. It must of 10 digits."
       );
@@ -104,10 +119,11 @@ const CreateUser = (props) => {
       UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
     );
     //Show Alert Message in case of Invalid PIN CODE...
-    if (userAddressPinCode.length !== userPinCodeRequiredLength) {
-      showErrroMessage(
-        "Please enter valid Pin Code. It must of 6 digits."
-      );
+    if (
+      registerUserType === createUserSupervisorOption &&
+      userAddressPinCode.length !== userPinCodeRequiredLength
+    ) {
+      showErrroMessage("Please enter valid Pin Code. It must of 6 digits.");
       return;
     }
 
@@ -172,7 +188,10 @@ const CreateUser = (props) => {
     props.setSuperAdminOption("");
   };
 
-  const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
+  const superAdminUserType = [
+    { option: createUserAdminOption },
+    { option: createUserSupervisorOption },
+  ];
 
   return (
     <div>
@@ -215,7 +234,7 @@ const CreateUser = (props) => {
               value={props.selectedHospitalDataForAdminCreation.password}
             />
 
-            {registerUserType === "Admin" && (
+            {registerUserType === createUserAdminOption && (
               <InputTextField
                 type="text"
                 label={
@@ -227,7 +246,7 @@ const CreateUser = (props) => {
               />
             )}
 
-            {registerUserType === "Supervisor" && (
+            {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
@@ -242,7 +261,7 @@ const CreateUser = (props) => {
               />
             )}
 
-            {registerUserType === "Supervisor" && (
+            {registerUserType === createUserSupervisorOption && (
               <InputTextField
                 type="text"
                 label={
@@ -254,7 +273,7 @@ const CreateUser = (props) => {
               />
             )}
 
-            {registerUserType === "Supervisor" && (
+            {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys()
