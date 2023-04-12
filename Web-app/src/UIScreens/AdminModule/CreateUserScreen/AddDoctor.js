@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InputField from "../UI Elements/MenuForm Elements/InputField";
+import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import classes from "./AddOptions.module.css";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 

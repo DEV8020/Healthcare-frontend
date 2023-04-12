@@ -1,10 +1,10 @@
 import classes from "./AdminScreen.module.css";
-import Button from "../UI Elements/Button/Button";
-import ShowHospitalUsers from "./ShowHospitalUsers";
-import AddDoctor from "./AddDoctor";
+import Button from "../../../Components/Screens/UI Elements/Button/Button";
+import ShowHospitalUsers from "../../../Components/Screens/AdminUI/ShowHospitalUsers";
+import AddDoctor from "../CreateUserScreen/AddDoctor";
 import AddFrontDesk from "./AddFrontDesk";
 import { useState, useEffect } from "react";
-import NavBar from "../UI Elements/NavBar/NavBar";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 

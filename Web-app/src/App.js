@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import Login from "./UIScreens/LoginModule/Login/Login";
-import AdminScreen from "./Components/Screens/AdminUI/AdminScreen";
+import AdminScreen from "./UIScreens/AdminModule/AdminScreen/AdminScreen";
 import DoctorScreen from "./Components/Screens/Doctor/DoctorScreen";
 import FrontDeskScreen from "./Components/Screens/Front Desk/FrontDeskScreen";
 import SuperVisorScreen from "./Components/Screens/Supervisor/SuperVisorScreen";
