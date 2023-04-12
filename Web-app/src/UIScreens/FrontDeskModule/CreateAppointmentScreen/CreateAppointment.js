@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import InputField from "../UI Elements/MenuForm Elements/InputField";
+import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import classes from "./CreateAppointment.module.css";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const CreateAppointment = (props) => {

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import RegisterPatientService from "../../../Services/RegisterPatientService";
 import classes from "./PatientRegistration.module.css";
-import InputField from "../UI Elements/MenuForm Elements/InputField";
+import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 // import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import Bdate from "../UI Elements/Date Element/Bdate";
-import TextBox from "../UI Elements/MenuForm Elements/TextBox";
+import Bdate from "../../../Components/Screens/UI Elements/Date Element/Bdate";
+import TextBox from "../../../Components/Screens/UI Elements/MenuForm Elements/TextBox";
 // import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 
 const PatientRegistration = (props) => {

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import PatientRegistration from "./PatientRegistration";
+// import PatientRegistration from "./PatientRegistration";
+import PatientRegistration from "../PatientRegistrationScreen/PatientRegistration";
 import classes from "./FrontDeskScreen.module.css";
-import NavBar from "../UI Elements/NavBar/NavBar";
-import Button from "../UI Elements/Button/Button";
-import CreateAppointment from "./CreateAppointment";
-import PatientDetailsView from "../Patient/PatientDetailsView";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
+import Button from "../../../Components/Screens/UI Elements/Button/Button";
+import CreateAppointment from "../CreateAppointmentScreen/CreateAppointment";
+import PatientDetailsView from "../../../Components/Screens/Patient/PatientDetailsView";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FrontDeskScreen = (props) => {
