@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
 import UserTypeSelection from "../UI Elements/Login/Register Elements/UserTypeSelection";
-import InputField from "../UI Elements/MenuForm Elements/InputField";
+// import InputField from "../UI Elements/MenuForm Elements/InputField";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import MessageComponent from "../MessageComponent/MessageComponent";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");
@@ -36,17 +37,17 @@ const CreateUser = (props) => {
     });
   };
 
-  const registerUserHospitalIdChangeHandler = (event) => {
-    showErrroMessage("Please choose hospital id from the list.");
-  };
+  // const registerUserHospitalIdChangeHandler = (event) => {
+  //   showErrroMessage("Please choose hospital id from the list.");
+  // };
 
-  const registerUserIdChangeHandler = (event) => {
-    setHospitalData({ userId: event.target.value });
-  };
+  // const registerUserIdChangeHandler = (event) => {
+  //   setHospitalData({ userId: event.target.value });
+  // };
 
   const CreateUserDataInputFieldChangeHandler = (userEnteredData) => {
-    console.log("CreateUserDataInputFieldChangeHandler");
-    console.log(userEnteredData);
+    // console.log("CreateUserDataInputFieldChangeHandler");
+    // console.log(userEnteredData);
 
     const hospitalIDKey = UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey;
     if (hospitalIDKey in userEnteredData) {
@@ -56,26 +57,59 @@ const CreateUser = (props) => {
     setHospitalData(userEnteredData);
   };
 
-  const registerUserNameChangeHandler = (event) => {
-    setHospitalData({ name: event.target.value });
-  };
+  // const registerUserNameChangeHandler = (event) => {
+  //   setHospitalData({ name: event.target.value });
+  // };
 
   //registerUserNameChangeHandler
 
-  const registerUserContactChangeHandler = (event) => {
-    setHospitalData({ contact: event.target.value });
-  };
+  // const registerUserContactChangeHandler = (event) => {
+  //   setHospitalData({ contact: event.target.value });
+  // };
 
-  const registerUserAddressChangeHandler = (event) => {
-    setHospitalData({ address: event.target.value });
-  };
+  // const registerUserAddressChangeHandler = (event) => {
+  //   setHospitalData({ address: event.target.value });
+  // };
 
-  const registerUserPasswordChangeHandler = (event) => {
-    setHospitalData({ password: event.target.value });
-  };
+  // const registerUserPasswordChangeHandler = (event) => {
+  //   setHospitalData({ password: event.target.value });
+  // };
 
   const RegisterUserHandler = (event) => {
     event.preventDefault();
+
+    //Validation for user contact number...
+    const userContactNumberMappedKey =
+      UtilitiesKeys.getCreateUserDataKeys().userContactKey;
+    const userContactNumber =
+      props.selectedHospitalDataForAdminCreation[userContactNumberMappedKey];
+    const userContactNumberRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    );
+
+    //Show Alert Message in case of Invalid Contact Number...
+    if (userContactNumber.length !== userContactNumberRequiredLength) {
+      showErrroMessage(
+        "Please enter valid contact number. It must of 10 digits."
+      );
+      return;
+    }
+
+    //Validation for user Pin Code...
+    const userPinCodeMappedKey =
+      UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey;
+    const userAddressPinCode =
+      props.selectedHospitalDataForAdminCreation[userPinCodeMappedKey];
+    const userPinCodeRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+    );
+    //Show Alert Message in case of Invalid PIN CODE...
+    if (userAddressPinCode.length !== userPinCodeRequiredLength) {
+      showErrroMessage(
+        "Please enter valid Pin Code. It must of 6 digits."
+      );
+      return;
+    }
 
     SuperAdminAPIHandler.AddNewUserData({
       registerUserData: props.selectedHospitalDataForAdminCreation,
@@ -140,88 +174,6 @@ const CreateUser = (props) => {
 
   const superAdminUserType = [{ option: "Admin" }, { option: "Supervisor" }];
 
-  let formFields;
-  switch (registerUserType) {
-    case "Admin":
-      formFields = (
-        <>
-          <InputTextField
-            type="text"
-            label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
-            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userIdKey}
-            onChange={CreateUserDataInputFieldChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.userId}
-          />
-
-          <InputTextField
-            type="text"
-            label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
-            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userNameKey}
-            onChange={CreateUserDataInputFieldChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.name}
-          />
-
-          <InputTextField
-            type="text"
-            label={UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel}
-            mappedKey={UtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
-            onChange={CreateUserDataInputFieldChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.password}
-          />
-
-          <InputTextField
-            type="text"
-            label={UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel}
-            mappedKey={UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
-            onChange={CreateUserDataInputFieldChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.hospitalId}
-          />
-        </>
-      );
-      break;
-    case "Supervisor":
-      formFields = (
-        <>
-          <InputField
-            type="text"
-            label="User ID"
-            onChange={registerUserIdChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.userId}
-          />
-          <InputField
-            type="text"
-            label="Password"
-            onChange={registerUserPasswordChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.password}
-          />
-
-          <InputField
-            type="text"
-            label="Name"
-            onChange={registerUserNameChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.name}
-          />
-
-          <InputField
-            type="text"
-            label="Contact"
-            value={props.selectedHospitalDataForAdminCreation.contact}
-            onChange={registerUserContactChangeHandler}
-          />
-
-          <InputField
-            type="text"
-            label="Address"
-            onChange={registerUserAddressChangeHandler}
-            value={props.selectedHospitalDataForAdminCreation.address}
-          />
-        </>
-      );
-      break;
-    default:
-      formFields = null;
-  }
-
   return (
     <div>
       <div className={classes.center}>
@@ -233,7 +185,96 @@ const CreateUser = (props) => {
             options={superAdminUserType}
             onChange={registerUserTypeChangeHandler}
           />
-          {formFields}
+
+          {/* ######################  Adding new fields  ######################*/}
+
+          <>
+            <InputTextField
+              type="text"
+              label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
+              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userIdKey}
+              onChange={CreateUserDataInputFieldChangeHandler}
+              value={props.selectedHospitalDataForAdminCreation.userId}
+            />
+
+            <InputTextField
+              type="text"
+              label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
+              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userNameKey}
+              onChange={CreateUserDataInputFieldChangeHandler}
+              value={props.selectedHospitalDataForAdminCreation.name}
+            />
+
+            <InputTextField
+              type="text"
+              label={
+                UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
+              }
+              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
+              onChange={CreateUserDataInputFieldChangeHandler}
+              value={props.selectedHospitalDataForAdminCreation.password}
+            />
+
+            {registerUserType === "Admin" && (
+              <InputTextField
+                type="text"
+                label={
+                  UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
+                }
+                mappedKey={UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
+                onChange={CreateUserDataInputFieldChangeHandler}
+                value={props.selectedHospitalDataForAdminCreation.hospitalId}
+              />
+            )}
+
+            {registerUserType === "Supervisor" && (
+              <InputNumericTextField
+                label={
+                  UtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
+                }
+                mappedKey={UtilitiesKeys.getCreateUserDataKeys().userContactKey}
+                value={props.selectedHospitalDataForAdminCreation.contact}
+                onChange={CreateUserDataInputFieldChangeHandler}
+                requiredLength={
+                  UtilitiesKeys.getInputFieldLengthValidationKeys()
+                    .userContactNumberLength
+                }
+              />
+            )}
+
+            {registerUserType === "Supervisor" && (
+              <InputTextField
+                type="text"
+                label={
+                  UtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
+                }
+                mappedKey={UtilitiesKeys.getCreateUserDataKeys().userAddressKey}
+                onChange={CreateUserDataInputFieldChangeHandler}
+                value={props.selectedHospitalDataForAdminCreation.address}
+              />
+            )}
+
+            {registerUserType === "Supervisor" && (
+              <InputNumericTextField
+                label={
+                  UtilitiesKeys.getCreateUserFormLabelKeys()
+                    .userAddressPincodeLabel
+                }
+                mappedKey={
+                  UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
+                }
+                onChange={CreateUserDataInputFieldChangeHandler}
+                value={props.selectedHospitalDataForAdminCreation.pincode}
+                requiredLength={
+                  UtilitiesKeys.getInputFieldLengthValidationKeys()
+                    .userPinCodeLength
+                }
+              />
+            )}
+          </>
+
+          {/* ######################  Adding new fields  ######################*/}
+
           <div>
             <MenuSubmitButton value="Register" />
             <MenuSubmitButton

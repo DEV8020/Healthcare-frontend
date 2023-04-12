@@ -4,7 +4,6 @@ import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
-// import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const AddHospital = (props) => {

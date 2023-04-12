@@ -24,9 +24,14 @@ const getCreateUserDataKeys = () => {
     userIdKey: "userId",
     userPasswordKey: "password",
     userTypeKey: "userType",
+    userContactKey: "contact",
+    userAddressKey: "address",
     hospitalIDKey: "hospitalId",
+    userAddressPinCodeKey: "pincode",
   };
 };
+
+//########################## Create User In Super Admin Menu Keys  ##########################
 
 //Create User Form Input Field Label Keys...
 const getCreateUserFormLabelKeys = () => {
@@ -34,12 +39,23 @@ const getCreateUserFormLabelKeys = () => {
     userIdLabel: "User ID",
     userNameLabel: "User Name",
     userPasswordLabel: "Password",
-    userPasswordLabel: "Password",
+    userContactLabel: "Contact",
+    userAddressLabel: "Address",
+    userAddressPincodeLabel: "Pincode",
     hospitalIDLabel: "Hospital ID",
   };
 };
 
-//{name: 'sadad', userId: '', password: '', userType: 'Admin', hospitalId: '', …}
+
+//########################## Input Field Length Validation Keys  ##########################
+
+//Input Field Lenght Validation Keys...
+const getInputFieldLengthValidationKeys = () => {
+  return {
+    userPinCodeLength : "6",
+    userContactNumberLength : "10",
+  };
+};
 
 const UtilitiesKeys = {
   getHospitalRegistrationDataKeys,
@@ -47,6 +63,7 @@ const UtilitiesKeys = {
   getHospitalRegistrationMessagesText,
   getCreateUserDataKeys,
   getCreateUserFormLabelKeys,
+  getInputFieldLengthValidationKeys,
 };
 
 export default UtilitiesKeys;

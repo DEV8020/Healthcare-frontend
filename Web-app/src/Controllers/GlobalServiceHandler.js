@@ -2,7 +2,8 @@ import axios from "axios";
 
 // const serverURL = `http://192.168.9.225:9191/`;
 //const serverURL = `http://172.16.140.248:9191/`;
-const serverURL = `http://192.168.223.225:9191/`;
+// const serverURL = `http://192.168.223.225:9191/`;
+const serverURL = `http://192.168.219.225:9191/`;
 
 const hitCustomResponsePostService = async (props) => {
   try {

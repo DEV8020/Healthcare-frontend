@@ -31,6 +31,7 @@ const SuperAdminScreen = (props) => {
     hospitalId: "",
     contact : "",
     address : "",
+    pincode : ""
   });
 
   const allRegisteredListHandleCallBack = (registeredUsersList) => {
