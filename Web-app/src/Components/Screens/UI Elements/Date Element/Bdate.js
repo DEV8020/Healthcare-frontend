@@ -4,7 +4,7 @@ const Bdate = (props) => {
   return (
     <div className={classes.bdate}>
       
-      <input type="date" name="dateofbirth" id="dateofbirth" />
+      <input type="date" name="dateofbirth" id="dateofbirth" onChange={props.onChange} value={props.value} required/>
       <label>Date Of Birth</label>
     </div>
   );

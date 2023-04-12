@@ -10,7 +10,7 @@ const InputTextField = (props) => {
   return (
     <div className={classes.txt_field}>
       <input
-        type={props.type}
+        type="text"
         value={props.value}
         onChange={inputTextFieldDataChangeHandler}
         required

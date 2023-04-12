@@ -1,54 +1,79 @@
 import React, { useState } from "react";
-import RegisterPatientService from "../../../Services/RegisterPatientService";
 import classes from "./PatientRegistration.module.css";
-import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import Bdate from "../../../Components/Screens/UI Elements/Date Element/Bdate";
-import TextBox from "../../../Components/Screens/UI Elements/MenuForm Elements/TextBox";
-// import RadioButton from "../UI Elements/MenuForm Elements/RadioButton";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
+import FrontDeskUtilitiesKeys from "../FrontDeskUtilitiesKeys/FrontDeskUtilitiesKeys";
+import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
 
 const PatientRegistration = (props) => {
-  const [patientName, setPatientName] = useState("");
-  const [patientAddress, setPatientAddress] = useState("");
-  const [patientContactNo, setPatientContactNo] = useState("");
-  const [patientBdate, setPatientBdate] = useState("");
-  const [patientSex, setPatientSex] = useState("");
-
-  const patientNameChangeHandler = (event) => {
-    setPatientName(event.target.value);
-  };
-  const patientAddressChangeHandler = (event) => {
-    setPatientAddress(event.target.value);
-  };
-
-  const patientContactNoChangeHandler = (event) => {
-    setPatientContactNo(event.target.value);
-  };
-
-  const patientSexChangeHandler = (event) => {
-    setPatientSex(event.target.value);
+  const [patientRegistrationData, setPatientRegistrationData] = useState(
+    FrontDeskUtilitiesKeys.getPatientRegistrationInitialData()
+  );
+  
+  //Single Data Handler for Input TextField change...
+  const PatientDataChangeHandler = (userModifiedData) => {
+    setPatientRegistrationData((patientData) => {
+      return { ...patientData, ...userModifiedData };
+    });
   };
 
   const patientBdateChangeHandler = (event) => {
     setPatientBdate(event.target.value);
+    PatientDataChangeHandler({ dob: event.target.value });
   };
 
   const AddPatientDataHandler = (event) => {
     event.preventDefault();
 
-    const patientData = {
-      name: patientName,
-      address: patientAddress,
-      contact: patientContactNo,
-      sex: patientSex,
-      age: "22",
-      // age: patientBdate,
-    };
+    //####################### Patient's Contact Number Validation #######################
 
+    //Validation for user contact number...
+    const userContactNumber =
+      patientRegistrationData[
+        FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().contactKey
+      ];
+    const userContactNumberRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    );
+
+    //Show Alert Message in case of Invalid Contact Number...
+    if (userContactNumber.length !== userContactNumberRequiredLength) {
+      showErrorMessageScreen(
+        UtilitiesKeys.getGeneralValidationMessagesText()
+          .phoneNumberNotValidMessage,
+        true
+      );
+      return;
+    }
+
+    //####################### Patient's Pin Code Validation #######################
+
+    //Validation for user Pin Code...
+    const userPinCodeMappedKey =
+      FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().pinCodeKey;
+    // const patientAddressPinCode = patientRegistrationData[userPinCodeMappedKey];
+    const userPinCodeRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+    );
+
+    //Show Alert Message in case of Invalid PIN CODE...
+    if (
+      patientRegistrationData[userPinCodeMappedKey].length !==
+      userPinCodeRequiredLength
+    ) {
+      showErrorMessageScreen(
+        UtilitiesKeys.getGeneralValidationMessagesText().pinCodeNotValidMessage,
+        true
+      );
+      return;
+    }
+
+    //Front Desk : Register New Patient API call...
     FrontDeskAPIHandler.RegisterNewPatientAPICall({
-      patientData: patientData,
+      patientData: patientRegistrationData,
       registerNewPatientResponseCallBack: registerNewPatientResponseCallBack,
     });
   };
@@ -66,7 +91,9 @@ const PatientRegistration = (props) => {
     if (newPatientResponseData.errorMessage === null) {
       if (newPatientResponseData.isNewPatientAdded === true) {
         showErrorMessageScreen(
-          patientName + " has been registered successfully.",
+          patientRegistrationData[
+            FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().nameKey
+          ] + " has been registered successfully.",
           false
         );
         resetPatientDataAfterRegister();
@@ -83,19 +110,14 @@ const PatientRegistration = (props) => {
   };
 
   const resetPatientDataAfterRegister = () => {
-    setPatientName("");
-    setPatientContactNo("");
-    setPatientSex("");
-    setPatientAddress("");
-    setPatientBdate("");
+    PatientDataChangeHandler(
+      FrontDeskUtilitiesKeys.getPatientRegistrationInitialData()
+    );
   };
 
-
-const cancelButtonHandler = () => {
-  props.setFrontDeskOption("frontDesk");
-};
-
-
+  const cancelButtonHandler = () => {
+    props.setFrontDeskOption("frontDesk");
+  };
 
   return (
     <div>
@@ -103,45 +125,115 @@ const cancelButtonHandler = () => {
         <h1> Register Patient</h1>
 
         <form id="addPatient-form" onSubmit={AddPatientDataHandler}>
-          <InputField
-            type="text"
-            label="Patient Name"
-            value={patientName}
-            onChange={patientNameChangeHandler}
+          {/* Patient's Name Text Field... */}
+          <InputTextField
+            label={
+              FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys().nameKey
+            }
+            onChange={PatientDataChangeHandler}
+            mappedKey={
+              FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().nameKey
+            }
+            value={
+              patientRegistrationData[
+                UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey
+              ]
+            }
           />
 
-          <InputField
-            type="text"
-            label="Contact Number"
-            value={patientContactNo}
-            onChange={patientContactNoChangeHandler}
+          {/* Patient's Contact Number Text Field... */}
+          <InputNumericTextField
+            label={
+              FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys()
+                .contactKey
+            }
+            onChange={PatientDataChangeHandler}
+            mappedKey={
+              FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().contactKey
+            }
+            value={
+              patientRegistrationData[
+                FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+                  .contactKey
+              ]
+            }
+            requiredLength={
+              UtilitiesKeys.getInputFieldLengthValidationKeys()
+                .userContactNumberLength
+            }
           />
 
-          <InputField
-            type="text"
-            label="Sex"
-            value={patientSex}
-            onChange={patientSexChangeHandler}
+          {/* Patient's Sex Text Field... */}
+          <InputTextField
+            label={
+              FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys()
+                .patientGenderKey
+            }
+            onChange={PatientDataChangeHandler}
+            mappedKey={
+              FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+                .patientGenderKey
+            }
+            value={
+              patientRegistrationData[
+                FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+                  .patientGenderKey
+              ]
+            }
           />
 
-          {/* <RadioButton heading="Gender" label1="Male" label2="Female" label3="Other" onChange={patientSexChangeHandler}/> */}
-
-          <Bdate value={patientBdate} onChange={patientBdateChangeHandler} />
-          {/* <InputField
-            type="text"
-            label="DOB"
-            value={patientBdate}
+{/* Patient's Date Of Birth Text Field... */}
+          <Bdate
+            value={
+              patientRegistrationData[
+                FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+                  .dateOfBirthKey
+              ]
+            }
             onChange={patientBdateChangeHandler}
-          /> */}
-          <TextBox.TextBox
-            type="text"
-            label="Address"
-            value={patientAddress}
-            onChange={patientAddressChangeHandler}
           />
-<div>
-          <MenuSubmitButton value="Register" />
-          <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler}/>
+
+          {/* Patient's Address Text Field... */}
+          <InputTextField
+            label={
+              FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys()
+                .addressKey
+            }
+            onChange={PatientDataChangeHandler}
+            mappedKey={
+              FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().addressKey
+            }
+            value={
+              patientRegistrationData[
+                UtilitiesKeys.getHospitalRegistrationDataKeys().addressKey
+              ]
+            }
+          />
+
+          {/* Patient's Pin Code Text Field... */}
+          <InputNumericTextField
+            label={
+              FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys()
+                .pinCodeKey
+            }
+            onChange={PatientDataChangeHandler}
+            mappedKey={
+              FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().pinCodeKey
+            }
+            value={
+              patientRegistrationData[
+                UtilitiesKeys.getHospitalRegistrationDataKeys().pinCodeKey
+              ]
+            }
+            requiredLength={
+              UtilitiesKeys.getInputFieldLengthValidationKeys()
+                .userPinCodeLength
+            }
+          />
+
+          <div>
+            <MenuSubmitButton value="Register" />
+            <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} />
           </div>
         </form>
       </div>
