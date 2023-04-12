@@ -4,16 +4,15 @@ import React, { useState } from "react";
 
 //----------------------------------------------------------------- API Service ------------------------------------------------------------------------
 
-import AddFrontDeskService from "../../../Services/AddFrontDeskService";
+
 //----------------------------------------------------------------- UI Elements ------------------------------------------------------------------------
 
-import InputField from "../UI Elements/MenuForm Elements/InputField";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 
 //----------------------------------------------------------------- CSS File --------------------------------------------------------------------------------
 
 import classes from "./AddOptions.module.css";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
