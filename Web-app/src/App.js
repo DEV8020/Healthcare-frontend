@@ -8,96 +8,105 @@ import SuperVisorScreen from "./UIScreens/SupervisorModule/SupervisorScreen/Supe
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import SuperAdminScreen from "./UIScreens/SuperAdminModule/SuperAdminScreen/SuperAdminScreen";
+import UtilitiesKeys from "./Utilities/UtilitiesKeys";
+import LoginUtilities from "./UIScreens/LoginModule/LoginUtilities/LoginUtilities";
 
 function App() {
-  const pList = [
-    {
-      p_id: "p1",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    { p_id: "p2", name: "john", age: 12, sex: "m", contact: 1234567890 },
-    {
-      p_id: "p3",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p4",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p5",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p6",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p7",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p8",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p9",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-    {
-      p_id: "p10",
-      name: "john",
-      age: 12,
-      sex: "m",
-      contact: 1234567890,
-    },
-  ];
+  // const pList = [
+  //   {
+  //     p_id: "p1",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   { p_id: "p2", name: "john", age: 12, sex: "m", contact: 1234567890 },
+  //   {
+  //     p_id: "p3",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p4",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p5",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p6",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p7",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p8",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p9",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  //   {
+  //     p_id: "p10",
+  //     name: "john",
+  //     age: 12,
+  //     sex: "m",
+  //     contact: 1234567890,
+  //   },
+  // ];
 
   const [user, setUser] = useState(null);
-  const [patientList, setPatientList] = useState([]);
+  // const [patientList, setPatientList] = useState([]);
   const [alertFlag, setAlertFlag] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   const OnLoginHandler = (userObject) => {
-    console.log(userObject.userType);
+    console.log("OnLoginHandler");
+    console.log(userObject);
     window.localStorage.setItem("loggedInUser", userObject);
     setUser(userObject);
   };
-  
-  useEffect(() => {
-    async function fetchData() {
-      if (user !== null && user.userType === "doctor") {
-        setPatientList(pList);
-      }
-    }
-    fetchData();
-  }, [user]);
 
-  
+  const showBottomMessageBar = (errorMessageData) => {
+    console.log(errorMessageData);
+    // console.log(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageKey]);
+    setAlertMessage(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageKey]);
+    setAlertFlag(true);
+  };
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     if (user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === "doctor") {
+  //       setPatientList(pList);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [user]);
+
   useEffect(() => {
     const timeId = setTimeout(() => {
       // After 3 seconds set the show value to false
@@ -123,10 +132,11 @@ function App() {
           onLogin={OnLoginHandler}
           setAlertFlag={setAlertFlag}
           setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
         />
       )}
 
-      {user !== null && user.userType === "Front Desk" && (
+      {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().frontDeskTypeKey && (
         <FrontDeskScreen
           user={user}
           setUser={setUser}
@@ -134,25 +144,24 @@ function App() {
           setAlertMessage={setAlertMessage}
         />
       )}
-      {
-        user !== null && user.userType === "Doctor" && (
-          <DoctorScreen
-            user={user}
-            setUser={setUser}
-            setAlertFlag={setAlertFlag}
-            setAlertMessage={setAlertMessage}
-          />
-        )
-      }
-      {user !== null && user.userType === "Super Admin" && (
-        <SuperAdminScreen
+      {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().doctorTypeKey && (
+        <DoctorScreen
           user={user}
           setUser={setUser}
           setAlertFlag={setAlertFlag}
           setAlertMessage={setAlertMessage}
         />
       )}
-      {user !== null && user.userType === "Admin" && (
+      {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().superAdminTypeKey && (
+        <SuperAdminScreen
+          user={user}
+          setUser={setUser}
+          setAlertFlag={setAlertFlag}
+          setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
+        />
+      )}
+      {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().adminTypeKey && (
         <AdminScreen
           user={user}
           setUser={setUser}
@@ -161,7 +170,7 @@ function App() {
         />
       )}
 
-      {user !== null && user.userType === "Supervisor" && (
+      {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().supervisorTypeKey && (
         <SuperVisorScreen
           user={user}
           setUser={setUser}

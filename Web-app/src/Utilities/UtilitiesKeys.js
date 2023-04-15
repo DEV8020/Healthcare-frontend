@@ -68,6 +68,15 @@ const getGeneralValidationMessagesText = () => {
   };
 };
 
+
+//Create User Form Input Field Label Keys...
+const getErrorMessageDataKeys = () => {
+  return {
+    messageKey : "message",
+    isErrorMessageKey : "isErrorMessage"
+  };
+};
+
 const UtilitiesKeys = {
   getHospitalRegistrationDataKeys,
   getHospitalRegistrationFormLabelKeys,
@@ -76,6 +85,7 @@ const UtilitiesKeys = {
   getCreateUserFormLabelKeys,
   getInputFieldLengthValidationKeys,
   getGeneralValidationMessagesText,
+  getErrorMessageDataKeys,
 };
 
 export default UtilitiesKeys;

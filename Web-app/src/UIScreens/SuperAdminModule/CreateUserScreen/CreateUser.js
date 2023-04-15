@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
-import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
+// import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
 // import InputField from "../UI Elements/MenuForm Elements/InputField";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
@@ -9,6 +9,7 @@ import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
+import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 
 const CreateUser = (props) => {
   const [registerUserType, setRegisterUserType] = useState("");

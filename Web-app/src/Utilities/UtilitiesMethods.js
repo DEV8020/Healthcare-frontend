@@ -22,26 +22,20 @@ const showMessageBarAtTheBottom = (props) => {
 };
 
 const cleanUpUserDataOnLogOut = () => {
-  localStorage.removeItem("authId");
-  localStorage.removeItem("userId");
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
 };
-
-
 
 const processUserLoginData = (userLoggedInData) => {
   console.log("processUserLoginData");
   console.log(userLoggedInData);
-
-  // if (userLoggedInData.userType === "Front Desk") {
-    localStorage.setItem("authId", userLoggedInData.authId);
-    localStorage.setItem("userId", userLoggedInData.userId);
-  // }
+  localStorage.setItem("token", userLoggedInData.token);
+  localStorage.setItem("username", userLoggedInData.username);
 };
 
 const getUSerIDForLoggedInUser = () => {
   return localStorage.getItem("userId");
 };
-
 
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
@@ -49,7 +43,7 @@ const UtilitiesMethods = {
   getSupervisorIDForGlobalUserAPICalls,
   processUserLoginData,
   cleanUpUserDataOnLogOut,
-  getUSerIDForLoggedInUser
+  getUSerIDForLoggedInUser,
 };
 
 export default UtilitiesMethods;

@@ -3,7 +3,7 @@ import axios from "axios";
 // const serverURL = `http://192.168.9.225:9191/`;
 //const serverURL = `http://172.16.140.248:9191/`;
 // const serverURL = `http://192.168.223.225:9191/`;
-const serverURL = `http://192.168.219.225:9191/`;
+const serverURL = `http://192.168.219.225:9191/`;//Darshan Server
 
 const hitCustomResponsePostService = async (props) => {
   try {
@@ -11,10 +11,12 @@ const hitCustomResponsePostService = async (props) => {
 
     console.log("URL Hitting in GlobalServiceHandler");
     console.log(url);
+    console.log("Data post in the API is");
+    console.log(props.postData);
 
     const response = await axios.post(url, props.postData, {
       validateStatus: function (status) {
-        return status >= 200 && status < 500; // Resolve only if the status code is less than 500
+        return status === 200 || status === 404; // Resolve only if the status code is less than 500
       },
     });
 
