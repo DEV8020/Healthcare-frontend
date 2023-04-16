@@ -17,7 +17,7 @@ const GetUserLoginData = async (props) => {
     },
   };
 
-  await GlobalServiceHandler.hitCustomResponsePostService({
+  await GlobalServiceHandler.hitPostServiceWithOutBearer({
     childURL: APIURLUtilities.getAPIChildURLKeys().loginAPIKey,
     postData: userUpdatedData,
     responseDataHandler: (loginServiceData) => {
