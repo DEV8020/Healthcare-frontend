@@ -115,6 +115,7 @@ const AdminScreen = (props) => {
           setAlertFlag={props.setAlertFlag}
           registeredUserList={registeredUserList}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
+          showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
 

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 // var HospitalUserList = [
 //   {
 //     d_id: "d1",
@@ -52,12 +53,19 @@ const ShowHospitalUsers = (props) => {
   // UtilitiesMethods
 
   const displayMessagesInParentViewHandler = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showMessageAtBottomBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
+
+    // UtilitiesMethods.showMessageBarAtTheBottom({
+    //   message: prop.message,
+    //   isErrorMessage: prop.isErrorMessage,
+    //   alertMessageElement: props.setAlertMessage,
+    //   alertMessageFlag: props.setAlertFlag,
+    // });
   };
 
   useEffect(() => {
@@ -103,6 +111,8 @@ const ShowHospitalUsers = (props) => {
     props.refreshUsersListResponseHandler();
   };
 
+
+  // UtilitiesKeys
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
   };
@@ -158,15 +168,26 @@ const ShowHospitalUsers = (props) => {
             className={classes.plist}
           >
             <div>
-              User Type :{" "}
+              User Type : {" "}
               {SuperAdminUtilitiesKeys.getUserType(
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userTypeKey
                 ]
               )}
             </div>
+
             <div>
-              User Name:{" "}
+              User ID : {" "}
+              {
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userIDKey
+                ]
+              }
+            </div>
+
+
+            <div>
+              User Name : {" "}
               {
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userNameKey

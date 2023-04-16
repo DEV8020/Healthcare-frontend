@@ -28,9 +28,14 @@ const getAdminAPIChildURLKeys = () => {
     adminAddDoctorAPIKey: "admin/addDoctor/",
     adminAddFrontDeskAPIKey: "admin/addFrontDesk/",
     adminGetAllUsersAPIKey: "admin/getAllHospitalUsers/",
-    //admin/getAllHospitalUsers
+    adminUpdateDoctorAPIKey: "admin/updateDoctor",
+    adminUpdateFrontDeskAPIKey: "admin/updateFrontDesk",
+
   };
 };
+
+// http://localhost:9191/admin/updateDoctor
+  // http://localhost:9191/admin/updateFrontDesk
 
 
 

@@ -12,12 +12,13 @@ const getHeaderConfigurationsList = () => {
       Authorization: "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
     },
     validateStatus: function (status) {
-      return status === 200 || status === 404 || status === 403 || status === 500;
+      return (
+        status === 200 || status === 404 || status === 403 || status === 500
+      );
       // Resolve only if the status code is 202 or 404...
     },
   };
 };
-
 
 const hitPostServiceWithOutBearer = async (props) => {
   try {
@@ -28,14 +29,14 @@ const hitPostServiceWithOutBearer = async (props) => {
     console.log("Data post in the API is");
     console.log(props.postData);
 
-    const response = await axios.post(
-      url,
-      props.postData,
-      { validateStatus: function (status) {
-        return status === 200 || status === 404 || status === 403 || status === 500;
+    const response = await axios.post(url, props.postData, {
+      validateStatus: function (status) {
+        return (
+          status === 200 || status === 404 || status === 403 || status === 500
+        );
         // Resolve only if the status code is 202 or 404...
-      }}
-    );
+      },
+    });
 
     console.log("Data recieved");
     console.log(response);
@@ -52,14 +53,14 @@ const hitPostServiceWithOutBearer = async (props) => {
         responseData: null,
         responseError: Error(response.data.message),
       });
-    }else if (response.status === 404) {
+    } else if (response.status === 404) {
       console.log("404 response");
       console.log(response);
       props.responseDataHandler({
         responseData: null,
         responseError: Error(response.data.message),
       });
-    }else if (response.status === 500) {
+    } else if (response.status === 500) {
       console.log("404 response");
       console.log(response);
       props.responseDataHandler({
@@ -83,9 +84,6 @@ const hitPostServiceWithOutBearer = async (props) => {
     });
   }
 };
-
-
-
 
 const hitCustomResponsePostService = async (props) => {
   try {
@@ -117,7 +115,7 @@ const hitCustomResponsePostService = async (props) => {
         responseData: null,
         responseError: Error(response.data.message),
       });
-    }else if (response.status === 404) {
+    } else if (response.status === 404) {
       console.log("404 response");
       console.log(response);
       props.responseDataHandler({
@@ -274,7 +272,11 @@ const hitPutService = async (props) => {
     console.log("URL Hitting in GlobalServiceHandler in Get Service Call");
     console.log(url);
 
-    const response = await axios.put(url, props.postData, GlobalServiceHandler.getHeaderConfigurationsList());
+    const response = await axios.put(
+      url,
+      props.postData,
+      GlobalServiceHandler.getHeaderConfigurationsList()
+    );
 
     console.log("Data recieved");
     console.log(response);
@@ -285,12 +287,10 @@ const hitPutService = async (props) => {
         responseError: null,
       });
     } else {
-
       // props.responseDataHandler({
       //   responseData: null,
       //   responseError: Error(response.data.message),
       // });
-
 
       console.log("else block");
       console.log(response);
@@ -299,7 +299,7 @@ const hitPutService = async (props) => {
         responseError: Error(response.data.message),
       });
     }
-    
+
     // {
     //   props.responseDataHandler({
     //     responseData: response,
@@ -321,6 +321,6 @@ const GlobalServiceHandler = {
   hitCustomResponsePostService,
   hitCustomResponseGetService,
   getHeaderConfigurationsList,
-  hitPostServiceWithOutBearer
+  hitPostServiceWithOutBearer,
 };
 export default GlobalServiceHandler;

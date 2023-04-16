@@ -56,6 +56,7 @@ const UpdateCredentialPopup = (props) => {
 
   //User Password Change Handler...
   const UpdatedUserPasswordChangeHandler = (event) => {
+    console.log("UpdatedUserPasswordChangeHandler called");
     updateUserData({
       [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey]:
         event.target.value,

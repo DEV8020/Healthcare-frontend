@@ -1,3 +1,6 @@
+import SuperAdminUtilitiesKeys from "../UIScreens/SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
+import AdminUtilities from "../Utilities/AdminUtilities/AdminUtilities";
+import UtilitiesKeys from "../Utilities/UtilitiesKeys";
 import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
@@ -83,7 +86,6 @@ const GetAdminAllRegisteredUserList = async (props) => {
       APIURLUtilities.getAdminAPIChildURLKeys().adminGetAllUsersAPIKey +
       UtilitiesMethods.getUserNameForLoggedInUser(),
 
-
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
       //console.log(allRegisteredUserListServiceData.responseData.data);
@@ -112,11 +114,21 @@ const updateUserRegistrationData = async (props) => {
   console.log("updateUserData in super admin user related api handler");
   console.log(props.userData);
 
-  var childURL = "updateDoctor";
+  var childURL =
+    APIURLUtilities.getAdminAPIChildURLKeys().adminUpdateDoctorAPIKey;
 
-  if (props.userData.userType === "Front Desk") {
-    childURL = "updateFrontDesk";
+  if (
+    SuperAdminUtilitiesKeys.getUserType(
+      props.userData[AdminUtilities.getCreateUserDataKeys().userTypeKey]
+    ) === UtilitiesKeys.getUserTypeKeys().frontDeskKey
+  ) {
+    childURL = APIURLUtilities.getAdminAPIChildURLKeys().adminUpdateFrontDeskAPIKey;
   }
+
+  console.log(childURL);
+  console.log(childURL);
+
+  // return;
 
   await GlobalServiceHandler.hitPutService({
     childURL: childURL,
@@ -125,7 +137,7 @@ const updateUserRegistrationData = async (props) => {
       console.log(
         "addNewUserServiceData in SuperAdminUserRelatedAPIHandler file is"
       );
-      console.log(updatedUserData.responseData.data);
+      console.log(updatedUserData);
 
       if (updatedUserData.responseError === null) {
         props.modifyAdminUserDataResponseHandler({
@@ -135,7 +147,7 @@ const updateUserRegistrationData = async (props) => {
         });
       } else if (updatedUserData.responseData === null) {
         props.modifyAdminUserDataResponseHandler({
-          isUserDataUpdated: null,
+          isUserDataUpdated: false,
           userUpdatedData: null,
           errorMessage: updatedUserData.responseError.message,
         });
