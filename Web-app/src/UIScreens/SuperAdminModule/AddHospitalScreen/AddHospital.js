@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./AddHospital.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
@@ -29,14 +28,13 @@ const AddHospital = (props) => {
     });
   };
 
-  //########################## Data Change Event Handler Methods Ends Here  ##########################
+  //########################## Add Hospital Button Click Event  ##########################
 
+  //Add Hospital Button Click Event Handler...
   const AddHospitalDataHandler = (event) => {
     event.preventDefault();
 
     //Validation for user Pin Code...
-    const userPinCodeMappedKey =
-      UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey;
     const hospitalAddressPinCode =
       hospitalRegistrationData[
         UtilitiesKeys.getHospitalRegistrationDataKeys().pinCodeKey
@@ -44,6 +42,7 @@ const AddHospital = (props) => {
     const userPinCodeRequiredLength = parseInt(
       UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
     );
+
     //Show Alert Message in case of Invalid PIN CODE...
     if (hospitalAddressPinCode.length !== userPinCodeRequiredLength) {
       showMessageAtBottomBar({
@@ -55,12 +54,16 @@ const AddHospital = (props) => {
       return;
     }
 
+    //Hitting API after validations for ADDING HOSPITAL...
     SuperAdminAPIHandler.AddHospitalData({
       hospitalData: hospitalRegistrationData,
       addHospitalResponseHandler: addHospitalResponseHandler,
     });
   };
 
+  //############# API Response Handler Methods  #############
+
+  //Handle ADD HOSPITAL API Response...
   const addHospitalResponseHandler = (hospitalData) => {
     if (hospitalData.isHospitalAdded === true) {
       addHospitalSuccessHandler();
@@ -72,21 +75,24 @@ const AddHospital = (props) => {
     }
   };
 
-  const showMessageAtBottomBar = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-    });
-  };
-
+  //Method for Successfully Added Hospital Response...
   const addHospitalSuccessHandler = () => {
     setHospitalRegistrationData(hospitalRegistrationInitialData);
     showMessageAtBottomBar({
       message:
         UtilitiesKeys.getHospitalRegistrationMessagesText().successMessage,
       isErrorMessage: true,
+    });
+  };
+
+  //############# API Response Handler Methods Ends Here #############
+
+  //Message to display the Bottom Message Display Bar...
+  const showMessageAtBottomBar = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop.isErrorMessage,
     });
   };
 
@@ -100,6 +106,7 @@ const AddHospital = (props) => {
         <h1> Add Hospital Menu</h1>
 
         <form id="addHospital-form" onSubmit={AddHospitalDataHandler}>
+          {/* Hospital Name Input Key for Hospital Registration */}
           <InputTextField
             type="text"
             label={UtilitiesKeys.getHospitalRegistrationFormLabelKeys().nameKey}
@@ -112,6 +119,7 @@ const AddHospital = (props) => {
             }
           />
 
+          {/* Hospital Address Input Key for Hospital Registration */}
           <InputTextField
             type="text"
             label={
@@ -128,6 +136,7 @@ const AddHospital = (props) => {
             }
           />
 
+          {/* Hospital Pin Code Input Key for Hospital Registration */}
           <InputNumericTextField
             label={
               UtilitiesKeys.getHospitalRegistrationFormLabelKeys().pinCodeKey
