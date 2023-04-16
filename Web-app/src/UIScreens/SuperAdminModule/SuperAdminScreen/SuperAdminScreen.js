@@ -179,6 +179,7 @@ const SuperAdminScreen = (props) => {
           updateUserListAfterDataUpdateHandler={
             updateUserListAfterDataUpdateHandler
           }
+          showBottomMessageBar={props.showBottomMessageBar}
         />
       )}
       {hospitalDetailsView === "Admin" &&

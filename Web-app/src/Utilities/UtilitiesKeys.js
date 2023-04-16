@@ -50,6 +50,20 @@ const getCreateUserFormLabelKeys = () => {
   };
 };
 
+
+//User Type Keys...
+const getUserTypeKeys = () => {
+  return {
+    superAdminKey: "Super Admin",
+    adminKey: "Admin",
+    doctorKey: "Doctor",
+    frontDeskKey: "Front Desk",
+    superVisorKey: "Supervisor",
+  };
+};
+
+
+
 //########################## Input Field Length Validation Keys  ##########################
 
 //Input Field Lenght Validation Keys...
@@ -86,6 +100,7 @@ const UtilitiesKeys = {
   getInputFieldLengthValidationKeys,
   getGeneralValidationMessagesText,
   getErrorMessageDataKeys,
+  getUserTypeKeys
 };
 
 export default UtilitiesKeys;

@@ -4,7 +4,7 @@ import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements
 import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const ShowAllUser = (props) => {
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
@@ -17,13 +17,21 @@ const ShowAllUser = (props) => {
   }, [props.registeredUsersList]);
 
   const displayMessagesInParentViewHandler = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    // UtilitiesMethods.showMessageBarAtTheBottom({
+    //   message: prop.message,
+    //   isErrorMessage: prop.isErrorMessage,
+    //   alertMessageElement: props.setAlertMessage,
+    //   alertMessageFlag: props.setAlertFlag,
+    // });
+    messageWithData({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
+
+  // UtilitiesKeys
 
   const changeUserDataHandler = (userDataToBeUpdated) => {
     setUserDataToBeUpdated(userDataToBeUpdated);
@@ -41,6 +49,16 @@ const ShowAllUser = (props) => {
 
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
+  };
+
+  //Method to show Message on Bottom Bar...
+  const messageWithData = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+    });
   };
 
   // const updateDataToUpdateHandler = (updatedData) => {
