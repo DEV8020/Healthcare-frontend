@@ -29,10 +29,26 @@ const getCreateUserDataKeys = () => {
   };
 };
 
+
+//User Data Initial data for user creation in Super Admin Menu...
+const getCreateUserInitialData = () => {
+  return {
+    [getCreateUserDataKeys().userNameKey] : "",
+    [getCreateUserDataKeys().userIdKey] : "",
+    [getCreateUserDataKeys().userPasswordKey] : "",
+    [getCreateUserDataKeys().userTypeKey] : "",
+    [getCreateUserDataKeys().userContactKey] : "",
+    [getCreateUserDataKeys().userAddressKey] : "",
+    [getCreateUserDataKeys().hospitalIDKey] : "",
+    [getCreateUserDataKeys().userAddressPinCodeKey] : "",
+  };
+};
+
 const SuperAdminUtilitiesKeys = {
   getCreateUserOptionKeys,
   getSuperAdminErrorMessagesText,
-  getCreateUserDataKeys
+  getCreateUserDataKeys,
+  getCreateUserInitialData
 };
 
 export default SuperAdminUtilitiesKeys;

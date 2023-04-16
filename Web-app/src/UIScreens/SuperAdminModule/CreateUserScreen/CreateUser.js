@@ -165,13 +165,9 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
     setRegisterUserType("");
-    props.HospitalRegistrationDataUpdateCallBackHandler({
-      name: "",
-      username: "",
-      password: "",
-      userType: "",
-      hospitalId: "",
-    });
+    props.HospitalRegistrationDataUpdateCallBackHandler(
+      SuperAdminUtilitiesKeys.getCreateUserInitialData()
+    );
   };
 
   const BackButtonPressedHandler = () => {
@@ -202,18 +198,30 @@ const CreateUser = (props) => {
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
-              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey}
+              mappedKey={
+                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+              }
               onChange={CreateUserDataInputFieldChangeHandler}
-              value={props.selectedHospitalDataForAdminCreation.username}
+              value={
+                props.selectedHospitalDataForAdminCreation[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+                ]
+              }
             />
 
             {/* User Name Input Key for User Registration */}
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
-              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey}
+              mappedKey={
+                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+              }
               onChange={CreateUserDataInputFieldChangeHandler}
-              value={props.selectedHospitalDataForAdminCreation.name}
+              value={
+                props.selectedHospitalDataForAdminCreation[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+                ]
+              }
             />
 
             {/* User Password Input Key for User Registration */}
@@ -222,9 +230,16 @@ const CreateUser = (props) => {
               label={
                 UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
               }
-              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
+              mappedKey={
+                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
+              }
               onChange={CreateUserDataInputFieldChangeHandler}
-              value={props.selectedHospitalDataForAdminCreation.password}
+              value={
+                props.selectedHospitalDataForAdminCreation[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                    .userPasswordKey
+                ]
+              }
             />
 
             {/* Hospital ID Input Key for User Registration */}
@@ -234,9 +249,16 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
                 }
-                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
+                mappedKey={
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().hospitalIDKey
+                }
                 onChange={CreateUserDataInputFieldChangeHandler}
-                value={props.selectedHospitalDataForAdminCreation.hospitalId}
+                value={
+                  props.selectedHospitalDataForAdminCreation[
+                    SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                      .hospitalIDKey
+                  ]
+                }
               />
             )}
 
@@ -246,8 +268,15 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
                 }
-                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey}
-                value={props.selectedHospitalDataForAdminCreation.contact}
+                mappedKey={
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
+                }
+                value={
+                  props.selectedHospitalDataForAdminCreation[
+                    SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                      .userContactKey
+                  ]
+                }
                 onChange={CreateUserDataInputFieldChangeHandler}
                 requiredLength={
                   UtilitiesKeys.getInputFieldLengthValidationKeys()
@@ -263,9 +292,16 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
                 }
-                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressKey}
+                mappedKey={
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressKey
+                }
                 onChange={CreateUserDataInputFieldChangeHandler}
-                value={props.selectedHospitalDataForAdminCreation.address}
+                value={
+                  props.selectedHospitalDataForAdminCreation[
+                    SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                      .userAddressKey
+                  ]
+                }
               />
             )}
 
@@ -277,10 +313,16 @@ const CreateUser = (props) => {
                     .userAddressPincodeLabel
                 }
                 mappedKey={
-                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                    .userAddressPinCodeKey
                 }
                 onChange={CreateUserDataInputFieldChangeHandler}
-                value={props.selectedHospitalDataForAdminCreation.pincode}
+                value={
+                  props.selectedHospitalDataForAdminCreation[
+                    SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                      .userAddressPinCodeKey
+                  ]
+                }
                 requiredLength={
                   UtilitiesKeys.getInputFieldLengthValidationKeys()
                     .userPinCodeLength

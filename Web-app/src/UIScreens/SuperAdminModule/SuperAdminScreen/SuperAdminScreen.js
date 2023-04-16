@@ -8,6 +8,7 @@ import ShowAllUser from "../AllUsersListScreen/ShowAllUser";
 import HospitalDetailsView from "../HospitalDetailsScreen/HospitalDetailsView";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
@@ -20,19 +21,11 @@ const SuperAdminScreen = (props) => {
     useState("");
   const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
 
+  //User Registration Data initalise with Initial Data... 
   const [
     selectedHospitalDataForAdminCreation,
     setSelectedHospitalDataForAdminCreation,
-  ] = useState({
-    name: "",
-    username: "",
-    password: "",
-    userType: "",
-    hospitalId: "",
-    contact : "",
-    address : "",
-    pincode : ""
-  });
+  ] = useState(SuperAdminUtilitiesKeys.getCreateUserInitialData());
 
   const allRegisteredListHandleCallBack = (registeredUsersList) => {
     console.log("registeredUsersList");

@@ -12,7 +12,7 @@ const getHeaderConfigurationsList = () => {
       Authorization: "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
     },
     validateStatus: function (status) {
-      return status == 200 || status == 404;
+      return status === 200 || status === 404 || status === 403;
       // Resolve only if the status code is 202 or 404...
     },
   };
@@ -41,7 +41,14 @@ const hitCustomResponsePostService = async (props) => {
         responseData: response,
         responseError: null,
       });
-    } else if (response.status === 404) {
+    } else if (response.status === 403) {
+      console.log("403 response");
+      console.log(response);
+      props.responseDataHandler({
+        responseData: null,
+        responseError: Error(response.data.message),
+      });
+    }else if (response.status === 404) {
       console.log("404 response");
       console.log(response);
       props.responseDataHandler({
