@@ -6,11 +6,12 @@ const AddHospitalData = async (props) => {
   console.log(props.hospitalData);
 
   await GlobalServiceHandler.hitPostService({
-    childURL: "addHospital",
+    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminGetAddHospitalAPIKey,
     postData: props.hospitalData,
     responseDataHandler: (addHospitalServiceData) => {
       console.log("addHospitalServiceData");
       console.log(addHospitalServiceData);
+      
       if (addHospitalServiceData.responseError === null) {
         props.addHospitalResponseHandler({
           isHospitalAdded: true,

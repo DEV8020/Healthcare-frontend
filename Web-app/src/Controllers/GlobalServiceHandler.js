@@ -6,6 +6,18 @@ import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 // const serverURL = `http://192.168.223.225:9191/`;
 const serverURL = `http://192.168.219.225:9191/`; //Darshan Server
 
+const getHeaderConfigurationsList = () => {
+  return {
+    headers: {
+      Authorization: "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
+    },
+    validateStatus: function (status) {
+      return status == 200 || status == 404;
+      // Resolve only if the status code is 202 or 404...
+    },
+  };
+};
+
 const hitCustomResponsePostService = async (props) => {
   try {
     const url = serverURL + props.childURL;
@@ -61,7 +73,7 @@ const hitPostService = async (props) => {
     console.log("URL Hitting in GlobalServiceHandler");
     console.log(url);
 
-    const response = await axios.post(url, props.postData);
+    const response = await axios.post(url, props.postData, GlobalServiceHandler.getHeaderConfigurationsList());
 
     console.log("Data recieved");
     console.log(response);
@@ -205,5 +217,6 @@ const GlobalServiceHandler = {
   hitPutService,
   hitCustomResponsePostService,
   hitCustomResponseGetService,
+  getHeaderConfigurationsList
 };
 export default GlobalServiceHandler;
