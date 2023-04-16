@@ -2,13 +2,21 @@
 
 //Super Admin Menu Create Options Keys...
 const getCreateUserOptionKeys = () => {
-    return {createUserAdminOption : "Admin", createUserSupervisorOption : "Supervisor"};
-}
-
-  
-  const SuperAdminUtilitiesKeys = {
-    getCreateUserOptionKeys
+  return {
+    createUserAdminOption: "Admin",
+    createUserSupervisorOption: "Supervisor",
   };
-  
-  export default SuperAdminUtilitiesKeys;
-  
+};
+
+const getSuperAdminErrorMessagesText = () => {
+  return {
+    chooseHospilatIDFromList: "Please choose hospital id from the list.",
+  };
+};
+
+const SuperAdminUtilitiesKeys = {
+  getCreateUserOptionKeys,
+  getSuperAdminErrorMessagesText,
+};
+
+export default SuperAdminUtilitiesKeys;

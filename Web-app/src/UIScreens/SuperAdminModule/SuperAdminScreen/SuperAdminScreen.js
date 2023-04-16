@@ -152,8 +152,9 @@ const SuperAdminScreen = (props) => {
         <CreateUser
           superAdminOption={superAdminOption}
           setSuperAdminOption={setSuperAdminOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
+          showBottomMessageBar={props.showBottomMessageBar}
           setHospitalDetailsView={setHospitalDetailsView}
           hospitalListsWithNoAdminsCallBackHandler={
             hospitalListsWithNoAdminsCallBackHandler

@@ -12,7 +12,8 @@ const getAPIChildURLKeys = () => {
 //Super Admin Menu Options API Child URL Keys...
 const getSuperAdminAPIChildURLKeys = () => {
   return {
-    superAdminGetAddHospitalAPIKey: "superadmin/addHospital",
+    superAdminAddHospitalAPIKey: "superadmin/addHospital",
+    superAdminGetAddSupervisorAPIKey: "superadmin/addSupervisor",
   };
 };
 

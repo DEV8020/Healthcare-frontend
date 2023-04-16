@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./CreateUser.module.css";
-// import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
-// import InputField from "../UI Elements/MenuForm Elements/InputField";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
-import MessageComponent from "../../../Components/Screens/MessageComponent/MessageComponent";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
@@ -21,12 +18,8 @@ const CreateUser = (props) => {
     SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
       .createUserSupervisorOption;
 
-  //   console.log("[registerUserType, setRegisterUserType] = useState");
-  //   console.log(createUserAdminOption);
-  //   console.log(createUserSupervisorOption);
-
-  // console.log(props.selectedHospitalDataForAdminCreation);
-
+  //Method for fetching the list of Hospitals with No Amdins...
+  //To register Admin in Super Admin menu...
   useEffect(() => {
     SuperAdminAPIHandler.GetHospitalListsDataWithNoAdmins({
       hopitalListWithNoAdminsResponseHandler:
@@ -34,6 +27,7 @@ const CreateUser = (props) => {
     });
   }, [registerUserType]);
 
+  //Method for displaying the Hospital Details view...
   useEffect(() => {
     props.setHospitalDetailsView(registerUserType);
   }, [registerUserType, props.setHospitalDetailsView]);
@@ -43,6 +37,7 @@ const CreateUser = (props) => {
     setRegisterUserType(event.target.value);
   };
 
+  //Update Hospital User registration data...
   var setHospitalData = (updateData) => {
     props.HospitalRegistrationDataUpdateCallBackHandler({
       ...props.selectedHospitalDataForAdminCreation,
@@ -50,44 +45,24 @@ const CreateUser = (props) => {
     });
   };
 
-  // const registerUserHospitalIdChangeHandler = (event) => {
-  //   showErrroMessage("Please choose hospital id from the list.");
-  // };
+  //############# Data change handler methods on Value Change #############
 
-  // const registerUserIdChangeHandler = (event) => {
-  //   setHospitalData({ userId: event.target.value });
-  // };
-
+  //Update user data when data changes on Input Field Change Handler Method...
   const CreateUserDataInputFieldChangeHandler = (userEnteredData) => {
-    // console.log("CreateUserDataInputFieldChangeHandler");
-    // console.log(userEnteredData);
-
     const hospitalIDKey = UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey;
     if (hospitalIDKey in userEnteredData) {
-      showErrroMessage("Please choose hospital id from the list.");
+      messageWithData({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          SuperAdminUtilitiesKeys.getSuperAdminErrorMessagesText()
+            .chooseHospilatIDFromList,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
       return;
     }
     setHospitalData(userEnteredData);
   };
 
-  // const registerUserNameChangeHandler = (event) => {
-  //   setHospitalData({ name: event.target.value });
-  // };
-
-  //registerUserNameChangeHandler
-
-  // const registerUserContactChangeHandler = (event) => {
-  //   setHospitalData({ contact: event.target.value });
-  // };
-
-  // const registerUserAddressChangeHandler = (event) => {
-  //   setHospitalData({ address: event.target.value });
-  // };
-
-  // const registerUserPasswordChangeHandler = (event) => {
-  //   setHospitalData({ password: event.target.value });
-  // };
-
+  //Register User On Regsiter Button Click Event...
   const RegisterUserHandler = (event) => {
     event.preventDefault();
 
@@ -105,17 +80,20 @@ const CreateUser = (props) => {
       registerUserType === createUserSupervisorOption &&
       userContactNumber.length !== userContactNumberRequiredLength
     ) {
-      showErrroMessage(
-        "Please enter valid contact number. It must of 10 digits."
-      );
+      messageWithData({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .phoneNumberNotValidMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
       return;
     }
 
     //Validation for user Pin Code...
-    const userPinCodeMappedKey =
-      UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey;
     const userAddressPinCode =
-      props.selectedHospitalDataForAdminCreation[userPinCodeMappedKey];
+      props.selectedHospitalDataForAdminCreation[
+        UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
+      ];
     const userPinCodeRequiredLength = parseInt(
       UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
     );
@@ -124,25 +102,34 @@ const CreateUser = (props) => {
       registerUserType === createUserSupervisorOption &&
       userAddressPinCode.length !== userPinCodeRequiredLength
     ) {
-      showErrroMessage("Please enter valid Pin Code. It must of 6 digits.");
+      messageWithData({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .pinCodeNotValidMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
       return;
     }
 
+    //Hit API On Successfully validated user data for Registration...
     SuperAdminAPIHandler.AddNewUserData({
       registerUserData: props.selectedHospitalDataForAdminCreation,
       addNewUserResponseHandler: addNewUserResponseHandler,
     });
   };
 
-  const showErrroMessage = (message) => {
-    MessageComponent.showMessageScreen({
-      message: { message: message, isTrueFlag: true },
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-      isErrorMessage: true,
+  //Method to show Message on Bottom Bar...
+  const messageWithData = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop.isErrorMessage,
     });
   };
 
+  //############# API Response Handler Methods #############
+
+  //Hospitals with no amdins where user to be registered...
   const hopitalListWithNoAdminsResponseHandler = (hospitalListResponseData) => {
     if (hospitalListResponseData.isHospitalListRecieved === true) {
       props.hospitalListsWithNoAdminsCallBackHandler(
@@ -151,24 +138,28 @@ const CreateUser = (props) => {
     }
   };
 
+  //Register new user response handler...
   const addNewUserResponseHandler = (newUserData) => {
-    if (newUserData.errorMessage === null) {
-      if (newUserData.isNewUserAdded === true) {
-        addNewUserSuccessHandler();
-      }
-      if (newUserData.isNewUserAdded === false) {
-        showMessageDisplayScreen("Some error occured.");
-      }
-    } else if (newUserData.newUserData === null) {
-      showMessageDisplayScreen(newUserData.errorMessage);
+    if (newUserData.isNewUserAdded === true) {
+      addNewUserSuccessHandler();
+    } else {
+      messageWithData({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          newUserData.errorMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
     }
   };
 
   const addNewUserSuccessHandler = () => {
-    showMessageDisplayScreen(
+    const message =
       props.selectedHospitalDataForAdminCreation.userId +
-        " registered successfully"
-    );
+      " registered successfully";
+    messageWithData({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      message,
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    });
     setRegisterUserType("");
     props.HospitalRegistrationDataUpdateCallBackHandler({
       name: "",
@@ -178,12 +169,7 @@ const CreateUser = (props) => {
       hospitalId: "",
     });
   };
-  //name,contact,address
-
-  const showMessageDisplayScreen = (emessageToBeDisplayed) => {
-    props.setAlertMessage(emessageToBeDisplayed);
-    props.setAlertFlag(true);
-  };
+  
 
   const BackButtonPressedHandler = () => {
     props.setSuperAdminOption("");
@@ -292,8 +278,6 @@ const CreateUser = (props) => {
               />
             )}
           </>
-
-          {/* ######################  Adding new fields  ######################*/}
 
           <div>
             <MenuSubmitButton value="Register" />
