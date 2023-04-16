@@ -1,3 +1,4 @@
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const AddHospitalData = async (props) => {
@@ -137,9 +138,10 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
 
 const GetSuperAdminAllRegisteredUserList = async (props) => {
   console.log("GetSuperAdminAllRegisteredUserList");
+  console.log(APIURLUtilities.getAPIChildURLKeys().GetSuperAdminAllRegisteredUserList);
 
   await GlobalServiceHandler.hitCustomResponseGetService({
-    childURL: "getAllUsers",
+    childURL: APIURLUtilities.getAPIChildURLKeys().superAdminGetAllUsersAPIKey,
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
       console.log(allRegisteredUserListServiceData.responseData);
@@ -152,7 +154,7 @@ const GetSuperAdminAllRegisteredUserList = async (props) => {
         });
       } else if (allRegisteredUserListServiceData.responseData === null) {
         props.showAllRegisteredUserResponseHandler({
-          isRegisteredUsersListRecieved: null,
+          isRegisteredUsersListRecieved: false,
           registeredUserListData: null,
           errorMessage: "Some error occured. Please try again later.",
         });

@@ -4,6 +4,7 @@
 const getAPIChildURLKeys = () => {
   return {
     loginAPIKey: "login/",
+    superAdminGetAllUsersAPIKey: "superadmin/getAllUsers",
   };
 };
 

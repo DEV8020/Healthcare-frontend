@@ -1,9 +1,10 @@
 import axios from "axios";
+import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 
 // const serverURL = `http://192.168.9.225:9191/`;
 //const serverURL = `http://172.16.140.248:9191/`;
 // const serverURL = `http://192.168.223.225:9191/`;
-const serverURL = `http://192.168.219.225:9191/`;//Darshan Server
+const serverURL = `http://192.168.219.225:9191/`; //Darshan Server
 
 const hitCustomResponsePostService = async (props) => {
   try {
@@ -121,10 +122,20 @@ const hitCustomResponseGetService = async (props) => {
 
     console.log("URL Hitting in GlobalServiceHandler in Get Service Call");
     console.log(url);
+    console.log(UtilitiesMethods.getAuthTokenForLoggedInUser());
+
+    const headers = {
+      Authorization: `Bearer ${UtilitiesMethods.getAuthTokenForLoggedInUser()}`,
+    };
 
     const response = await axios.get(url, {
+      headers: {
+        Authorization:
+          "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
+      },
       validateStatus: function (status) {
-        return status == 200 || status == 404; // Resolve only if the status code is less than 500
+        return status == 200 || status == 404;
+        // Resolve only if the status code is 202 or 404...
       },
     });
 
@@ -136,7 +147,7 @@ const hitCustomResponseGetService = async (props) => {
         responseData: response,
         responseError: null,
       });
-    }else if(response.status === 404){
+    } else if (response.status === 404) {
       // console.log("404 response hitCustomResponseGetService");
       // console.log(response.data.message);
       props.responseDataHandler({
@@ -193,6 +204,6 @@ const GlobalServiceHandler = {
   hitGetService,
   hitPutService,
   hitCustomResponsePostService,
-  hitCustomResponseGetService
+  hitCustomResponseGetService,
 };
 export default GlobalServiceHandler;
