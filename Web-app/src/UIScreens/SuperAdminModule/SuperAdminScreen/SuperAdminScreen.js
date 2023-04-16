@@ -25,7 +25,7 @@ const SuperAdminScreen = (props) => {
     setSelectedHospitalDataForAdminCreation,
   ] = useState({
     name: "",
-    userId: "",
+    username: "",
     password: "",
     userType: "",
     hospitalId: "",

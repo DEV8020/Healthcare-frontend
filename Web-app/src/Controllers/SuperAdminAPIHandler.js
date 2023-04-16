@@ -6,7 +6,9 @@ const AddHospitalData = async (props) => {
   console.log(props.hospitalData);
 
   await GlobalServiceHandler.hitPostService({
-    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminAddHospitalAPIKey,
+    childURL:
+      APIURLUtilities.getSuperAdminAPIChildURLKeys()
+        .superAdminAddHospitalAPIKey,
     postData: props.hospitalData,
     responseDataHandler: (addHospitalServiceData) => {
       console.log("addHospitalServiceData");
@@ -30,8 +32,6 @@ const AddHospitalData = async (props) => {
 };
 
 //http://localhost:9191/updateAdmin
-
-
 
 const updateUserData = async (props) => {
   const updatedData = {
@@ -69,28 +69,25 @@ const updateUserData = async (props) => {
   });
 };
 
-
-
-
-
-
-
 const AddNewUserData = async (props) => {
-
   const updatedData = props.registerUserData;
 
-  var childURL = "addAdmin/" + updatedData.hospitalId;
+  var childURL =
+    APIURLUtilities.getSuperAdminAPIChildURLKeys()
+      .superAdminAddAdminAPIKey + updatedData.hospitalId;
   if (updatedData.userType === "Supervisor") {
-    childURL = APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminGetAddSupervisorAPIKey;
+    childURL =
+      APIURLUtilities.getSuperAdminAPIChildURLKeys()
+        .superAdminAddSupervisorAPIKey;
   }
   console.log(childURL);
 
-  await GlobalServiceHandler.hitPostService({
+  await GlobalServiceHandler.hitCustomResponsePostService({
     childURL: childURL,
     postData: updatedData,
     responseDataHandler: (addNewUserServiceData) => {
       console.log("addNewUserServiceData");
-      console.log(addNewUserServiceData.responseData.data);
+      // console.log(addNewUserServiceData.responseData.data);
 
       if (addNewUserServiceData.responseError === null) {
         props.addNewUserResponseHandler({
@@ -113,7 +110,9 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
   console.log("GetHospitalListsDataWithNoAdmins");
 
   await GlobalServiceHandler.hitCustomResponseGetService({
-    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminFetchHospitalsAPIKey,
+    childURL:
+      APIURLUtilities.getSuperAdminAPIChildURLKeys()
+        .superAdminFetchHospitalsAPIKey,
     responseDataHandler: (hospitalsListServiceData) => {
       console.log("GetHospitalListsDataWithNoAdmins");
       console.log(hospitalsListServiceData.responseData.data);
@@ -135,11 +134,11 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
   });
 };
 
-
-
 const GetSuperAdminAllRegisteredUserList = async (props) => {
   console.log("GetSuperAdminAllRegisteredUserList");
-  console.log(APIURLUtilities.getAPIChildURLKeys().GetSuperAdminAllRegisteredUserList);
+  console.log(
+    APIURLUtilities.getAPIChildURLKeys().GetSuperAdminAllRegisteredUserList
+  );
 
   await GlobalServiceHandler.hitCustomResponseGetService({
     childURL: APIURLUtilities.getAPIChildURLKeys().superAdminGetAllUsersAPIKey,
@@ -150,7 +149,8 @@ const GetSuperAdminAllRegisteredUserList = async (props) => {
       if (allRegisteredUserListServiceData.responseError === null) {
         props.showAllRegisteredUserResponseHandler({
           isRegisteredUsersListRecieved: true,
-          registeredUserListData: allRegisteredUserListServiceData.responseData.data,
+          registeredUserListData:
+            allRegisteredUserListServiceData.responseData.data,
           errorMessage: null,
         });
       } else if (allRegisteredUserListServiceData.responseData === null) {
@@ -169,6 +169,6 @@ const SuperAdminAPIHandler = {
   AddNewUserData,
   GetHospitalListsDataWithNoAdmins,
   GetSuperAdminAllRegisteredUserList,
-  updateUserData
+  updateUserData,
 };
 export default SuperAdminAPIHandler;

@@ -39,6 +39,10 @@ const CreateUser = (props) => {
 
   //Update Hospital User registration data...
   var setHospitalData = (updateData) => {
+    console.log({
+      ...props.selectedHospitalDataForAdminCreation,
+      ...updateData,
+    });
     props.HospitalRegistrationDataUpdateCallBackHandler({
       ...props.selectedHospitalDataForAdminCreation,
       ...updateData,
@@ -154,7 +158,7 @@ const CreateUser = (props) => {
   //Method for handling after user registered successfully...
   const addNewUserSuccessHandler = () => {
     const message =
-      props.selectedHospitalDataForAdminCreation.userId +
+      props.selectedHospitalDataForAdminCreation.username +
       " registered successfully";
     messageWithData({
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
@@ -163,7 +167,7 @@ const CreateUser = (props) => {
     setRegisterUserType("");
     props.HospitalRegistrationDataUpdateCallBackHandler({
       name: "",
-      userId: "",
+      username: "",
       password: "",
       userType: "",
       hospitalId: "",
@@ -198,16 +202,16 @@ const CreateUser = (props) => {
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
-              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userIdKey}
+              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey}
               onChange={CreateUserDataInputFieldChangeHandler}
-              value={props.selectedHospitalDataForAdminCreation.userId}
+              value={props.selectedHospitalDataForAdminCreation.username}
             />
 
             {/* User Name Input Key for User Registration */}
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
-              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userNameKey}
+              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey}
               onChange={CreateUserDataInputFieldChangeHandler}
               value={props.selectedHospitalDataForAdminCreation.name}
             />
@@ -218,7 +222,7 @@ const CreateUser = (props) => {
               label={
                 UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
               }
-              mappedKey={UtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
+              mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey}
               onChange={CreateUserDataInputFieldChangeHandler}
               value={props.selectedHospitalDataForAdminCreation.password}
             />
@@ -230,7 +234,7 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
                 }
-                mappedKey={UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
+                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().hospitalIDKey}
                 onChange={CreateUserDataInputFieldChangeHandler}
                 value={props.selectedHospitalDataForAdminCreation.hospitalId}
               />
@@ -242,7 +246,7 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
                 }
-                mappedKey={UtilitiesKeys.getCreateUserDataKeys().userContactKey}
+                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey}
                 value={props.selectedHospitalDataForAdminCreation.contact}
                 onChange={CreateUserDataInputFieldChangeHandler}
                 requiredLength={
@@ -259,7 +263,7 @@ const CreateUser = (props) => {
                 label={
                   UtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
                 }
-                mappedKey={UtilitiesKeys.getCreateUserDataKeys().userAddressKey}
+                mappedKey={SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressKey}
                 onChange={CreateUserDataInputFieldChangeHandler}
                 value={props.selectedHospitalDataForAdminCreation.address}
               />
@@ -273,7 +277,7 @@ const CreateUser = (props) => {
                     .userAddressPincodeLabel
                 }
                 mappedKey={
-                  UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
                 }
                 onChange={CreateUserDataInputFieldChangeHandler}
                 value={props.selectedHospitalDataForAdminCreation.pincode}

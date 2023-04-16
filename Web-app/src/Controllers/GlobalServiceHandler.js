@@ -27,11 +27,11 @@ const hitCustomResponsePostService = async (props) => {
     console.log("Data post in the API is");
     console.log(props.postData);
 
-    const response = await axios.post(url, props.postData, {
-      validateStatus: function (status) {
-        return status === 200 || status === 404; // Resolve only if the status code is less than 500
-      },
-    });
+    const response = await axios.post(
+      url,
+      props.postData,
+      GlobalServiceHandler.getHeaderConfigurationsList()
+    );
 
     console.log("Data recieved");
     console.log(response);

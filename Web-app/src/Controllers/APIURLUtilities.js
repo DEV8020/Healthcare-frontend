@@ -5,7 +5,6 @@ const getAPIChildURLKeys = () => {
   return {
     loginAPIKey: "login/",
     superAdminGetAllUsersAPIKey: "superadmin/getAllUsers",
-    // superAdminGetAllUsersAPIKey: "superadmin/getAllUsers",
   };
 };
 
@@ -13,12 +12,12 @@ const getAPIChildURLKeys = () => {
 const getSuperAdminAPIChildURLKeys = () => {
   return {
     superAdminAddHospitalAPIKey: "superadmin/addHospital",
-    superAdminGetAddSupervisorAPIKey: "superadmin/addSupervisor",
+    superAdminAddAdminAPIKey: "superadmin/addAdmin/",
+    superAdminAddSupervisorAPIKey: "superadmin/addSupervisor",
     superAdminFetchHospitalsAPIKey: "superadmin/hospitalsWithNoAdmins",
   };
 };
 
-///superadmin/hospitalsWithNoAdmins
 
 const APIURLUtilities = {
   getAPIChildURLKeys,

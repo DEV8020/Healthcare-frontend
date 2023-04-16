@@ -14,9 +14,25 @@ const getSuperAdminErrorMessagesText = () => {
   };
 };
 
+
+//Create User Data Keys...
+const getCreateUserDataKeys = () => {
+  return {
+    userNameKey: "name",
+    userIdKey: "username",
+    userPasswordKey: "password",
+    userTypeKey: "userType",
+    userContactKey: "contact",
+    userAddressKey: "address",
+    hospitalIDKey: "hospitalId",
+    userAddressPinCodeKey: "pincode",
+  };
+};
+
 const SuperAdminUtilitiesKeys = {
   getCreateUserOptionKeys,
   getSuperAdminErrorMessagesText,
+  getCreateUserDataKeys
 };
 
 export default SuperAdminUtilitiesKeys;
