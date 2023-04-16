@@ -17,8 +17,6 @@ const AddDoctor = (props) => {
   });
 
   const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
-    // console.log("doctorRegisterResponseData");
-    // console.log(doctorRegisterResponseData);
     if (doctorRegisterResponseData.errorMessage === null) {
       if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
         cleanDataAfterDoctorRegistrationHandler(
@@ -40,8 +38,6 @@ const AddDoctor = (props) => {
   };
 
   const updateDoctorData = (doctorDataToUpdate) => {
-    // console.log("updateDoctorData called");
-    // console.log({ ...doctorData, ...doctorDataToUpdate });
     setDoctorData((doctorData) => {
       return { ...doctorData, ...doctorDataToUpdate };
     });
@@ -62,7 +58,6 @@ const AddDoctor = (props) => {
       userId: "",
       docSpecialization: "",
     });
-    // refreshUsersListResponseHandler = {refreshUsersListResponseHandler}
     props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
   };
