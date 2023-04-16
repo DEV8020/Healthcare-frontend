@@ -15,6 +15,21 @@ const getSuperAdminErrorMessagesText = () => {
 };
 
 
+const getUserType = (userType) => {
+  if (userType === "ROLE_SUPER_ADMIN") {
+    return "Super Admin";
+  } else if (userType === "ROLE_ADMIN") {
+    return "Admin";
+  } else if (userType === "ROLE_SUPERVISOR") {
+    return "Supervisor";
+  } else if (userType === "ROLE_DOCTOR") {
+    return "Doctor";
+  }
+  return "Front Desk";
+};
+
+
+
 //Create User Data Keys...
 const getCreateUserDataKeys = () => {
   return {
@@ -26,6 +41,7 @@ const getCreateUserDataKeys = () => {
     userAddressKey: "address",
     hospitalIDKey: "hospitalId",
     userAddressPinCodeKey: "pincode",
+    userRoleKey: "role",
   };
 };
 
@@ -48,7 +64,8 @@ const SuperAdminUtilitiesKeys = {
   getCreateUserOptionKeys,
   getSuperAdminErrorMessagesText,
   getCreateUserDataKeys,
-  getCreateUserInitialData
+  getCreateUserInitialData,
+  getUserType
 };
 
 export default SuperAdminUtilitiesKeys;

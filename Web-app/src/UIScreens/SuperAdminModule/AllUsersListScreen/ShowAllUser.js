@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import UpdateCredentialPopup from "../../../Components/Screens/UI Elements/Pop-ups/UpdateCredentialPopup";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 
 const ShowAllUser = (props) => {
   const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
@@ -53,17 +54,54 @@ const ShowAllUser = (props) => {
 
       {allRegisteredUsersList.length === 0 && (
         <div>
-          <h3 style={{textAlign : "center"}}>No users to display. Please add some.</h3>
+          <h3 style={{ textAlign: "center" }}>
+            No users to display. Please add some.
+          </h3>
         </div>
       )}
 
       <div className={classes.ul}>
         {allRegisteredUsersList.map((userData) => (
           <div key={userData.authId} className={classes.plist}>
-            <div>User ID : {userData.userId}</div>
-            <div>User Type : {userData.userType}</div>
-            <div>User Name: {userData.name}</div>
-            <div>Password : {userData.password}</div>
+            {/* Div to display User ID Key... */}
+            <div>
+              User ID :{" "}
+              {
+                userData[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+                ]
+              }
+            </div>
+
+            {/* Div to display User Name Key... */}
+            <div>
+              User Name:{" "}
+              {
+                userData[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+                ]
+              }
+            </div>
+
+            {/* Div to display User Role Key... */}
+            <div>
+              User Type :{" "}
+              {SuperAdminUtilitiesKeys.getUserType(
+                userData[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userRoleKey
+                ]
+              )}
+            </div>
+
+            {/* <div>
+              Password :{" "}
+              {
+                userData[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                    .userPasswordKey
+                ]
+              }
+            </div> */}
             <AddButton
               value="Update"
               onClick={() => changeUserDataHandler(userData)}
