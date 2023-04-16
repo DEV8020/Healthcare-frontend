@@ -9,7 +9,7 @@ const registerDoctor = async (props) => {
 
   var childURL =
     APIURLUtilities.getAdminAPIChildURLKeys().adminAddDoctorAPIKey +
-    UtilitiesMethods.getUserNameForLoggedInUser(); 
+    UtilitiesMethods.getUserNameForLoggedInUser();
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
@@ -40,14 +40,18 @@ const registerFrontDesk = async (props) => {
   console.log("Register Front Desk Data In Admin Menu...");
   console.log(props.frontDeskData);
 
-  var childURL = "addFrontDesk/" + UtilitiesMethods.getUSerIDForLoggedInUser();
+  var childURL =
+    APIURLUtilities.getAdminAPIChildURLKeys().adminAddFrontDeskAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser();
+
+  console.log(childURL);
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
     postData: props.frontDeskData,
     responseDataHandler: (registeredFrontDeskData) => {
       console.log("Register Front Desk Data In Admin Menu Response Data...");
-      console.log(registeredFrontDeskData.responseData.data);
+      console.log(registeredFrontDeskData);
 
       if (registeredFrontDeskData.responseError === null) {
         props.registerFrontDeskResponseHandler({
@@ -57,7 +61,7 @@ const registerFrontDesk = async (props) => {
         });
       } else if (registeredFrontDeskData.responseData === null) {
         props.registerFrontDeskResponseHandler({
-          isFrontDeskRegisteredSuccessfully: null,
+          isFrontDeskRegisteredSuccessfully: false,
           registeredFrontDeskData: null,
           errorMessage: registeredFrontDeskData.responseError.message,
         });

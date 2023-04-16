@@ -26,8 +26,10 @@ const getSuperAdminAPIChildURLKeys = () => {
 const getAdminAPIChildURLKeys = () => {
   return {
     adminAddDoctorAPIKey: "admin/addDoctor/",
+    adminAddFrontDeskAPIKey: "admin/addFrontDesk/",
   };
 };
+
 
 
 const APIURLUtilities = {

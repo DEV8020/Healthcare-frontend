@@ -122,8 +122,8 @@ const AdminScreen = (props) => {
         <AddDoctor
           adminOption={adminOption}
           setAdminOption={setAdminOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
           showMessageAtBottomBar={showMessageAtBottomBar}
         />
@@ -132,9 +132,10 @@ const AdminScreen = (props) => {
         <AddFrontDesk
           adminOption={adminOption}
           setAdminOption={setAdminOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
+          showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
     </div>

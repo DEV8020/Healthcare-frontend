@@ -1,56 +1,25 @@
-//----------------------------------------------------------------- Imported files ------------------------------------------------------------------------
-
 import React, { useState } from "react";
-
-//----------------------------------------------------------------- API Service ------------------------------------------------------------------------
-
-
-//----------------------------------------------------------------- UI Elements ------------------------------------------------------------------------
-
-import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
-
-//----------------------------------------------------------------- CSS File --------------------------------------------------------------------------------
-
 import classes from "./AddOptions.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-
-//----------------------------------------------------------------- Component Function ------------------------------------------------------------------------
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const AddFrontDesk = (props) => {
-  //----------------------------------------------------------------- Input Variables ------------------------------------------------------------------------
+  const [frontDeskRegistrationData, setFrontDeskRegistrationData] = useState(
+    AdminUtilities.getCreateFrontDeskInitialData()
+  );
+ 
 
-  const [frontDeskRegistrationData, setFrontDeskRegistrationData] = useState({
-    userId: "",
-    password: "",
-    name: "",
-  });
-
+  //########################## Data Change Event Handler Methods  ##########################
   const updateFrontDeskRegistrationData = (dataToUpdate) => {
     setFrontDeskRegistrationData((frontDeskData) => {
       console.log({ ...frontDeskData, ...dataToUpdate });
       return { ...frontDeskData, ...dataToUpdate };
     });
   };
-
-  //########################## Data Change Event Handler Methods  ##########################
-  //Front Desk Name Data Change Event Handler Method...
-  const frontDeskNameChangeHandler = (event) => {
-    updateFrontDeskRegistrationData({ name: event.target.value });
-  };
-
-  //Front Desk User Id Data Change Event Handler Method...
-  const frontDeskUserIdChangeHandler = (event) => {
-    updateFrontDeskRegistrationData({ userId: event.target.value });
-  };
-
-  //Front Desk Password Data Change Event Handler Method...
-  const frontDeskPasswordChangeHandler = (event) => {
-    updateFrontDeskRegistrationData({ password: event.target.value });
-  };
   //########################## Data Change Event Handler Methods Ends Here  ##########################
-
 
   const AddFrontDeskDataHandler = (event) => {
     event.preventDefault();
@@ -61,50 +30,39 @@ const AddFrontDesk = (props) => {
   };
 
   const registerFrontDeskResponseHandler = (frontDeskRegistrationData) => {
-    if (frontDeskRegistrationData.errorMessage === null) {
-      if (
-        frontDeskRegistrationData.isFrontDeskRegisteredSuccessfully === true
-      ) {
-        cleanDataAfterFrontDeskRegistrationHandler(
-          frontDeskRegistrationData.registeredFrontDeskData
-        );
-      }
-      if (
-        frontDeskRegistrationData.isFrontDeskRegisteredSuccessfully === false
-      ) {
-        showMessageBarAtTheBottom({
-          message: "Some error occured. Please try again later.",
-          isErrorMessage: true,
-        });
-      }
-    } else if (frontDeskRegistrationData.registeredDoctorData === null) {
+    if (frontDeskRegistrationData.isFrontDeskRegisteredSuccessfully === true) {
+      cleanDataAfterFrontDeskRegistrationHandler(
+        frontDeskRegistrationData.registeredFrontDeskData
+      );
+    } else {
       showMessageBarAtTheBottom({
-        message: frontDeskRegistrationData.errorMessage,
-        isErrorMessage: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          frontDeskRegistrationData.errorMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
       });
     }
   };
 
+  //Message Bar At The Bottom to display messages...
   const showMessageBarAtTheBottom = (propData) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: propData.message,
-      isErrorMessage: propData.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showMessageAtBottomBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
 
   const cleanDataAfterFrontDeskRegistrationHandler = () => {
     showMessageBarAtTheBottom({
-      message: "Front Desk registered successfully.",
-      isErrorMessage: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        "Front Desk registered successfully.",
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
     });
 
-    setFrontDeskRegistrationData({
-      userId: "",
-      password: "",
-      name: "",
-    });
+    setFrontDeskRegistrationData(
+      AdminUtilities.getCreateFrontDeskInitialData()
+    );
     props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
   };
@@ -113,39 +71,52 @@ const AddFrontDesk = (props) => {
     props.setAdminOption("");
   };
 
-  //----------------------------------------------------------------- JSX Code ------------------------------------------------------------------------
-
   return (
     <div>
       <div className={classes.center}>
         <h1> Add FrontDesk Menu</h1>
 
         <form id="addFD-form" onSubmit={AddFrontDeskDataHandler}>
-          <InputField
-            type="text"
-            label="FrontDesk Name"
-            onChange={frontDeskNameChangeHandler}
-            value={frontDeskRegistrationData.name}
+         
+          <InputTextField
+            label={
+              AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserIDKey
+            }
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userIDKey}
+            onChange={updateFrontDeskRegistrationData}
+            value={
+              frontDeskRegistrationData[
+                AdminUtilities.getCreateUserDataKeys().userIDKey
+              ]
+            }
           />
 
-          {/* <InputField
-            type="text"
-            label="Contact Number"
-            onChange={frontDeskContactChangeHandler}
-          /> */}
-          <InputField
-            type="text"
-            label="FrontDesk User Id"
-            onChange={frontDeskUserIdChangeHandler}
-            value={frontDeskRegistrationData.userId}
+          <InputTextField
+            label={
+              AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserNameKey
+            }
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userNameKey}
+            onChange={updateFrontDeskRegistrationData}
+            value={
+              frontDeskRegistrationData[
+                AdminUtilities.getCreateUserDataKeys().userNameKey
+              ]
+            }
           />
 
-          <InputField
-            type="text"
-            label="Password"
-            onChange={frontDeskPasswordChangeHandler}
-            value={frontDeskRegistrationData.password}
+          <InputTextField
+            label={
+              AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskPasswordKey
+            }
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userPasswordKey}
+            onChange={updateFrontDeskRegistrationData}
+            value={
+              frontDeskRegistrationData[
+                AdminUtilities.getCreateUserDataKeys().userPasswordKey
+              ]
+            }
           />
+
           <div>
             <MenuSubmitButton value="Register" />
             <MenuSubmitButton

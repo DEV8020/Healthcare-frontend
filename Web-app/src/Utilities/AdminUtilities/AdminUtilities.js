@@ -13,46 +13,36 @@ const getCreateUserDataKeys = () => {
   };
 };
 
-
 //Admin Menu Create User Label Keys...
 const getCreateUserLabelKeys = () => {
-    return {
-      doctorNameKey: "Doctor Name",
-      doctorLicenseIDKey: "Doctor license ID",
-      doctorContactKey: "Contact Number",
-      doctorSpecializationKey: "Doctor Specialization",
-      doctorUserIDKey: "User Id",
-      doctorPasswordKey: "Password",
+  return {
+    doctorNameKey: "Doctor Name",
+    doctorLicenseIDKey: "Doctor license ID",
+    doctorContactKey: "Contact Number",
+    doctorSpecializationKey: "Doctor Specialization",
+    doctorUserIDKey: "User Id",
+    doctorPasswordKey: "Password",
     //   doctorSpecializationKey: "docSpecialization",
-    };
   };
+};
 
+//Admin Menu Create User Label Keys...
+const getCreateFrontDeskLabelKeys = () => {
+  return {
+    frontDeskUserIDKey: "FrontDesk User Id",
+    frontDeskUserNameKey: "FrontDesk Name",
+    frontDeskPasswordKey: "Password",
+  };
+};
 
-        //   <InputField
-        //     type="text"
-        //     label="Password"
-        //     onChange={doctorPasswordChangeHandler}
-        //     value={doctorData.password}
-        //   />
-        //   <div>
-        //     <MenuSubmitButton value="Register" />
-        //     <MenuSubmitButton
-        //       value="Cancel"
-        //       onClick={BackButtonPressedHandler}
-        //     />
-
-
-//Doctor Name
-
-// setDoctorData({
-//   // userId: "",
-//   // password: "",
-//   // name: "",
-//   // licId: "",
-//   // phoneNum: "",
-//   // userId: "",
-//   // docSpecialization: "",
-// });
+//Admin Menu Create User Options Keys...
+const getCreateFrontDeskInitialData = () => {
+  return {
+    [getCreateUserDataKeys().userIDKey]: "",
+    [getCreateUserDataKeys().userPasswordKey]: "",
+    [getCreateUserDataKeys().userNameKey]: "",
+  };
+};
 
 //Admin Menu Create User Options Keys...
 const getCreateUserInitialData = () => {
@@ -66,28 +56,13 @@ const getCreateUserInitialData = () => {
   };
 };
 
-// setDoctorData({
-
-//     phoneNum: "",
-//     userId: "",
-//     docSpecialization: "",
-//   });
-
-// const getSuperAdminErrorMessagesText = () => {
-//   return {
-//     chooseHospilatIDFromList: "Please choose hospital id from the list.",
-//   };
-// };
-
 
 const AdminUtilities = {
   getCreateUserDataKeys,
   getCreateUserInitialData,
   getCreateUserLabelKeys,
-  // getSuperAdminErrorMessagesText,
-  // getCreateUserDataKeys,
-  // getCreateUserInitialData,
-  // getUserType
+  getCreateFrontDeskInitialData,
+  getCreateFrontDeskLabelKeys,
 };
 
 export default AdminUtilities;
