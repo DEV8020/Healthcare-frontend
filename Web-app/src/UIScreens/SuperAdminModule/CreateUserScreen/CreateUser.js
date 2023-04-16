@@ -151,13 +151,13 @@ const CreateUser = (props) => {
     }
   };
 
+  //Method for handling after user registered successfully...
   const addNewUserSuccessHandler = () => {
     const message =
       props.selectedHospitalDataForAdminCreation.userId +
       " registered successfully";
     messageWithData({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-      message,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
     setRegisterUserType("");
@@ -169,7 +169,6 @@ const CreateUser = (props) => {
       hospitalId: "",
     });
   };
-  
 
   const BackButtonPressedHandler = () => {
     props.setSuperAdminOption("");
@@ -195,6 +194,7 @@ const CreateUser = (props) => {
           {/* ######################  Adding new fields  ######################*/}
 
           <>
+            {/* User ID Input Key for User Registration */}
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
@@ -203,6 +203,7 @@ const CreateUser = (props) => {
               value={props.selectedHospitalDataForAdminCreation.userId}
             />
 
+            {/* User Name Input Key for User Registration */}
             <InputTextField
               type="text"
               label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
@@ -211,6 +212,7 @@ const CreateUser = (props) => {
               value={props.selectedHospitalDataForAdminCreation.name}
             />
 
+            {/* User Password Input Key for User Registration */}
             <InputTextField
               type="text"
               label={
@@ -221,6 +223,7 @@ const CreateUser = (props) => {
               value={props.selectedHospitalDataForAdminCreation.password}
             />
 
+            {/* Hospital ID Input Key for User Registration */}
             {registerUserType === createUserAdminOption && (
               <InputTextField
                 type="text"
@@ -233,6 +236,7 @@ const CreateUser = (props) => {
               />
             )}
 
+            {/* User Contact Number Input Key for User Registration */}
             {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
@@ -248,6 +252,7 @@ const CreateUser = (props) => {
               />
             )}
 
+            {/* User Address Input Key for User Registration */}
             {registerUserType === createUserSupervisorOption && (
               <InputTextField
                 type="text"
@@ -260,6 +265,7 @@ const CreateUser = (props) => {
               />
             )}
 
+            {/* User Pin Code Input Key for User Registration */}
             {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={

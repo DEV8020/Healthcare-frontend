@@ -6,12 +6,12 @@ const AddHospitalData = async (props) => {
   console.log(props.hospitalData);
 
   await GlobalServiceHandler.hitPostService({
-    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminGetAddHospitalAPIKey,
+    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminAddHospitalAPIKey,
     postData: props.hospitalData,
     responseDataHandler: (addHospitalServiceData) => {
       console.log("addHospitalServiceData");
       console.log(addHospitalServiceData);
-      
+
       if (addHospitalServiceData.responseError === null) {
         props.addHospitalResponseHandler({
           isHospitalAdded: true,
@@ -81,7 +81,7 @@ const AddNewUserData = async (props) => {
 
   var childURL = "addAdmin/" + updatedData.hospitalId;
   if (updatedData.userType === "Supervisor") {
-    childURL = "addSupervisor";
+    childURL = APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminGetAddSupervisorAPIKey;
   }
   console.log(childURL);
 
@@ -100,7 +100,7 @@ const AddNewUserData = async (props) => {
         });
       } else if (addNewUserServiceData.responseData === null) {
         props.addNewUserResponseHandler({
-          isNewUserAdded: null,
+          isNewUserAdded: false,
           newUserData: null,
           errorMessage: addNewUserServiceData.responseError.message,
         });
@@ -112,8 +112,8 @@ const AddNewUserData = async (props) => {
 const GetHospitalListsDataWithNoAdmins = async (props) => {
   console.log("GetHospitalListsDataWithNoAdmins");
 
-  await GlobalServiceHandler.hitGetService({
-    childURL: "hospitalsWithNoAdmins",
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL: APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminFetchHospitalsAPIKey,
     responseDataHandler: (hospitalsListServiceData) => {
       console.log("GetHospitalListsDataWithNoAdmins");
       console.log(hospitalsListServiceData.responseData.data);
@@ -126,7 +126,7 @@ const GetHospitalListsDataWithNoAdmins = async (props) => {
         });
       } else if (hospitalsListServiceData.responseData === null) {
         props.hopitalListWithNoAdminsResponseHandler({
-          isHospitalListRecieved: null,
+          isHospitalListRecieved: false,
           hospitalListData: null,
           errorMessage: hospitalsListServiceData.responseError.message,
         });

@@ -73,7 +73,11 @@ const hitPostService = async (props) => {
     console.log("URL Hitting in GlobalServiceHandler");
     console.log(url);
 
-    const response = await axios.post(url, props.postData, GlobalServiceHandler.getHeaderConfigurationsList());
+    const response = await axios.post(
+      url,
+      props.postData,
+      GlobalServiceHandler.getHeaderConfigurationsList()
+    );
 
     console.log("Data recieved");
     console.log(response);
@@ -136,20 +140,25 @@ const hitCustomResponseGetService = async (props) => {
     console.log(url);
     console.log(UtilitiesMethods.getAuthTokenForLoggedInUser());
 
-    const headers = {
-      Authorization: `Bearer ${UtilitiesMethods.getAuthTokenForLoggedInUser()}`,
-    };
+    // const headers = {
+    //   Authorization: `Bearer ${UtilitiesMethods.getAuthTokenForLoggedInUser()}`,
+    // };
 
-    const response = await axios.get(url, {
-      headers: {
-        Authorization:
-          "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
-      },
-      validateStatus: function (status) {
-        return status == 200 || status == 404;
-        // Resolve only if the status code is 202 or 404...
-      },
-    });
+    const response = await axios.get(
+      url,
+      GlobalServiceHandler.getHeaderConfigurationsList()
+    );
+    //   {
+    //   headers: {
+    //     Authorization:
+    //       "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
+    //   },
+    //   validateStatus: function (status) {
+    //     return status == 200 || status == 404;
+    //     // Resolve only if the status code is 202 or 404...
+    //   },
+    // }
+    // );
 
     console.log("Data recieved");
     console.log(response);
@@ -217,6 +226,6 @@ const GlobalServiceHandler = {
   hitPutService,
   hitCustomResponsePostService,
   hitCustomResponseGetService,
-  getHeaderConfigurationsList
+  getHeaderConfigurationsList,
 };
 export default GlobalServiceHandler;
