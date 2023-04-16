@@ -165,8 +165,8 @@ const hitPostService = async (props) => {
       });
     } else {
       props.responseDataHandler({
-        responseData: response,
-        responseError: null,
+        responseData: null,
+        responseError: Error(response.data.message),
       });
     }
   } catch (error) {
@@ -195,9 +195,11 @@ const hitGetService = async (props) => {
         responseError: null,
       });
     } else {
+      // responseData: null,
+      //   responseError: Error(response.data.message),
       props.responseDataHandler({
-        responseData: response,
-        responseError: null,
+        responseData: null,
+        responseError: Error(response.data.message),
       });
     }
   } catch (error) {

@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
+// import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import classes from "./AddOptions.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+// import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 
 const AddDoctor = (props) => {
-  const [doctorData, setDoctorData] = useState({
-    userId: "",
-    password: "",
-    name: "",
-    licId: "",
-    contact: "",
-    userId: "",
-    docSpecialization: "",
-  });
+  // const [doctorData, setDoctorData] = useState({
+  //   userId: "",
+  //   password: "",
+  //   name: "",
+  //   licId: "",
+  //   contact: "",
+  //   userId: "",
+  //   docSpecialization: "",
+  // });
+
+  const [doctorData, setDoctorData] = useState(
+    AdminUtilities.getCreateUserInitialData()
+  );
 
   const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
     if (doctorRegisterResponseData.errorMessage === null) {
@@ -25,19 +33,22 @@ const AddDoctor = (props) => {
       }
       if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === false) {
         showMessageBarAtTheBottom({
-          message: "Some error occured. Please try again later.",
-          isErrorMessage: true,
+          [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+            "Some error occured. Please try again later.",
+          [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
         });
       }
     } else if (doctorRegisterResponseData.registeredDoctorData === null) {
       showMessageBarAtTheBottom({
-        message: doctorRegisterResponseData.errorMessage,
-        isErrorMessage: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          doctorRegisterResponseData.errorMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
       });
     }
   };
 
   const updateDoctorData = (doctorDataToUpdate) => {
+    console.log(doctorDataToUpdate);
     setDoctorData((doctorData) => {
       return { ...doctorData, ...doctorDataToUpdate };
     });
@@ -45,58 +56,90 @@ const AddDoctor = (props) => {
 
   const cleanDataAfterDoctorRegistrationHandler = (doctorData) => {
     showMessageBarAtTheBottom({
-      message: "Doctor registered successfully.",
-      isErrorMessage: false,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        "Doctor registered successfully.",
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
 
-    setDoctorData({
-      userId: "",
-      password: "",
-      name: "",
-      licId: "",
-      phoneNum: "",
-      userId: "",
-      docSpecialization: "",
-    });
+    // setDoctorData({
+    //   userId: "",
+    //   password: "",
+    //   name: "",
+    //   licId: "",
+    //   phoneNum: "",
+    //   userId: "",
+    //   docSpecialization: "",
+    // });
+    setDoctorData(AdminUtilities.getCreateUserInitialData());
     props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
   };
 
+  //Message Bar At The Bottom to display messages...
   const showMessageBarAtTheBottom = (propData) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: propData.message,
-      isErrorMessage: propData.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showMessageAtBottomBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
 
-  const doctorNameChangeHandler = (event) => {
-    updateDoctorData({ name: event.target.value });
-  };
+  // //Update user data when data changes on Input Field Change Handler Method...
+  // const CreateUserDataInputFieldChangeHandler = (userEnteredData) => {
+  //   console.log(userEnteredData);
+  //   updateDoctorData(userEnteredData);
+  // };
 
-  const doctorUserIdChangeHandler = (event) => {
-    updateDoctorData({ userId: event.target.value });
-  };
+  // const doctorNameChangeHandler = (event) => {
+  //   updateDoctorData({ name: event.target.value });
+  // };
 
-  const doctorContactChangeHandler = (event) => {
-    updateDoctorData({ contact: event.target.value });
-  };
+  // const doctorUserIdChangeHandler = (event) => {
+  //   updateDoctorData({ userId: event.target.value });
+  // };
 
-  const doctorSplChangeHandler = (event) => {
-    updateDoctorData({ docSpecialization: event.target.value });
-  };
+  // const doctorContactChangeHandler = (event) => {
+  //   updateDoctorData({ contact: event.target.value });
+  // };
 
-  const doctorPasswordChangeHandler = (event) => {
-    updateDoctorData({ password: event.target.value });
-  };
+  // const doctorSplChangeHandler = (event) => {
+  //   updateDoctorData({ docSpecialization: event.target.value });
+  // };
 
-  const doctorLIdChangeHandler = (event) => {
-    updateDoctorData({ licId: event.target.value });
-  };
+  // const doctorPasswordChangeHandler = (event) => {
+  //   updateDoctorData({ password: event.target.value });
+  // };
+
+  // const doctorLIdChangeHandler = (event) => {
+  //   updateDoctorData({ licId: event.target.value });
+  // };
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();
+    console.log(doctorData);
+
+    //Validation for user contact number...
+    const userContactNumberMappedKey =
+    AdminUtilities.getCreateUserDataKeys().userContactKey;
+    const userContactNumber = doctorData[userContactNumberMappedKey];
+    const userContactNumberRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    );
+
+    //Show Alert Message in case of Invalid Contact Number...
+    if (
+      userContactNumber.length !== userContactNumberRequiredLength
+    ) {
+      showMessageBarAtTheBottom({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .phoneNumberNotValidMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
+      return;
+    }
+
     AdminAPIHandler.registerDoctor({
       doctorData: doctorData,
       registerDoctorResponseHandler: registerDoctorResponseHandler,
@@ -114,44 +157,90 @@ const AddDoctor = (props) => {
         <h1> Add Doctor Menu</h1>
 
         <form id="addDoctor-form" onSubmit={AddDoctorDataHandler}>
-          <InputField
-            type="text"
-            label="Doctor Name"
-            onChange={doctorNameChangeHandler}
-            value={doctorData.name}
-          />
-          <InputField
-            type="text"
-            label="Doctor license ID"
-            onChange={doctorLIdChangeHandler}
-            value={doctorData.licId}
-          />
-          <InputField
-            type="text"
-            label="Contact Number"
-            onChange={doctorContactChangeHandler}
-            value={doctorData.phoneNum}
+          {/* User ID Input Key for User Registration */}
+          <InputTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorUserIDKey}
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userIDKey}
+            onChange={updateDoctorData}
+            value={doctorData[AdminUtilities.getCreateUserDataKeys().userIDKey]}
           />
 
-          <InputField
-            type="text"
-            label="Doctor Specialization"
-            onChange={doctorSplChangeHandler}
-            value={doctorData.docSpecialization}
-          />
-          <InputField
-            type="text"
-            label="User Id"
-            onChange={doctorUserIdChangeHandler}
-            value={doctorData.userId}
+          {/* User Name Input Key for User Registration */}
+          <InputTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorNameKey}
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userNameKey}
+            onChange={updateDoctorData}
+            value={
+              doctorData[AdminUtilities.getCreateUserDataKeys().userNameKey]
+            }
           />
 
-          <InputField
-            type="text"
-            label="Password"
-            onChange={doctorPasswordChangeHandler}
-            value={doctorData.password}
+          {/* User Password Input Key for User Registration */}
+          <InputTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorPasswordKey}
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userPasswordKey}
+            onChange={updateDoctorData}
+            value={
+              doctorData[AdminUtilities.getCreateUserDataKeys().userPasswordKey]
+            }
           />
+
+          {/* <InputNumericTextField */}
+          <InputNumericTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorContactKey}
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userContactKey}
+            value={
+              doctorData[AdminUtilities.getCreateUserDataKeys().userContactKey]
+            }
+            onChange={updateDoctorData}
+            requiredLength={
+              UtilitiesKeys.getInputFieldLengthValidationKeys()
+                .userContactNumberLength
+            }
+          />
+
+          {/* UtilitiesKeys */}
+
+          {/* User Contact Number Input Key for User Registration
+          <InputTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorContactKey}
+            mappedKey={AdminUtilities.getCreateUserDataKeys().userContactKey}
+            onChange={updateDoctorData}
+            value={
+              doctorData[AdminUtilities.getCreateUserDataKeys().userContactKey]
+            }
+          /> */}
+
+          {/* Doctor License ID Number Input Key for Doctor Registration */}
+          <InputTextField
+            label={AdminUtilities.getCreateUserLabelKeys().doctorLicenseIDKey}
+            mappedKey={
+              AdminUtilities.getCreateUserDataKeys().doctorLicenseIDKey
+            }
+            onChange={updateDoctorData}
+            value={
+              doctorData[
+                AdminUtilities.getCreateUserDataKeys().doctorLicenseIDKey
+              ]
+            }
+          />
+
+          {/* Doctor Specialization Input Key for Doctor Registration */}
+          <InputTextField
+            label={
+              AdminUtilities.getCreateUserLabelKeys().doctorSpecializationKey
+            }
+            mappedKey={
+              AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
+            }
+            onChange={updateDoctorData}
+            value={
+              doctorData[
+                AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
+              ]
+            }
+          />
+
           <div>
             <MenuSubmitButton value="Register" />
             <MenuSubmitButton

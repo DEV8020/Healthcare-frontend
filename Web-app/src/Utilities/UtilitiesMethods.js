@@ -41,6 +41,10 @@ const getAuthTokenForLoggedInUser = () => {
   return localStorage.getItem("token");
 };
 
+const getUserNameForLoggedInUser = () => {
+  return localStorage.getItem("username");
+};
+
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
   showMessageBarAtTheBottom,
@@ -48,7 +52,8 @@ const UtilitiesMethods = {
   processUserLoginData,
   cleanUpUserDataOnLogOut,
   getUSerIDForLoggedInUser,
-  getAuthTokenForLoggedInUser
+  getAuthTokenForLoggedInUser,
+  getUserNameForLoggedInUser
 };
 
 export default UtilitiesMethods;

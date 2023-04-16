@@ -165,8 +165,9 @@ function App() {
         <AdminScreen
           user={user}
           setUser={setUser}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
+          // setAlertFlag={setAlertFlag}
+          // setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
         />
       )}
 

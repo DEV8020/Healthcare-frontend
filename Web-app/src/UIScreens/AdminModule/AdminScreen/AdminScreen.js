@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const AdminScreen = (props) => {
   const [adminOption, setAdminOption] = useState("admin");
@@ -27,6 +28,23 @@ const AdminScreen = (props) => {
       return !isToBeLoad;
     });
   };
+
+
+ const showMessageAtBottomBar = (prop) => {
+  props.showBottomMessageBar({
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+      prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+  });
+
+  // UtilitiesKeys
+  // props.showMessageAtBottomBar({});
+
+ };
+
+
+
 
   const showAllRegisteredUserResponseHandler = (
     allRegisteredUsersResponseData
@@ -107,6 +125,7 @@ const AdminScreen = (props) => {
           setAlertMessage={props.setAlertMessage}
           setAlertFlag={props.setAlertFlag}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
+          showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
       {adminOption === "addFrontDesk" && (

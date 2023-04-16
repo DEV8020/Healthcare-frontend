@@ -1,20 +1,22 @@
 import UtilitiesMethods from "../Utilities/UtilitiesMethods";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 //Register Doctor In Admin Menu API Handler Method...
 const registerDoctor = async (props) => {
-  console.log("Register Doctor Data In Admin Menu...");
-  console.log(props.userData);
+  // console.log("Register Doctor Data In Admin Menu...");
+  // console.log(props.doctorData);
 
-  // const hospitalID = "1";
-  var childURL = "addDoctor/" + UtilitiesMethods.getUSerIDForLoggedInUser();//hospitalID;
+  var childURL =
+    APIURLUtilities.getAdminAPIChildURLKeys().adminAddDoctorAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser(); 
 
   await GlobalServiceHandler.hitPostService({
     childURL: childURL,
     postData: props.doctorData,
     responseDataHandler: (registeredDoctorData) => {
       console.log("Register Doctor Data In Admin Menu Response Data...");
-      console.log(registeredDoctorData.responseData.data);
+      console.log(registeredDoctorData.responseData);
 
       if (registeredDoctorData.responseError === null) {
         props.registerDoctorResponseHandler({
@@ -71,7 +73,8 @@ const GetAdminAllRegisteredUserList = async (props) => {
   // var hospitalID = "1";
 
   await GlobalServiceHandler.hitGetService({
-    childURL: "getAllHospitalUsers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
+    childURL:
+      "getAllHospitalUsers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
       //console.log(allRegisteredUserListServiceData.responseData.data);
@@ -96,48 +99,47 @@ const GetAdminAllRegisteredUserList = async (props) => {
   });
 };
 
-
 const updateUserRegistrationData = async (props) => {
-    console.log("updateUserData in super admin user related api handler");
-    console.log(props.userData);
-  
-    var childURL = "updateDoctor";
-  
-    if (props.userData.userType === "Front Desk") {
-      childURL = "updateFrontDesk";
-    }
-  
-    await GlobalServiceHandler.hitPutService({
-      childURL: childURL,
-      postData: props.userData,
-      responseDataHandler: (updatedUserData) => {
-        console.log(
-          "addNewUserServiceData in SuperAdminUserRelatedAPIHandler file is"
-        );
-        console.log(updatedUserData.responseData.data);
-  
-        if (updatedUserData.responseError === null) {
-          props.modifyAdminUserDataResponseHandler({
-            isUserDataUpdated: true,
-            userUpdatedData: updatedUserData.responseData.data,
-            errorMessage: null,
-          });
-        } else if (updatedUserData.responseData === null) {
-          props.modifyAdminUserDataResponseHandler({
-            isUserDataUpdated: null,
-            userUpdatedData: null,
-            errorMessage: updatedUserData.responseError.message,
-          });
-        }
-      },
-    });
-  };
+  console.log("updateUserData in super admin user related api handler");
+  console.log(props.userData);
+
+  var childURL = "updateDoctor";
+
+  if (props.userData.userType === "Front Desk") {
+    childURL = "updateFrontDesk";
+  }
+
+  await GlobalServiceHandler.hitPutService({
+    childURL: childURL,
+    postData: props.userData,
+    responseDataHandler: (updatedUserData) => {
+      console.log(
+        "addNewUserServiceData in SuperAdminUserRelatedAPIHandler file is"
+      );
+      console.log(updatedUserData.responseData.data);
+
+      if (updatedUserData.responseError === null) {
+        props.modifyAdminUserDataResponseHandler({
+          isUserDataUpdated: true,
+          userUpdatedData: updatedUserData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (updatedUserData.responseData === null) {
+        props.modifyAdminUserDataResponseHandler({
+          isUserDataUpdated: null,
+          userUpdatedData: null,
+          errorMessage: updatedUserData.responseError.message,
+        });
+      }
+    },
+  });
+};
 
 const AdminAPIHandler = {
   registerDoctor,
   registerFrontDesk,
   GetAdminAllRegisteredUserList,
-  updateUserRegistrationData
+  updateUserRegistrationData,
 };
 
 export default AdminAPIHandler;

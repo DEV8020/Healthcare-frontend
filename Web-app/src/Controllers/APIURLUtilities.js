@@ -21,9 +21,19 @@ const getSuperAdminAPIChildURLKeys = () => {
 };
 
 
+
+//Admin Menu Options API Child URL Keys...
+const getAdminAPIChildURLKeys = () => {
+  return {
+    adminAddDoctorAPIKey: "admin/addDoctor/",
+  };
+};
+
+
 const APIURLUtilities = {
   getAPIChildURLKeys,
   getSuperAdminAPIChildURLKeys,
+  getAdminAPIChildURLKeys
 };
 
 export default APIURLUtilities;
