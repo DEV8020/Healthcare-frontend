@@ -15,7 +15,8 @@ const getSuperAdminAPIChildURLKeys = () => {
     superAdminAddAdminAPIKey: "superadmin/addAdmin/",
     superAdminAddSupervisorAPIKey: "superadmin/addSupervisor",
     superAdminFetchHospitalsAPIKey: "superadmin/hospitalsWithNoAdmins",
-    superAdminUpdateAdminAPIKey : "superadmin/updateAdmin"
+    superAdminUpdateAdminAPIKey : "superadmin/updateAdmin",
+    superAdminUpdateSuperVisorAPIKey : "superadmin/updateSupervisor"
   };
 };
 
