@@ -1,7 +1,6 @@
 import classes from "./ShowHospitalUsers.module.css";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
-import UpdateCredentialPopup from "../../../Components/Screens/UI Elements/Pop-ups/UpdateCredentialPopup";
-
+import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import React, { useEffect, useState } from "react";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 // var HospitalUserList = [
