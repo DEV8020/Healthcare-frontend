@@ -76,9 +76,14 @@ const GetAdminAllRegisteredUserList = async (props) => {
 
   // var hospitalID = "1";
 
-  await GlobalServiceHandler.hitGetService({
+  // admin/getAllHospitalUsers/{adminUsername}
+
+  await GlobalServiceHandler.hitCustomResponseGetService({
     childURL:
-      "getAllHospitalUsers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
+      APIURLUtilities.getAdminAPIChildURLKeys().adminGetAllUsersAPIKey +
+      UtilitiesMethods.getUserNameForLoggedInUser(),
+
+
     responseDataHandler: (allRegisteredUserListServiceData) => {
       console.log("allRegisteredUserListServiceData");
       //console.log(allRegisteredUserListServiceData.responseData.data);

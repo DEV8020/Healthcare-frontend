@@ -3,6 +3,8 @@ import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements
 import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import React, { useEffect, useState } from "react";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
+import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 // var HospitalUserList = [
 //   {
 //     d_id: "d1",
@@ -129,13 +131,15 @@ const ShowHospitalUsers = (props) => {
     <div className={classes.center}>
       <h2> All Hospital Users</h2>
 
-
-      {hospitalUserList === null ||  hospitalUserList.length === 0 && (
-        <div>
-          {" "}
-          <h3 style={{textAlign:"center"}}>No users to display. Please add some to proceed.</h3>
-        </div>
-      )}
+      {hospitalUserList === null ||
+        (hospitalUserList.length === 0 && (
+          <div>
+            {" "}
+            <h3 style={{ textAlign: "center" }}>
+              No users to display. Please add some to proceed.
+            </h3>
+          </div>
+        ))}
 
       {/* {props.registeredUserList.length === 0 && (
         <div>
@@ -147,10 +151,36 @@ const ShowHospitalUsers = (props) => {
 
       <div className={classes.ul}>
         {hospitalUserList.map((hospitalUserData) => (
-          <div key={hospitalUserData.userID} className={classes.plist}>
-            <div>User Type : {hospitalUserData.userType}</div>
-            <div>User Name: {hospitalUserData.name}</div>
-            <div>Password : {hospitalUserData.password}</div>
+          <div
+            key={
+              hospitalUserData[AdminUtilities.getCreateUserDataKeys().userIDKey]
+            }
+            className={classes.plist}
+          >
+            <div>
+              User Type :{" "}
+              {SuperAdminUtilitiesKeys.getUserType(
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userTypeKey
+                ]
+              )}
+            </div>
+            <div>
+              User Name:{" "}
+              {
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userNameKey
+                ]
+              }
+            </div>
+            {/* <div>
+              Password :{" "}
+              {
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userPasswordKey
+                ]
+              }
+            </div> */}
             <AddButton
               value="Update"
               onClick={() => changeHospitalUserDataHandler(hospitalUserData)}

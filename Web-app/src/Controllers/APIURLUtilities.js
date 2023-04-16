@@ -27,6 +27,8 @@ const getAdminAPIChildURLKeys = () => {
   return {
     adminAddDoctorAPIKey: "admin/addDoctor/",
     adminAddFrontDeskAPIKey: "admin/addFrontDesk/",
+    adminGetAllUsersAPIKey: "admin/getAllHospitalUsers/",
+    //admin/getAllHospitalUsers
   };
 };
 

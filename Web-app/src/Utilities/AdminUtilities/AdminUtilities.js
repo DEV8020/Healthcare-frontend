@@ -10,6 +10,7 @@ const getCreateUserDataKeys = () => {
     userPasswordKey: "password",
     doctorLicenseIDKey: "licId",
     doctorSpecializationKey: "docSpecialization",
+    userTypeKey: "role",
   };
 };
 
