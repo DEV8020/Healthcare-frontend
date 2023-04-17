@@ -1,17 +1,18 @@
 import UtilitiesMethods from "../Utilities/UtilitiesMethods";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const RegisterNewPatientAPICall = async (props) => {
   console.log("RegisterNewPatientAPICall");
   console.log(props.patientData);
 
-  await GlobalServiceHandler.hitPostService({
-    childURL: "addPatients",
+  await GlobalServiceHandler.hitCustomResponsePostService({
+    childURL: APIURLUtilities.getFrontDeskAPIChildURLKeys().frontDeskPatientRegistrationAPIKey,
     postData: props.patientData,
     responseDataHandler: (registerNewPatientResponseData) => {
       console.log("registerNewPatientResponseData");
       console.log(registerNewPatientResponseData);
-      console.log(registerNewPatientResponseData.responseData.data);
+      // console.log(registerNewPatientResponseData.responseData);
       if (registerNewPatientResponseData.responseError === null) {
         props.registerNewPatientResponseCallBack({
           isNewPatientAdded: true,
@@ -20,7 +21,7 @@ const RegisterNewPatientAPICall = async (props) => {
         });
       } else if (registerNewPatientResponseData.responseData === null) {
         props.registerNewPatientResponseCallBack({
-          isNewPatientAdded: null,
+          isNewPatientAdded: false,
           NewPatientData: null,
           errorMessage: registerNewPatientResponseData.responseError.message,
         });

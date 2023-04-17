@@ -87,25 +87,26 @@ const PatientRegistration = (props) => {
     console.log("registerNewPatientResponseHandler response is ");
     console.log(newPatientResponseData);
 
-    if (newPatientResponseData.errorMessage === null) {
-      if (newPatientResponseData.isNewPatientAdded === true) {
-        showErrorMessageScreen(
-          patientRegistrationData[
-            FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().nameKey
-          ] + " has been registered successfully.",
-          false
-        );
-        resetPatientDataAfterRegister();
-      }
-      if (newPatientResponseData.isNewPatientAdded === false) {
-        showErrorMessageScreen(
-          "Some error occured. Please try again later.",
-          true
-        );
-      }
-    } else if (newPatientResponseData.isNewPatientAdded === null) {
+    // if (newPatientResponseData.errorMessage === null) {
+    if (newPatientResponseData.isNewPatientAdded === true) {
+      showErrorMessageScreen(
+        patientRegistrationData[
+          FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().nameKey
+        ] + " has been registered successfully.",
+        false
+      );
+      resetPatientDataAfterRegister();
+    } else {
+      // else if (newPatientResponseData.isNewPatientAdded === null) {
       showErrorMessageScreen(newPatientResponseData.errorMessage, true);
     }
+    // if (newPatientResponseData.isNewPatientAdded === false) {
+    //   showErrorMessageScreen(
+    //     "Some error occured. Please try again later.",
+    //     true
+    //   );
+    // }
+    // }
   };
 
   const resetPatientDataAfterRegister = () => {

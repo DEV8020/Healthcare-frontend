@@ -34,6 +34,19 @@ const getAdminAPIChildURLKeys = () => {
   };
 };
 
+//Front Desk Menu Options API Child URL Keys...
+const getFrontDeskAPIChildURLKeys = () => {
+  return {
+    frontDeskPatientRegistrationAPIKey: "frontdesk/addPatients",
+    // adminAddFrontDeskAPIKey: "admin/addFrontDesk/",
+    // adminGetAllUsersAPIKey: "admin/getAllHospitalUsers/",
+    // adminUpdateDoctorAPIKey: "admin/updateDoctor",
+    // adminUpdateFrontDeskAPIKey: "admin/updateFrontDesk",
+  };
+};
+
+// /frontdesk/addPatients
+
 // http://localhost:9191/admin/updateDoctor
   // http://localhost:9191/admin/updateFrontDesk
 
@@ -42,7 +55,8 @@ const getAdminAPIChildURLKeys = () => {
 const APIURLUtilities = {
   getAPIChildURLKeys,
   getSuperAdminAPIChildURLKeys,
-  getAdminAPIChildURLKeys
+  getAdminAPIChildURLKeys,
+  getFrontDeskAPIChildURLKeys
 };
 
 export default APIURLUtilities;
