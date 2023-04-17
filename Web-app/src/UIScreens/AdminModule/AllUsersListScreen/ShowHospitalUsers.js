@@ -104,7 +104,7 @@ const ShowHospitalUsers = (props) => {
     console.log("updateUserSuccessHandler");
     console.log(adminSubUserResponseData);
     displayMessagesInParentViewHandler({
-      message: "Doctor details updated successfully.",
+      message: "Users details updated successfully.",
       isErrorMessage: false,
     });
     setShowUpdateCredentialPopup(false);
