@@ -12,7 +12,6 @@ const RegisterNewPatientAPICall = async (props) => {
     responseDataHandler: (registerNewPatientResponseData) => {
       console.log("registerNewPatientResponseData");
       console.log(registerNewPatientResponseData);
-      // console.log(registerNewPatientResponseData.responseData);
       if (registerNewPatientResponseData.responseError === null) {
         props.registerNewPatientResponseCallBack({
           isNewPatientAdded: true,
@@ -35,8 +34,8 @@ const AddPatientEncounterAPICall = async (props) => {
   console.log(props.encounterData);
 
   const modifiedChildURL =
-    "addPendingQueue/" +
-    UtilitiesMethods.getUSerIDForLoggedInUser() +
+    APIURLUtilities.getFrontDeskAPIChildURLKeys().frontDeskAddPatientEncounterAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser() +
     "/" +
     props.encounterData.patientId;
 
@@ -47,8 +46,7 @@ const AddPatientEncounterAPICall = async (props) => {
     postData: {},
     responseDataHandler: (addPatientEncounterResponseData) => {
       console.log("addPatientEncounterResponseData");
-      console.log(addPatientEncounterResponseData);
-      console.log(addPatientEncounterResponseData.responseData.data);
+      console.log(addPatientEncounterResponseData.responseData);
       if (addPatientEncounterResponseData.responseError === null) {
         props.addPatientNewEncounterResponseCallBack({
           isEncounterAdded: true,
@@ -57,7 +55,7 @@ const AddPatientEncounterAPICall = async (props) => {
         });
       } else if (addPatientEncounterResponseData.responseData === null) {
         props.addPatientNewEncounterResponseCallBack({
-          isEncounterAdded: null,
+          isEncounterAdded: false,
           NewPatientData: null,
           errorMessage: addPatientEncounterResponseData.responseError.message,
         });
@@ -74,11 +72,9 @@ const GetPatientDetailsData = async (props) => {
   var patientID = props.patientID;
 
   await GlobalServiceHandler.hitCustomResponseGetService({
-    childURL: "getPatientById/" + patientID,
+    childURL: APIURLUtilities.getFrontDeskAPIChildURLKeys().frontDeskGetPatientsDetailAPIKey + patientID,
     responseDataHandler: (getPatientDetailsServiceData) => {
       console.log("getPatientDetailsServiceData");
-      //console.log(getPatientDetailsServiceData.responseData.data);
-
       if (getPatientDetailsServiceData.responseError === null) {
         props.getPatientDetailsResponseHandler({
           isPatientDetailsRecievedSuccessFully: true,

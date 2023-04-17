@@ -38,18 +38,10 @@ const getAdminAPIChildURLKeys = () => {
 const getFrontDeskAPIChildURLKeys = () => {
   return {
     frontDeskPatientRegistrationAPIKey: "frontdesk/addPatients",
-    // adminAddFrontDeskAPIKey: "admin/addFrontDesk/",
-    // adminGetAllUsersAPIKey: "admin/getAllHospitalUsers/",
-    // adminUpdateDoctorAPIKey: "admin/updateDoctor",
-    // adminUpdateFrontDeskAPIKey: "admin/updateFrontDesk",
+    frontDeskGetPatientsDetailAPIKey: "frontdesk/getPatientById/",
+    frontDeskAddPatientEncounterAPIKey: "frontdesk/addPendingQueue/",
   };
 };
-
-// /frontdesk/addPatients
-
-// http://localhost:9191/admin/updateDoctor
-  // http://localhost:9191/admin/updateFrontDesk
-
 
 
 const APIURLUtilities = {
