@@ -61,7 +61,7 @@ const FieldWorkerList = (props) => {
         {fieldWorkerList.map((fieldworkerdata) => (
           <div key={fieldworkerdata.authId} className={classes.plist}>
             <div>ID : {fieldworkerdata.authId}</div>
-            <div>userId : {fieldworkerdata.userId}</div>
+            <div>userId : {fieldworkerdata.username}</div>
             <div>Name : {fieldworkerdata.name}</div>
             <div>Contact No. : {fieldworkerdata.contact}</div>
 

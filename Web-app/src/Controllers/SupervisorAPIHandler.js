@@ -1,4 +1,5 @@
 import UtilitiesMethods from "../Utilities/UtilitiesMethods";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const getAllFieldWorkerListAPI = async (props) => {
@@ -7,9 +8,12 @@ const getAllFieldWorkerListAPI = async (props) => {
 
   //This methos will give the supervisor id when its logged in...
   //We have to use this id in API Calls...
-  const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
-  await GlobalServiceHandler.hitGetService({
-    childURL: "getFieldWorkers/" + UtilitiesMethods.getUSerIDForLoggedInUser(),
+  // const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL:
+      APIURLUtilities.getSupervisorAPIChildURLKeys()
+        .supervisorGetFieldWorkerListAPIKey +
+      UtilitiesMethods.getUserNameForLoggedInUser(),
     responseDataHandler: (fieldWorkerListResponseData) => {
       console.log("fieldWorkerListResponseData");
       console.log(fieldWorkerListResponseData);
@@ -22,7 +26,7 @@ const getAllFieldWorkerListAPI = async (props) => {
         });
       } else if (fieldWorkerListResponseData.responseData === null) {
         props.getAllFieldWorkerListAPIHandler({
-          isFieldWorkerListRecieved: null,
+          isFieldWorkerListRecieved: false,
           fieldWorkerListData: null,
           errorMessage: fieldWorkerListResponseData.responseError.message,
         });
@@ -58,7 +62,8 @@ const GetFieldWorkerFollowUpsAPICall = async (props) => {
         props.getFieldWorkerFollowUpsAPIHandler({
           isFollowUpsDataRecieved: null,
           FollowUpsData: null,
-          errorMessage: getFieldWorkerFollowUpsResponseData.responseError.message,
+          errorMessage:
+            getFieldWorkerFollowUpsResponseData.responseError.message,
         });
       }
     },
@@ -74,7 +79,8 @@ const GetUnassignedPatientListAPICall = async (props) => {
   //We have to use this id in API Calls...
   const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
 
-  const modifiedChildURL = "unassignedPatients/" + UtilitiesMethods.getUSerIDForLoggedInUser();//+ supervisorID;
+  const modifiedChildURL =
+    "unassignedPatients/" + UtilitiesMethods.getUSerIDForLoggedInUser(); //+ supervisorID;
 
   console.log(modifiedChildURL);
 

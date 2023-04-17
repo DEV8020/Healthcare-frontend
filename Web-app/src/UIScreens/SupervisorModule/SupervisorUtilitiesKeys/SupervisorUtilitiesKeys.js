@@ -4,7 +4,7 @@
 const getFieldWorkerRegistrationDataKeys = () => {
   return {
     nameKey: "name",
-    userIDKey: "userId",
+    userIDKey: "username",
     contactKey: "contact",
     passwordKey: "password",
     addressKey: "address",

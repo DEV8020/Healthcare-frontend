@@ -59,13 +59,26 @@ const getDoctorAPIChildURLKeys = () => {
 };
 
 
+//Supervisor Menu Options API Child URL Keys...
+const getSupervisorAPIChildURLKeys = () => {
+  return {
+    supervisorAddFieldWorkerAPIKey: "supervisor/addFieldWorker/",
+    supervisorGetFieldWorkerListAPIKey: "supervisor/getFieldWorkers/",
+    // /supervisor/getFieldWorkers/{SupervisorUserName}
+  };
+};
+
+// /supervisor/addFieldWorker/{SupervisorUsername}
+
+
 
 const APIURLUtilities = {
   getAPIChildURLKeys,
   getSuperAdminAPIChildURLKeys,
   getAdminAPIChildURLKeys,
   getFrontDeskAPIChildURLKeys,
-  getDoctorAPIChildURLKeys
+  getDoctorAPIChildURLKeys,
+  getSupervisorAPIChildURLKeys
 };
 
 export default APIURLUtilities;
