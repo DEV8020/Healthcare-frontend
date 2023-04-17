@@ -3,10 +3,13 @@ import { useEffect, useState } from "react";
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
-
 const ViewHistory = (props) => {
+  const [historyData, setHistoryData] = useState([]);
 
-const [historyData, setHistoryData] = useState([]);
+  historyData.map((hsitory) => {
+    console.log("historyData.map((hsitory)");
+    console.log(hsitory);
+  });
 
   useEffect(() => {
     DoctorAPIHandler.getPatientHistoryUpdates({
@@ -17,9 +20,14 @@ const [historyData, setHistoryData] = useState([]);
 
   const patientHistoryAPIResponseHandler = (patientHistoryData) => {
     if (patientHistoryData.isHistoryDataRecieved === false) {
-      showMessageAtBottomBar({message : patientHistoryData.errorMessage, isErrorMessage : true});
+      showMessageAtBottomBar({
+        message: patientHistoryData.errorMessage,
+        isErrorMessage: true,
+      });
       return;
     }
+    console.log("patientHistoryData");
+    console.log(patientHistoryData);
     setHistoryData(patientHistoryData.historyData);
   };
 
@@ -32,7 +40,6 @@ const [historyData, setHistoryData] = useState([]);
     });
   };
 
-
   return (
     <div className={classes.center}>
       <h2> Patient History</h2>
@@ -40,14 +47,16 @@ const [historyData, setHistoryData] = useState([]);
       {historyData.length === 0 && (
         <div>
           {" "}
-          <h3 style={{textAlign:"center"}}>No history to display. Please add some to proceed.</h3>
+          <h3 style={{ textAlign: "center" }}>
+            No history to display. Please add some to proceed.
+          </h3>
         </div>
       )}
 
       <div className={classes.ul}>
         {historyData.map((history) => (
           <div key={history.d_id} className={classes.plist}>
-            <div>Doctor ID : {history.doctor.userId}</div>
+            <div>Doctor ID : {history.doctor.username}</div>
             <div>Patient Name : {history.patient.name}</div>
             <div>Symptoms : {history.symptoms}</div>
             <div>Prescription : {history.prescription}</div>

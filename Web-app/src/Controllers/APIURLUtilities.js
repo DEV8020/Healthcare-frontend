@@ -52,6 +52,9 @@ const getDoctorAPIChildURLKeys = () => {
     doctorGetEncounterListAPIKey: "doctor/pendingQueue/",
     doctorAddEncounterAPIKey: "doctor/addEncounter/",
     doctorSaveEncounterAPIKey: "doctor/saveEncounter",
+    doctorGetMedcialHistoryAPIKey: "doctor/getMedicalHistory/",
+
+    // Endpoint: http://localhost:9191/doctor/getMedicalHistory/{PatientId}
   };
 };
 

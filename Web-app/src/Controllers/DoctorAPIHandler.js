@@ -72,7 +72,9 @@ const getDoctorEncounterUpdates = async (props) => {
 
 //Register Field Worker In Supervisor Menu API Handler Method...
 const getPatientHistoryUpdates = async (props) => {
-  var childURL = "getMedicalHistory/" + props.patientID;
+  var childURL =
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetMedcialHistoryAPIKey +
+    props.patientID;
   console.log(childURL);
 
   await GlobalServiceHandler.hitCustomResponseGetService({
@@ -159,7 +161,8 @@ const savePatientEncounterData = async (props) => {
   //   return;
 
   await GlobalServiceHandler.hitPutService({
-    childURL: APIURLUtilities.getDoctorAPIChildURLKeys().doctorSaveEncounterAPIKey,
+    childURL:
+      APIURLUtilities.getDoctorAPIChildURLKeys().doctorSaveEncounterAPIKey,
     postData: patientEncounterData,
     responseDataHandler: (createdEncounterData) => {
       console.log(
