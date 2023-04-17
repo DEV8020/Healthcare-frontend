@@ -64,6 +64,12 @@ const getSupervisorAPIChildURLKeys = () => {
   return {
     supervisorAddFieldWorkerAPIKey: "supervisor/addFieldWorker/",
     supervisorGetFieldWorkerListAPIKey: "supervisor/getFieldWorkers/",
+    supervisorGetFieldWorkerFollowUpListAPIKey: "supervisor/getFollowUpsForFieldWorker/",
+    supervisorGetUnassignedPatientsListAPIKey: "supervisor/unassignedPatients/",
+    supervisorAssignFollowUpAPIKey: "supervisor/assignFollowUp/",
+
+    // /supervisor/assignFollowUp/{fieldWorkerId}/{patientId}
+    // /fieldworker/getFollowUpsForFieldWorker/{fieldworkerId}
     // /supervisor/getFieldWorkers/{SupervisorUserName}
   };
 };

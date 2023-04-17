@@ -44,10 +44,12 @@ const GetFieldWorkerFollowUpsAPICall = async (props) => {
   const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
 
   const modifiedChildURL =
-    "getFollowUpsForFieldWorker/" + props.fieldWorkerData.authId;
+    APIURLUtilities.getSupervisorAPIChildURLKeys()
+      .supervisorGetFieldWorkerFollowUpListAPIKey +
+    props.fieldWorkerData.authId;
 
   console.log(modifiedChildURL);
-  await GlobalServiceHandler.hitGetService({
+  await GlobalServiceHandler.hitCustomResponseGetService({
     childURL: modifiedChildURL,
     responseDataHandler: (getFieldWorkerFollowUpsResponseData) => {
       console.log("addPatientEncounterResponseData");
@@ -77,19 +79,21 @@ const GetUnassignedPatientListAPICall = async (props) => {
   console.log(props.fieldWorkerData);
   //This methos will give the supervisor id when its logged in...
   //We have to use this id in API Calls...
-  const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
+  // const supervisorID = UtilitiesMethods.getSupervisorIDForGlobalUserAPICalls();
 
   const modifiedChildURL =
-    "unassignedPatients/" + UtilitiesMethods.getUSerIDForLoggedInUser(); //+ supervisorID;
+    APIURLUtilities.getSupervisorAPIChildURLKeys()
+      .supervisorGetUnassignedPatientsListAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser(); //+ supervisorID;
 
   console.log(modifiedChildURL);
 
-  await GlobalServiceHandler.hitGetService({
+  await GlobalServiceHandler.hitCustomResponseGetService({
     childURL: modifiedChildURL,
     responseDataHandler: (unAssignedFollowUpsResponseData) => {
       // console.log("addPatientEncounterResponseData");
       console.log(unAssignedFollowUpsResponseData);
-      console.log(unAssignedFollowUpsResponseData.responseData.data);
+      // console.log(unAssignedFollowUpsResponseData.responseData.data);
       if (unAssignedFollowUpsResponseData.responseError === null) {
         props.getUnassignedFollowUpsAPIHandler({
           isUnassignedListRecieved: true,
@@ -99,7 +103,7 @@ const GetUnassignedPatientListAPICall = async (props) => {
         });
       } else if (unAssignedFollowUpsResponseData.responseData === null) {
         props.getUnassignedFollowUpsAPIHandler({
-          isUnassignedListRecieved: null,
+          isUnassignedListRecieved: false,
           UnAssignedFollowUpData: null,
           errorMessage: unAssignedFollowUpsResponseData.responseError.message,
         });
@@ -144,7 +148,7 @@ const GetSupervisorUnassignedFollowUpsAPICall = async (props) => {
 
 const AssignUnAssignedFollowUpAPICall = async (props) => {
   const modifiedChildURL =
-    "assignFollowUp/" +
+    APIURLUtilities.getSupervisorAPIChildURLKeys().supervisorAssignFollowUpAPIKey +
     props.unassignedPatientData.fieldWorkerID +
     "/" +
     props.unassignedPatientData.patientId;

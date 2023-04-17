@@ -3,7 +3,6 @@ import classes from "./NewFollowUpAssign.module.css";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UnAssignedFollowUpCell from "../../../ReusableComponents/SupervisorModule/UnassignedFollowUpCell/UnAssignedFollowUpCell";
 
-
 const NewFollowUpAssign = (props) => {
   const [unAssignedFollowUpsData, setUnAssignedFollowUpsData] = useState([]);
   const [
@@ -22,6 +21,9 @@ const NewFollowUpAssign = (props) => {
 
   //Corresponding API Call Handler...
   const getUnassignedFollowUpsAPIHandler = (unAssignedFollowUpsData) => {
+
+  if(unAssignedFollowUpsData.isUnassignedListRecieved === true){
+
     setUnAssignedFollowUpsData(unAssignedFollowUpsData.UnAssignedFollowUpData);
     const modifiedData = unAssignedFollowUpsData.UnAssignedFollowUpData.map(
       (patientData) => {
@@ -29,6 +31,23 @@ const NewFollowUpAssign = (props) => {
       }
     );
     setUnAssignedFollowUpsData(modifiedData);
+  }else{
+    setUnAssignedFollowUpsData([]);
+    props.showMessageAtBottomBar({
+      message: unAssignedFollowUpsData.errorMessage,
+      isErrorMessage: true,
+    });
+  }
+
+
+
+
+    // setUnAssignedFollowUpsData([]);
+    // if (unAssignedFollowUpsData.isUnassignedListRecieved === false) {
+    //   return;
+    // }
+
+    
   };
 
   //########################  Unassigned Patient Follow Ups Ends Here  ########################
@@ -63,8 +82,6 @@ const NewFollowUpAssign = (props) => {
     });
   };
 
-  
-
   return (
     <>
       {
@@ -85,6 +102,7 @@ const NewFollowUpAssign = (props) => {
                   unassignedFollowUpData={unassignedFollowUpData}
                   showMessageAtBottomBar={props.showMessageAtBottomBar}
                   AssignFollowUpHandler={AssignFollowUpHandler}
+                  key = {unassignedFollowUpData.patientId}
                 ></UnAssignedFollowUpCell>
               </>
             ))}
