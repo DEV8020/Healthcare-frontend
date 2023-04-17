@@ -44,11 +44,25 @@ const getFrontDeskAPIChildURLKeys = () => {
 };
 
 
+//Doctor Menu Options API Child URL Keys...
+const getDoctorAPIChildURLKeys = () => {
+  return {
+    doctorGetFollowedUpListAPIKey: "doctor/getListOfFollowUpsAssignedBy/",
+    doctorCreateEncounterAPIKey: "doctor/addEncounters/",
+    doctorGetEncounterListAPIKey: "doctor/pendingQueue/",
+    doctorAddEncounterAPIKey: "doctor/addEncounter/",
+    doctorSaveEncounterAPIKey: "doctor/saveEncounter",
+  };
+};
+
+
+
 const APIURLUtilities = {
   getAPIChildURLKeys,
   getSuperAdminAPIChildURLKeys,
   getAdminAPIChildURLKeys,
-  getFrontDeskAPIChildURLKeys
+  getFrontDeskAPIChildURLKeys,
+  getDoctorAPIChildURLKeys
 };
 
 export default APIURLUtilities;

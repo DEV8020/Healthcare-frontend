@@ -18,11 +18,11 @@ const NewEncounterCell = (props) => {
 
   return (
     <div key={props.encounterUserData.pendingQueueId}>
-      <div className={classes.plist} key={props.encounterUserData.pendingQueueId}> 
-        <div>Name:{props.encounterUserData.patient.name}</div>
-        <div>Age:{props.encounterUserData.patient.age}</div>
-        <div>Sex:{props.encounterUserData.patient.sex}</div>
-        <div>Contact:{props.encounterUserData.patient.contact}</div>
+      <div className={classes.plist} > 
+        <div>Name : {props.encounterUserData.patient.name}</div>
+        <div>Age : {props.encounterUserData.patient.age}</div>
+        <div>Sex : {props.encounterUserData.patient.sex}</div>
+        <div>Contact : {props.encounterUserData.patient.contact}</div>
       </div>
       <AddButton
         key={props.encounterUserData.patient.patientId}
