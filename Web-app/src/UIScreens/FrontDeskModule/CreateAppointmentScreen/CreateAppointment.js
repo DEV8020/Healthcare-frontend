@@ -5,9 +5,14 @@ import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmit
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import AddSmallButton from "../../../Component/FrontDeskModule/AddButton/AddSmallButton";
 
 const CreateAppointment = (props) => {
   const [PatientId, setPatientId] = useState("");
+
+  //Search Bar Fucntionality variable...
+  const [searchPatientByName, setSearchPatientByName] = useState("");
+  //Search Bar Fucntionality variable ends here...
 
   const PatientIdChangeHandler = (event) => {
     setPatientId(event.target.value);
@@ -15,6 +20,7 @@ const CreateAppointment = (props) => {
   };
 
   const AddAppointmentHandler = (event) => {
+    console.log("AddAppointmentHandler called");
     event.preventDefault();
 
     const encounterData = {
@@ -79,7 +85,8 @@ const CreateAppointment = (props) => {
 
     if (UtilitiesMethods.getSpaceTrimmedLenght(PatientId) === 0) {
       showErrorMessageScreen({
-        message: "Please enter Patiend Id to view details. It can't be left blank.",
+        message:
+          "Please enter Patiend Id to view details. It can't be left blank.",
         isErrorMessage: true,
       });
       return;
@@ -88,20 +95,60 @@ const CreateAppointment = (props) => {
     props.setPatientDetailsView(true);
   };
 
+  //Search Bar Functionality...
+
+  const SearchPatientByNameChangeHandler = (event) => {
+    setSearchPatientByName(event.target.value);
+  };
+  const SearchPatientByNameButtonHandler = (event) => {
+    event.preventDefault();
+    console.log("SearchPatientByNameButtonHandler");
+    // console.log(searchPatientByName);
+    //search Button logic
+  };
+  //Search Bar Functionality ends here...
+
   return (
     <div>
       <div className={classes.center}>
         <h1>Appointment</h1>
 
+
+        <form onSubmit={SearchPatientByNameButtonHandler}>
+
+        <InputField
+          type="text"
+          label="Search Patient by name"
+          value={searchPatientByName}
+          onChange={SearchPatientByNameChangeHandler}
+        />
+        <MenuSubmitButton
+          value="Search"
+        />
+
+</form> 
+
         <form onSubmit={AddAppointmentHandler}>
+
+        {/* <InputField
+          type="text"
+          label="Search Patient by name"
+          value={searchPatientByName}
+          onChange={SearchPatientByNameChangeHandler}
+        />
+        <AddSmallButton
+          value="Search"
+          onClick={() => SearchPatientByNameButtonHandler(searchPatientByName)}
+        /> */}
+
           <InputField
             type="text"
             label="PatientId"
             value={PatientId}
             onChange={PatientIdChangeHandler}
           />
-
           <MenuSubmitButton value="Create Appointment" />
+
           <AddButton
             value="Details"
             onClick={() => getPatientDetailsHandler(PatientId)}
