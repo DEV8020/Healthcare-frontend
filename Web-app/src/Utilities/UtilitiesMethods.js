@@ -1,4 +1,5 @@
 import MessageComponent from "../Components/Screens/MessageComponent/MessageComponent";
+import UtilitiesKeys from "./UtilitiesKeys";
 
 const getSpaceTrimmedLenght = (stringToMeasure) => {
   const lengthOfSpace = stringToMeasure.replace(/\s/g, "").length;
@@ -45,6 +46,14 @@ const getUserNameForLoggedInUser = () => {
   return localStorage.getItem("username");
 };
 
+const getErrorMessageKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().messageKey];
+};
+
+const getIsMessageErrorMessageKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey];
+};
+
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
   showMessageBarAtTheBottom,
@@ -53,7 +62,9 @@ const UtilitiesMethods = {
   cleanUpUserDataOnLogOut,
   getUSerIDForLoggedInUser,
   getAuthTokenForLoggedInUser,
-  getUserNameForLoggedInUser
+  getUserNameForLoggedInUser,
+  getErrorMessageKey,
+  getIsMessageErrorMessageKey,
 };
 
 export default UtilitiesMethods;

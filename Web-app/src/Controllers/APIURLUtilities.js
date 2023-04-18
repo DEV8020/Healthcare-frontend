@@ -53,8 +53,6 @@ const getDoctorAPIChildURLKeys = () => {
     doctorAddEncounterAPIKey: "doctor/addEncounter/",
     doctorSaveEncounterAPIKey: "doctor/saveEncounter",
     doctorGetMedcialHistoryAPIKey: "doctor/getMedicalHistory/",
-
-    // Endpoint: http://localhost:9191/doctor/getMedicalHistory/{PatientId}
   };
 };
 
@@ -67,15 +65,9 @@ const getSupervisorAPIChildURLKeys = () => {
     supervisorGetFieldWorkerFollowUpListAPIKey: "supervisor/getFollowUpsForFieldWorker/",
     supervisorGetUnassignedPatientsListAPIKey: "supervisor/unassignedPatients/",
     supervisorAssignFollowUpAPIKey: "supervisor/assignFollowUp/",
-
-    // /supervisor/assignFollowUp/{fieldWorkerId}/{patientId}
-    // /fieldworker/getFollowUpsForFieldWorker/{fieldworkerId}
-    // /supervisor/getFieldWorkers/{SupervisorUserName}
+    supervisorGetFieldWorkerAssignedPatientsAPIKey: "supervisor/getPatientsByFieldWorker/",
   };
 };
-
-// /supervisor/addFieldWorker/{SupervisorUsername}
-
 
 
 const APIURLUtilities = {

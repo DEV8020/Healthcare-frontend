@@ -12,75 +12,9 @@ import UtilitiesKeys from "./Utilities/UtilitiesKeys";
 import LoginUtilities from "./UIScreens/LoginModule/LoginUtilities/LoginUtilities";
 
 function App() {
-  // const pList = [
-  //   {
-  //     p_id: "p1",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   { p_id: "p2", name: "john", age: 12, sex: "m", contact: 1234567890 },
-  //   {
-  //     p_id: "p3",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p4",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p5",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p6",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p7",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p8",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p9",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  //   {
-  //     p_id: "p10",
-  //     name: "john",
-  //     age: 12,
-  //     sex: "m",
-  //     contact: 1234567890,
-  //   },
-  // ];
+
 
   const [user, setUser] = useState(null);
-  // const [patientList, setPatientList] = useState([]);
   const [alertFlag, setAlertFlag] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -93,19 +27,10 @@ function App() {
 
   const showBottomMessageBar = (errorMessageData) => {
     console.log(errorMessageData);
-    // console.log(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageKey]);
     setAlertMessage(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageKey]);
     setAlertFlag(true);
   };
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     if (user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === "doctor") {
-  //       setPatientList(pList);
-  //     }
-  //   }
-  //   fetchData();
-  // }, [user]);
 
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -165,8 +90,6 @@ function App() {
         <AdminScreen
           user={user}
           setUser={setUser}
-          // setAlertFlag={setAlertFlag}
-          // setAlertMessage={setAlertMessage}
           showBottomMessageBar={showBottomMessageBar}
         />
       )}
@@ -175,8 +98,7 @@ function App() {
         <SuperVisorScreen
           user={user}
           setUser={setUser}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
         />
       )}
     </>

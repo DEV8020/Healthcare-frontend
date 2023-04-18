@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NewFollowUpAssign from "../NewFollowUpAssignmentScreen/NewFollowUpAssign";
 import classes from "./SuperVisorScreen.module.css";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 import Button from "../../../Components/Screens/UI Elements/Button/Button";
 import FieldWorkerList from "../FieldWorkerListScreen/FieldWorkerList";
-import FieldWorkerDetails from "../../../Components/Screens/FieldWorker/FieldWorkerDetails";
+import FieldWorkerDetails from "../FieldWorkerDetailScreen/FieldWorkerDetails";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import FieldWorkerRegistration from "../FieldWorkerRegistrationScreen/FieldWorkerRegistration";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const SuperVisorScreen = (props) => {
   const [superVisorOption, setSuperVisorOption] = useState("superVisor");
   const [fieldWorkerStatus, setFieldWorkerStatus] = useState(false);
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
   const [fieldWorkerFollowUpsList, setFieldWorkerFollowUpsList] = useState([]);
+  const [isShowAssignedPatientList, setIsShowAssignedPatientList] =
+    useState(false);
+  const [fieldWorkerAssignedPatientsList, setFieldWorkerAssignedPatientsList] =
+    useState([]);
+
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
-    console.log("loadFieldWorkerDetailsData");
-    console.log(fieldWorkerData);
+    // console.log("loadFieldWorkerDetailsData");
+    // console.log(fieldWorkerData);
+
+    resetFieldWorkerDataList();
 
     SupervisorAPIHandler.GetFieldWorkerFollowUpsAPICall({
       fieldWorkerData: fieldWorkerData,
@@ -26,32 +34,91 @@ const SuperVisorScreen = (props) => {
   };
 
   const getFieldWorkerFollowUpsAPIHandler = (fieldWorkerDetailsData) => {
-    console.log("UnassignedFollowUpsData added called response");
-    console.log(fieldWorkerDetailsData);
-    console.log(fieldWorkerDetailsData.FollowUpsData);
+    // console.log("UnassignedFollowUpsData added called response");
+    // console.log(fieldWorkerDetailsData);
+    // console.log(fieldWorkerDetailsData.FollowUpsData);
 
-    if (fieldWorkerDetailsData.isFollowUpsDataRecieved === true) {
-      setFieldWorkerFollowUpsList(fieldWorkerDetailsData.FollowUpsData);
-    } else {
+    if (fieldWorkerDetailsData.isFollowUpsDataRecieved === false) {
       showMessageAtBottomBar({
         message: fieldWorkerDetailsData.errorMessage,
         isErrorMessage: true,
       });
     }
+    setFieldWorkerFollowUpsList(fieldWorkerDetailsData.FollowUpsData);
   };
 
   const showMessageAtBottomBar = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    console.log(prop);
+    props.showBottomMessageBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
 
+  const fieldWorkerDetailsButtonClickedInChildView = (fieldWorkerData) => {
+    console.log("fieldWorkerDetailsButtonClickedInChildView");
+    console.log(fieldWorkerData);
+    resetFieldWorkerDataList();
+
+    showMessageAtBottomBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        "Selected Field Worker : " + fieldWorkerData.name,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+    });
+    setFieldWorkerStatus(true);
+    loadFieldWorkerDetailsData(fieldWorkerData);
+  };
+
+
+  const fieldWorkerAssignedPatientListHandler = (fieldWorkerData) => {
+    console.log("fieldWorkerAssignedPatientListHandler");
+    console.log(fieldWorkerData);
+
+    showMessageAtBottomBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        "Selected Field Worker : " + fieldWorkerData.name,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+    });
+    resetFieldWorkerDisplaySideView();
+    setIsShowAssignedPatientList(true);
+    loadFieldWorkerAssignedPatientData(fieldWorkerData);
+  };
+
+
+
+
+  
+  const loadFieldWorkerAssignedPatientData = (fieldWorkerData) => {
+    console.log("loadFieldWorkerDetailsData");
+    console.log(fieldWorkerData);
+    resetFieldWorkerDataList();
+
+    SupervisorAPIHandler.GetFieldWorkerAssignedPatientsListAPICall({
+      fieldWorkerData: fieldWorkerData,
+      getAssignedPatientsAPIHandler: getAssignedPatientsAPIHandler,
+    });
+  };
+
+  const getAssignedPatientsAPIHandler = (fieldWorkerAssignedPatientsData) => {
+    console.log("fieldWorkerAssignedPatientsData");
+    console.log(fieldWorkerAssignedPatientsData);
+    if (fieldWorkerAssignedPatientsData.isPatientsListRecieved === false) {
+      showMessageAtBottomBar({
+        message: fieldWorkerAssignedPatientsData.errorMessage,
+        isErrorMessage: true,
+      });
+    } 
+    setFieldWorkerAssignedPatientsList(fieldWorkerAssignedPatientsData.assignedPatientsListData);
+  };
+
+
+
+
   const NewFollowUpAssignButtonHandler = () => {
     setSuperVisorOption("NewFollowUpAssign");
-    setFieldWorkerStatus(false);
+    resetFieldWorkerDisplaySideView();
   };
   const FieldWorkerListButtonHandler = () => {
     setSuperVisorOption("FieldWorkerList");
@@ -59,6 +126,18 @@ const SuperVisorScreen = (props) => {
 
   const FieldWorkerRegistrationButtonHandler = () => {
     setSuperVisorOption("FieldWorkerRegistration");
+    resetFieldWorkerDisplaySideView();
+  };
+
+  const resetFieldWorkerDataList = () => {
+     setFieldWorkerAssignedPatientsList([]);
+    setFieldWorkerFollowUpsList([]);
+  }
+
+  const resetFieldWorkerDisplaySideView = () => {
+    resetFieldWorkerDataList();
+    setFieldWorkerStatus(false);
+    setIsShowAssignedPatientList(false);
   };
 
   const logoutSV = () => {
@@ -97,22 +176,16 @@ const SuperVisorScreen = (props) => {
         <NewFollowUpAssign
           superVisorOption={superVisorOption}
           setSuperVisorOption={setSuperVisorOption}
-          setAlertFlag={props.setAlertFlag}
-          setAlertMessage={props.setAlertMessage}
           showMessageAtBottomBar={showMessageAtBottomBar}
-          //assignPendingFollowUpHandler={assignPendingFollowUpHandler}
         />
       )}
       {superVisorOption === "FieldWorkerList" && (
         <FieldWorkerList
-          superVisorOption={superVisorOption}
-          setSuperVisorOption={setSuperVisorOption}
-          setAlertFlag={props.setAlertFlag}
-          setAlertMessage={props.setAlertMessage}
-          setFieldWorkerStatus={setFieldWorkerStatus}
           fieldWorkerList={fieldWorkerList}
-          showMessageAtBottomBar={showMessageAtBottomBar}
-          loadFieldWorkerDetailsData={loadFieldWorkerDetailsData}
+          fieldWorkerDetailsButtonClickedInChildView={
+            fieldWorkerDetailsButtonClickedInChildView
+          }
+          fieldWorkerAssignedPatientListHandler={fieldWorkerAssignedPatientListHandler}
         />
       )}
       {superVisorOption === "FieldWorkerRegistration" && (
@@ -123,10 +196,12 @@ const SuperVisorScreen = (props) => {
           setAlertMessage={props.setAlertMessage}
         />
       )}
-      {fieldWorkerStatus === true && (
+      {(fieldWorkerStatus === true || isShowAssignedPatientList === true) && (
         <FieldWorkerDetails
           fieldWorkerFollowUpsList={fieldWorkerFollowUpsList}
           showMessageAtBottomBar={showMessageAtBottomBar}
+          fieldWorkerAssignedPatientsList={fieldWorkerAssignedPatientsList}
+          isFieldWorkerDetailViewSelected={fieldWorkerStatus}
         />
       )}
     </div>

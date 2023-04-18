@@ -193,8 +193,6 @@ const hitGetService = async (props) => {
         responseError: null,
       });
     } else {
-      // responseData: null,
-      //   responseError: Error(response.data.message),
       props.responseDataHandler({
         responseData: null,
         responseError: Error(response.data.message),
@@ -208,6 +206,8 @@ const hitGetService = async (props) => {
   }
 };
 
+
+//Method to Hit the GET request in the API...
 const hitCustomResponseGetService = async (props) => {
   try {
     const url = serverURL + props.childURL;
@@ -216,47 +216,19 @@ const hitCustomResponseGetService = async (props) => {
     console.log(url);
     console.log(UtilitiesMethods.getAuthTokenForLoggedInUser());
 
-    // const headers = {
-    //   Authorization: `Bearer ${UtilitiesMethods.getAuthTokenForLoggedInUser()}`,
-    // };
-
     const response = await axios.get(
       url,
       GlobalServiceHandler.getHeaderConfigurationsList()
     );
-    //   {
-    //   headers: {
-    //     Authorization:
-    //       "Bearer " + UtilitiesMethods.getAuthTokenForLoggedInUser(),
-    //   },
-    //   validateStatus: function (status) {
-    //     return status == 200 || status == 404;
-    //     // Resolve only if the status code is 202 or 404...
-    //   },
-    // }
-    // );
 
     console.log("Data recieved");
     console.log(response);
 
-    if (response.status === 200) {
-      props.responseDataHandler({
-        responseData: response,
-        responseError: null,
-      });
-    } else if (response.status === 404) {
-      // console.log("404 response hitCustomResponseGetService");
-      // console.log(response.data.message);
-      props.responseDataHandler({
-        responseData: null,
-        responseError: Error(response.data.message),
-      });
-    } else {
-      props.responseDataHandler({
-        responseData: response,
-        responseError: null,
-      });
-    }
+    //Call the Global Method for Handling the API response...
+    handleAPICallReponseData({
+      response: response,
+      responseHandler: props.responseDataHandler,
+    });
   } catch (error) {
     props.responseDataHandler({
       responseData: null,
@@ -265,6 +237,27 @@ const hitCustomResponseGetService = async (props) => {
   }
 };
 
+
+
+
+//Method to handle the response of the API Calls...
+const handleAPICallReponseData = (prop) => {
+  if (prop.response.status === 200) {
+    prop.responseHandler({
+      responseData: prop.response,
+      responseError: null,
+    });
+  } 
+  else{
+    prop.responseDataHandler({
+      responseData: null,
+      responseError: Error(prop.response.data.message),
+    });
+  }
+};
+
+
+//Method to Hit the PUT request in the API...
 const hitPutService = async (props) => {
   try {
     const url = serverURL + props.childURL;
@@ -281,31 +274,11 @@ const hitPutService = async (props) => {
     console.log("Data recieved");
     console.log(response);
 
-    if (response.status === 200) {
-      props.responseDataHandler({
-        responseData: response,
-        responseError: null,
-      });
-    } else {
-      // props.responseDataHandler({
-      //   responseData: null,
-      //   responseError: Error(response.data.message),
-      // });
-
-      console.log("else block");
-      console.log(response);
-      props.responseDataHandler({
-        responseData: null,
-        responseError: Error(response.data.message),
-      });
-    }
-
-    // {
-    //   props.responseDataHandler({
-    //     responseData: response,
-    //     responseError: null,
-    //   });
-    // }
+    //Call the Global Method for Handling the API response...
+    handleAPICallReponseData({
+      response: response,
+      responseHandler: props.responseDataHandler,
+    });
   } catch (error) {
     props.responseDataHandler({
       responseData: null,

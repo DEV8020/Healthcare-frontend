@@ -21,33 +21,23 @@ const NewFollowUpAssign = (props) => {
 
   //Corresponding API Call Handler...
   const getUnassignedFollowUpsAPIHandler = (unAssignedFollowUpsData) => {
-
-  if(unAssignedFollowUpsData.isUnassignedListRecieved === true){
-
-    setUnAssignedFollowUpsData(unAssignedFollowUpsData.UnAssignedFollowUpData);
-    const modifiedData = unAssignedFollowUpsData.UnAssignedFollowUpData.map(
-      (patientData) => {
-        return { ...patientData, ...{ fieldWorkerID: "" } };
-      }
-    );
-    setUnAssignedFollowUpsData(modifiedData);
-  }else{
-    setUnAssignedFollowUpsData([]);
-    props.showMessageAtBottomBar({
-      message: unAssignedFollowUpsData.errorMessage,
-      isErrorMessage: true,
-    });
-  }
-
-
-
-
-    // setUnAssignedFollowUpsData([]);
-    // if (unAssignedFollowUpsData.isUnassignedListRecieved === false) {
-    //   return;
-    // }
-
-    
+    if (unAssignedFollowUpsData.isUnassignedListRecieved === true) {
+      setUnAssignedFollowUpsData(
+        unAssignedFollowUpsData.UnAssignedFollowUpData
+      );
+      const modifiedData = unAssignedFollowUpsData.UnAssignedFollowUpData.map(
+        (patientData) => {
+          return { ...patientData, ...{ fieldWorkerID: "" } };
+        }
+      );
+      setUnAssignedFollowUpsData(modifiedData);
+    } else {
+      setUnAssignedFollowUpsData([]);
+      props.showMessageAtBottomBar({
+        message: unAssignedFollowUpsData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
   };
 
   //########################  Unassigned Patient Follow Ups Ends Here  ########################
@@ -102,7 +92,7 @@ const NewFollowUpAssign = (props) => {
                   unassignedFollowUpData={unassignedFollowUpData}
                   showMessageAtBottomBar={props.showMessageAtBottomBar}
                   AssignFollowUpHandler={AssignFollowUpHandler}
-                  key = {unassignedFollowUpData.patientId}
+                  key={unassignedFollowUpData.patientId}
                 ></UnAssignedFollowUpCell>
               </>
             ))}
