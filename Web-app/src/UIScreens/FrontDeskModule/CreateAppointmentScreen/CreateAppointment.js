@@ -5,13 +5,12 @@ import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmit
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-import AddSmallButton from "../../../Component/FrontDeskModule/AddButton/AddSmallButton";
 
 const CreateAppointment = (props) => {
   const [PatientId, setPatientId] = useState("");
 
   //Search Bar Fucntionality variable...
-  const [searchPatientByName, setSearchPatientByName] = useState("");
+  const [patientNameToBeSearched, setPatientNameToBeSearched] = useState("");
   //Search Bar Fucntionality variable ends here...
 
   const PatientIdChangeHandler = (event) => {
@@ -22,33 +21,22 @@ const CreateAppointment = (props) => {
   const AddAppointmentHandler = (event) => {
     console.log("AddAppointmentHandler called");
     event.preventDefault();
-
-    const encounterData = {
-      hospitalId: "1",
-      patientId: PatientId,
-    };
-
     FrontDeskAPIHandler.AddPatientEncounterAPICall({
-      encounterData: encounterData,
+      encounterData: {
+        patientId: PatientId,
+      },
       addPatientNewEncounterResponseCallBack:
         addPatientNewEncounterResponseCallBack,
     });
   };
 
   const showErrorMessageScreen = (propData) => {
-    // UtilitiesMethods.showMessageBarAtTheBottom();
-
-    // const showMessageBarAtTheBottom = (propData) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: propData.message,
-      isErrorMessage: propData.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showMessageBarAtTheBottom({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        propData[UtilitiesMethods.getErrorMessageKey()],
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
     });
-    // };
-    // console.log(isError);
-    // props.setAlertMessage(errorMessage);
-    // props.setAlertFlag(true);
   };
 
   const addPatientNewEncounterResponseCallBack = (
@@ -60,21 +48,24 @@ const CreateAppointment = (props) => {
     if (patientEncounterResponseData.errorMessage === null) {
       if (patientEncounterResponseData.isEncounterAdded === true) {
         showErrorMessageScreen({
-          message: "Appointment created for Patient ID : " + PatientId,
-          isErrorMessage: false,
+          [UtilitiesMethods.getErrorMessageKey()]:
+            "Appointment created for Patient ID : " + PatientId,
+          [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
         });
         setPatientId("");
       }
       if (patientEncounterResponseData.isEncounterAdded === false) {
         showErrorMessageScreen({
-          message: "Some error occured. Please try again later.",
-          isErrorMessage: false,
+          [UtilitiesMethods.getErrorMessageKey()]:
+            "Some error occured. Please try again later.",
+          [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
         });
       }
     } else if (patientEncounterResponseData.isEncounterAdded === null) {
       showErrorMessageScreen({
-        message: patientEncounterResponseData.errorMessage,
-        isErrorMessage: true,
+        [UtilitiesMethods.getErrorMessageKey()]:
+          patientEncounterResponseData.errorMessage,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
       });
     }
   };
@@ -85,9 +76,9 @@ const CreateAppointment = (props) => {
 
     if (UtilitiesMethods.getSpaceTrimmedLenght(PatientId) === 0) {
       showErrorMessageScreen({
-        message:
+        [UtilitiesMethods.getErrorMessageKey()]:
           "Please enter Patiend Id to view details. It can't be left blank.",
-        isErrorMessage: true,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
       });
       return;
     }
@@ -98,7 +89,8 @@ const CreateAppointment = (props) => {
   //Search Bar Functionality...
 
   const SearchPatientByNameChangeHandler = (event) => {
-    setSearchPatientByName(event.target.value);
+    setPatientNameToBeSearched(event.target.value);
+    props.setPatientDetailsView(false);
   };
   const SearchPatientByNameButtonHandler = (event) => {
     event.preventDefault();
@@ -113,24 +105,18 @@ const CreateAppointment = (props) => {
       <div className={classes.center}>
         <h1>Appointment</h1>
 
-
         <form onSubmit={SearchPatientByNameButtonHandler}>
-
-        <InputField
-          type="text"
-          label="Search Patient by name"
-          value={searchPatientByName}
-          onChange={SearchPatientByNameChangeHandler}
-        />
-        <MenuSubmitButton
-          value="Search"
-        />
-
-</form> 
+          <InputField
+            type="text"
+            label="Search Patient by name"
+            value={patientNameToBeSearched}
+            onChange={SearchPatientByNameChangeHandler}
+          />
+          <MenuSubmitButton value="Search" />
+        </form>
 
         <form onSubmit={AddAppointmentHandler}>
-
-        {/* <InputField
+          {/* <InputField
           type="text"
           label="Search Patient by name"
           value={searchPatientByName}

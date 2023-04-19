@@ -5,7 +5,7 @@ import classes from "./FrontDeskScreen.module.css";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 import Button from "../../../Components/Screens/UI Elements/Button/Button";
 import CreateAppointment from "../CreateAppointmentScreen/CreateAppointment";
-import PatientDetailsView from "../../../Components/Screens/Patient/PatientDetailsView";
+import PatientDetailsView from "../PatientDetailsScreen/PatientDetailsView";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FrontDeskScreen = (props) => {
@@ -70,8 +70,6 @@ const FrontDeskScreen = (props) => {
         <CreateAppointment
           frontDeskOption={frontDeskOption}
           setFrontDeskOption={setFrontDeskOption}
-          // setAlertMessage={props.setAlertMessage}
-          // setAlertFlag={props.setAlertFlag}
           setPatientDetailsView={setPatientDetailsView}
           setViewDetalsPatientID={setViewDetalsPatientID}
           showMessageBarAtTheBottom={showMessageBarAtTheBottom}

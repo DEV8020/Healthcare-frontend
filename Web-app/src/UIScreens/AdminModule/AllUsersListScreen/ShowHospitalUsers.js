@@ -2,7 +2,7 @@ import classes from "./ShowHospitalUsers.module.css";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import React, { useEffect, useState } from "react";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+// import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";

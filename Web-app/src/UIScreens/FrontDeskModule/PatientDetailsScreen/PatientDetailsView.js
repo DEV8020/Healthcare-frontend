@@ -1,8 +1,11 @@
 import classes from "./PatientDetailsView.module.css";
 import React, { useEffect, useState } from "react";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import ListDetailView from "../../GenericModule/UserDetailsScreen/ListDetailView";
+import SingleDataDetailView from "../../GenericModule/UserDetailsScreen/SingleDataDetailView";
+import FrontDeskUtilitiesMethods from "../FrontDeskUtilitiesKeys/FrontDeskUtilitiesMethods";
 
 const PatientDetailsView = (props) => {
   const [patientDetailsData, setPatientDetailsData] = useState({
@@ -18,7 +21,6 @@ const PatientDetailsView = (props) => {
   console.log(props.viewDetalsPatientID);
 
   useEffect(() => {
-    
     FrontDeskAPIHandler.GetPatientDetailsData({
       patientID: props.viewDetalsPatientID,
       getPatientDetailsResponseHandler: getPatientDetailsResponseHandler,
@@ -42,7 +44,7 @@ const PatientDetailsView = (props) => {
       props.setPatientDetailsView(false);
       return;
     }
-    
+
     setPatientDetailsData((patientDetailsData) => {
       console.log({
         ...patientDetailsData,
@@ -54,18 +56,29 @@ const PatientDetailsView = (props) => {
       };
     });
   };
-  
+  console.log(
+    "FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(patientDetailsData)"
+  );
+  console.log(
+    FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(
+      patientDetailsData
+    )
+  );
+
+  const employee = FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(
+    patientDetailsData
+  );
 
   return (
     <div className={classes.center}>
       <h2> Patient Details</h2>
       <div className={classes.ul}>
         <div className={classes.plist}>
-          <div>ID : {patientDetailsData.patientId}</div>
-          <div>Name : {patientDetailsData.name}</div>
-          <div>Age : {patientDetailsData.age}</div>
-          <div>Sex : {patientDetailsData.sex}</div>
-          <div>Contact : {patientDetailsData.contact}</div>
+          <SingleDataDetailView
+            detailData={FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(
+              patientDetailsData
+            )}
+          />
         </div>
         <AddButton
           value="Back"
