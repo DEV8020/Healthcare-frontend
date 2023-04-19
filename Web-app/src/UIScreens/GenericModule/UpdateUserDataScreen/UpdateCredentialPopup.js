@@ -10,6 +10,9 @@ import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const UpdateCredentialPopup = (props) => {
   // const [updatedUserId, setUpdatedUserId] = useState("");
@@ -278,10 +281,10 @@ const UpdateCredentialPopup = (props) => {
       <div className={classes.popup_content}>
         <h2> Update User Data </h2>
         <form onSubmit={UpdateCredentialSubmitHandler}>
-          <label htmlFor="userID">User ID:</label>
-          <input
+          {/* <label htmlFor="userID">User ID:</label> */}
+          <InputTextField
             type="text"
-            id="userID"
+            label="userID"
             value={
               userDataToBeUpdated[
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
@@ -292,10 +295,10 @@ const UpdateCredentialPopup = (props) => {
 
           {/*if userDatatoBeUpdated has userName field than this will be shown  */}
 
-          <label htmlFor="userName">Name:</label>
-          <input
+          {/* <label htmlFor="userName">Name:</label> */}
+          <InputTextField
             type="text"
-            id="userName"
+            label="userName"
             value={
               userDataToBeUpdated[
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
@@ -308,10 +311,10 @@ const UpdateCredentialPopup = (props) => {
             selectedUserType !==
               UtilitiesKeys.getUserTypeKeys().frontDeskKey && (
               <>
-                <label htmlFor="userContact">Contact:</label>
-                <input
+                {/* <label htmlFor="userContact">Contact:</label> */}
+                <InputTextField
                   type="text"
-                  id="userContact"
+                  label="userContact"
                   value={
                     userDataToBeUpdated[
                       SuperAdminUtilitiesKeys.getCreateUserDataKeys()
@@ -328,10 +331,10 @@ const UpdateCredentialPopup = (props) => {
             selectedUserType !== "Doctor" &&
             selectedUserType !== "Front Desk" && (
               <>
-                <label htmlFor="userAddress">Address:</label>
-                <input
+                {/* <label htmlFor="userAddress">Address:</label> */}
+                <InputTextField
                   type="text"
-                  id="userAddress"
+                  label="userAddress"
                   // value={userDataToBeUpdated.address}
                   value={
                     userDataToBeUpdated[
@@ -346,10 +349,10 @@ const UpdateCredentialPopup = (props) => {
 
           {selectedUserType === "Doctor" && (
             <>
-              <label htmlFor="licenseId">Doctor License ID:</label>
-              <input
+              {/* <label htmlFor="licenseId">Doctor License ID:</label> */}
+              <InputTextField
                 type="text"
-                id="licenseId"
+                label="licenseId"
                 value={userDataToBeUpdated.licId}
                 onChange={UpdatedUserLicenseIdChangeHandler}
               />
@@ -358,20 +361,20 @@ const UpdateCredentialPopup = (props) => {
 
           {selectedUserType === "Doctor" && (
             <>
-              <label htmlFor="specialisation">Doctor Specialization:</label>
-              <input
+              {/* <label htmlFor="specialisation">Doctor Specialization:</label> */}
+              <InputTextField
                 type="text"
-                id="specialisation"
+                label="specialisation"
                 value={userDataToBeUpdated.docSpecialization}
                 onChange={UpdatedUserSpecialisationChangeHandler}
               />
             </>
           )}
 
-          <label htmlFor="password">Password:</label>
-          <input
+          {/* <label htmlFor="password">Password:</label> */}
+          <InputTextField
             type="text"
-            id="password"
+            label="password"
             // value={userDataToBeUpdated.password}
             value={
               userDataToBeUpdated[
@@ -381,10 +384,8 @@ const UpdateCredentialPopup = (props) => {
             onChange={UpdatedUserPasswordChangeHandler}
           />
 
-          <input type="submit" value="Update" />
-          <button className={classes.close_btn} onClick={props.onClose}>
-            Close
-          </button>
+          <MenuSubmitButton value="Update" />
+          <MenuSubmitButton value="Cancel" onClick={props.onClose} />
         </form>
       </div>
     </div>
