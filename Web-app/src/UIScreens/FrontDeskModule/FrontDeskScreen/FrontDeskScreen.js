@@ -13,7 +13,6 @@ const FrontDeskScreen = (props) => {
   const [patientDetailsView, setPatientDetailsView] = useState(false);
   const [viewDetalsPatientID, setViewDetalsPatientID] = useState("");
 
-
   const PatientRegistrationButtonHandler = () => {
     setFrontDeskOption("PatientRegistration");
   };
@@ -21,12 +20,14 @@ const FrontDeskScreen = (props) => {
     setFrontDeskOption("CreateAppointment");
   };
 
+
+  //Message to display the Bottom Message Display Bar...
   const showMessageBarAtTheBottom = (propData) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: propData.message,
-      isErrorMessage: propData.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showBottomMessageBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        propData[UtilitiesMethods.getErrorMessageKey()],
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
     });
   };
 
@@ -69,10 +70,11 @@ const FrontDeskScreen = (props) => {
         <CreateAppointment
           frontDeskOption={frontDeskOption}
           setFrontDeskOption={setFrontDeskOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
           setPatientDetailsView={setPatientDetailsView}
           setViewDetalsPatientID={setViewDetalsPatientID}
+          showMessageBarAtTheBottom={showMessageBarAtTheBottom}
         />
       )}
       {patientDetailsView === true && (

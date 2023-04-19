@@ -65,8 +65,7 @@ function App() {
         <FrontDeskScreen
           user={user}
           setUser={setUser}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
         />
       )}
       {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().doctorTypeKey && (
