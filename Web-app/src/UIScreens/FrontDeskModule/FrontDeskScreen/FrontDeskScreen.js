@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import PatientRegistration from "./PatientRegistration";
 import PatientRegistration from "../PatientRegistrationScreen/PatientRegistration";
 import classes from "./FrontDeskScreen.module.css";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
@@ -7,26 +6,53 @@ import Button from "../../../Components/Screens/UI Elements/Button/Button";
 import CreateAppointment from "../CreateAppointmentScreen/CreateAppointment";
 import PatientDetailsView from "../PatientDetailsScreen/PatientDetailsView";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import PatientSearchList from "../PatientSearchListScreen/PatientSearchList";
 
 const FrontDeskScreen = (props) => {
   const [frontDeskOption, setFrontDeskOption] = useState("frontDesk");
   const [patientDetailsView, setPatientDetailsView] = useState(false);
   const [viewDetalsPatientID, setViewDetalsPatientID] = useState("");
+  const [isSearchViewEnabled, setIsSearchViewEnabled] = useState(false);
+  const [patientNameToSearch, setPatientNameToSearch] = useState("");
+  const [isDetailViewNeedRefresh, setIsDetailViewNeedRefresh] = useState(false);
 
   const PatientRegistrationButtonHandler = () => {
     setFrontDeskOption("PatientRegistration");
+    resetPatientDetailViewFlags();
   };
   const CreateAppointmentButtonHandler = () => {
     setFrontDeskOption("CreateAppointment");
+    resetPatientDetailViewFlags();
   };
 
+  const searchButtonPressHandler = (patientName) => {
+    console.log("searchButtonPressHandler");
+    console.log(patientName);
+    setIsDetailViewNeedRefresh((isRefresh) => {
+      return !isRefresh;
+    });
+    setPatientNameToSearch(patientName);
+    setIsSearchViewEnabled(true);
+  };
+
+  const resetPatientDetailViewFlags = () => {
+    setPatientDetailsView(false);
+    setIsSearchViewEnabled(false);
+  };
+
+  const patientDetailsButtonPressedHandler = (PatientId) => {
+    resetPatientDetailViewFlags();
+    setViewDetalsPatientID(PatientId);
+    setPatientDetailsView(true);
+    console.log("patientDetailsButtonPressedHandler");
+  };
 
   //Message to display the Bottom Message Display Bar...
   const showMessageBarAtTheBottom = (propData) => {
     props.showBottomMessageBar({
       [UtilitiesMethods.getErrorMessageKey()]:
         propData[UtilitiesMethods.getErrorMessageKey()],
-        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
     });
   };
@@ -70,9 +96,12 @@ const FrontDeskScreen = (props) => {
         <CreateAppointment
           frontDeskOption={frontDeskOption}
           setFrontDeskOption={setFrontDeskOption}
-          setPatientDetailsView={setPatientDetailsView}
-          setViewDetalsPatientID={setViewDetalsPatientID}
           showMessageBarAtTheBottom={showMessageBarAtTheBottom}
+          resetPatientDetailViewFlags={resetPatientDetailViewFlags}
+          searchButtonPressHandler={searchButtonPressHandler}
+          patientDetailsButtonPressedHandler={
+            patientDetailsButtonPressedHandler
+          }
         />
       )}
       {patientDetailsView === true && (
@@ -80,6 +109,13 @@ const FrontDeskScreen = (props) => {
           showMessageBarAtTheBottom={showMessageBarAtTheBottom}
           setPatientDetailsView={setPatientDetailsView}
           viewDetalsPatientID={viewDetalsPatientID}
+        />
+      )}
+
+      {isSearchViewEnabled === true && (
+        <PatientSearchList
+          isSearchViewEnabled={isSearchViewEnabled}
+          patientNameToSearch={patientNameToSearch}
         />
       )}
     </div>

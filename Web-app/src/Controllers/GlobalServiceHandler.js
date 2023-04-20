@@ -249,7 +249,7 @@ const handleAPICallReponseData = (prop) => {
     });
   } 
   else{
-    prop.responseDataHandler({
+    prop.responseHandler({
       responseData: null,
       responseError: Error(prop.response.data.message),
     });

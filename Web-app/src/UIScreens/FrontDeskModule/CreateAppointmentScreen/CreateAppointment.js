@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import classes from "./CreateAppointment.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 
 const CreateAppointment = (props) => {
   const [PatientId, setPatientId] = useState("");
-
   //Search Bar Fucntionality variable...
   const [patientNameToBeSearched, setPatientNameToBeSearched] = useState("");
   //Search Bar Fucntionality variable ends here...
 
-  const PatientIdChangeHandler = (event) => {
-    setPatientId(event.target.value);
-    props.setPatientDetailsView(false);
+  const PatientIdChangeHandler = (userData) => {
+    setPatientId(userData.patientId);
+    props.resetPatientDetailViewFlags();
   };
 
   const AddAppointmentHandler = (event) => {
     console.log("AddAppointmentHandler called");
     event.preventDefault();
+    
     FrontDeskAPIHandler.AddPatientEncounterAPICall({
       encounterData: {
         patientId: PatientId,
@@ -82,23 +83,21 @@ const CreateAppointment = (props) => {
       });
       return;
     }
-    props.setViewDetalsPatientID(PatientId);
-    props.setPatientDetailsView(true);
+    props.patientDetailsButtonPressedHandler(PatientId);
   };
 
-  //Search Bar Functionality...
-
-  const SearchPatientByNameChangeHandler = (event) => {
-    setPatientNameToBeSearched(event.target.value);
-    props.setPatientDetailsView(false);
-  };
   const SearchPatientByNameButtonHandler = (event) => {
     event.preventDefault();
-    console.log("SearchPatientByNameButtonHandler");
-    // console.log(searchPatientByName);
-    //search Button logic
+    props.searchButtonPressHandler(patientNameToBeSearched);
   };
-  //Search Bar Functionality ends here...
+
+
+  const searchTextFieldChangeHandler = (userNameData) => {
+    props.resetPatientDetailViewFlags();
+    setPatientNameToBeSearched(userNameData.name);
+  };
+
+
 
   return (
     <div>
@@ -106,33 +105,27 @@ const CreateAppointment = (props) => {
         <h1>Appointment</h1>
 
         <form onSubmit={SearchPatientByNameButtonHandler}>
-          <InputField
-            type="text"
+         
+          {/* Input Text Field for Patient Name to be Searched... */}
+          <InputTextField
             label="Search Patient by name"
+            mappedKey="name"
+            onChange={searchTextFieldChangeHandler}
             value={patientNameToBeSearched}
-            onChange={SearchPatientByNameChangeHandler}
           />
+
           <MenuSubmitButton value="Search" />
         </form>
 
         <form onSubmit={AddAppointmentHandler}>
-          {/* <InputField
-          type="text"
-          label="Search Patient by name"
-          value={searchPatientByName}
-          onChange={SearchPatientByNameChangeHandler}
-        />
-        <AddSmallButton
-          value="Search"
-          onClick={() => SearchPatientByNameButtonHandler(searchPatientByName)}
-        /> */}
 
-          <InputField
-            type="text"
+        <InputNumericTextField
             label="PatientId"
-            value={PatientId}
+            mappedKey="patientId"
             onChange={PatientIdChangeHandler}
+            value={PatientId}
           />
+
           <MenuSubmitButton value="Create Appointment" />
 
           <AddButton

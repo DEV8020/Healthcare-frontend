@@ -40,8 +40,10 @@ const getFrontDeskAPIChildURLKeys = () => {
     frontDeskPatientRegistrationAPIKey: "frontdesk/addPatients",
     frontDeskGetPatientsDetailAPIKey: "frontdesk/getPatientById/",
     frontDeskAddPatientEncounterAPIKey: "frontdesk/addPendingQueue/",
+    frontDeskSearchPatientByNameAPIKey: "frontdesk/getPatientsByName/",
   };
 };
+
 
 
 //Doctor Menu Options API Child URL Keys...

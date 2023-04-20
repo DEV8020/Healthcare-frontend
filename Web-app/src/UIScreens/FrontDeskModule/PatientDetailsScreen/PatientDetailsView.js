@@ -2,8 +2,6 @@ import classes from "./PatientDetailsView.module.css";
 import React, { useEffect, useState } from "react";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-import ListDetailView from "../../GenericModule/UserDetailsScreen/ListDetailView";
 import SingleDataDetailView from "../../GenericModule/UserDetailsScreen/SingleDataDetailView";
 import FrontDeskUtilitiesMethods from "../FrontDeskUtilitiesKeys/FrontDeskUtilitiesMethods";
 
@@ -17,23 +15,14 @@ const PatientDetailsView = (props) => {
     contact: "",
   });
 
-  console.log("viewDetalsPatientID in patient details view...");
-  console.log(props.viewDetalsPatientID);
-
   useEffect(() => {
     FrontDeskAPIHandler.GetPatientDetailsData({
       patientID: props.viewDetalsPatientID,
       getPatientDetailsResponseHandler: getPatientDetailsResponseHandler,
     });
-    console.log("use effect running");
-  }, [props.viewDetalsPatientID]);
+  }, []);
 
   const getPatientDetailsResponseHandler = (patientDetailsResponseData) => {
-    console.log("getPatientDetailsResponseHandler called");
-    console.log(patientDetailsResponseData.patientDetailsData);
-
-    console.log(patientDetailsResponseData);
-
     if (
       patientDetailsResponseData.isPatientDetailsRecievedSuccessFully === false
     ) {
@@ -56,18 +45,6 @@ const PatientDetailsView = (props) => {
       };
     });
   };
-  console.log(
-    "FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(patientDetailsData)"
-  );
-  console.log(
-    FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(
-      patientDetailsData
-    )
-  );
-
-  const employee = FrontDeskUtilitiesMethods.processPatientDetailDataToDisplay(
-    patientDetailsData
-  );
 
   return (
     <div className={classes.center}>
@@ -80,6 +57,7 @@ const PatientDetailsView = (props) => {
             )}
           />
         </div>
+
         <AddButton
           value="Back"
           onClick={() => {
