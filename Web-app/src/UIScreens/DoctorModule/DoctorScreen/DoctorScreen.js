@@ -162,13 +162,14 @@ const DoctorScreen = (props) => {
             <NewEncounter
               // doctorOption={doctorOption}
               // setDoctorOption={setDoctorOption}
-              setAlertMessage={props.setAlertMessage}
-              setAlertFlag={props.setAlertFlag}
+              // setAlertMessage={props.setAlertMessage}
+              // setAlertFlag={props.setAlertFlag}
               setCreateEncounter={setCreateEncounter}
               doctorEncounterData={doctorEncounterData}
               encounterCreateDataHandler={encounterCreateDataHandler}
               // refreshEncounterIDHandler={refreshEncounterIDHandler}
               selectedEncounterID={selectedEncounterID}
+              showMessageAtBottomBar={showMessageHandler}
             />
           )}
           {doctorOption ===

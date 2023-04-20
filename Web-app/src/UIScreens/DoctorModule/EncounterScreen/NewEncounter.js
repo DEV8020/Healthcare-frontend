@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./NewEncounter.module.css";
-import NewEncounterCell from "./NewEncounterCell";
+// import NewEncounterCell from "./NewEncounterCell";
+import NewEncounterCell from "./NewEncounterCell"
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+// import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const NewEncounter = (props) => {
   console.log("daddadaddada");
@@ -51,13 +53,13 @@ const NewEncounter = (props) => {
 
   return (
     <div className={classes.center}>
-      <h1> Create New Encounter</h1>
+      <h1> Create New Appointment</h1>
 
       {props.doctorEncounterData.length === 0 && (
         <div>
           {" "}
           <h3 style={{ textAlign: "center" }}>
-            No encounter to display. Please add some to proceed.
+            No encounter to display.
           </h3>
         </div>
       )}

@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-import PatientData from "./PatientData";
+// import PatientData from "./PatientData";
 import classes from "./EncounterScreen.module.css";
 import NavBar from "../UI Elements/NavBar/NavBar";
 import Button from "../UI Elements/Button/Button";
 import Prescription from "./Prescription";
 import ViewHistory from "./ViewHistory";
-import FollowUpUpdates from "./FollowUpUpdates";
+// import FollowUpUpdates from "./FollowUpUpdates";
 import AddFollowup from "./AddFollowup";
+import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
 // import AddFollowup from
+// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
 const EncounterScreen = (props) => {
   const [addFollowup, setAddFollowup] = useState(false);
-  const [encounterOption, setEncounterOption] = useState("");
+  const [encounterOption, setEncounterOption] = useState(
+    DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().createPrescriptionKey
+  );
   const [folloupsData, setFollowupsData] = useState({});
   const [doctorEncounterData, setDoctorEncounterData] = useState({
     prescription: "",
@@ -25,14 +29,15 @@ const EncounterScreen = (props) => {
   //   // AddFollowup
   // AddFollowup
   const PrescriptionButtonHandler = () => {
-    setEncounterOption("Prescription");
+    setEncounterOption(
+      DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().createPrescriptionKey
+    );
   };
   const ViewHistoryButtonHandler = () => {
-    setEncounterOption("ViewHistory");
+    setEncounterOption(
+      DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().viewHistoryKey
+    );
   };
-  // const FollowUpUpdatesButtonHandler = () => {
-  //   setEncounterOption("FollowUpUpdates");
-  // };
 
   console.log("props.selectedDoctorEncounterData in encounter screen");
   console.log(props.selectedDoctorEncounterData);
@@ -58,28 +63,44 @@ const EncounterScreen = (props) => {
         <h2> Encounter Menu</h2>
 
         <div className={classes.Encounter_menu}>
-          <Button value="Prescription" onClick={PrescriptionButtonHandler} />
+          <Button
+            value={
+              DoctorUtilitiesKeys.getDoctorMenuOptionsLabelKeys()
+                .createPrescriptionKey
+            }
+            onClick={PrescriptionButtonHandler}
+          />
 
-          <Button value="View History" onClick={ViewHistoryButtonHandler} />
-
-          {/* <Button value="Follow-up Updates" onClick={FollowUpUpdatesButtonHandler} /> */}
+          <Button
+            value={
+              DoctorUtilitiesKeys.getDoctorMenuOptionsLabelKeys().viewHistoryKey
+            }
+            onClick={ViewHistoryButtonHandler}
+          />
         </div>
       </div>
 
-      {encounterOption === "Prescription" && (
+      {encounterOption ===
+        DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
+          .createPrescriptionKey && (
         <Prescription
           setEncounterOption={setEncounterOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
           doctorPrescriptionData={doctorEncounterData}
           setDoctorPrescriptionData={setDoctorEncounterData}
           setAddFollowup={setAddFollowup}
           folloupsData={folloupsData}
           encounterID={props.selectedEncounterID}
           callBackHandlerOnEncounterCreate={callBackHandlerOnEncounterCreate}
+          showBottomMessageBar={props.showMessageBarAtTheBottom}
         />
       )}
-      {encounterOption === "ViewHistory" && (
+
+      {/* showBottomMessageBar */}
+
+      {encounterOption ===
+        DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().viewHistoryKey && (
         <ViewHistory
           encounterOption={encounterOption}
           setEncounterOption={setEncounterOption}
@@ -95,11 +116,6 @@ const EncounterScreen = (props) => {
           setAddFollowup={setAddFollowup}
         />
       )}
-
-      {/* {
-    encounterOption === "FollowUpUpdates" && (<FollowUpUpdates encounterOption={encounterOption} setEncounterOption={setEncounterOption} setAlertMessage ={props.setAlertMessage}
-      setAlertFlag ={props.setAlertFlag}/>)
-  } */}
     </div>
   );
 };

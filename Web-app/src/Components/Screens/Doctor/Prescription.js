@@ -4,6 +4,7 @@ import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
 import TextBox from "../UI Elements/MenuForm Elements/TextBox";
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
 import AddButton from "../UI Elements/MenuForm Elements/addButton";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");
@@ -45,8 +46,6 @@ const Prescription = (props) => {
       savePatientEncounterDataResponseHanlder:
         savePatientEncounterDataResponseHanlder,
     });
-
-    
   };
 
   //Create Patient Encounter API call response handler...
@@ -54,16 +53,34 @@ const Prescription = (props) => {
     console.log("savePatientEncounterDataResponseHanlder");
     console.log(encounterResponseData);
     if (encounterResponseData.isEncounterCreated === false) {
-      props.setAlertMessage(encounterResponseData.errorMessage);
+      showMessageBarAtTheBottom({
+        [UtilitiesMethods.getErrorMessageKey()]:
+        encounterResponseData.errorMessage,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
+      });
       return;
     }
     setPrescriptionData("");
-    props.setAlertMessage(
-      "Prescription successfully added :" + PrescriptionData
-    );
-    props.setAlertFlag(true);
+    showMessageBarAtTheBottom({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        "Prescription successfully added :" + PrescriptionData,
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+    });
     props.callBackHandlerOnEncounterCreate();
   };
+
+  const showMessageBarAtTheBottom = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        prop[UtilitiesMethods.getErrorMessageKey()],
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        prop[UtilitiesMethods.getIsMessageErrorMessageKey()],
+    });
+  };
+
+  // const showMessageBottomBar = () => {
+
+  // }
 
   return (
     <div>
@@ -71,25 +88,28 @@ const Prescription = (props) => {
         <h1>Appointment</h1>
 
         <form onSubmit={PrescriptionSubmitHandler}>
+
+        <TextBox.TextBox2
+            type="text"
+            label="Symptoms"
+            value={props.doctorPrescriptionData.additionalNotes}
+            onChange={AdditionalNotesChangeHandler}
+          />
+
           <TextBox.TextBox2
             type="text"
             label="Prescription"
             value={props.doctorPrescriptionData.prescription}
             onChange={PrescriptionDataChangeHandler}
           />
-          <TextBox.TextBox2
-            type="text"
-            label="Additional Notes"
-            value={props.doctorPrescriptionData.additionalNotes}
-            onChange={AdditionalNotesChangeHandler}
-          />
-<div>
-          <MenuSubmitButton value="Submit" />
+          
+          <div>
+            <MenuSubmitButton value="Submit" />
 
-          <AddButton
-            value="Add Followup"
-            onClick={() => props.setAddFollowup(true)}
-          />
+            <AddButton
+              value="Add Followup"
+              onClick={() => props.setAddFollowup(true)}
+            />
           </div>
         </form>
       </div>
