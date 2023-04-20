@@ -4,9 +4,9 @@ const UserTypeSelection = (props) => {
   const userTypeOptions = props.options;
   return (
     <select id="userType" className={classes.select} onChange={props.onChange}>
-      <option value="" className={classes.option}>
+      {/* <option value="" className={classes.option}>
         {props.label}
-      </option>
+      </option> */}
 
       {userTypeOptions.map((options) => {
         return (

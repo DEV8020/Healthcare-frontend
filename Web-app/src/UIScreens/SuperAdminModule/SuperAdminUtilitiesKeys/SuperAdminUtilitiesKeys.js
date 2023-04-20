@@ -86,6 +86,21 @@ const getCreateUserInitialData = () => {
   };
 };
 
+
+
+//Create User Form Input Field Label Keys...
+const getCreateUserFormLabelKeys = () => {
+  return {
+    userIdLabel: "Username",
+    userNameLabel: "Name",
+    userPasswordLabel: "Password",
+    userContactLabel: "Contact",
+    userAddressLabel: "Address",
+    userAddressPincodeLabel: "Pincode",
+    hospitalIDLabel: "Hospital ID",
+  };
+};
+
 const SuperAdminUtilitiesKeys = {
   getCreateUserOptionKeys,
   getSuperAdminErrorMessagesText,
@@ -94,7 +109,8 @@ const SuperAdminUtilitiesKeys = {
   getUserType,
   getSuperAdminMenuOptionsNameKeys,
   getSuperAdminMenuOptionsLabelKeys,
-  getHospitalRegistrationFormLabelKeys
+  getHospitalRegistrationFormLabelKeys,
+  getCreateUserFormLabelKeys
 };
 
 export default SuperAdminUtilitiesKeys;

@@ -9,7 +9,7 @@ import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilit
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 
 const CreateUser = (props) => {
-  const [registerUserType, setRegisterUserType] = useState("");
+  
 
   //Constants declared for Admin & Supervisor Options...
   const createUserAdminOption =
@@ -17,6 +17,8 @@ const CreateUser = (props) => {
   const createUserSupervisorOption =
     SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
       .createUserSupervisorOption;
+
+      const [registerUserType, setRegisterUserType] = useState(createUserAdminOption);
 
   //Method for fetching the list of Hospitals with No Amdins...
   //To register Admin in Super Admin menu...
@@ -164,7 +166,7 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
-    setRegisterUserType("");
+    setRegisterUserType(createUserAdminOption);
     props.HospitalRegistrationDataUpdateCallBackHandler(
       SuperAdminUtilitiesKeys.getCreateUserInitialData()
     );
@@ -186,7 +188,7 @@ const CreateUser = (props) => {
 
         <form id="createUser-form" onSubmit={RegisterUserHandler}>
           <UserTypeSelection
-            label="--User Type --"
+            label={createUserAdminOption}
             options={superAdminUserType}
             onChange={registerUserTypeChangeHandler}
           />
@@ -197,7 +199,7 @@ const CreateUser = (props) => {
             {/* User ID Input Key for User Registration */}
             <InputTextField
               type="text"
-              label={UtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
+              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
               }
@@ -212,7 +214,7 @@ const CreateUser = (props) => {
             {/* User Name Input Key for User Registration */}
             <InputTextField
               type="text"
-              label={UtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
+              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
               }
@@ -228,7 +230,7 @@ const CreateUser = (props) => {
             <InputTextField
               type="text"
               label={
-                UtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
               }
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
@@ -247,7 +249,7 @@ const CreateUser = (props) => {
               <InputTextField
                 type="text"
                 label={
-                  UtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().hospitalIDKey
@@ -266,7 +268,7 @@ const CreateUser = (props) => {
             {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
-                  UtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
@@ -290,7 +292,7 @@ const CreateUser = (props) => {
               <InputTextField
                 type="text"
                 label={
-                  UtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressKey
@@ -309,7 +311,7 @@ const CreateUser = (props) => {
             {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
-                  UtilitiesKeys.getCreateUserFormLabelKeys()
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
                     .userAddressPincodeLabel
                 }
                 mappedKey={
