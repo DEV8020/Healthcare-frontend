@@ -82,7 +82,7 @@ const AdminScreen = (props) => {
   if (!props.user) return null;
   return (
     <div>
-      <NavBar value="Log-out" label="Admin" onClick={logout} />
+      <NavBar value="Logout" label="Admin" onClick={logout} />
 
       <div className={classes.center}>
         <h2> Admin Menu</h2>

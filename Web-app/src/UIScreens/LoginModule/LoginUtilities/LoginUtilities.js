@@ -23,7 +23,7 @@ const getLoginInitialData = () => {
   return {
     [getLoginDataKeys().userNameKey]: "",
     [getLoginDataKeys().userPasswordKey]: "",
-    [getLoginDataKeys().userRoleKey]: "",
+    [getLoginDataKeys().userRoleKey]: getLoginUserTypeKeys().superAdminTypeKey,
   };
 };
 

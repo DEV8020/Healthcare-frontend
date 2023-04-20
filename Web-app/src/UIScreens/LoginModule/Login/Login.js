@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import classes from "./Login.module.css";
 import SubmitButton from "../../../Components/Screens/UI Elements/Login/Register Elements/submitButton";
-// import UsernameInput from "../../../Components/Screens/UI Elements/Login/Register Elements/UserNameInput";
 import ForgotPasswordButton from "../../../Components/Screens/UI Elements/Login/Register Elements/ForgotPasswordButton";
-// import UserTypeSelection from "../../../Components/Screens/UI Elements/Login/Register Elements/UserTypeSelection";
 import LoginController from "../../../Controllers/LoginController";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import LoginUtilities from "../LoginUtilities/LoginUtilities";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UsernameInput from "../../../Component/LoginModule/UserLoginInputTextField/UserNameInput";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
-// import UserTypeSelection
-// import 
 
 
 const Login = (props) => {
@@ -19,6 +15,9 @@ const Login = (props) => {
   const [userLoginData, setUserLoginData] = useState(
     LoginUtilities.getLoginInitialData()
   );
+
+  console.log("userLoginData");
+  console.log(userLoginData);
 
   //Function to handle forgot password fucntionality...
   const forgotPasswordButtonClickHandler = () => {
@@ -97,6 +96,9 @@ const Login = (props) => {
   const LoginHandler = (event) => {
     event.preventDefault();
     console.log("LoginHandler called");
+    console.log(userLoginData);
+
+    // console.log();
 
     //Validation for User Type not selected for login...
     if (
