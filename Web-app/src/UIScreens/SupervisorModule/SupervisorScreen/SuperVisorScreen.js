@@ -9,9 +9,13 @@ import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import FieldWorkerRegistration from "../FieldWorkerRegistrationScreen/FieldWorkerRegistration";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import SupervisorUtilitiesKeys from "../../../Utilities/SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
 
 const SuperVisorScreen = (props) => {
-  const [superVisorOption, setSuperVisorOption] = useState("superVisor");
+  const [superVisorOption, setSuperVisorOption] = useState(
+    SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+      .fieldWorkerRegistrationKey
+  );
   const [fieldWorkerStatus, setFieldWorkerStatus] = useState(false);
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
   const [fieldWorkerFollowUpsList, setFieldWorkerFollowUpsList] = useState([]);
@@ -19,7 +23,6 @@ const SuperVisorScreen = (props) => {
     useState(false);
   const [fieldWorkerAssignedPatientsList, setFieldWorkerAssignedPatientsList] =
     useState([]);
-
 
   const loadFieldWorkerDetailsData = (fieldWorkerData) => {
     // console.log("loadFieldWorkerDetailsData");
@@ -52,7 +55,7 @@ const SuperVisorScreen = (props) => {
     props.showBottomMessageBar({
       [UtilitiesMethods.getErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
@@ -65,12 +68,11 @@ const SuperVisorScreen = (props) => {
     showMessageAtBottomBar({
       [UtilitiesMethods.getErrorMessageKey()]:
         "Selected Field Worker : " + fieldWorkerData.name,
-        [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
     });
     setFieldWorkerStatus(true);
     loadFieldWorkerDetailsData(fieldWorkerData);
   };
-
 
   const fieldWorkerAssignedPatientListHandler = (fieldWorkerData) => {
     console.log("fieldWorkerAssignedPatientListHandler");
@@ -79,17 +81,13 @@ const SuperVisorScreen = (props) => {
     showMessageAtBottomBar({
       [UtilitiesMethods.getErrorMessageKey()]:
         "Selected Field Worker : " + fieldWorkerData.name,
-        [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
     });
     resetFieldWorkerDisplaySideView();
     setIsShowAssignedPatientList(true);
     loadFieldWorkerAssignedPatientData(fieldWorkerData);
   };
 
-
-
-
-  
   const loadFieldWorkerAssignedPatientData = (fieldWorkerData) => {
     console.log("loadFieldWorkerDetailsData");
     console.log(fieldWorkerData);
@@ -109,30 +107,38 @@ const SuperVisorScreen = (props) => {
         message: fieldWorkerAssignedPatientsData.errorMessage,
         isErrorMessage: true,
       });
-    } 
-    setFieldWorkerAssignedPatientsList(fieldWorkerAssignedPatientsData.assignedPatientsListData);
+    }
+    setFieldWorkerAssignedPatientsList(
+      fieldWorkerAssignedPatientsData.assignedPatientsListData
+    );
   };
 
-
-
-
   const NewFollowUpAssignButtonHandler = () => {
-    setSuperVisorOption("NewFollowUpAssign");
+    setSuperVisorOption(
+      SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+        .assignFollowUpKey
+    );
     resetFieldWorkerDisplaySideView();
   };
   const FieldWorkerListButtonHandler = () => {
-    setSuperVisorOption("FieldWorkerList");
+    setSuperVisorOption(
+      SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+        .fieldWorkerListKey
+    );
   };
 
   const FieldWorkerRegistrationButtonHandler = () => {
-    setSuperVisorOption("FieldWorkerRegistration");
+    setSuperVisorOption(
+      SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+        .fieldWorkerRegistrationKey
+    );
     resetFieldWorkerDisplaySideView();
   };
 
   const resetFieldWorkerDataList = () => {
-     setFieldWorkerAssignedPatientsList([]);
+    setFieldWorkerAssignedPatientsList([]);
     setFieldWorkerFollowUpsList([]);
-  }
+  };
 
   const resetFieldWorkerDisplaySideView = () => {
     resetFieldWorkerDataList();
@@ -149,51 +155,69 @@ const SuperVisorScreen = (props) => {
 
   return (
     <div>
-      <NavBar value="Log-out" label="SuperVisor" onClick={logoutSV} />
+      <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="SuperVisor" onClick={logoutSV} />
 
       <div className={classes.center}>
         <h2> SuperVisor Menu</h2>
 
         <div className={classes.SV_menu}>
           <Button
-            value="Assign Follow ups"
+            value={
+              SupervisorUtilitiesKeys.getSupervisorMenuOptionsLabelKeys()
+                .assignFollowUpKey
+            }
             onClick={NewFollowUpAssignButtonHandler}
           />
 
           <Button
-            value="Field Worker List"
+            value={
+              SupervisorUtilitiesKeys.getSupervisorMenuOptionsLabelKeys()
+                .fieldWorkerListKey
+            }
             onClick={FieldWorkerListButtonHandler}
           />
 
           <Button
-            value="Field Worker Registration"
+            value={
+              SupervisorUtilitiesKeys.getSupervisorMenuOptionsLabelKeys()
+                .fieldWorkerRegistrationKey
+            }
             onClick={FieldWorkerRegistrationButtonHandler}
           />
         </div>
       </div>
 
-      {superVisorOption === "NewFollowUpAssign" && (
+      {superVisorOption ===
+        SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+          .assignFollowUpKey && (
         <NewFollowUpAssign
           superVisorOption={superVisorOption}
           setSuperVisorOption={setSuperVisorOption}
           showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
-      {superVisorOption === "FieldWorkerList" && (
+      {superVisorOption ===
+        SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+          .fieldWorkerListKey && (
         <FieldWorkerList
           fieldWorkerList={fieldWorkerList}
           fieldWorkerDetailsButtonClickedInChildView={
             fieldWorkerDetailsButtonClickedInChildView
           }
-          fieldWorkerAssignedPatientListHandler={fieldWorkerAssignedPatientListHandler}
+          fieldWorkerAssignedPatientListHandler={
+            fieldWorkerAssignedPatientListHandler
+          }
         />
       )}
-      {superVisorOption === "FieldWorkerRegistration" && (
+      {superVisorOption ===
+        SupervisorUtilitiesKeys.getSupervisorMenuOptionsNameKeys()
+          .fieldWorkerRegistrationKey && (
         <FieldWorkerRegistration
           superVisorOption={superVisorOption}
           setSuperVisorOption={setSuperVisorOption}
-          setAlertFlag={props.setAlertFlag}
-          setAlertMessage={props.setAlertMessage}
+          showBottomMessageBar={showMessageAtBottomBar}
+          // setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
         />
       )}
       {(fieldWorkerStatus === true || isShowAssignedPatientList === true) && (

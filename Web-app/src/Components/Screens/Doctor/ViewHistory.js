@@ -48,7 +48,7 @@ const ViewHistory = (props) => {
         <div>
           {" "}
           <h3 style={{ textAlign: "center" }}>
-            No history to display. Please add some to proceed.
+            No history to display.
           </h3>
         </div>
       )}

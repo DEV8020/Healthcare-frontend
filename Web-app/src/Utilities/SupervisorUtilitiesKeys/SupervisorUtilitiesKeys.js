@@ -15,12 +15,30 @@ const getFieldWorkerRegistrationDataKeys = () => {
 //Supervisor Register Field Worker Label Keys...
 const getFieldWorkerRegistrationLabelKeys = () => {
   return {
-    nameKey: "Field Worker's Name",
-    userIDKey: "Field Worker's UserID",
-    contactKey: "Field Worker's Contact No.",
-    passwordKey: "Field Worker's Password",
-    addressKey: "Field Worker's Address",
-    pinCodeKey: "Field Worker's Pincode",
+    nameKey: "Name",
+    userIDKey: "Username",
+    contactKey: "Contact No.",
+    passwordKey: "Password",
+    addressKey: "Address",
+    pinCodeKey: "Pincode",
+  };
+};
+
+
+const getSupervisorMenuOptionsNameKeys = () => {
+  return {
+    assignFollowUpKey: "NewFollowUpAssign",
+    fieldWorkerListKey: "FieldWorkerList",
+    fieldWorkerRegistrationKey : "FieldWorkerRegistration",
+  };
+};
+
+
+const getSupervisorMenuOptionsLabelKeys = () => {
+  return {
+    assignFollowUpKey: "Assign Follow ups",
+    fieldWorkerListKey: "Field Worker List",
+    fieldWorkerRegistrationKey : "Field Worker Registration",
   };
 };
 
@@ -40,6 +58,8 @@ const SupervisorUtilitiesKeys = {
   getFieldWorkerRegistrationDataKeys,
   getFieldWorkerRegistrationLabelKeys,
   getFieldWorkerRegistrationInitialData,
+  getSupervisorMenuOptionsNameKeys,
+  getSupervisorMenuOptionsLabelKeys
 };
 
 export default SupervisorUtilitiesKeys;

@@ -50,6 +50,7 @@ const UnAssignedFollowUpCell = (props) => {
         id={patientUnassignedFollowUpData.patientId}
         onChange={FieldWorkerIdChangeHandler}
         value={patientUnassignedFollowUpData.fieldWorkerID}
+        key={patientUnassignedFollowUpData.patientId}
       />
       <AddButton value="Assign Follow ups" onClick={AssignFollowUpHandler} />
     </div>

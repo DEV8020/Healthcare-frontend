@@ -40,7 +40,7 @@ const FieldWorkerList = (props) => {
       {fieldWorkerList.length === 0 && (
         <div>
           <h3 style={{ textAlign: "center" }}>
-            No Field Worker to display. Please add some.
+            No Field Worker to display.
           </h3>
         </div>
       )}

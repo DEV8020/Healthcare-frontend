@@ -3,7 +3,7 @@ import classes from "./FieldWorkerRegistration.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FieldWorkerAPIHandler from "../../../Controllers/FieldWorkerAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-import SupervisorUtilitiesKeys from "../SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
+import SupervisorUtilitiesKeys from "../../../Utilities/SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
@@ -96,12 +96,23 @@ const FieldWorkerRegistration = (props) => {
     );
   };
 
+
+  // const showMessageAtBottomBar = (prop) => {
+  //   console.log(prop);
+  //   props.showBottomMessageBar({
+  //     [UtilitiesMethods.getErrorMessageKey()]:
+  //       prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+  //       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+  //       prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+  //   });
+  // };
+
   const showMessageAtBottomBar = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+    props.showBottomMessageBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
 
