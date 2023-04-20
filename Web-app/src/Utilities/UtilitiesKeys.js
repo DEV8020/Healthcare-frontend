@@ -5,14 +5,14 @@ const getHospitalRegistrationDataKeys = () => {
   return { nameKey: "name", addressKey: "address", pinCodeKey: "pincode" };
 };
 
-//Hopspital Registration Form Input Field Label Keys...
-const getHospitalRegistrationFormLabelKeys = () => {
-  return {
-    nameKey: "Hospital Name",
-    addressKey: "Hospital Address",
-    pinCodeKey: "Hospital Pincode",
-  };
-};
+// //Hopspital Registration Form Input Field Label Keys...
+// const getHospitalRegistrationFormLabelKeys = () => {
+//   return {
+//     nameKey: "Hospital Name",
+//     addressKey: "Hospital Address",
+//     pinCodeKey: "Hospital Pincode",
+//   };
+// };
 
 //Hopspital Registration Messages Keys...
 const getHospitalRegistrationMessagesText = () => {
@@ -93,7 +93,7 @@ const getErrorMessageDataKeys = () => {
 
 const UtilitiesKeys = {
   getHospitalRegistrationDataKeys,
-  getHospitalRegistrationFormLabelKeys,
+  // getHospitalRegistrationFormLabelKeys,
   getHospitalRegistrationMessagesText,
   getCreateUserDataKeys,
   getCreateUserFormLabelKeys,

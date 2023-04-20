@@ -5,6 +5,7 @@ import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
+import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 
 const AddHospital = (props) => {
   //Initial Data for Hospital Registration...
@@ -109,7 +110,7 @@ const AddHospital = (props) => {
           {/* Hospital Name Input Key for Hospital Registration */}
           <InputTextField
             type="text"
-            label={UtilitiesKeys.getHospitalRegistrationFormLabelKeys().nameKey}
+            label={SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().nameKey}
             onChange={HospitalDataChangeHandler}
             mappedKey={UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey}
             value={
@@ -123,7 +124,7 @@ const AddHospital = (props) => {
           <InputTextField
             type="text"
             label={
-              UtilitiesKeys.getHospitalRegistrationFormLabelKeys().addressKey
+              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().addressKey
             }
             onChange={HospitalDataChangeHandler}
             mappedKey={
@@ -139,7 +140,7 @@ const AddHospital = (props) => {
           {/* Hospital Pin Code Input Key for Hospital Registration */}
           <InputNumericTextField
             label={
-              UtilitiesKeys.getHospitalRegistrationFormLabelKeys().pinCodeKey
+              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().pinCodeKey
             }
             onChange={HospitalDataChangeHandler}
             mappedKey={

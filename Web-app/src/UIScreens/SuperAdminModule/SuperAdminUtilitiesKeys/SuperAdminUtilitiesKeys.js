@@ -14,6 +14,32 @@ const getSuperAdminErrorMessagesText = () => {
   };
 };
 
+const getSuperAdminMenuOptionsNameKeys = () => {
+  return {
+    hospitalRegistrationKey: "HospitalRegistration",
+    createNewUserKey: "CreateUserScreen",
+    registeredUsersListKey: "AllUsers",
+  };
+};
+
+
+const getSuperAdminMenuOptionsLabelKeys = () => {
+  return {
+    hospitalRegistrationKey: "Hospital Registration",
+    createNewUserKey: "Create New User",
+    registeredUsersListKey: "All registered Users",
+  };
+};
+
+//Hopspital Registration Form Input Field Label Keys...
+const getHospitalRegistrationFormLabelKeys = () => {
+  return {
+    nameKey: "Name",
+    addressKey: "Address",
+    pinCodeKey: "Pincode",
+  };
+};
+
 
 const getUserType = (userType) => {
   if (userType === "ROLE_SUPER_ADMIN") {
@@ -65,7 +91,10 @@ const SuperAdminUtilitiesKeys = {
   getSuperAdminErrorMessagesText,
   getCreateUserDataKeys,
   getCreateUserInitialData,
-  getUserType
+  getUserType,
+  getSuperAdminMenuOptionsNameKeys,
+  getSuperAdminMenuOptionsLabelKeys,
+  getHospitalRegistrationFormLabelKeys
 };
 
 export default SuperAdminUtilitiesKeys;

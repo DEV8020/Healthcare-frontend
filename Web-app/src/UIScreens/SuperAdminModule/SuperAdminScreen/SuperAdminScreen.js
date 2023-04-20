@@ -11,7 +11,10 @@ import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 
 const SuperAdminScreen = (props) => {
-  const [superAdminOption, setSuperAdminOption] = useState("superAdmin");
+  const [superAdminOption, setSuperAdminOption] = useState(
+    SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+      .hospitalRegistrationKey
+  );
   const [hospitalDetailsView, setHospitalDetailsView] = useState("");
   const [hospitalsListWithNoAdmin, setHospitalsListtWithNoAdmins] = useState(
     []
@@ -21,7 +24,7 @@ const SuperAdminScreen = (props) => {
     useState("");
   const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
 
-  //User Registration Data initalise with Initial Data... 
+  //User Registration Data initalise with Initial Data...
   const [
     selectedHospitalDataForAdminCreation,
     setSelectedHospitalDataForAdminCreation,
@@ -38,6 +41,13 @@ const SuperAdminScreen = (props) => {
     console.log(registeredUsersList);
     setAllRegisteredUsersList(registeredUsersList);
   };
+
+  // useEffect(() => {
+  //   setSuperAdminOption(
+  //     SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+  //       .hospitalRegistrationKey
+  //   );
+  // }, []);
 
   //########################## Getting List Of All Registered Users... ##########################
 
@@ -56,7 +66,7 @@ const SuperAdminScreen = (props) => {
       "showAllRegisteredUserResponseHandler allRegisteredUsersResponseData in super admin screen"
     );
     console.log(allRegisteredUsersResponseData);
-    
+
     if (allRegisteredUsersResponseData.isRegisteredUsersListRecieved === true) {
       setAllRegisteredUsersList(
         allRegisteredUsersResponseData.registeredUserListData
@@ -71,8 +81,6 @@ const SuperAdminScreen = (props) => {
     });
   };
 
-
-
   //########################## Getting List Of All Registered Users... ##########################
 
   const hospitalListsWithNoAdminsCallBackHandler = (hospitalsList) => {
@@ -86,23 +94,29 @@ const SuperAdminScreen = (props) => {
   };
 
   const HospitalRegistrationDataUpdateCallBackHandler = (updatedData) => {
-    // console.log("HospitalRegistrationDataUpdateCallBackHandler");
-    // console.log(updatedData);
     setSelectedHospitalDataForAdminCreation(updatedData);
   };
 
   const HospitalRegistrationButtonHandler = () => {
-    setSuperAdminOption("HospitalRegistration");
-    // updateUserListAfterDataUpdateHandler();
+    setSuperAdminOption(
+      SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+        .hospitalRegistrationKey
+    );
   };
+
   const CreateUserButtonHandler = () => {
     console.log("CU");
-    setSuperAdminOption("CreateUserScreen");
-    // updateUserListAfterDataUpdateHandler();
+    setSuperAdminOption(
+      SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+        .createNewUserKey
+    );
   };
 
   const AllRegisteredUserButtonHandler = () => {
-    setSuperAdminOption("AllUsers");
+    setSuperAdminOption(
+      SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+        .registeredUsersListKey
+    );
     updateUserListAfterDataUpdateHandler();
   };
 
@@ -115,38 +129,51 @@ const SuperAdminScreen = (props) => {
 
   return (
     <div>
-      <NavBar value="Log-out" label="SuperAdmin" onClick={logoutSA} />
+      <NavBar value="Log out" label="SuperAdmin" onClick={logoutSA} />
 
       <div className={classes.center}>
         <h2> SuperAdmin Menu</h2>
 
         <div className={classes.SA_menu}>
           <Button
-            value="Hospital Registration"
+            value={
+              SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsLabelKeys()
+                .hospitalRegistrationKey
+            }
             onClick={HospitalRegistrationButtonHandler}
           />
-
-          <Button value="Create New User" onClick={CreateUserButtonHandler} />
           <Button
-            value="All registered Users"
+            value={
+              SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsLabelKeys()
+                .createNewUserKey
+            }
+            onClick={CreateUserButtonHandler}
+          />
+          <Button
+            value={
+              SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsLabelKeys()
+                .registeredUsersListKey
+            }
             onClick={AllRegisteredUserButtonHandler}
           />
         </div>
       </div>
 
-      {superAdminOption === "HospitalRegistration" && (
+      {superAdminOption ===
+        SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+          .hospitalRegistrationKey && (
         <AddHospital
           superAdminOption={superAdminOption}
           setSuperAdminOption={setSuperAdminOption}
           showBottomMessageBar={props.showBottomMessageBar}
         />
       )}
-      {superAdminOption === "CreateUserScreen" && (
+      {superAdminOption ===
+        SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+          .createNewUserKey && (
         <CreateUser
           superAdminOption={superAdminOption}
           setSuperAdminOption={setSuperAdminOption}
-          // setAlertMessage={props.setAlertMessage}
-          // setAlertFlag={props.setAlertFlag}
           showBottomMessageBar={props.showBottomMessageBar}
           setHospitalDetailsView={setHospitalDetailsView}
           hospitalListsWithNoAdminsCallBackHandler={
@@ -165,7 +192,9 @@ const SuperAdminScreen = (props) => {
           }
         />
       )}
-      {superAdminOption === "AllUsers" && (
+      {superAdminOption ===
+        SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+          .registeredUsersListKey && (
         <ShowAllUser
           superAdminOption={superAdminOption}
           setSuperAdminOption={setSuperAdminOption}
@@ -183,7 +212,9 @@ const SuperAdminScreen = (props) => {
         />
       )}
       {hospitalDetailsView === "Admin" &&
-        superAdminOption === "CreateUserScreen" && (
+        superAdminOption ===
+          SuperAdminUtilitiesKeys.getSuperAdminMenuOptionsNameKeys()
+            .createNewUserKey && (
           <HospitalDetailsView
             hospitalsListData={hospitalsListWithNoAdmin}
             selectedHospitalCallBackHandler={
