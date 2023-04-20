@@ -198,7 +198,6 @@ const CreateUser = (props) => {
           <>
             {/* User ID Input Key for User Registration */}
             <InputTextField
-              type="text"
               label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
@@ -213,7 +212,6 @@ const CreateUser = (props) => {
 
             {/* User Name Input Key for User Registration */}
             <InputTextField
-              type="text"
               label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
@@ -228,7 +226,6 @@ const CreateUser = (props) => {
 
             {/* User Password Input Key for User Registration */}
             <InputTextField
-              type="text"
               label={
                 SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
               }
@@ -247,7 +244,6 @@ const CreateUser = (props) => {
             {/* Hospital ID Input Key for User Registration */}
             {registerUserType === createUserAdminOption && (
               <InputTextField
-                type="text"
                 label={
                   SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
                 }
@@ -290,7 +286,6 @@ const CreateUser = (props) => {
             {/* User Address Input Key for User Registration */}
             {registerUserType === createUserSupervisorOption && (
               <InputTextField
-                type="text"
                 label={
                   SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
                 }
