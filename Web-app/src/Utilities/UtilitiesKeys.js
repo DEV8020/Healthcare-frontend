@@ -50,6 +50,10 @@ const getCreateUserFormLabelKeys = () => {
   };
 };
 
+const getLogOutButtonText = () => {
+  return "Logout";
+}
+
 
 //User Type Keys...
 const getUserTypeKeys = () => {
@@ -100,7 +104,8 @@ const UtilitiesKeys = {
   getInputFieldLengthValidationKeys,
   getGeneralValidationMessagesText,
   getErrorMessageDataKeys,
-  getUserTypeKeys
+  getUserTypeKeys,
+  getLogOutButtonText
 };
 
 export default UtilitiesKeys;

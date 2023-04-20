@@ -7,9 +7,14 @@ import CreateAppointment from "../CreateAppointmentScreen/CreateAppointment";
 import PatientDetailsView from "../PatientDetailsScreen/PatientDetailsView";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import PatientSearchList from "../PatientSearchListScreen/PatientSearchList";
+import FrontDeskUtilitiesKeys from "../../../Utilities/FrontDeskUtilitiesKeys/FrontDeskUtilitiesKeys";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const FrontDeskScreen = (props) => {
-  const [frontDeskOption, setFrontDeskOption] = useState("frontDesk");
+  const [frontDeskOption, setFrontDeskOption] = useState(
+    FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+      .createAppointmentKey
+  );
   const [patientDetailsView, setPatientDetailsView] = useState(false);
   const [viewDetalsPatientID, setViewDetalsPatientID] = useState("");
   const [isSearchViewEnabled, setIsSearchViewEnabled] = useState(false);
@@ -17,11 +22,17 @@ const FrontDeskScreen = (props) => {
   const [isDetailViewNeedRefresh, setIsDetailViewNeedRefresh] = useState(false);
 
   const PatientRegistrationButtonHandler = () => {
-    setFrontDeskOption("PatientRegistration");
+    setFrontDeskOption(
+      FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+        .patientRegistrationKey
+    );
     resetPatientDetailViewFlags();
   };
   const CreateAppointmentButtonHandler = () => {
-    setFrontDeskOption("CreateAppointment");
+    setFrontDeskOption(
+      FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+        .createAppointmentKey
+    );
     resetPatientDetailViewFlags();
   };
 
@@ -45,6 +56,10 @@ const FrontDeskScreen = (props) => {
     setViewDetalsPatientID(PatientId);
     setPatientDetailsView(true);
     console.log("patientDetailsButtonPressedHandler");
+    // setFrontDeskOption(
+    //   FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+    //     .patientRegistrationKey
+    // );
   };
 
   //Message to display the Bottom Message Display Bar...
@@ -66,33 +81,47 @@ const FrontDeskScreen = (props) => {
 
   return (
     <div>
-      <NavBar value="Log-out" label="FrontDesk" onClick={logoutFD} />
+      <NavBar
+        value={UtilitiesKeys.getLogOutButtonText()}
+        label="FrontDesk"
+        onClick={logoutFD}
+      />
 
       <div className={classes.center}>
         <h2> FrontDesk Menu</h2>
 
         <div className={classes.FD_menu}>
           <Button
-            value="Patient Registration"
+            value={
+              FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsLabelKeys()
+                .patientRegistrationKey
+            }
             onClick={PatientRegistrationButtonHandler}
           />
 
           <Button
-            value="Create Appointment"
+            value={
+              FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsLabelKeys()
+                .createAppointmentKey
+            }
             onClick={CreateAppointmentButtonHandler}
           />
         </div>
       </div>
 
-      {frontDeskOption === "PatientRegistration" && (
+      {frontDeskOption ===
+        FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+          .patientRegistrationKey && (
         <PatientRegistration
           frontDeskOption={frontDeskOption}
           setFrontDeskOption={setFrontDeskOption}
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          showMessageBarAtTheBottom={showMessageBarAtTheBottom}
         />
       )}
-      {frontDeskOption === "CreateAppointment" && (
+
+      {frontDeskOption ===
+        FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+          .createAppointmentKey && (
         <CreateAppointment
           frontDeskOption={frontDeskOption}
           setFrontDeskOption={setFrontDeskOption}

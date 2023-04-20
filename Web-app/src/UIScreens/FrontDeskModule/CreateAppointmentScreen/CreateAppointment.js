@@ -46,29 +46,44 @@ const CreateAppointment = (props) => {
     console.log("addPatientNewEncounterResponseCallBack");
     console.log(patientEncounterResponseData);
 
-    if (patientEncounterResponseData.errorMessage === null) {
-      if (patientEncounterResponseData.isEncounterAdded === true) {
-        showErrorMessageScreen({
-          [UtilitiesMethods.getErrorMessageKey()]:
-            "Appointment created for Patient ID : " + PatientId,
-          [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
-        });
-        setPatientId("");
-      }
-      if (patientEncounterResponseData.isEncounterAdded === false) {
-        showErrorMessageScreen({
-          [UtilitiesMethods.getErrorMessageKey()]:
-            "Some error occured. Please try again later.",
-          [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
-        });
-      }
-    } else if (patientEncounterResponseData.isEncounterAdded === null) {
+    if (patientEncounterResponseData.isEncounterAdded === true){
+      showErrorMessageScreen({
+        [UtilitiesMethods.getErrorMessageKey()]:
+          "Appointment created for Patient ID : " + PatientId,
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+      });
+      setPatientId("");
+    }else{
       showErrorMessageScreen({
         [UtilitiesMethods.getErrorMessageKey()]:
           patientEncounterResponseData.errorMessage,
         [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
       });
     }
+
+    // if (patientEncounterResponseData.errorMessage === null) {
+    //   if (patientEncounterResponseData.isEncounterAdded === true) {
+    //     showErrorMessageScreen({
+    //       [UtilitiesMethods.getErrorMessageKey()]:
+    //         "Appointment created for Patient ID : " + PatientId,
+    //       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+    //     });
+    //     setPatientId("");
+    //   }
+    //   if (patientEncounterResponseData.isEncounterAdded === false) {
+    //     showErrorMessageScreen({
+    //       [UtilitiesMethods.getErrorMessageKey()]:
+    //         "Some error occured. Please try again later.",
+    //       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+    //     });
+    //   }
+    // } else if (patientEncounterResponseData.isEncounterAdded === null) {
+    //   showErrorMessageScreen({
+    //     [UtilitiesMethods.getErrorMessageKey()]:
+    //       patientEncounterResponseData.errorMessage,
+    //     [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
+    //   });
+    // }
   };
 
   const getPatientDetailsHandler = (data) => {

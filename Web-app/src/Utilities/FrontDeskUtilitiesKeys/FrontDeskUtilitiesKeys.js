@@ -1,6 +1,6 @@
 //########################## Front Desk Menu Keys  ##########################
 
-//Super Admin Menu Create Options Keys...
+
 const getPatientRegistrationDataKeys = () => {
   return {
     nameKey: "name",
@@ -14,12 +14,12 @@ const getPatientRegistrationDataKeys = () => {
 
 const getPatientRegistrationLabelKeys = () => {
     return {
-      nameKey: "Patient's Name",
-      dateOfBirthKey: "Patient's DOB",
-      contactKey: "Patient's Contact No.",
-      patientGenderKey: "Patient's Sex",
-      addressKey: "Patient's Address",
-      pinCodeKey: "Patient's Pincode",
+      nameKey: "Name",
+      dateOfBirthKey: "DOB",
+      contactKey: "Contact No.",
+      patientGenderKey: "Sex",
+      addressKey: "Address",
+      pinCodeKey: "Pincode",
     };
   };
 
@@ -35,10 +35,28 @@ const getPatientRegistrationInitialData = () => {
   };
 };
 
-const SuperAdminUtilitiesKeys = {
-  getPatientRegistrationDataKeys,
-  getPatientRegistrationInitialData,
-  getPatientRegistrationLabelKeys
+
+const getFrontDeskMenuOptionsNameKeys = () => {
+  return {
+    patientRegistrationKey: "PatientRegistration",
+    createAppointmentKey: "CreateAppointment",
+  };
 };
 
-export default SuperAdminUtilitiesKeys;
+const getFrontDeskMenuOptionsLabelKeys = () => {
+  return {
+    patientRegistrationKey: "Patient Registration",
+    createAppointmentKey: "Create Appointment",
+  };
+};
+
+
+const FrontDeskUtilitiesKeys = {
+  getPatientRegistrationDataKeys,
+  getPatientRegistrationInitialData,
+  getPatientRegistrationLabelKeys,
+  getFrontDeskMenuOptionsNameKeys,
+  getFrontDeskMenuOptionsLabelKeys
+};
+
+export default FrontDeskUtilitiesKeys;

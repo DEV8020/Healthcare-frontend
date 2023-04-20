@@ -103,33 +103,39 @@ const hitCustomResponsePostService = async (props) => {
     console.log("Data recieved");
     console.log(response);
 
-    if (response.status === 200) {
-      props.responseDataHandler({
-        responseData: response,
-        responseError: null,
-      });
-    } else if (response.status === 403) {
-      console.log("403 response");
-      console.log(response);
-      props.responseDataHandler({
-        responseData: null,
-        responseError: Error(response.data.message),
-      });
-    } else if (response.status === 404) {
-      console.log("404 response");
-      console.log(response);
-      props.responseDataHandler({
-        responseData: null,
-        responseError: Error(response.data.message),
-      });
-    } else {
-      console.log("else block");
-      console.log(response);
-      props.responseDataHandler({
-        responseData: response,
-        responseError: null,
-      });
-    }
+    //Call the Global Method for Handling the API response...
+    handleAPICallReponseData({
+      response: response,
+      responseHandler: props.responseDataHandler,
+    });
+
+    // if (response.status === 200) {
+    //   props.responseDataHandler({
+    //     responseData: response,
+    //     responseError: null,
+    //   });
+    // } else if (response.status === 403) {
+    //   console.log("403 response");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: null,
+    //     responseError: Error(response.data.message),
+    //   });
+    // } else if (response.status === 404) {
+    //   console.log("404 response");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: null,
+    //     responseError: Error(response.data.message),
+    //   });
+    // } else {
+    //   console.log("else block");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: response,
+    //     responseError: null,
+    //   });
+    // }
   } catch (error) {
     console.log("error block");
     console.log(error);

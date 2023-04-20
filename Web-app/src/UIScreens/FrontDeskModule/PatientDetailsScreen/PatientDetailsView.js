@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
 import SingleDataDetailView from "../../GenericModule/UserDetailsScreen/SingleDataDetailView";
-import FrontDeskUtilitiesMethods from "../FrontDeskUtilitiesKeys/FrontDeskUtilitiesMethods";
+import FrontDeskUtilitiesMethods from "../../../Utilities/FrontDeskUtilitiesKeys/FrontDeskUtilitiesMethods";
 
 const PatientDetailsView = (props) => {
   const [patientDetailsData, setPatientDetailsData] = useState({

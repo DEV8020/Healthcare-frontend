@@ -3,10 +3,11 @@ import classes from "./PatientRegistration.module.css";
 import Bdate from "../../../Components/Screens/UI Elements/Date Element/Bdate";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
-import FrontDeskUtilitiesKeys from "../FrontDeskUtilitiesKeys/FrontDeskUtilitiesKeys";
+import FrontDeskUtilitiesKeys from "../../../Utilities/FrontDeskUtilitiesKeys/FrontDeskUtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const PatientRegistration = (props) => {
   const [patientRegistrationData, setPatientRegistrationData] = useState(
@@ -78,9 +79,12 @@ const PatientRegistration = (props) => {
   };
 
   const showErrorMessageScreen = (errorMessage, isError) => {
-    console.log(isError);
-    props.setAlertMessage(errorMessage);
-    props.setAlertFlag(true);
+    props.showMessageBarAtTheBottom({
+      [UtilitiesMethods.getErrorMessageKey()]:
+      errorMessage,
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+      isError
+    });
   };
 
   const registerNewPatientResponseCallBack = (newPatientResponseData) => {
@@ -116,7 +120,7 @@ const PatientRegistration = (props) => {
   };
 
   const cancelButtonHandler = () => {
-    props.setFrontDeskOption("frontDesk");
+    props.setFrontDeskOption(FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys().patientRegistrationKey);
   };
 
   return (
