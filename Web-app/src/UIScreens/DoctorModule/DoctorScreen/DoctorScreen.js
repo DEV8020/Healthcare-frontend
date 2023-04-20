@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-// import PatientData from "./PatientData";
 import classes from "./DoctorScreen.module.css";
-import NavBar from "../UI Elements/NavBar/NavBar";
-import Button from "../UI Elements/Button/Button";
-import NewEncounter from "./NewEncounter";
-import EncounterScreen from "./EncounterScreen";
-import FieldWorkerUpdates from "./FieldWorkerUpdates";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
+import Button from "../../../Components/Screens/UI Elements/Button/Button";
+import NewEncounter from "../EncounterScreen/NewEncounter";
+import EncounterScreen from "../../../Components/Screens/Doctor/EncounterScreen";
+import FieldWorkerUpdates from "../../../Components/Screens/Doctor/FieldWorkerUpdates";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
+import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const DoctorScreen = (props) => {
-  const [doctorOption, setDoctorOption] = useState("");
+  const [doctorOption, setDoctorOption] = useState(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey);
   const [createEncounter, setCreateEncounter] = useState(false);
   const [isFollowUpListNeedToRefresh, setIsFollowUpListNeedToRefresh] =
     useState(false);
@@ -51,19 +52,18 @@ const DoctorScreen = (props) => {
       });
       return;
     }
-    // console.log("setDoctorEncounterData(doctorEncounterData.encounterData);");
-    // console.log(doctorEncounterData.encounterData);
     setDoctorEncounterData(doctorEncounterData.encounterData);
   };
 
-  const showMessageBarAtTheBottom = (propData) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: propData.message,
-      isErrorMessage: propData.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
+  const showMessageBarAtTheBottom = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
-  };
+  }
+
 
   const logoutD = () => {
     window.localStorage.removeItem("loggedInUser");
@@ -73,11 +73,11 @@ const DoctorScreen = (props) => {
   if (!props.user) return null;
 
   const NewEncounterButtonHandler = () => {
-    setDoctorOption("NewEncounter");
+    setDoctorOption(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey);
     refreshDoctorEncounterListHanlder();
   };
   const FieldWorkerUpdateButtonHandler = () => {
-    setDoctorOption("FWupdates");
+    setDoctorOption(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().patientUpdateKey);
     refreshFollowUpListHanlder();
   };
 
@@ -118,37 +118,50 @@ const DoctorScreen = (props) => {
     <div>
       {createEncounter === true && (
         <EncounterScreen
-          setAlertMessage={props.setAlertMessage}
-          setAlertFlag={props.setAlertFlag}
+          // setAlertMessage={props.setAlertMessage}
+          // setAlertFlag={props.setAlertFlag}
+          showMessageBarAtTheBottom={showMessageBarAtTheBottom}
           setCreateEncounter={setCreateEncounter}
           selectedDoctorEncounterData={selectedDoctorEncounterData}
           selectedEncounterID={selectedEncounterID}
-          refreshDoctorEncounterListHanlder= {refreshDoctorEncounterListHanlder}
+          refreshDoctorEncounterListHanlder={refreshDoctorEncounterListHanlder}
         />
       )}
       {createEncounter === false && (
         <div>
-          <NavBar value="Log-out" label="Doctor" onClick={logoutD} />
+          <NavBar
+            value={UtilitiesKeys.getLogOutButtonText()}
+            label="Doctor"
+            onClick={logoutD}
+          />
           <div className={classes.center}>
             <h2> Doctor Menu</h2>
 
             <div className={classes.Doctor_menu}>
               <Button
-                value="New Encounter"
+                value={
+                  DoctorUtilitiesKeys.getDoctorMenuOptionsLabelKeys()
+                    .newEncounterKey
+                }
                 onClick={NewEncounterButtonHandler}
               />
 
               <Button
-                value="Field-Worker Updates"
+                value={
+                  DoctorUtilitiesKeys.getDoctorMenuOptionsLabelKeys()
+                    .patientUpdateKey
+                }
                 onClick={FieldWorkerUpdateButtonHandler}
               />
             </div>
           </div>
 
-          {doctorOption === "NewEncounter" && (
+          {doctorOption ===
+            DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
+              .newEncounterKey && (
             <NewEncounter
-              doctorOption={doctorOption}
-              setDoctorOption={setDoctorOption}
+              // doctorOption={doctorOption}
+              // setDoctorOption={setDoctorOption}
               setAlertMessage={props.setAlertMessage}
               setAlertFlag={props.setAlertFlag}
               setCreateEncounter={setCreateEncounter}
@@ -158,7 +171,9 @@ const DoctorScreen = (props) => {
               selectedEncounterID={selectedEncounterID}
             />
           )}
-          {doctorOption === "FWupdates" && (
+          {doctorOption ===
+            DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
+              .patientUpdateKey && (
             <FieldWorkerUpdates
               doctorOption={doctorOption}
               setDoctorOption={setDoctorOption}

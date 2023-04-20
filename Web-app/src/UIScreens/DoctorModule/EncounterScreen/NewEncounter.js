@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-// import NewEncounterService from "../../../Services/NewEncounterService";
+import React from "react";
 import classes from "./NewEncounter.module.css";
-// import InputField from "../UI Elements/MenuForm Elements/InputField";
-// import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import NewEncounterCell from "./NewEncounterCell";
 import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
-//import NavBar from "../UI Elements/NavBar/NavBar";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const NewEncounter = (props) => {
   console.log("daddadaddada");
   console.log(props.doctorEncounterData);
 
-
-
   console.log("encounter ID in NewEncounter.js");
   console.log(props.selectedEncounterID);
-
-  // selectedEncounterID={selectedEncounterID}
 
   const CreateEncounterHandler = (encounterData) => {
     DoctorAPIHandler.addPatientEncounterData({
@@ -28,15 +21,33 @@ const NewEncounter = (props) => {
 
   const addPatientEncounterResponseHandler = (addPatientEncounterData) => {
     if (addPatientEncounterData.isEncounterCreated === false) {
-      props.setAlertMessage(addPatientEncounterData.errorMessage);
+      showMessageBarAtTheBottom({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        addPatientEncounterData.errorMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      });
       return;
     }
-    // props.refreshEncounterIDHandler(addPatientEncounterData.encounterData);
-    props.setAlertMessage("Encounter Created successfully");
+    showMessageBarAtTheBottom({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      "Encounter Created successfully.",
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true
+    });
     props.encounterCreateDataHandler(addPatientEncounterData.encounterData);
-    props.setAlertFlag(true);
     props.setCreateEncounter(true);
   };
+
+
+ //Message Bar At The Bottom to display messages...
+ const showMessageBarAtTheBottom = (propData) => {
+  props.showMessageAtBottomBar({
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+      propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+  });
+};
+
 
   return (
     <div className={classes.center}>

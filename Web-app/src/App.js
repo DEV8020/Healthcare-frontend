@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import Login from "./UIScreens/LoginModule/Login/Login";
 import AdminScreen from "./UIScreens/AdminModule/AdminScreen/AdminScreen";
-import DoctorScreen from "./Components/Screens/Doctor/DoctorScreen";
+import DoctorScreen from "./UIScreens/DoctorModule/DoctorScreen/DoctorScreen";
 import FrontDeskScreen from "./UIScreens/FrontDeskModule/FrontDeskScreen/FrontDeskScreen";
 import SuperVisorScreen from "./UIScreens/SupervisorModule/SupervisorScreen/SuperVisorScreen";
 import Alert from "@mui/material/Alert";
@@ -72,16 +72,17 @@ function App() {
         <DoctorScreen
           user={user}
           setUser={setUser}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
+          showBottomMessageBar={showBottomMessageBar}
+          // setAlertFlag={setAlertFlag}
+          // setAlertMessage={setAlertMessage}
         />
       )}
       {user !== null && user[LoginUtilities.getLoginDataKeys().userRoleKey] === LoginUtilities.getLoginUserTypeKeys().superAdminTypeKey && (
         <SuperAdminScreen
           user={user}
           setUser={setUser}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
+          // setAlertFlag={setAlertFlag}
+          // setAlertMessage={setAlertMessage}
           showBottomMessageBar={showBottomMessageBar}
         />
       )}
