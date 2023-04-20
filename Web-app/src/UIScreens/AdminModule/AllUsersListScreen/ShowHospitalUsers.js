@@ -146,7 +146,7 @@ const ShowHospitalUsers = (props) => {
           <div>
             {" "}
             <h3 style={{ textAlign: "center" }}>
-              No users to display. Please add some to proceed.
+              No users to display.
             </h3>
           </div>
         ))}

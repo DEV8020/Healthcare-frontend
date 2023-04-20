@@ -60,16 +60,6 @@ const AddDoctor = (props) => {
         "Doctor registered successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
-
-    // setDoctorData({
-    //   userId: "",
-    //   password: "",
-    //   name: "",
-    //   licId: "",
-    //   phoneNum: "",
-    //   userId: "",
-    //   docSpecialization: "",
-    // });
     setDoctorData(AdminUtilities.getCreateUserInitialData());
     props.refreshUsersListResponseHandler();
     BackButtonPressedHandler();
@@ -85,35 +75,7 @@ const AddDoctor = (props) => {
     });
   };
 
-  // //Update user data when data changes on Input Field Change Handler Method...
-  // const CreateUserDataInputFieldChangeHandler = (userEnteredData) => {
-  //   console.log(userEnteredData);
-  //   updateDoctorData(userEnteredData);
-  // };
-
-  // const doctorNameChangeHandler = (event) => {
-  //   updateDoctorData({ name: event.target.value });
-  // };
-
-  // const doctorUserIdChangeHandler = (event) => {
-  //   updateDoctorData({ userId: event.target.value });
-  // };
-
-  // const doctorContactChangeHandler = (event) => {
-  //   updateDoctorData({ contact: event.target.value });
-  // };
-
-  // const doctorSplChangeHandler = (event) => {
-  //   updateDoctorData({ docSpecialization: event.target.value });
-  // };
-
-  // const doctorPasswordChangeHandler = (event) => {
-  //   updateDoctorData({ password: event.target.value });
-  // };
-
-  // const doctorLIdChangeHandler = (event) => {
-  //   updateDoctorData({ licId: event.target.value });
-  // };
+  
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();
@@ -148,7 +110,7 @@ const AddDoctor = (props) => {
 
   const BackButtonPressedHandler = () => {
     console.log("BackButtonPressedHandler");
-    props.setAdminOption("");
+    props.setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey);
   };
 
   return (

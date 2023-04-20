@@ -14,24 +14,23 @@ const getCreateUserDataKeys = () => {
   };
 };
 
-//Admin Menu Create User Label Keys...
+//Admin Menu Create Doctor Label Keys...
 const getCreateUserLabelKeys = () => {
   return {
-    doctorNameKey: "Doctor Name",
-    doctorLicenseIDKey: "Doctor license ID",
+    doctorNameKey: "Name",
+    doctorLicenseIDKey: "License ID",
     doctorContactKey: "Contact Number",
-    doctorSpecializationKey: "Doctor Specialization",
-    doctorUserIDKey: "User Id",
+    doctorSpecializationKey: "Specialization",
+    doctorUserIDKey: "Username",
     doctorPasswordKey: "Password",
-    //   doctorSpecializationKey: "docSpecialization",
   };
 };
 
 //Admin Menu Create User Label Keys...
 const getCreateFrontDeskLabelKeys = () => {
   return {
-    frontDeskUserIDKey: "FrontDesk User Id",
-    frontDeskUserNameKey: "FrontDesk Name",
+    frontDeskUserIDKey: "Username",
+    frontDeskUserNameKey: "Name",
     frontDeskPasswordKey: "Password",
   };
 };
@@ -58,12 +57,31 @@ const getCreateUserInitialData = () => {
 };
 
 
+const getAdminMenuOptionsNameKeys = () => {
+    return {
+      showHospitalsUsersKey: "showHospitalUsers",
+      createDoctorKey: "addDoctor",
+      createFrontDeskKey: "addFrontDesk",
+    };
+  };
+  
+  const getAdminMenuOptionsLabelKeys = () => {
+    return {
+      showHospitalsUsersKey: "Show Hospital Users",
+      createDoctorKey: "Doctor Registration",
+      createFrontDeskKey: "FrontDesk Registration",
+    };
+  };
+
+
 const AdminUtilities = {
   getCreateUserDataKeys,
   getCreateUserInitialData,
   getCreateUserLabelKeys,
   getCreateFrontDeskInitialData,
   getCreateFrontDeskLabelKeys,
+  getAdminMenuOptionsNameKeys,
+  getAdminMenuOptionsLabelKeys,
 };
 
 export default AdminUtilities;

@@ -2,16 +2,17 @@ import classes from "./AdminScreen.module.css";
 import Button from "../../../Components/Screens/UI Elements/Button/Button";
 import ShowHospitalUsers from "../AllUsersListScreen/ShowHospitalUsers";
 import AddDoctor from "../../../UIScreens/AdminModule/CreateUserScreen/AddDoctor";
-import AddFrontDesk from "../CreateUserScreen/AddFrontDesk"
+import AddFrontDesk from "../CreateUserScreen/AddFrontDesk";
 import { useState, useEffect } from "react";
-// import NavBar from "../UI Elements/NavBar/NavBar";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+// import AdminUtilitiesKeys from "../AdminUtilitiesKeys/AdminUtilitiesKeys";
+import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 
 const AdminScreen = (props) => {
-  const [adminOption, setAdminOption] = useState("admin");
+  const [adminOption, setAdminOption] = useState(AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey);
   const [isUserListDataToLoad, setIsUserListDataToLoad] = useState(true);
   const [registeredUserList, setRegisteredUserList] = useState(true);
 
@@ -29,22 +30,17 @@ const AdminScreen = (props) => {
     });
   };
 
+  const showMessageAtBottomBar = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+    });
 
- const showMessageAtBottomBar = (prop) => {
-  props.showBottomMessageBar({
-    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-      prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-      prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-  });
-
-  // UtilitiesKeys
-  // props.showMessageAtBottomBar({});
-
- };
-
-
-
+    // UtilitiesKeys
+    // props.showMessageAtBottomBar({});
+  };
 
   const showAllRegisteredUserResponseHandler = (
     allRegisteredUsersResponseData
@@ -59,20 +55,20 @@ const AdminScreen = (props) => {
       setRegisteredUserList(
         allRegisteredUsersResponseData.registeredUserListData
       );
-    }else{
+    } else {
       setRegisteredUserList([]);
     }
   };
 
   const ShowHospitalUsersButtonHandler = () => {
-    setAdminOption("showHospitalUsers");
+    setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().showHospitalsUsersKey);
     refreshUsersListResponseHandler();
   };
   const AddDoctorButtonHandler = () => {
-    setAdminOption("addDoctor");
+    setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey);
   };
   const AddFrontDeskButtonHandler = () => {
-    setAdminOption("addFrontDesk");
+    setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createFrontDeskKey);
   };
   const logout = () => {
     window.localStorage.removeItem("loggedInUser");
@@ -82,33 +78,41 @@ const AdminScreen = (props) => {
   if (!props.user) return null;
   return (
     <div>
-      <NavBar value="Logout" label="Admin" onClick={logout} />
+      <NavBar value="Log out" label="Admin" onClick={logout} />
 
       <div className={classes.center}>
         <h2> Admin Menu</h2>
 
         <div className={classes.Admin_menu}>
           <Button
-            value="Show Hospital Users"
+            value={
+              AdminUtilities.getAdminMenuOptionsLabelKeys()
+                .showHospitalsUsersKey
+            }
             onClick={ShowHospitalUsersButtonHandler}
           />
 
           <Button
-            value="Doctor Registration"
+            value={
+              AdminUtilities.getAdminMenuOptionsLabelKeys().createDoctorKey
+            }
             onClick={AddDoctorButtonHandler}
           />
 
           <Button
-            value="FrontDesk Registration"
+            value={
+              AdminUtilities.getAdminMenuOptionsLabelKeys()
+                .createFrontDeskKey
+            }
             onClick={AddFrontDeskButtonHandler}
           />
         </div>
       </div>
 
-      {adminOption === "showHospitalUsers" && (
+      {adminOption ===
+        AdminUtilities.getAdminMenuOptionsNameKeys()
+          .showHospitalsUsersKey && (
         <ShowHospitalUsers
-          // {adminOption === "addHospital" && (
-          //   <AddHospital
           adminOption={adminOption}
           setAdminOption={setAdminOption}
           setAlertMessage={props.setAlertMessage}
@@ -119,22 +123,20 @@ const AdminScreen = (props) => {
         />
       )}
 
-      {adminOption === "addDoctor" && (
+      {adminOption ===
+        AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey && (
         <AddDoctor
           adminOption={adminOption}
           setAdminOption={setAdminOption}
-          // setAlertMessage={props.setAlertMessage}
-          // setAlertFlag={props.setAlertFlag}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
           showMessageAtBottomBar={showMessageAtBottomBar}
         />
       )}
-      {adminOption === "addFrontDesk" && (
+      {adminOption ===
+        AdminUtilities.getAdminMenuOptionsNameKeys().createFrontDeskKey && (
         <AddFrontDesk
           adminOption={adminOption}
           setAdminOption={setAdminOption}
-          // setAlertMessage={props.setAlertMessage}
-          // setAlertFlag={props.setAlertFlag}
           refreshUsersListResponseHandler={refreshUsersListResponseHandler}
           showMessageAtBottomBar={showMessageAtBottomBar}
         />

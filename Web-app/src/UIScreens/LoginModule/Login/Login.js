@@ -16,9 +16,6 @@ const Login = (props) => {
     LoginUtilities.getLoginInitialData()
   );
 
-  console.log("userLoginData");
-  console.log(userLoginData);
-
   //Function to handle forgot password fucntionality...
   const forgotPasswordButtonClickHandler = () => {
     //MessageComponent showMessageScreen method to display appropriate message...

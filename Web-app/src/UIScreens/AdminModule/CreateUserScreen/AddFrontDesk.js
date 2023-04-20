@@ -68,7 +68,7 @@ const AddFrontDesk = (props) => {
   };
 
   const BackButtonPressedHandler = () => {
-    props.setAdminOption("");
+    props.setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createFrontDeskKey);
   };
 
   return (
