@@ -11,7 +11,9 @@ import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilit
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const DoctorScreen = (props) => {
-  const [doctorOption, setDoctorOption] = useState(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey);
+  const [doctorOption, setDoctorOption] = useState(
+    DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey
+  );
   const [createEncounter, setCreateEncounter] = useState(false);
   const [isFollowUpListNeedToRefresh, setIsFollowUpListNeedToRefresh] =
     useState(false);
@@ -22,7 +24,8 @@ const DoctorScreen = (props) => {
     useState({});
 
   const [selectedEncounterID, setSelectedEncounterID] = useState("");
-  
+
+  const [doctorPendingEncounterData, setDoctorPendingEncounterData] = useState([]);
 
   const showMessageHandler = (prop) => {
     showMessageBarAtTheBottom(prop);
@@ -33,7 +36,22 @@ const DoctorScreen = (props) => {
     DoctorAPIHandler.getDoctorEncounterUpdates({
       doctorEncounterUpdatesData: doctorEncounterUpdatesData,
     });
+
+    DoctorAPIHandler.getDoctorPendingEncounterUpdates({
+      doctorPendingEncounterUpdatesData: doctorPendingEncounterUpdatesData,
+    });
+
   }, [isDoctorEncounterToRefresh]);
+
+
+const doctorPendingEncounterUpdatesData = (doctorPendingEncounterData) => {
+
+console.log("******************************************");
+console.log(doctorPendingEncounterData);
+setDoctorPendingEncounterData(doctorPendingEncounterData.encounterData);
+// console.log(doctorPendingEncounterData);
+}
+
 
 
   //Call Back Method for recieving Doctor Encounter data...
@@ -59,8 +77,7 @@ const DoctorScreen = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
-  }
-
+  };
 
   const logoutD = () => {
     window.localStorage.removeItem("loggedInUser");
@@ -70,11 +87,29 @@ const DoctorScreen = (props) => {
   if (!props.user) return null;
 
   const NewEncounterButtonHandler = () => {
-    setDoctorOption(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey);
+    setDoctorOption(
+      DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey
+    );
     refreshDoctorEncounterListHanlder();
   };
+
+  const PendingEncounterButtonHandler = () => {
+    console.log("PendingEncounterButtonHandler");
+    setDoctorOption(
+      DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().pendingEncounterKey
+    );
+    // setDoctorOption(
+    //   DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().newEncounterKey
+    // );
+    // refreshDoctorEncounterListHanlder();
+  };
+
+
+  //NewEncounterButtonHandler
   const FieldWorkerUpdateButtonHandler = () => {
-    setDoctorOption(DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().patientUpdateKey);
+    setDoctorOption(
+      DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys().patientUpdateKey
+    );
     refreshFollowUpListHanlder();
   };
 
@@ -137,8 +172,18 @@ const DoctorScreen = (props) => {
                 }
                 onClick={FieldWorkerUpdateButtonHandler}
               />
+
+              <Button
+                value={
+                  DoctorUtilitiesKeys.getDoctorMenuOptionsLabelKeys()
+                    .pendingEncounterKey
+                }
+                onClick={PendingEncounterButtonHandler}
+              />
             </div>
           </div>
+
+          {/* //pendingEncounterKey */}
 
           {doctorOption ===
             DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
@@ -149,8 +194,24 @@ const DoctorScreen = (props) => {
               encounterCreateDataHandler={encounterCreateDataHandler}
               selectedEncounterID={selectedEncounterID}
               showMessageAtBottomBar={showMessageHandler}
+              isPendingEncounterScreen={false}
             />
           )}
+
+          {doctorOption ===
+            DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
+              .pendingEncounterKey && (
+            <NewEncounter
+              setCreateEncounter={setCreateEncounter}
+              doctorEncounterData={doctorEncounterData}
+              encounterCreateDataHandler={encounterCreateDataHandler}
+              selectedEncounterID={selectedEncounterID}
+              showMessageAtBottomBar={showMessageHandler}
+              doctorPendingEncounterData = {doctorPendingEncounterData}
+              isPendingEncounterScreen={true}
+            />
+          )}
+
           {doctorOption ===
             DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
               .patientUpdateKey && (

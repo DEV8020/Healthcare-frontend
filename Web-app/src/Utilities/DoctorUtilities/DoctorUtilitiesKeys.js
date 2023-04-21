@@ -7,6 +7,7 @@ const getDoctorMenuOptionsNameKeys = () => {
 
     viewHistoryKey: "ViewHistory",
     createPrescriptionKey: "Prescription",
+    pendingEncounterKey: "PendingAppointment",
   };
 };
 
@@ -16,6 +17,7 @@ const getDoctorMenuOptionsLabelKeys = () => {
     patientUpdateKey: "Patient Updates",
     viewHistoryKey: "View History",
     createPrescriptionKey: "Prescription",
+    pendingEncounterKey: "Pending Appointment",
   };
 };
 

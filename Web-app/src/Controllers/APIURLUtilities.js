@@ -57,6 +57,7 @@ const getDoctorAPIChildURLKeys = () => {
     doctorAddEncounterAPIKey: "doctor/addEncounter/",
     doctorSaveEncounterAPIKey: "doctor/saveEncounter",
     doctorGetMedcialHistoryAPIKey: "doctor/getMedicalHistory/",
+    doctorGetPendingEncounterAPIKey: "doctor/getUnsavedEncounters/",
   };
 };
 

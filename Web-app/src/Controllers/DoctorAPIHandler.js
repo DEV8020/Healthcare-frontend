@@ -36,6 +36,45 @@ const getFollowUpUpdates = async (props) => {
   });
 };
 
+
+
+////http://localhost:9191/doctor/pendingQueue/{DoctorUsername}
+const getDoctorPendingEncounterUpdates = async (props) => {
+
+  var childURL =
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetPendingEncounterAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser();
+  console.log(childURL);
+
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL: childURL,
+    //   postData: props.fieldWorkerData,
+    responseDataHandler: (pendingEncounterData) => {
+      console.log("Register Field Worker Data In Admin Menu Response Data...");
+      console.log(pendingEncounterData.responseData);
+//      doctorPendingEncounterUpdatesData: doctorPendingEncounterUpdatesData,
+
+      if (pendingEncounterData.responseError === null) {
+        props.doctorPendingEncounterUpdatesData({
+          isEncounterDataRecieved: true,
+          encounterData: pendingEncounterData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (pendingEncounterData.responseData === null) {
+        props.doctorPendingEncounterUpdatesData({
+          isEncounterDataRecieved: false,
+          encounterData: [],
+          errorMessage: pendingEncounterData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+
+
+
+
 //Register Field Worker In Supervisor Menu API Handler Method...
 const getDoctorEncounterUpdates = async (props) => {
   // console.log("Register Field Worker In Supervisor Menu...");
@@ -238,6 +277,7 @@ const DoctorAPIHandler = {
   getPatientHistoryUpdates,
   savePatientEncounterData,
   addPatientEncounterData,
+  getDoctorPendingEncounterUpdates
 };
 
 export default DoctorAPIHandler;
