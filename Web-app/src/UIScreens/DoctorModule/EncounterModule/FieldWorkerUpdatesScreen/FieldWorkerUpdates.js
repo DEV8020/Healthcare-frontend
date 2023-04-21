@@ -1,6 +1,6 @@
 import classes from "./FieldWorkerUpdates.module.css";
 import React, { useEffect, useState } from "react";
-import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
+import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
 
 const FieldWorkerUpdates = (props) => {
   const [followUpUpdateList, setFollowUpUpdateList] = useState([]);

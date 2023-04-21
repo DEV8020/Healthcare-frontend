@@ -1,7 +1,9 @@
 import classes from "./ViewHistory.module.css";
 import { useEffect, useState } from "react";
-import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+// import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
+import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
+// import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 
 const ViewHistory = (props) => {
   const [historyData, setHistoryData] = useState([]);

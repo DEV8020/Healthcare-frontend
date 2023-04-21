@@ -2,8 +2,8 @@ import React from "react";
 import classes from "./NewEncounter.module.css";
 // import NewEncounterCell from "./NewEncounterCell";
 import NewEncounterCell from "./NewEncounterCell"
-import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
-import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
+import UtilitiesKeys from "../../../../Utilities/UtilitiesKeys";
 // import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const NewEncounter = (props) => {

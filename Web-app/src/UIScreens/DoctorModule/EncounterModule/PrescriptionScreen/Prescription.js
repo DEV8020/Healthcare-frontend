@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import classes from "./Prescription.module.css";
-import MenuSubmitButton from "../UI Elements/MenuSubmitButton/MenuSubmitButton";
-import TextBox from "../UI Elements/MenuForm Elements/TextBox";
-import DoctorAPIHandler from "../../../Controllers/DoctorAPIHandler";
-import AddButton from "../UI Elements/MenuForm Elements/addButton";
-import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import MenuSubmitButton from "../../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
+import TextBox from "../../../../Components/Screens/UI Elements/MenuForm Elements/TextBox";
+import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
+import AddButton from "../../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
+import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");

@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import AddButton from "../UI Elements/MenuForm Elements/addButton";
 import classes from "./NewEncounterCell.module.css";
-import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const NewEncounterCell = (props) => {
   const [encounterData, setEncounterData] = useState({});

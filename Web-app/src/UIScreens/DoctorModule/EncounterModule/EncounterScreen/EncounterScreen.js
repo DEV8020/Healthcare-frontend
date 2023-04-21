@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 // import PatientData from "./PatientData";
 import classes from "./EncounterScreen.module.css";
-import NavBar from "../UI Elements/NavBar/NavBar";
-import Button from "../UI Elements/Button/Button";
-import Prescription from "./Prescription";
-import ViewHistory from "./ViewHistory";
+import NavBar from "../../../../Components/Screens/UI Elements/NavBar/NavBar";
+import Button from "../../../../Components/Screens/UI Elements/Button/Button";
+import Prescription from "../PrescriptionScreen/Prescription";
+import ViewHistory from "../ViewHistoryScreen/ViewHistory";
+// import ViewHistory from "../../../Components/Screens/Doctor/ViewHistory";
 // import FollowUpUpdates from "./FollowUpUpdates";
-import AddFollowup from "./AddFollowup";
-import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
+import AddFollowup from "../../AddFollowUpScreen/AddFollowup";
+import DoctorUtilitiesKeys from "../../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
 // import AddFollowup from
 // import AddButton from "../UI Elements/MenuForm Elements/addButton";
 
