@@ -54,6 +54,15 @@ const getIsMessageErrorMessageKey = () => {
   return [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey];
 };
 
+const setAttributesDataForDoctor = (attributesData) => {
+  localStorage.setItem("attributes", attributesData);
+  // return localStorage.getItem("token");
+};
+
+const getAttributesDataForDoctor = () => {
+  return localStorage.getItem("attributes");
+};
+
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
   showMessageBarAtTheBottom,
@@ -65,6 +74,8 @@ const UtilitiesMethods = {
   getUserNameForLoggedInUser,
   getErrorMessageKey,
   getIsMessageErrorMessageKey,
+  getAttributesDataForDoctor,
+  setAttributesDataForDoctor
 };
 
 export default UtilitiesMethods;
