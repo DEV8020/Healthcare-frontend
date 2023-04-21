@@ -1,48 +1,59 @@
 import React, { useState } from "react";
 import classes from "./AddFollowup.module.css";
+import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
+import DoctorFollowUpDataCell from "./DoctorFollowUpDataCell/DoctorFollowUpDataCell";
 
 function AddFollowup(props) {
   const today = new Date();
   const minDate = today.toISOString().substr(0, 10);
-  const [followUps, setFollowUps] = useState([
-    { doctorRemark: "", date: "", checkboxes: [false, false, false] },
+  // const [followUps, setFollowUps] = useState([
+  //   { doctorRemark: "", date: "", checkboxes: [false, false, false] },
+  // ]);
+
+  // const [followUps, setFollowUps] = useState(DoctorUtilitiesKeys.getDoctorFollowUpInitialData());
+
+  const [followUpsList, setFollowUpsList] = useState([
+    DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
   ]);
 
+  console.log("followUpsList data");
+  console.log(followUpsList);
+
   const handleAddfollowups = () => {
-    setFollowUps([
-      ...followUps,
-      { doctorRemark: "", date: "", checkboxes: [false, false, false] },
+    const initialFollowUpLists = followUpsList;
+
+    setFollowUpsList([
+      ...initialFollowUpLists,
+      ...[DoctorUtilitiesKeys.getDoctorFollowUpInitialData()],
     ]);
   };
+
   const handleResetfollowups = () => {
-    setFollowUps([
-      { doctorRemark: "", date: "", checkboxes: [false, false, false] },
-    ]);
+  
   };
 
-  const handleRemovefollowups = (index) => {
-    const newfollowups = [...followUps];
-    newfollowups.splice(index, 1);
-    setFollowUps(newfollowups);
+ 
+
+ 
+  const handleDoctorRemarksDataChangeHandler = (prop) => {
+    const updatedFollowUpListData = followUpsList.map((followUpData, index) => {
+      if (prop.followUpIndex === index) {
+        return { ...followUpData, ...prop.remarkData };
+      } else {
+        return followUpData;
+      }
+    });
+    setFollowUpsList(updatedFollowUpListData);
   };
 
-  const handledoctorRemarkChange = (value, index) => {
-    const newfollowups = [...followUps];
-    newfollowups[index].doctorRemark = value;
-    setFollowUps(newfollowups);
+  const removeFollowUpButtonHandler = (indexToRemoved) => {
+    const updatedFollowUpList = followUpsList.filter((_, index) => {
+      return index !== indexToRemoved;
+    });
+    setFollowUpsList(updatedFollowUpList);
   };
 
-  const handleDateChange = (value, index) => {
-    const newfollowups = [...followUps];
-    newfollowups[index].date = value;
-    setFollowUps(newfollowups);
-  };
-
-  const handleCheckboxChange = (checked, checkboxIndex, followupIndex) => {
-    const newfollowups = [...followUps];
-    newfollowups[followupIndex].checkboxes[checkboxIndex] = checked;
-    setFollowUps(newfollowups);
-  };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,24 +64,6 @@ function AddFollowup(props) {
     for (const [key, value] of formData.entries()) {
       formValues[key] = value;
     }
-
-    setFollowUps([
-      ...followUps,
-      {
-        doctorRemark: formValues["doctorRemark"],
-        date: formValues["date"],
-        checkboxes: [
-          formValues["temprature"] === "on",
-          formValues["sugarLevel"] === "on",
-          formValues["bloodPressure"] === "on",
-        ],
-      },
-    ]);
-
-    console.log(followUps);
-    setFollowUps([
-      { doctorRemark: "", date: "", checkboxes: [false, false, false] },
-    ]);
   };
 
   return (
@@ -85,50 +78,37 @@ function AddFollowup(props) {
           >
             Add follow-up
           </button>
-          <button
-            className={classes.reset_btn}
-            type="button"
-            onClick={handleResetfollowups}
-          >
-            reset
-          </button>
 
           <button
             className={classes.submit_btn}
             type="button"
             onClick={handleFollowupPopUpFormSubmit}
           >
-            Submit
+            Save Followups
           </button>
           <button
             className={classes.close_btn}
             type="button"
             onClick={() => props.setAddFollowup(false)}
           >
-            cancel
+            Cancel
           </button>
         </div>
+
         <form id="followupform" onSubmit={handleSubmit}>
-          {followUps.map((followup, index) => (
-            <div key={followup.date}>
-              <input
-                type="text"
-                name={`doctorRemark${index}`}
-                value={followup.doctorRemark}
-                onChange={(event) =>
-                  handledoctorRemarkChange(event.target.value, index)
+          {followUpsList.map((followupData, index) => (
+            <div>
+              <DoctorFollowUpDataCell
+                key={index}
+                followUpData={followupData}
+                handleDoctorRemarksDataChangeHandler={
+                  handleDoctorRemarksDataChangeHandler
                 }
+                removeFollowUpButtonHandler={removeFollowUpButtonHandler}
+                followUpIndex={index}
               />
-              <input
-                type="date"
-                min={minDate}
-                name={`date${index}`}
-                value={followup.date}
-                onChange={(event) =>
-                  handleDateChange(event.target.value, index)
-                }
-              />
-              <label>
+
+              {/* <label>
                 Temperature
                 <input
                   type="checkbox"
@@ -138,8 +118,8 @@ function AddFollowup(props) {
                     handleCheckboxChange(event.target.checked, 0, index)
                   }
                 />
-              </label>
-              <label>
+              </label> */}
+              {/* <label>
                 Sugar Level
                 <input
                   type="checkbox"
@@ -149,8 +129,8 @@ function AddFollowup(props) {
                     handleCheckboxChange(event.target.checked, 1, index)
                   }
                 />
-              </label>
-              <label>
+              </label> */}
+              {/* <label>
                 Blood Pressure
                 <input
                   type="checkbox"
@@ -160,14 +140,7 @@ function AddFollowup(props) {
                     handleCheckboxChange(event.target.checked, 2, index)
                   }
                 />
-              </label>
-              <button
-                className={classes.remove_btn}
-                type="button"
-                onClick={() => handleRemovefollowups(index)}
-              >
-                Remove
-              </button>
+              </label> */}
             </div>
           ))}
         </form>
