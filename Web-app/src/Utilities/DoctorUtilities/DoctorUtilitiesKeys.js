@@ -1,3 +1,5 @@
+import UtilitiesMethods from "../UtilitiesMethods";
+
 const getDoctorMenuOptionsNameKeys = () => {
   return {
     newEncounterKey: "NewEncounter",
@@ -21,6 +23,7 @@ const getDoctorAddFollowUpLabelKeys = () => {
   return {
     doctorRemarksKey: "doctorRemarks",
     followUpDateKey: "date",
+    followReadingsKey: "readings",
   };
 };
 
@@ -28,6 +31,8 @@ const getDoctorFollowUpInitialData = () => {
   return {
     [getDoctorAddFollowUpLabelKeys().doctorRemarksKey]: "",
     [getDoctorAddFollowUpLabelKeys().followUpDateKey]: "",
+    [getDoctorAddFollowUpLabelKeys().followReadingsKey]:
+      UtilitiesMethods.getAttributesDataForDoctor(),
   };
 };
 

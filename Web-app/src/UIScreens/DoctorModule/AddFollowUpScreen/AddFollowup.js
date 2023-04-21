@@ -2,32 +2,34 @@ import React, { useState } from "react";
 import classes from "./AddFollowup.module.css";
 import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
 import DoctorFollowUpDataCell from "./DoctorFollowUpDataCell/DoctorFollowUpDataCell";
+import DoctorReadingsCell from "./DoctorFollowUpDataCell/DoctorReadingsCell";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 function AddFollowup(props) {
-
   const [followUpsList, setFollowUpsList] = useState([
     DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
   ]);
 
-  console.log("followUpsList data");
-  console.log(followUpsList);
-
   const handleAddfollowups = () => {
     const initialFollowUpLists = followUpsList;
-
     setFollowUpsList([
       ...initialFollowUpLists,
       ...[DoctorUtilitiesKeys.getDoctorFollowUpInitialData()],
     ]);
   };
 
-  const handleResetfollowups = () => {
-  
+  const handleDoctorReadingsDataChangeHandler = (prop) => {
+    const updatedFollowUpListData = followUpsList.map((followUpData, index) => {
+      if (prop.index === index) {
+        return { ...followUpData, ...{ readings: prop.updatedData } };
+      } else {
+        return followUpData;
+      }
+    });
+    setFollowUpsList(updatedFollowUpListData);
   };
 
- 
-
- 
   const handleDoctorRemarksDataChangeHandler = (prop) => {
     const updatedFollowUpListData = followUpsList.map((followUpData, index) => {
       if (prop.followUpIndex === index) {
@@ -46,16 +48,80 @@ function AddFollowup(props) {
     setFollowUpsList(updatedFollowUpList);
   };
 
-  
-
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  const remarksKey =
+    DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().doctorRemarksKey;
+  const followUpDateKey =
+    DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().followUpDateKey;
+
+  const isRemarkDateAddedError = () => {
+    var isRemarkDateNotAddded = false;
+    followUpsList.map((followUpData) => {
+      console.log(followUpData);
+      console.log("*****************************************");
+      console.log(followUpData[followUpDateKey]);
+      // console.log(
+      //   UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey])
+      // );
+
+      if (
+        UtilitiesMethods.getSpaceTrimmedLenght(followUpData[followUpDateKey]) === 0
+      ) {
+        isRemarkDateNotAddded = true;
+      }
+    });
+    return isRemarkDateNotAddded;
+  };
+
+
+  const isRemarkAddedError = () => {
+    var isRemarkNotAddded = false;
+    followUpsList.map((followUpData) => {
+      // console.log(followUpData);
+      // console.log(followUpData[remarksKey]);
+      // console.log(
+      //   UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey])
+      // );
+
+      if (
+        UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey]) === 0
+      ) {
+        isRemarkNotAddded = true;
+      }
+    });
+    return isRemarkNotAddded;
+  };
+
+  const showMessageBarAtTheBottom = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+    });
+  };
+
   const handleFollowupPopUpFormSubmit = () => {
-    const formData = new FormData(document.getElementById("followupform"));
-    const formValues = {};
-    for (const [key, value] of formData.entries()) {
-      formValues[key] = value;
+    if (isRemarkAddedError()) {
+      showMessageBarAtTheBottom({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please add all the remarks. It can't be left blank.",
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+          false
+      });
+      return;
+    }
+
+    if (isRemarkDateAddedError()) {
+      showMessageBarAtTheBottom({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please add all the followup dates. It can't be left blank.",
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+          false
+      });
     }
   };
 
@@ -101,39 +167,13 @@ function AddFollowup(props) {
                 followUpIndex={index}
               />
 
-              {/* <label>
-                Temperature
-                <input
-                  type="checkbox"
-                  name={`temperature${index}`}
-                  checked={followup.checkboxes[0]}
-                  onChange={(event) =>
-                    handleCheckboxChange(event.target.checked, 0, index)
-                  }
-                />
-              </label> */}
-              {/* <label>
-                Sugar Level
-                <input
-                  type="checkbox"
-                  name={`sugarLevel${index}`}
-                  checked={followup.checkboxes[1]}
-                  onChange={(event) =>
-                    handleCheckboxChange(event.target.checked, 1, index)
-                  }
-                />
-              </label> */}
-              {/* <label>
-                Blood Pressure
-                <input
-                  type="checkbox"
-                  name={`bloodPressure${index}`}
-                  checked={followup.checkboxes[2]}
-                  onChange={(event) =>
-                    handleCheckboxChange(event.target.checked, 2, index)
-                  }
-                />
-              </label> */}
+              <DoctorReadingsCell
+                readingsData={followupData.readings}
+                followUpIndex={index}
+                handleDoctorReadingsDataChangeHandler={
+                  handleDoctorReadingsDataChangeHandler
+                }
+              />
             </div>
           ))}
         </form>

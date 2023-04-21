@@ -55,12 +55,11 @@ const getIsMessageErrorMessageKey = () => {
 };
 
 const setAttributesDataForDoctor = (attributesData) => {
-  localStorage.setItem("attributes", attributesData);
-  // return localStorage.getItem("token");
+  localStorage.setItem("attributes", JSON.stringify(attributesData));
 };
 
 const getAttributesDataForDoctor = () => {
-  return localStorage.getItem("attributes");
+  return JSON.parse(localStorage.getItem("attributes"));
 };
 
 const UtilitiesMethods = {

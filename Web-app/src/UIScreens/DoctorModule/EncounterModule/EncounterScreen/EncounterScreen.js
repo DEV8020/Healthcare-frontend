@@ -115,6 +115,7 @@ const EncounterScreen = (props) => {
         <AddFollowup
           setFollowupsData={setFollowupsData}
           setAddFollowup={setAddFollowup}
+          showBottomMessageBar={props.showMessageBarAtTheBottom}
         />
       )}
     </div>
