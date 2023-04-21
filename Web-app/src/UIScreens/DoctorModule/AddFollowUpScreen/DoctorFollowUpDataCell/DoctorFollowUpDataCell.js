@@ -6,19 +6,40 @@ const DoctorFollowUpDataCell = (props) => {
   const [followUpData, setFollowUpData] = useState(props.followUpData);
   const [followUpIndex, setFollowUpIndex] = useState(props.followUpIndex);
 
+  const today = new Date();
+  const minDate = today.toISOString().substring(0, 10);
+
+  console.log(minDate);
+  console.log(props);
+
   const remarksKey =
     DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().doctorRemarksKey;
+    const followUpDateKey =
+    DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().followUpDateKey;
 
   const doctorRemarksDataChangeHandler = (event) => {
 
     const updatedRemarkData = {
-      [DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().doctorRemarksKey]:
+      [remarksKey]:
       event.target.value
     };
 
     props.handleDoctorRemarksDataChangeHandler({
       followUpIndex: followUpIndex,
-      remarkData: updatedRemarkData,
+      followUpData: updatedRemarkData,
+    });
+  };
+
+  const doctorFollowUpDateChangeHandler = (event) => {
+
+    const updatedDateData = {
+      [followUpDateKey]:
+      event.target.value
+    };
+
+    props.handleDoctorRemarksDataChangeHandler({
+      followUpIndex: followUpIndex,
+      followUpData: updatedDateData,
     });
   };
 
@@ -37,20 +58,15 @@ const DoctorFollowUpDataCell = (props) => {
       />
       <input
         type="date"
-        // min={minDate}
+        min= {minDate}
         name="date"
-        value={
-          followUpData[
-            DoctorUtilitiesKeys.getDoctorAddFollowUpLabelKeys().followUpDateKey
-          ]
-        }
-        // onChange={(event) => handleDateChange(event.target.value, index)}
+        value={props.followUpData[followUpDateKey]}
+        onChange={doctorFollowUpDateChangeHandler}
       />
       <button
         className={classes.remove_btn}
         type="button"
         onClick={removeFollowUpButtonHandler}
-        // onClick={() => handleRemovefollowups(index)}
       >
         Remove
       </button>

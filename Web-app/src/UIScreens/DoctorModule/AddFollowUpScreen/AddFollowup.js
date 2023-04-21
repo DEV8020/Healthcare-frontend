@@ -4,13 +4,6 @@ import DoctorUtilitiesKeys from "../../../Utilities/DoctorUtilities/DoctorUtilit
 import DoctorFollowUpDataCell from "./DoctorFollowUpDataCell/DoctorFollowUpDataCell";
 
 function AddFollowup(props) {
-  const today = new Date();
-  const minDate = today.toISOString().substr(0, 10);
-  // const [followUps, setFollowUps] = useState([
-  //   { doctorRemark: "", date: "", checkboxes: [false, false, false] },
-  // ]);
-
-  // const [followUps, setFollowUps] = useState(DoctorUtilitiesKeys.getDoctorFollowUpInitialData());
 
   const [followUpsList, setFollowUpsList] = useState([
     DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
@@ -38,7 +31,7 @@ function AddFollowup(props) {
   const handleDoctorRemarksDataChangeHandler = (prop) => {
     const updatedFollowUpListData = followUpsList.map((followUpData, index) => {
       if (prop.followUpIndex === index) {
-        return { ...followUpData, ...prop.remarkData };
+        return { ...followUpData, ...prop.followUpData };
       } else {
         return followUpData;
       }
@@ -76,7 +69,7 @@ function AddFollowup(props) {
             type="button"
             onClick={handleAddfollowups}
           >
-            Add follow-up
+            Add followup
           </button>
 
           <button
