@@ -41,5 +41,51 @@ const GetUserLoginData = async (props) => {
   });
 };
 
-const LoginController = { GetUserLoginData };
+
+
+const GetDoctorFollowUpAttributesData = async (props) => {
+
+  // //Extracting User Type Value...
+  // const userType =
+  //   props.userData[LoginUtilities.getLoginDataKeys().userRoleKey];
+
+  // //Extracting User Type Value and replace with Value modified as per server need...
+  // const userUpdatedData = {
+  //   ...props.userData,
+  //   ...{
+  //     [LoginUtilities.getLoginDataKeys().userRoleKey]:
+  //       LoginUtilities.getLoggedInUserRoleTypeForServer(userType),
+  //   },
+  // };
+
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL: APIURLUtilities.getAPIChildURLKeys().doctorFollowAttributesKey,
+    
+    responseDataHandler: (followAttributesData) => {
+      //Login respone parsing in case of Success...
+      console.log(followAttributesData);
+      if (followAttributesData.responseError === null) {
+        props.getDoctorFollowUpAttributesResponseHandler({
+          isListRecievedFlag: true,
+          attributesData: followAttributesData.responseData.data,
+          errorMessage: null,
+        });
+      } 
+      //Login respone parsing in case of Error...
+      else if (followAttributesData.responseData === null) {
+        props.getDoctorFollowUpAttributesResponseHandler({
+          isListRecievedFlag: false,
+          attributesData: [],
+          errorMessage: followAttributesData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+
+
+
+
+const LoginController = { GetUserLoginData , GetDoctorFollowUpAttributesData};
 export default LoginController;

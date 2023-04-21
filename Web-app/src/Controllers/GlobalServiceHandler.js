@@ -20,6 +20,78 @@ const getHeaderConfigurationsList = () => {
   };
 };
 
+
+
+const hitGetServiceWithOutBearer = async (props) => {
+  try {
+    const url = serverURL + props.childURL;
+
+    console.log("URL Hitting in GlobalServiceHandler");
+    console.log(url);
+
+    const response = await axios.get(url, {
+      validateStatus: function (status) {
+        return (
+          status === 200 || status === 404 || status === 403 || status === 500
+        );
+        // Resolve only if the status code is 202 or 404...
+      },
+    });
+
+    console.log("Data recieved");
+    console.log(response);
+
+    handleAPICallReponseData({
+      response: response,
+      responseHandler: props.responseDataHandler,
+    });
+
+    // if (response.status === 200) {
+    //   props.responseDataHandler({
+    //     responseData: response,
+    //     responseError: null,
+    //   });
+    // } else if (response.status === 403) {
+    //   console.log("403 response");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: null,
+    //     responseError: Error(response.data.message),
+    //   });
+    // } else if (response.status === 404) {
+    //   console.log("404 response");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: null,
+    //     responseError: Error(response.data.message),
+    //   });
+    // } else if (response.status === 500) {
+    //   console.log("404 response");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: null,
+    //     responseError: Error(response.data.message),
+    //   });
+    // } else {
+    //   console.log("else block");
+    //   console.log(response);
+    //   props.responseDataHandler({
+    //     responseData: response,
+    //     responseError: null,
+    //   });
+    // }
+  } catch (error) {
+    console.log("error block");
+    console.log(error);
+    props.responseDataHandler({
+      responseData: null,
+      responseError: error,
+    });
+  }
+};
+
+
+
 const hitPostServiceWithOutBearer = async (props) => {
   try {
     const url = serverURL + props.childURL;
@@ -301,5 +373,6 @@ const GlobalServiceHandler = {
   hitCustomResponseGetService,
   getHeaderConfigurationsList,
   hitPostServiceWithOutBearer,
+  hitGetServiceWithOutBearer
 };
 export default GlobalServiceHandler;

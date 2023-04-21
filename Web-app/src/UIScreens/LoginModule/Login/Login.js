@@ -9,9 +9,7 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UsernameInput from "../../../Component/LoginModule/UserLoginInputTextField/UserNameInput";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 
-
 const Login = (props) => {
-
   const [userLoginData, setUserLoginData] = useState(
     LoginUtilities.getLoginInitialData()
   );
@@ -56,6 +54,7 @@ const Login = (props) => {
 
   const userLoginResponseHandler = (userLoginResponseData) => {
     const userID = userLoginData[LoginUtilities.getLoginDataKeys().userNameKey];
+    const userRoleType = LoginUtilities.getLoginUserTypeKeys().doctorTypeKey;
 
     if (userLoginResponseData.isLoginFlag === true) {
       showMessageAtBottomBar({
@@ -66,6 +65,11 @@ const Login = (props) => {
         userLoginResponseData.loggedInUserData
       );
       setUserAsLoggedIn();
+      if (
+        userRoleType === LoginUtilities.getLoginUserTypeKeys().doctorTypeKey
+      ) {
+        downloadDoctorFollowUpAttributesList();
+      }
     } else {
       props.showBottomMessageBar({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
@@ -116,6 +120,21 @@ const Login = (props) => {
       userData: userLoginData,
       userLoginResponseHandler: userLoginResponseHandler,
     });
+  };
+
+  const downloadDoctorFollowUpAttributesList = () => {
+    console.log("*****************************************");
+    console.log("downloadDoctorFollowUpAttributesList called");
+    console.log("*****************************************");
+    console.log(userLoginData[LoginUtilities.getLoginDataKeys().userRoleKey]);
+    LoginController.GetDoctorFollowUpAttributesData({
+      getDoctorFollowUpAttributesResponseHandler:
+        getDoctorFollowUpAttributesResponseHandler,
+    });
+  };
+
+  const getDoctorFollowUpAttributesResponseHandler = (attributeData) => {
+    UtilitiesMethods.setAttributesDataForDoctor(attributeData.attributesData);
   };
 
   const hospitalUerTypeOptions = [

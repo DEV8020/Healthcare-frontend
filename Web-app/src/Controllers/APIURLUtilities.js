@@ -5,7 +5,9 @@ const getAPIChildURLKeys = () => {
   return {
     loginAPIKey: "login/",
     superAdminGetAllUsersAPIKey: "superadmin/getAllUsers",
+    doctorFollowAttributesKey : "doctor/getReadings"
   };
+  // http://localhost:9191/doctor/getReadings
 };
 
 //Super Admin Menu Options API Child URL Keys...
