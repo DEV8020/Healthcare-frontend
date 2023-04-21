@@ -158,7 +158,7 @@ const savePatientEncounterData = async (props) => {
   // var childURL = "saveEncounter"; //+ UtilitiesMethods.getUSerIDForLoggedInUser();
   // console.log(childURL);
 
-  //   return;
+    // return;
 
   await GlobalServiceHandler.hitPutService({
     childURL:

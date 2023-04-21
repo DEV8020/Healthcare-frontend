@@ -7,13 +7,18 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 function AddFollowup(props) {
-  const [followUpsList, setFollowUpsList] = useState([
-    DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
-  ]);
+  // const [followUpsList, setFollowUpsList] = useState([
+  //   DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
+  // ]);
+
+  const followUpsList = props.doctorFollowUpData;
+
+  // doctorFollowUpData={doctorFollowUpData}
+          // setDoctorFollowUpData={setDoctorFollowUpData}
 
   const handleAddfollowups = () => {
     const initialFollowUpLists = followUpsList;
-    setFollowUpsList([
+    props.setDoctorFollowUpData([
       ...initialFollowUpLists,
       ...[DoctorUtilitiesKeys.getDoctorFollowUpInitialData()],
     ]);
@@ -27,7 +32,7 @@ function AddFollowup(props) {
         return followUpData;
       }
     });
-    setFollowUpsList(updatedFollowUpListData);
+    props.setDoctorFollowUpData(updatedFollowUpListData);
   };
 
   const handleDoctorRemarksDataChangeHandler = (prop) => {
@@ -38,14 +43,14 @@ function AddFollowup(props) {
         return followUpData;
       }
     });
-    setFollowUpsList(updatedFollowUpListData);
+    props.setDoctorFollowUpData(updatedFollowUpListData);
   };
 
   const removeFollowUpButtonHandler = (indexToRemoved) => {
     const updatedFollowUpList = followUpsList.filter((_, index) => {
       return index !== indexToRemoved;
     });
-    setFollowUpsList(updatedFollowUpList);
+    props.setDoctorFollowUpData(updatedFollowUpList);
   };
 
   const handleSubmit = (event) => {
@@ -60,13 +65,6 @@ function AddFollowup(props) {
   const isRemarkDateAddedError = () => {
     var isRemarkDateNotAddded = false;
     followUpsList.map((followUpData) => {
-      console.log(followUpData);
-      console.log("*****************************************");
-      console.log(followUpData[followUpDateKey]);
-      // console.log(
-      //   UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey])
-      // );
-
       if (
         UtilitiesMethods.getSpaceTrimmedLenght(followUpData[followUpDateKey]) === 0
       ) {
@@ -80,12 +78,6 @@ function AddFollowup(props) {
   const isRemarkAddedError = () => {
     var isRemarkNotAddded = false;
     followUpsList.map((followUpData) => {
-      // console.log(followUpData);
-      // console.log(followUpData[remarksKey]);
-      // console.log(
-      //   UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey])
-      // );
-
       if (
         UtilitiesMethods.getSpaceTrimmedLenght(followUpData[remarksKey]) === 0
       ) {
@@ -122,7 +114,9 @@ function AddFollowup(props) {
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
           false
       });
+      return;
     }
+    props.setAddFollowup(false);
   };
 
   return (

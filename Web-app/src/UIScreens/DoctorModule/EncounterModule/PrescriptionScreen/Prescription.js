@@ -34,7 +34,7 @@ const Prescription = (props) => {
 
     console.log(props.folloupsData);
 
-    //folloupsData
+    // /folloupsData
 
     // return;
 
@@ -63,7 +63,7 @@ const Prescription = (props) => {
     setPrescriptionData("");
     showMessageBarAtTheBottom({
       [UtilitiesMethods.getErrorMessageKey()]:
-        "Prescription successfully added :" + PrescriptionData,
+        "Prescription successfully added.",
       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
     });
     props.callBackHandlerOnEncounterCreate();

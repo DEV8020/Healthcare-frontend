@@ -24,8 +24,16 @@ const EncounterScreen = (props) => {
   });
   const [patientEncounterID, setPatientEncounterID] = useState("");
 
-  console.log("folloupsData");
-  console.log(folloupsData);
+  // const [doctorFollowUpData, setDoctorFollowUpData] = useState(
+  //   DoctorUtilitiesKeys.getDoctorFollowUpInitialData()
+  // );
+
+  // console.log("folloupsData");
+  // console.log(folloupsData);
+
+  const [doctorFollowUpData, setDoctorFollowUpData] = useState([
+    DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
+  ]);
 
   //   // AddFollowup
   // AddFollowup
@@ -91,7 +99,7 @@ const EncounterScreen = (props) => {
           doctorPrescriptionData={doctorEncounterData}
           setDoctorPrescriptionData={setDoctorEncounterData}
           setAddFollowup={setAddFollowup}
-          folloupsData={folloupsData}
+          folloupsData={doctorFollowUpData}
           encounterID={props.selectedEncounterID}
           callBackHandlerOnEncounterCreate={callBackHandlerOnEncounterCreate}
           showBottomMessageBar={props.showMessageBarAtTheBottom}
@@ -116,6 +124,8 @@ const EncounterScreen = (props) => {
           setFollowupsData={setFollowupsData}
           setAddFollowup={setAddFollowup}
           showBottomMessageBar={props.showMessageBarAtTheBottom}
+          doctorFollowUpData={doctorFollowUpData}
+          setDoctorFollowUpData={setDoctorFollowUpData}
         />
       )}
     </div>
