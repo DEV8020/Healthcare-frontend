@@ -22,7 +22,7 @@ const DoctorScreen = (props) => {
     useState({});
 
   const [selectedEncounterID, setSelectedEncounterID] = useState("");
-  // const [doctorOption, setDoctorOption] = useState("");
+  
 
   const showMessageHandler = (prop) => {
     showMessageBarAtTheBottom(prop);
@@ -35,9 +35,6 @@ const DoctorScreen = (props) => {
     });
   }, [isDoctorEncounterToRefresh]);
 
-  // isEncounterDataRecieved: true,
-  // encounterData: encounterData.responseData.data,
-  // errorMessage: null,
 
   //Call Back Method for recieving Doctor Encounter data...
   const doctorEncounterUpdatesData = (doctorEncounterData) => {
@@ -89,18 +86,8 @@ const DoctorScreen = (props) => {
     console.log(selectedEncounterID);
   };
 
-  // const refreshEncounterIDHandler = (encounterData) => {
-  //   console.log("encounterData");
-  //   console.log(encounterData);
-  //   setSelectedEncounterID(encounterData.encounterId);
-  //   console.log(selectedEncounterID);
-  // };
-
-  // consol);
-
   //Method to change the Refresh Variable and Load the follow up list...
   const refreshFollowUpListHanlder = () => {
-    // console.log("refreshFollowUpListHanlder called");
     setIsFollowUpListNeedToRefresh((isRefresh) => {
       return !isRefresh;
     });
@@ -108,7 +95,6 @@ const DoctorScreen = (props) => {
 
   //Method to change the Refresh Variable and Load the Encounter Data...
   const refreshDoctorEncounterListHanlder = () => {
-    // console.log("refreshFollowUpListHanlder called");
     setIsDoctorEncounterToRefresh((isRefresh) => {
       return !isRefresh;
     });
@@ -118,8 +104,6 @@ const DoctorScreen = (props) => {
     <div>
       {createEncounter === true && (
         <EncounterScreen
-          // setAlertMessage={props.setAlertMessage}
-          // setAlertFlag={props.setAlertFlag}
           showMessageBarAtTheBottom={showMessageBarAtTheBottom}
           setCreateEncounter={setCreateEncounter}
           selectedDoctorEncounterData={selectedDoctorEncounterData}
@@ -160,14 +144,9 @@ const DoctorScreen = (props) => {
             DoctorUtilitiesKeys.getDoctorMenuOptionsNameKeys()
               .newEncounterKey && (
             <NewEncounter
-              // doctorOption={doctorOption}
-              // setDoctorOption={setDoctorOption}
-              // setAlertMessage={props.setAlertMessage}
-              // setAlertFlag={props.setAlertFlag}
               setCreateEncounter={setCreateEncounter}
               doctorEncounterData={doctorEncounterData}
               encounterCreateDataHandler={encounterCreateDataHandler}
-              // refreshEncounterIDHandler={refreshEncounterIDHandler}
               selectedEncounterID={selectedEncounterID}
               showMessageAtBottomBar={showMessageHandler}
             />
