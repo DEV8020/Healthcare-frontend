@@ -44,6 +44,10 @@ const PatientRegistration = (props) => {
       UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
     );
 
+    // console.log(patientRegistrationData);
+
+    // console.log(userContactNumber);
+
     //Show Alert Message in case of Invalid Contact Number...
     if (userContactNumber.length !== userContactNumberRequiredLength) {
       showErrorMessageScreen(
@@ -63,6 +67,10 @@ const PatientRegistration = (props) => {
     const userPinCodeRequiredLength = parseInt(
       UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
     );
+
+    console.log("******************************");
+    console.log(patientRegistrationData);
+    console.log(userPinCodeMappedKey);
 
     //Show Alert Message in case of Invalid PIN CODE...
     if (
@@ -112,8 +120,8 @@ const PatientRegistration = (props) => {
     const selectedGender = patientRegistrationData[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
       .patientGenderKey];
     PatientDataChangeHandler(
-      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-        .patientGenderKey] : selectedGender}}
+      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+        .patientGenderKey] : selectedGender}
     );
   };
 
