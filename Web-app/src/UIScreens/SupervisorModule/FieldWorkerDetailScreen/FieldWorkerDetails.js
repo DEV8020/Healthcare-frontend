@@ -52,10 +52,10 @@ const FieldWorkerDetails = (props) => {
             <div key={assignedPatientData.patientId} className={classes.plist}>
               <div>Patient ID : {assignedPatientData.patientId}</div>
               <div>Patient Name : {assignedPatientData.name}</div>
-              <div>Patient DOB : {assignedPatientData.dob}</div>
+              {/* <div>Patient DOB : {assignedPatientData.dob}</div>
               <div>Patient Contact : {assignedPatientData.contact}</div>
               <div>Patient Address : {assignedPatientData.address}</div>
-              <div>Patient Pincode : {assignedPatientData.pincode}</div>
+              <div>Patient Pincode : {assignedPatientData.pincode}</div> */}
               <div>Patient Sex : {assignedPatientData.sex}</div>
             </div>
           ))}
