@@ -9,7 +9,7 @@ import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilit
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 
 const CreateUser = (props) => {
-  
+  const [refreshHospitalList, setRefreshHospitalList] = useState(false);
 
   //Constants declared for Admin & Supervisor Options...
   const createUserAdminOption =
@@ -18,7 +18,9 @@ const CreateUser = (props) => {
     SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
       .createUserSupervisorOption;
 
-      const [registerUserType, setRegisterUserType] = useState(createUserAdminOption);
+  const [registerUserType, setRegisterUserType] = useState(
+    createUserAdminOption
+  );
 
   //Method for fetching the list of Hospitals with No Amdins...
   //To register Admin in Super Admin menu...
@@ -27,12 +29,12 @@ const CreateUser = (props) => {
       hopitalListWithNoAdminsResponseHandler:
         hopitalListWithNoAdminsResponseHandler,
     });
-  }, [registerUserType]);
+  }, [registerUserType, refreshHospitalList]);
 
   //Method for displaying the Hospital Details view...
   useEffect(() => {
     props.setHospitalDetailsView(registerUserType);
-  }, [registerUserType, props.setHospitalDetailsView]);
+  }, [registerUserType, props.setHospitalDetailsView, refreshHospitalList]);
 
   const registerUserTypeChangeHandler = (event) => {
     setHospitalData({ userType: event.target.value });
@@ -48,6 +50,12 @@ const CreateUser = (props) => {
     props.HospitalRegistrationDataUpdateCallBackHandler({
       ...props.selectedHospitalDataForAdminCreation,
       ...updateData,
+    });
+  };
+
+  const resetUpdateRefreshUserList = () => {
+    setRefreshHospitalList((isRefresh) => {
+      return !isRefresh;
     });
   };
 
@@ -166,11 +174,8 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
-    // console.log("createUserAdminOption");
-    // console.log(props.selectedHospitalDataForAdminCreation.userType);
-    // setHospitalData({ userType: event.target.value });
-    // console.log(createUserAdminOption);
     setRegisterUserType(props.selectedHospitalDataForAdminCreation.userType);
+    resetUpdateRefreshUserList();
     props.HospitalRegistrationDataUpdateCallBackHandler(
       SuperAdminUtilitiesKeys.getCreateUserInitialData()
     );
@@ -202,7 +207,9 @@ const CreateUser = (props) => {
           <>
             {/* User ID Input Key for User Registration */}
             <InputTextField
-              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
+              label={
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel
+              }
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
               }
@@ -216,7 +223,10 @@ const CreateUser = (props) => {
 
             {/* User Name Input Key for User Registration */}
             <InputTextField
-              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
+              label={
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                  .userNameLabel
+              }
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
               }
@@ -231,7 +241,8 @@ const CreateUser = (props) => {
             {/* User Password Input Key for User Registration */}
             <InputTextField
               label={
-                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userPasswordLabel
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                  .userPasswordLabel
               }
               mappedKey={
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
@@ -249,7 +260,8 @@ const CreateUser = (props) => {
             {registerUserType === createUserAdminOption && (
               <InputTextField
                 label={
-                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().hospitalIDLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                    .hospitalIDLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().hospitalIDKey
@@ -268,7 +280,8 @@ const CreateUser = (props) => {
             {registerUserType === createUserSupervisorOption && (
               <InputNumericTextField
                 label={
-                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                    .userContactLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
@@ -291,7 +304,8 @@ const CreateUser = (props) => {
             {registerUserType === createUserSupervisorOption && (
               <InputTextField
                 label={
-                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userAddressLabel
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                    .userAddressLabel
                 }
                 mappedKey={
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userAddressKey
