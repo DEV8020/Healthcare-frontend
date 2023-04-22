@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
-// import classes from "./popup.module.css";
 import classes from "./popup.module.css";
 import SuperAdminUserRelatedAPIHandler from "../../../Controllers/SuperAdminUserRelatedAPIHandler";
-// import SuperAdminUserRelatedAPIHandler from "../../../../Controllers/SuperAdminUserRelatedAPIHandler";
-// import MessageComponent from "../../MessageComponent/MessageComponent";
-// import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-// import AdminAPIHandler from "../../../../Controllers/AdminAPIHandler";
+import InputTextField from "../../../Component/InputTextField/InputTextField";
+import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
+import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const UpdateCredentialPopup = (props) => {
-  // const [updatedUserId, setUpdatedUserId] = useState("");
-  // const [updatedUserPassword, setUpdatedUserPassword] = useState("");
 
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
-  // const [dataNeedToUpdate, setDataNeedToUpdate] = useState(false);
 
   useEffect(() => {
-    // setUserDataToBeUpdated(props.userDataToBeUpdated);
     setUserDataToBeUpdated({
       ...props.userDataToBeUpdated,
       ...{
