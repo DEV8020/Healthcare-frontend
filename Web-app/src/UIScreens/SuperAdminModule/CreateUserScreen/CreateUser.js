@@ -174,11 +174,13 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
+    const userType = props.selectedHospitalDataForAdminCreation.userType;
     setRegisterUserType(props.selectedHospitalDataForAdminCreation.userType);
     resetUpdateRefreshUserList();
-    props.HospitalRegistrationDataUpdateCallBackHandler(
-      SuperAdminUtilitiesKeys.getCreateUserInitialData()
-    );
+    props.HospitalRegistrationDataUpdateCallBackHandler({
+      ...SuperAdminUtilitiesKeys.getCreateUserInitialData(),
+      ...{ userType: userType },
+    });
   };
 
   const BackButtonPressedHandler = () => {
