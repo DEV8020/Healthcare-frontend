@@ -9,6 +9,7 @@ import HospitalDetailsView from "../HospitalDetailsScreen/HospitalDetailsView";
 import SuperAdminAPIHandler from "../../../Controllers/SuperAdminAPIHandler";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const SuperAdminScreen = (props) => {
   const [superAdminOption, setSuperAdminOption] = useState(
@@ -129,7 +130,7 @@ const SuperAdminScreen = (props) => {
 
   return (
     <div>
-      <NavBar value="Log out" label="SuperAdmin" onClick={logoutSA} />
+      <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="SuperAdmin" onClick={logoutSA} />
 
       <div className={classes.center}>
         <h2> SuperAdmin Menu</h2>

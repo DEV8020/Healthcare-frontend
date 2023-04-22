@@ -66,7 +66,8 @@ const Login = (props) => {
       );
       setUserAsLoggedIn();
       if (
-        userRoleType === LoginUtilities.getLoginUserTypeKeys().doctorTypeKey
+        userLoginData[LoginUtilities.getLoginDataKeys().userRoleKey] ===
+        LoginUtilities.getLoginUserTypeKeys().doctorTypeKey
       ) {
         downloadDoctorFollowUpAttributesList();
       }
@@ -123,10 +124,6 @@ const Login = (props) => {
   };
 
   const downloadDoctorFollowUpAttributesList = () => {
-    console.log("*****************************************");
-    console.log("downloadDoctorFollowUpAttributesList called");
-    console.log("*****************************************");
-    console.log(userLoginData[LoginUtilities.getLoginDataKeys().userRoleKey]);
     LoginController.GetDoctorFollowUpAttributesData({
       getDoctorFollowUpAttributesResponseHandler:
         getDoctorFollowUpAttributesResponseHandler,
