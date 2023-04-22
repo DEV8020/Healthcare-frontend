@@ -166,7 +166,11 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
     });
-    setRegisterUserType(createUserAdminOption);
+    // console.log("createUserAdminOption");
+    // console.log(props.selectedHospitalDataForAdminCreation.userType);
+    // setHospitalData({ userType: event.target.value });
+    // console.log(createUserAdminOption);
+    setRegisterUserType(props.selectedHospitalDataForAdminCreation.userType);
     props.HospitalRegistrationDataUpdateCallBackHandler(
       SuperAdminUtilitiesKeys.getCreateUserInitialData()
     );
