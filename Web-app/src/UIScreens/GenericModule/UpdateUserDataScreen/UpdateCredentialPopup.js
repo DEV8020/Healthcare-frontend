@@ -8,9 +8,9 @@ import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import { Menu } from "@mui/material";
 
 const UpdateCredentialPopup = (props) => {
-
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
 
   useEffect(() => {
@@ -41,11 +41,26 @@ const UpdateCredentialPopup = (props) => {
 
   //########################## Data Handler Methods  ##########################
   //User ID Change Handler...
-  const UpdatedUserIdChangeHandler = (event) => {
-    updateUserData({
-      [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey]:
-        event.target.value,
-    });
+  // const UpdatedUserIdChangeHandler = (userData) => {
+
+  //   console.log("*********************** userData *****************");
+  //   updateUserData(userData);
+
+  //   // updateUserData({
+  //   //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey]:
+  //   //     event.target.value,
+  //   // });
+  // };
+
+  //User ID Change Handler...
+  const UpdatedUserDataChangeHandler = (userData) => {
+    console.log("*********************** userData *****************");
+    updateUserData(userData);
+
+    // updateUserData({
+    //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey]:
+    //     event.target.value,
+    // });
   };
 
   //User Password Change Handler...
@@ -58,12 +73,12 @@ const UpdateCredentialPopup = (props) => {
   };
 
   //User Name Change Handler...
-  const UpdatedUserNameChangeHandler = (event) => {
-    updateUserData({
-      [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey]:
-        event.target.value,
-    });
-  };
+  // const UpdatedUserNameChangeHandler = (event) => {
+  //   // updateUserData({
+  //   //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey]:
+  //   //     event.target.value,
+  //   // });
+  // };
 
   //User Contact Change Handler...
   const UpdatedUserContactChangeHandler = (event) => {
@@ -272,30 +287,64 @@ const UpdateCredentialPopup = (props) => {
       <div className={classes.popup_content}>
         <h2> Update User Data </h2>
         <form onSubmit={UpdateCredentialSubmitHandler}>
-          <label htmlFor="userID">User ID:</label>
-          <input
-            type="text"
-            id="userID"
+          {/* User ID Input Key for User Registration */}
+          <InputTextField
+            label={
+              SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel
+            }
+            mappedKey={
+              SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+            }
+            onChange={UpdatedUserDataChangeHandler}
             value={
               userDataToBeUpdated[
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
               ]
             }
-            onChange={UpdatedUserIdChangeHandler}
           />
 
-          {/*if userDatatoBeUpdated has userName field than this will be shown  */}
+          {/* User ID Input Key for User Registration */}
+          {/* <InputTextField
+              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
+              mappedKey={
+                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+              }
+              onChange={CreateUserDataInputFieldChangeHandler}
+              value={
+                props.selectedHospitalDataForAdminCreation[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
+                ]
+              }
+            /> */}
 
-          <label htmlFor="userName">Name:</label>
-          <input
-            type="text"
-            id="userName"
+          {/* User Name Input Key for User Registration */}
+          {/* <InputTextField
+              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
+              mappedKey={
+                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+              }
+              onChange={CreateUserDataInputFieldChangeHandler}
+              value={
+                props.selectedHospitalDataForAdminCreation[
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+                ]
+              }
+            /> */}
+
+          {/* User Name Input Key for User Registration */}
+          <InputTextField
+            label={
+              SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel
+            }
+            mappedKey={
+              SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
+            }
+            onChange={UpdatedUserDataChangeHandler}
             value={
               userDataToBeUpdated[
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
               ]
             }
-            onChange={UpdatedUserNameChangeHandler}
           />
 
           {selectedUserType !== UtilitiesKeys.getUserTypeKeys().adminKey &&
@@ -362,23 +411,27 @@ const UpdateCredentialPopup = (props) => {
             </>
           )}
 
-          <label htmlFor="password">Password:</label>
-          <input
-            type="text"
-            id="password"
-            // value={userDataToBeUpdated.password}
+          {/* User Password Input Key for User Registration */}
+          <InputTextField
+            label={
+              SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                .userPasswordLabel
+            }
+            mappedKey={
+              SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
+            }
+            onChange={UpdatedUserDataChangeHandler}
             value={
               userDataToBeUpdated[
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
               ]
             }
-            onChange={UpdatedUserPasswordChangeHandler}
           />
 
-          <input type="submit" value="Update" />
-          <button className={classes.close_btn} onClick={props.onClose}>
-            Close
-          </button>
+          <div>
+            <MenuSubmitButton value="Update" />
+            <MenuSubmitButton value="Cancel" onClick={props.onClose} />
+          </div>
         </form>
       </div>
     </div>
