@@ -10,6 +10,7 @@ import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesK
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import { Menu } from "@mui/material";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
+import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 
 const UpdateCredentialPopup = (props) => {
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
@@ -42,7 +43,6 @@ const UpdateCredentialPopup = (props) => {
 
   //########################## Data Handler Methods  ##########################
 
-
   //User ID Change Handler...
   const UpdatedUserDataChangeHandler = (userData) => {
     console.log("*********************** userData *****************");
@@ -50,22 +50,21 @@ const UpdateCredentialPopup = (props) => {
   };
 
   //User Password Change Handler...
-  const UpdatedUserPasswordChangeHandler = (event) => {
-    console.log("UpdatedUserPasswordChangeHandler called");
-    updateUserData({
-      [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey]:
-        event.target.value,
-    });
-  };
+  // const UpdatedUserPasswordChangeHandler = (event) => {
+  //   console.log("UpdatedUserPasswordChangeHandler called");
+  //   updateUserData({
+  //     [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey]:
+  //       event.target.value,
+  //   });
+  // };
 
-
-  //User Contact Change Handler...
-  const UpdatedUserContactChangeHandler = (event) => {
-    updateUserData({
-      [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey]:
-        event.target.value,
-    });
-  };
+  // //User Contact Change Handler...
+  // const UpdatedUserContactChangeHandler = (event) => {
+  //   updateUserData({
+  //     [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey]:
+  //       event.target.value,
+  //   });
+  // };
 
   //User Address Change Handler...
   const UpdatedUserAddressChangeHandler = (event) => {
@@ -74,16 +73,6 @@ const UpdateCredentialPopup = (props) => {
         event.target.value,
     });
   };
-
-  //User License ID (Specially Doctor) Handler...
-  const UpdatedUserLicenseIdChangeHandler = (event) => {
-    updateUserData({ licId: event.target.value });
-  };
-
-  //User Specialisation (Specially Doctor) Handler...
-  const UpdatedUserSpecialisationChangeHandler = (event) => {
-    updateUserData({ docSpecialization: event.target.value });
-  };
   //########################## Data Handler Methods Ends Here  ##########################
 
   const updateUserData = (userDataToUpdated) => {
@@ -91,11 +80,6 @@ const UpdateCredentialPopup = (props) => {
       return { ...userData, ...userDataToUpdated };
     });
   };
-
-
-
-
-
 
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
@@ -114,13 +98,12 @@ const UpdateCredentialPopup = (props) => {
     ) {
       props.displayMessagesInParentViewHandler({
         message:
-        UtilitiesKeys.getGeneralValidationMessagesText().phoneNumberNotValidMessage,
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .phoneNumberNotValidMessage,
         isErrorMessage: true,
       });
       return;
     }
-
-    
 
     if (selectedUserType === "Doctor" || selectedUserType === "Front Desk") {
       console.log("userDataToBeUpdated in doctor option");
@@ -240,26 +223,27 @@ const UpdateCredentialPopup = (props) => {
             selectedUserType !==
               UtilitiesKeys.getUserTypeKeys().frontDeskKey && (
               <>
-
-              <InputNumericTextField
-                label={
-                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
-                }
-                mappedKey={
-                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
-                }
-                value={
-                  userDataToBeUpdated[
+                <InputNumericTextField
+                  label={
+                    SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                      .userContactLabel
+                  }
+                  mappedKey={
+                    SuperAdminUtilitiesKeys.getCreateUserDataKeys()
+                      .userContactKey
+                  }
+                  value={
+                    userDataToBeUpdated[
                       SuperAdminUtilitiesKeys.getCreateUserDataKeys()
                         .userContactKey
                     ]
-                }
-                onChange={UpdatedUserDataChangeHandler}
-                requiredLength={
-                  UtilitiesKeys.getInputFieldLengthValidationKeys()
-                    .userContactNumberLength
-                }
-              />
+                  }
+                  onChange={UpdatedUserDataChangeHandler}
+                  requiredLength={
+                    UtilitiesKeys.getInputFieldLengthValidationKeys()
+                      .userContactNumberLength
+                  }
+                />
               </>
             )}
 
@@ -286,24 +270,39 @@ const UpdateCredentialPopup = (props) => {
 
           {selectedUserType === "Doctor" && (
             <>
-              <label htmlFor="licenseId">Doctor License ID:</label>
-              <input
-                type="text"
-                id="licenseId"
-                value={userDataToBeUpdated.licId}
-                onChange={UpdatedUserLicenseIdChangeHandler}
+              <InputTextField
+                label={
+                  AdminUtilities.getCreateUserLabelKeys().doctorLicenseIDKey
+                }
+                mappedKey={
+                  AdminUtilities.getCreateUserDataKeys().doctorLicenseIDKey
+                }
+                onChange={UpdatedUserDataChangeHandler}
+                value={
+                  userDataToBeUpdated[
+                    AdminUtilities.getCreateUserDataKeys().doctorLicenseIDKey
+                  ]
+                }
               />
             </>
           )}
 
           {selectedUserType === "Doctor" && (
             <>
-              <label htmlFor="specialisation">Doctor Specialization:</label>
-              <input
-                type="text"
-                id="specialisation"
-                value={userDataToBeUpdated.docSpecialization}
-                onChange={UpdatedUserSpecialisationChangeHandler}
+
+            <InputTextField
+                label={
+                  AdminUtilities.getCreateUserLabelKeys().doctorSpecializationKey
+                }
+                mappedKey={
+                  AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
+                }
+                onChange={UpdatedUserDataChangeHandler}
+                value={
+                  userDataToBeUpdated[
+                    AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
+                  ]
+                }
               />
             </>
           )}
