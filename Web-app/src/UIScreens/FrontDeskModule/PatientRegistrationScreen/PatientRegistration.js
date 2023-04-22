@@ -14,6 +14,9 @@ const PatientRegistration = (props) => {
     FrontDeskUtilitiesKeys.getPatientRegistrationInitialData()
   );
 
+  const today = new Date();
+  const maxDate = today.toISOString().substring(0, 10);
+
   //Single Data Handler for Input TextField change...
   const PatientDataChangeHandler = (userModifiedData) => {
     setPatientRegistrationData((patientData) => {
@@ -91,7 +94,6 @@ const PatientRegistration = (props) => {
     console.log("registerNewPatientResponseHandler response is ");
     console.log(newPatientResponseData);
 
-    // if (newPatientResponseData.errorMessage === null) {
     if (newPatientResponseData.isNewPatientAdded === true) {
       showErrorMessageScreen(
         patientRegistrationData[
@@ -101,16 +103,8 @@ const PatientRegistration = (props) => {
       );
       resetPatientDataAfterRegister();
     } else {
-      // else if (newPatientResponseData.isNewPatientAdded === null) {
       showErrorMessageScreen(newPatientResponseData.errorMessage, true);
     }
-    // if (newPatientResponseData.isNewPatientAdded === false) {
-    //   showErrorMessageScreen(
-    //     "Some error occured. Please try again later.",
-    //     true
-    //   );
-    // }
-    // }
   };
 
   const resetPatientDataAfterRegister = () => {
@@ -194,6 +188,7 @@ const PatientRegistration = (props) => {
                   .dateOfBirthKey
               ]
             }
+            maxDate={maxDate}
             onChange={patientBdateChangeHandler}
           />
 

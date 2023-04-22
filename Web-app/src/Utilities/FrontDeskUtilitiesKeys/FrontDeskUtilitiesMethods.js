@@ -5,7 +5,7 @@ const processPatientDetailDataToDisplay = (prop) => {
       Name: prop.name,
       Age: prop.age,
       Sex: prop.sex,
-      Contact: prop.contact,
+      // Contact: prop.contact,
     };
   };
 
@@ -15,9 +15,9 @@ const processSearchPatientDataToDisplay = (prop) => {
     Name: prop.name,
     Age: prop.age,
     Sex: prop.sex,
-    Contact: prop.contact,
-    Address : prop.address,
-    Pincode : prop.pincode
+    // Contact: prop.contact,
+    // Address : prop.address,
+    // Pincode : prop.pincode
   };
 };
 
