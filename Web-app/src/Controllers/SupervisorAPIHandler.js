@@ -186,6 +186,54 @@ const AssignUnAssignedFollowUpAPICall = async (props) => {
 };
 
 
+const updateFieldWorkerRegistrationData = async (props) => {
+  console.log("updateUserData in super admin user related api handler");
+  console.log(props.userData);
+
+  var childURL =
+    APIURLUtilities.getSupervisorAPIChildURLKeys().supervisorUpdateFieldWorkerAPIKey;
+
+  // if (
+  //   SuperAdminUtilitiesKeys.getUserType(
+  //     props.userData[AdminUtilities.getCreateUserDataKeys().userTypeKey]
+  //   ) === UtilitiesKeys.getUserTypeKeys().frontDeskKey
+  // ) {
+  //   childURL = APIURLUtilities.getAdminAPIChildURLKeys().adminUpdateFrontDeskAPIKey;
+  // }
+
+  console.log(childURL);
+  console.log(childURL);
+
+  // return;
+
+  await GlobalServiceHandler.hitPutService({
+    childURL: childURL,
+    postData: props.userData,
+    responseDataHandler: (updatedUserData) => {
+      console.log(
+        "addNewUserServiceData in SuperAdminUserRelatedAPIHandler file is"
+      );
+      console.log(updatedUserData);
+
+      if (updatedUserData.responseError === null) {
+        props.modifyFieldWorkerDataResponseHandler({
+          isUserDataUpdated: true,
+          userUpdatedData: updatedUserData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (updatedUserData.responseData === null) {
+        props.modifyFieldWorkerDataResponseHandler({
+          isUserDataUpdated: false,
+          userUpdatedData: null,
+          errorMessage: updatedUserData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+
+
 const SupervisorAPIHandler = {
   getAllFieldWorkerListAPI,
   GetFieldWorkerFollowUpsAPICall,
@@ -193,6 +241,7 @@ const SupervisorAPIHandler = {
   GetUnassignedPatientListAPICall,
   AssignUnAssignedFollowUpAPICall,
   GetFieldWorkerAssignedPatientsListAPICall,
+  updateFieldWorkerRegistrationData
 };
 
 export default SupervisorAPIHandler;

@@ -11,6 +11,7 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import { Menu } from "@mui/material";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
+import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 
 const UpdateCredentialPopup = (props) => {
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
@@ -105,6 +106,18 @@ const UpdateCredentialPopup = (props) => {
       return;
     }
 
+    if (selectedUserType === "FieldWorker") {
+      // http://localhost:9191/supervisor/updateFieldWorker
+
+      SupervisorAPIHandler.updateFieldWorkerRegistrationData({
+        userData: userDataToBeUpdated,
+        modifyFieldWorkerDataResponseHandler:
+          modifyFieldWorkerDataResponseHandler,
+      });
+
+      return;
+    }
+
     if (selectedUserType === "Doctor" || selectedUserType === "Front Desk") {
       console.log("userDataToBeUpdated in doctor option");
       console.log(userDataToBeUpdated);
@@ -129,6 +142,27 @@ const UpdateCredentialPopup = (props) => {
     if (modifiedUserData.errorMessage === null) {
       if (modifiedUserData.isUserDataUpdated === true) {
         updateAdminSubUsersDataSuccessHandler(modifiedUserData.userUpdatedData);
+      }
+      if (modifiedUserData.isUserDataUpdated === false) {
+        showErrorMessage({
+          message: "Some error occured.",
+          isErrorMessage: true,
+        });
+      }
+    } else if (modifiedUserData.userUpdatedData === null) {
+      showErrorMessage({
+        message: modifiedUserData.errorMessage,
+        isErrorMessage: true,
+      });
+    }
+  };
+
+  const modifyFieldWorkerDataResponseHandler = (modifiedUserData) => {
+    console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    console.log(modifiedUserData);
+    if (modifiedUserData.errorMessage === null) {
+      if (modifiedUserData.isUserDataUpdated === true) {
+        updateUserDataSuccessHandler(modifiedUserData.userUpdatedData);
       }
       if (modifiedUserData.isUserDataUpdated === false) {
         showErrorMessage({
@@ -181,6 +215,10 @@ const UpdateCredentialPopup = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
+
+  console.log("**************************");
+  console.log(userDataToBeUpdated);
+  console.log(selectedUserType);
 
   return (
     <div className={classes.popup}>
@@ -247,10 +285,10 @@ const UpdateCredentialPopup = (props) => {
               </>
             )}
 
-          {selectedUserType !== "Admin" &&
+          {/* {selectedUserType !== "Admin" &&
             selectedUserType !== "Supervisor" &&
             selectedUserType !== "Doctor" &&
-            selectedUserType !== "Front Desk" && (
+            selectedUserType !== "Front Desk" && selectedUserType !== "FieldWorker" && (
               <>
                 <label htmlFor="userAddress">Address:</label>
                 <input
@@ -266,7 +304,7 @@ const UpdateCredentialPopup = (props) => {
                   onChange={UpdatedUserAddressChangeHandler}
                 />
               </>
-            )}
+            )} */}
 
           {selectedUserType === "Doctor" && (
             <>
@@ -289,10 +327,10 @@ const UpdateCredentialPopup = (props) => {
 
           {selectedUserType === "Doctor" && (
             <>
-
-            <InputTextField
+              <InputTextField
                 label={
-                  AdminUtilities.getCreateUserLabelKeys().doctorSpecializationKey
+                  AdminUtilities.getCreateUserLabelKeys()
+                    .doctorSpecializationKey
                 }
                 mappedKey={
                   AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
@@ -300,7 +338,8 @@ const UpdateCredentialPopup = (props) => {
                 onChange={UpdatedUserDataChangeHandler}
                 value={
                   userDataToBeUpdated[
-                    AdminUtilities.getCreateUserDataKeys().doctorSpecializationKey
+                    AdminUtilities.getCreateUserDataKeys()
+                      .doctorSpecializationKey
                   ]
                 }
               />

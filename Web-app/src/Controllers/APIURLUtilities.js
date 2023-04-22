@@ -71,6 +71,7 @@ const getSupervisorAPIChildURLKeys = () => {
     supervisorGetUnassignedPatientsListAPIKey: "supervisor/unassignedPatients/",
     supervisorAssignFollowUpAPIKey: "supervisor/assignFollowUp/",
     supervisorGetFieldWorkerAssignedPatientsAPIKey: "supervisor/getPatientsByFieldWorker/",
+    supervisorUpdateFieldWorkerAPIKey: "supervisor/updateFieldWorker",
   };
 };
 

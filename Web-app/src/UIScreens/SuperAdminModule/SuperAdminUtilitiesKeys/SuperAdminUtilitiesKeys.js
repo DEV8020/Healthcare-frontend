@@ -50,6 +50,8 @@ const getUserType = (userType) => {
     return "Supervisor";
   } else if (userType === "ROLE_DOCTOR") {
     return "Doctor";
+  }else if(userType === "ROLE_FIELD_WORKER") {
+    return "FieldWorker"
   }
   return "Front Desk";
 };

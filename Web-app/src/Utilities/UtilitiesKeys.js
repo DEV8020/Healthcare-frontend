@@ -62,6 +62,7 @@ const getUserTypeKeys = () => {
     adminKey: "Admin",
     doctorKey: "Doctor",
     frontDeskKey: "Front Desk",
+    // fieldWorkerKey: "FieldWorker",
     superVisorKey: "Supervisor",
   };
 };

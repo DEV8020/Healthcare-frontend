@@ -2,13 +2,21 @@ import React, { useState, useEffect } from "react";
 import classes from "./FieldWorkerList.module.css";
 import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
+import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const FieldWorkerList = (props) => {
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
-
+  const [showUpdateCredentialPopup, setShowUpdateCredentialPopup] =
+    useState(false);
+  const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({}); //setUserDataToBeUpdated(userDataToBeUpdated);
   const getFieldWorkerDetailsHandler = (fieldWorkerData) => {
     props.fieldWorkerDetailsButtonClickedInChildView(fieldWorkerData);
   };
+
+  const [isRefreshFieldWorkerList, setIsRefreshFieldWorkerList] =
+    useState(false);
 
   console.log("props.fieldWorkerList in field worker list screen");
   console.log(props.fieldWorkerList);
@@ -17,8 +25,7 @@ const FieldWorkerList = (props) => {
     SupervisorAPIHandler.getAllFieldWorkerListAPI({
       getAllFieldWorkerListAPIHandler: getAllFieldWorkerListAPIHandler,
     });
-  }, []);
-
+  }, [isRefreshFieldWorkerList]);
 
   const getAllFieldWorkerListAPIHandler = (fieldWorkerListData) => {
     if (fieldWorkerListData.isFieldWorkerListRecieved === true) {
@@ -29,9 +36,74 @@ const FieldWorkerList = (props) => {
     console.log(fieldWorkerListData.fieldWorkerListData);
   };
 
+  const onUserDataUpdateHandler = (userData) => {
+    setShowUpdateCredentialPopup(false);
+    displayMessagesInParentViewHandler({
+      message: "User data updated successfully.",
+      isErrorMessage: false,
+    });
+
+    setIsRefreshFieldWorkerList((isRefresh) => {
+      return !isRefresh;
+    });
+
+    // console.log("onUserDataUpdateHandler called in field worker list screen");
+  };
+
+  //Create USer Class function
+  // const onUserDataUpdateHandler = (UpdateUserData) => {
+  //   setShowUpdateCredentialPopup(false);
+  //   displayMessagesInParentViewHandler({
+  //     message: "User data updated successfully.",
+  //     isErrorMessage: false,
+  //   });
+  //   props.updateUserListAfterDataUpdateHandler();
+  // };
+
+  const updateFieldWorkerDetailsHandler = (fieldworkerdata) => {
+    // console.log(fieldworkerdata);
+    // showUpdateCredentialPopup(true);
+    changeUserDataHandler(fieldworkerdata);
+props.resetFieldWorkerDisplaySideView();
+    //resetFieldWorkerDisplaySideView
+  };
+
+  const handleCredentialPopupClose = () => {
+    setShowUpdateCredentialPopup(false);
+  };
+
   const getFieldWorkerAssignedPatientsHandler = (fieldWorkerData) => {
     props.fieldWorkerAssignedPatientListHandler(fieldWorkerData);
   };
+
+  const changeUserDataHandler = (userDataToBeUpdated) => {
+    setUserDataToBeUpdated(userDataToBeUpdated);
+    setShowUpdateCredentialPopup(true);
+    console.log("userDataToBeUpdated userDataToBeUpdated userDataToBeUpdated");
+    console.log(userDataToBeUpdated);
+  };
+
+  const displayMessagesInParentViewHandler = (prop) => {
+    props.showBottomMessageBar({
+      [UtilitiesMethods.getErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+    });
+  };
+
+  // UtilitiesKeys
+  // UtilitiesMethods
+
+  // const showMessageAtBottomBar = (prop) => {
+  //   console.log(prop);
+  //   props.showBottomMessageBar({
+  //     [UtilitiesMethods.getErrorMessageKey()]:
+  //       prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+  //     [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+  //       prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+  //   });
+  // };
 
   return (
     <div className={classes.center}>
@@ -39,9 +111,7 @@ const FieldWorkerList = (props) => {
 
       {fieldWorkerList.length === 0 && (
         <div>
-          <h3 style={{ textAlign: "center" }}>
-            No Field Worker to display.
-          </h3>
+          <h3 style={{ textAlign: "center" }}>No Field Worker to display.</h3>
         </div>
       )}
 
@@ -65,10 +135,27 @@ const FieldWorkerList = (props) => {
                   getFieldWorkerAssignedPatientsHandler(fieldworkerdata)
                 }
               />
+
+              <AddButton
+                value="Update"
+                onClick={() => updateFieldWorkerDetailsHandler(fieldworkerdata)}
+              />
             </div>
           </div>
         ))}
       </div>
+
+      {/* <UpdateCredentialPopup */}
+      {showUpdateCredentialPopup && (
+        <UpdateCredentialPopup
+          onUserDataUpdateHandler={onUserDataUpdateHandler}
+          onClose={handleCredentialPopupClose}
+          userDataToBeUpdated={userDataToBeUpdated}
+          displayMessagesInParentViewHandler={
+            displayMessagesInParentViewHandler
+          }
+        />
+      )}
     </div>
   );
 };

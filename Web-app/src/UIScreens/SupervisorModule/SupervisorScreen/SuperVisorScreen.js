@@ -207,6 +207,8 @@ const SuperVisorScreen = (props) => {
           fieldWorkerAssignedPatientListHandler={
             fieldWorkerAssignedPatientListHandler
           }
+          showBottomMessageBar={showMessageAtBottomBar}
+          resetFieldWorkerDisplaySideView={resetFieldWorkerDisplaySideView}
         />
       )}
       {superVisorOption ===

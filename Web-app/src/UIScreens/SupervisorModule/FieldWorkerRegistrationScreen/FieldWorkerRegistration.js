@@ -13,7 +13,7 @@ const FieldWorkerRegistration = (props) => {
     selectedDataFromFieldWorkerRegistration,
     setSelectedDataFromFieldWorkerRegistration,
   ] = useState(SupervisorUtilitiesKeys.getFieldWorkerRegistrationInitialData());
-  
+
   var setFieldWorkerData = (updateData) => {
     setSelectedDataFromFieldWorkerRegistration((fieldWorkerData) => {
       console.log(fieldWorkerData);
@@ -21,7 +21,6 @@ const FieldWorkerRegistration = (props) => {
       return { ...fieldWorkerData, ...updateData };
     });
   };
-
 
   const AddFieldWorkerDataHandler = (event) => {
     event.preventDefault();
@@ -96,7 +95,6 @@ const FieldWorkerRegistration = (props) => {
     );
   };
 
-
   // const showMessageAtBottomBar = (prop) => {
   //   console.log(prop);
   //   props.showBottomMessageBar({
@@ -111,7 +109,7 @@ const FieldWorkerRegistration = (props) => {
     props.showBottomMessageBar({
       [UtilitiesMethods.getErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
   };
@@ -145,25 +143,6 @@ const FieldWorkerRegistration = (props) => {
             }
           />
 
-          {/* Field Worker Password Input Text Field */}
-          <InputTextField
-            label={
-              SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys()
-                .passwordKey
-            }
-            mappedKey={
-              SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys()
-                .passwordKey
-            }
-            onChange={setFieldWorkerData}
-            value={
-              selectedDataFromFieldWorkerRegistration[
-                SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys()
-                  .passwordKey
-              ]
-            }
-          />
-
           {/* Field Worker Name Input Text Field */}
           <InputTextField
             label={
@@ -179,6 +158,25 @@ const FieldWorkerRegistration = (props) => {
               selectedDataFromFieldWorkerRegistration[
                 SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys()
                   .nameKey
+              ]
+            }
+          />
+
+          {/* Field Worker Password Input Text Field */}
+          <InputTextField
+            label={
+              SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys()
+                .passwordKey
+            }
+            mappedKey={
+              SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys()
+                .passwordKey
+            }
+            onChange={setFieldWorkerData}
+            value={
+              selectedDataFromFieldWorkerRegistration[
+                SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys()
+                  .passwordKey
               ]
             }
           />
@@ -250,7 +248,7 @@ const FieldWorkerRegistration = (props) => {
 
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} />
+            {/* <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} /> */}
           </div>
         </form>
       </div>
