@@ -69,7 +69,7 @@ const getAdminMenuOptionsNameKeys = () => {
     return {
       showHospitalsUsersKey: "Show Hospital Users",
       createDoctorKey: "Doctor Registration",
-      createFrontDeskKey: "FrontDesk Registration",
+      createFrontDeskKey: "Front Desk Registration",
     };
   };
 

@@ -97,9 +97,6 @@ const AddHospital = (props) => {
     });
   };
 
-  const BackButtonPressedHandler = () => {
-    props.setSuperAdminOption("");
-  };
 
   return (
     <div>
@@ -158,7 +155,6 @@ const AddHospital = (props) => {
           />
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton value="Back" onClick={BackButtonPressedHandler} />
           </div>
         </form>
       </div>

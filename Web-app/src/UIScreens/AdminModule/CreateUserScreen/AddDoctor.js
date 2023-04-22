@@ -161,18 +161,6 @@ const AddDoctor = (props) => {
             }
           />
 
-          {/* UtilitiesKeys */}
-
-          {/* User Contact Number Input Key for User Registration
-          <InputTextField
-            label={AdminUtilities.getCreateUserLabelKeys().doctorContactKey}
-            mappedKey={AdminUtilities.getCreateUserDataKeys().userContactKey}
-            onChange={updateDoctorData}
-            value={
-              doctorData[AdminUtilities.getCreateUserDataKeys().userContactKey]
-            }
-          /> */}
-
           {/* Doctor License ID Number Input Key for Doctor Registration */}
           <InputTextField
             label={AdminUtilities.getCreateUserLabelKeys().doctorLicenseIDKey}
@@ -205,10 +193,6 @@ const AddDoctor = (props) => {
 
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton
-              value="Cancel"
-              onClick={BackButtonPressedHandler}
-            />
           </div>
         </form>
       </div>

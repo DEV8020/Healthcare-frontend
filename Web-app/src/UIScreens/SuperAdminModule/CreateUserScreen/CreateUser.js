@@ -350,10 +350,6 @@ const CreateUser = (props) => {
 
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton
-              value="Cancel"
-              onClick={BackButtonPressedHandler}
-            />
           </div>
         </form>
       </div>

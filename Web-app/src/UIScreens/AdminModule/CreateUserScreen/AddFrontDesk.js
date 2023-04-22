@@ -74,7 +74,7 @@ const AddFrontDesk = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Add FrontDesk Menu</h1>
+        <h1> Add Front Desk Menu</h1>
 
         <form id="addFD-form" onSubmit={AddFrontDeskDataHandler}>
          
@@ -119,10 +119,6 @@ const AddFrontDesk = (props) => {
 
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton
-              value="Cancel"
-              onClick={BackButtonPressedHandler}
-            />
           </div>
         </form>
       </div>
