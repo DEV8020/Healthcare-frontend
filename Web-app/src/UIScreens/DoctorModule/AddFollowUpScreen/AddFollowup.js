@@ -139,13 +139,13 @@ function AddFollowup(props) {
           >
             Save Followups
           </button>
-          <button
+          {/* <button
             className={classes.close_btn}
             type="button"
             onClick={() => props.setAddFollowup(false)}
           >
             Cancel
-          </button>
+          </button> */}
         </div>
 
         <form id="followupform" onSubmit={handleSubmit}>
