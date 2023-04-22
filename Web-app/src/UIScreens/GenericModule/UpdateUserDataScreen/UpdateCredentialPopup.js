@@ -9,6 +9,7 @@ import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
 import SuperAdminUtilitiesKeys from "../../SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import { Menu } from "@mui/material";
+import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 
 const UpdateCredentialPopup = (props) => {
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
@@ -40,27 +41,12 @@ const UpdateCredentialPopup = (props) => {
   console.log(selectedUserType);
 
   //########################## Data Handler Methods  ##########################
-  //User ID Change Handler...
-  // const UpdatedUserIdChangeHandler = (userData) => {
 
-  //   console.log("*********************** userData *****************");
-  //   updateUserData(userData);
-
-  //   // updateUserData({
-  //   //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey]:
-  //   //     event.target.value,
-  //   // });
-  // };
 
   //User ID Change Handler...
   const UpdatedUserDataChangeHandler = (userData) => {
     console.log("*********************** userData *****************");
     updateUserData(userData);
-
-    // updateUserData({
-    //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey]:
-    //     event.target.value,
-    // });
   };
 
   //User Password Change Handler...
@@ -72,13 +58,6 @@ const UpdateCredentialPopup = (props) => {
     });
   };
 
-  //User Name Change Handler...
-  // const UpdatedUserNameChangeHandler = (event) => {
-  //   // updateUserData({
-  //   //   [SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey]:
-  //   //     event.target.value,
-  //   // });
-  // };
 
   //User Contact Change Handler...
   const UpdatedUserContactChangeHandler = (event) => {
@@ -108,70 +87,22 @@ const UpdateCredentialPopup = (props) => {
   //########################## Data Handler Methods Ends Here  ##########################
 
   const updateUserData = (userDataToUpdated) => {
-    // console.log("updateUserData");
-    // console.log(userDataToUpdated);
-
     setUserDataToBeUpdated((userData) => {
-      // console.log("setUserDataToBeUpdated");
-      // console.log({ ...userData, ...userDataToUpdated });
       return { ...userData, ...userDataToUpdated };
     });
   };
 
+
+
+
+
+
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      UtilitiesMethods.getSpaceTrimmedLenght(
-        userDataToBeUpdated[
-          SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
-        ]
-      ) === 0
-    ) {
-      props.displayMessagesInParentViewHandler({
-        message: "Please enter user Id to proceed, It can't be left blank.",
-        isErrorMessage: true,
-      });
-      return;
-    }
-
-    if (
-      UtilitiesMethods.getSpaceTrimmedLenght(
-        userDataToBeUpdated[
-          SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
-        ]
-      ) === 0
-    ) {
-      props.displayMessagesInParentViewHandler({
-        message: "Please enter name to proceed, It can't be left blank.",
-        isErrorMessage: true,
-      });
-      return;
-    }
-
-    if (
-      UtilitiesMethods.getSpaceTrimmedLenght(
-        userDataToBeUpdated[
-          SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
-        ]
-      ) === 0
-    ) {
-      props.displayMessagesInParentViewHandler({
-        message: "Please enter name to proceed, It can't be left blank.",
-        isErrorMessage: true,
-      });
-      return;
-    }
-
-    // if (
-    //   UtilitiesMethods.getSpaceTrimmedLenght(userDataToBeUpdated[SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey]) === 0
-    // ) {
-    //   props.displayMessagesInParentViewHandler({
-    //     message: "Please enter password to proceed, It can't be left blank.",
-    //     isErrorMessage: true,
-    //   });
-    //   return;
-    // }
+    const userContactNumberRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    );
 
     if (
       selectedUserType === "Supervisor" &&
@@ -179,15 +110,17 @@ const UpdateCredentialPopup = (props) => {
         userDataToBeUpdated[
           SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
         ]
-      ) === 0
+      ) !== userContactNumberRequiredLength
     ) {
       props.displayMessagesInParentViewHandler({
         message:
-          "Please enter contact number to proceed, It can't be left blank.",
+        UtilitiesKeys.getGeneralValidationMessagesText().phoneNumberNotValidMessage,
         isErrorMessage: true,
       });
       return;
     }
+
+    
 
     if (selectedUserType === "Doctor" || selectedUserType === "Front Desk") {
       console.log("userDataToBeUpdated in doctor option");
@@ -250,7 +183,6 @@ const UpdateCredentialPopup = (props) => {
   const updateAdminSubUsersDataSuccessHandler = (userModifiedData) => {
     console.log("updateUserDataSuccessHandler");
     props.updateUserSuccessHandler(userModifiedData);
-    //props.onUserDataUpdateHandler(userModifiedData);
   };
 
   const updateUserDataSuccessHandler = (userModifiedData) => {
@@ -258,7 +190,6 @@ const UpdateCredentialPopup = (props) => {
     props.onUserDataUpdateHandler(userModifiedData);
   };
 
-  //message , isErrorMessage
   const showErrorMessage = (prop) => {
     props.displayMessagesInParentViewHandler({
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
@@ -266,21 +197,7 @@ const UpdateCredentialPopup = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
     });
-
-    // UtilitiesMethods.showMessageBarAtTheBottom({
-    //   message: prop.message,
-    //   isErrorMessage: prop.isErrorMessage,
-    //   alertMessageElement: props.setAlertMessage,
-    //   alertMessageFlag: props.setAlertFlag,
-    // });
   };
-
-  // messageWithData({
-  //   [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-  //     UtilitiesKeys.getGeneralValidationMessagesText()
-  //       .phoneNumberNotValidMessage,
-  //   [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-  // });
 
   return (
     <div className={classes.popup}>
@@ -303,34 +220,6 @@ const UpdateCredentialPopup = (props) => {
             }
           />
 
-          {/* User ID Input Key for User Registration */}
-          {/* <InputTextField
-              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}
-              mappedKey={
-                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
-              }
-              onChange={CreateUserDataInputFieldChangeHandler}
-              value={
-                props.selectedHospitalDataForAdminCreation[
-                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
-                ]
-              }
-            /> */}
-
-          {/* User Name Input Key for User Registration */}
-          {/* <InputTextField
-              label={SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel}
-              mappedKey={
-                SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
-              }
-              onChange={CreateUserDataInputFieldChangeHandler}
-              value={
-                props.selectedHospitalDataForAdminCreation[
-                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
-                ]
-              }
-            /> */}
-
           {/* User Name Input Key for User Registration */}
           <InputTextField
             label={
@@ -351,18 +240,26 @@ const UpdateCredentialPopup = (props) => {
             selectedUserType !==
               UtilitiesKeys.getUserTypeKeys().frontDeskKey && (
               <>
-                <label htmlFor="userContact">Contact:</label>
-                <input
-                  type="text"
-                  id="userContact"
-                  value={
-                    userDataToBeUpdated[
+
+              <InputNumericTextField
+                label={
+                  SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userContactLabel
+                }
+                mappedKey={
+                  SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
+                }
+                value={
+                  userDataToBeUpdated[
                       SuperAdminUtilitiesKeys.getCreateUserDataKeys()
                         .userContactKey
                     ]
-                  }
-                  onChange={UpdatedUserContactChangeHandler}
-                />
+                }
+                onChange={UpdatedUserDataChangeHandler}
+                requiredLength={
+                  UtilitiesKeys.getInputFieldLengthValidationKeys()
+                    .userContactNumberLength
+                }
+              />
               </>
             )}
 
@@ -426,6 +323,7 @@ const UpdateCredentialPopup = (props) => {
                 SuperAdminUtilitiesKeys.getCreateUserDataKeys().userPasswordKey
               ]
             }
+            isRequired={false}
           />
 
           <div>
