@@ -44,9 +44,9 @@ const PatientRegistration = (props) => {
       UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
     );
 
-    // console.log(patientRegistrationData);
+    console.log(patientRegistrationData);
 
-    // console.log(userContactNumber);
+    console.log(userContactNumber);
 
     //Show Alert Message in case of Invalid Contact Number...
     if (userContactNumber.length !== userContactNumberRequiredLength) {
@@ -119,14 +119,20 @@ const PatientRegistration = (props) => {
 
     const selectedGender = patientRegistrationData[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
       .patientGenderKey];
+
+
+console.log("*******************************************");
+console.log({...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+  .patientGenderKey] : selectedGender}});
+
     PatientDataChangeHandler(
-      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-        .patientGenderKey] : selectedGender}
+      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+        .patientGenderKey] : selectedGender}}
     );
   };
 
   const registerUserGenderTypeChangeHandler = (event) => {
-    setPatientRegistrationData({
+    PatientDataChangeHandler({
       [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
         .patientGenderKey]: event.target.value,
     });
