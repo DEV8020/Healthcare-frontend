@@ -8,6 +8,8 @@ import InputNumericTextField from "../../../Component/InputNumber/InputNumericTe
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+// import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
+import UserGenderTypeSelection from "../../../Component/LoginModule/UserGenderTypeSelection/UserGenderTypeSelection";
 
 const PatientRegistration = (props) => {
   const [patientRegistrationData, setPatientRegistrationData] = useState(
@@ -83,10 +85,8 @@ const PatientRegistration = (props) => {
 
   const showErrorMessageScreen = (errorMessage, isError) => {
     props.showMessageBarAtTheBottom({
-      [UtilitiesMethods.getErrorMessageKey()]:
-      errorMessage,
-      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
-      isError
+      [UtilitiesMethods.getErrorMessageKey()]: errorMessage,
+      [UtilitiesMethods.getIsMessageErrorMessageKey()]: isError,
     });
   };
 
@@ -108,13 +108,29 @@ const PatientRegistration = (props) => {
   };
 
   const resetPatientDataAfterRegister = () => {
+
+    const selectedGender = patientRegistrationData[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+      .patientGenderKey];
     PatientDataChangeHandler(
-      FrontDeskUtilitiesKeys.getPatientRegistrationInitialData()
+      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+        .patientGenderKey] : selectedGender}}
     );
   };
 
+  const registerUserGenderTypeChangeHandler = (event) => {
+    setPatientRegistrationData({
+      [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+        .patientGenderKey]: event.target.value,
+    });
+  };
+
+  const superAdminUserType = [{ option: "Male" }, { option: "Female" }];
+
   const cancelButtonHandler = () => {
-    props.setFrontDeskOption(FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys().patientRegistrationKey);
+    props.setFrontDeskOption(
+      FrontDeskUtilitiesKeys.getFrontDeskMenuOptionsNameKeys()
+        .patientRegistrationKey
+    );
   };
 
   return (
@@ -160,9 +176,18 @@ const PatientRegistration = (props) => {
                 .userContactNumberLength
             }
           />
+          {/* <UserTypeSelection */}
+          <UserGenderTypeSelection
+            label={patientRegistrationData[
+                FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+                  .patientGenderKey
+              ]}
+            options={superAdminUserType}
+            onChange={registerUserGenderTypeChangeHandler}
+          />
 
-          {/* Patient's Sex Text Field... */}
-          <InputTextField
+          {/* {/* Patient's Sex Text Field... */}
+          {/* <InputTextField 
             label={
               FrontDeskUtilitiesKeys.getPatientRegistrationLabelKeys()
                 .patientGenderKey
@@ -178,7 +203,7 @@ const PatientRegistration = (props) => {
                   .patientGenderKey
               ]
             }
-          />
+          /> */}
 
           {/* Patient's Date Of Birth Text Field... */}
           <Bdate
@@ -232,7 +257,7 @@ const PatientRegistration = (props) => {
 
           <div>
             <MenuSubmitButton value="Register" />
-            <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} />
+            {/* <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} /> */}
           </div>
         </form>
       </div>

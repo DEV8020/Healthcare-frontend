@@ -29,7 +29,7 @@ const getPatientRegistrationInitialData = () => {
     [getPatientRegistrationDataKeys().nameKey]: "",
     [getPatientRegistrationDataKeys().dateOfBirthKey]: "",
     [getPatientRegistrationDataKeys().contactKey]: "",
-    [getPatientRegistrationDataKeys().patientGenderKey]: "",
+    [getPatientRegistrationDataKeys().patientGenderKey]: "Male",
     [getPatientRegistrationDataKeys().addressKey]: "",
     [getPatientRegistrationDataKeys().pinCodeKey]: "",
   };
