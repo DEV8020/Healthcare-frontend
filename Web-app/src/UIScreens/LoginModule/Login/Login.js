@@ -9,6 +9,7 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UsernameInput from "../../../Component/LoginModule/UserLoginInputTextField/UserNameInput";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
+import MessageComponent from "../../../Components/Screens/MessageComponent/MessageComponent";
 
 const Login = (props) => {
   const [userLoginData, setUserLoginData] = useState(
@@ -17,16 +18,16 @@ const Login = (props) => {
 
   //Function to handle forgot password fucntionality...
   const forgotPasswordButtonClickHandler = () => {
-    //MessageComponent showMessageScreen method to display appropriate message...
-    // MessageComponent.showMessageScreen({
-    //   message: {
-    //     message: "Please contact admin to recover your password.",
-    //     isTrueFlag: true,
-    //   },
-    //   alertMessageElement: props.setAlertMessage,
-    //   alertMessageFlag: props.setAlertFlag,
-    //   isErrorMessage: true,
-    // });
+    // MessageComponent showMessageScreen method to display appropriate message...
+    MessageComponent.showMessageScreen({
+      message: {
+        message: "Please contact admin to recover your password.",
+        isTrueFlag: true,
+      },
+      alertMessageElement: props.setAlertMessage,
+      alertMessageFlag: props.setAlertFlag,
+      isErrorMessage: true,
+    });
   };
 
   const userTypeChangeHandler = (event) => {
@@ -175,12 +176,13 @@ const Login = (props) => {
             }
           />
 
-          <ForgotPasswordButton
-            value="Forgot Password?"
-            onClickHandler={forgotPasswordButtonClickHandler}
-          />
           <SubmitButton value="Login" />
         </form>
+
+        <ForgotPasswordButton
+          value="Forgot Password?"
+          onClickHandler={forgotPasswordButtonClickHandler}
+        />
       </div>
     </>
   );
