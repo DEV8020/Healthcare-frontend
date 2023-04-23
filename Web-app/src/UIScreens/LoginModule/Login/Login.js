@@ -8,6 +8,7 @@ import LoginUtilities from "../LoginUtilities/LoginUtilities";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UsernameInput from "../../../Component/LoginModule/UserLoginInputTextField/UserNameInput";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
+import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
 
 const Login = (props) => {
   const [userLoginData, setUserLoginData] = useState(
@@ -143,41 +144,45 @@ const Login = (props) => {
   ];
 
   return (
-    <div className={classes.center}>
-      <h1> Hospital Login</h1>
+    <>
+      <NavBar />
 
-      <form id="login-form" onSubmit={LoginHandler}>
-        <UserTypeSelection
-          label="--User Type --"
-          options={hospitalUerTypeOptions}
-          onChange={userTypeChangeHandler}
-        />
+      <div className={classes.center}>
+        <h1> Hospital Login</h1>
 
-        {/* Login Module User ID Input Text Field */}
-        <UsernameInput
-          type="text"
-          label={LoginUtilities.getLoginLabelKeys().userNameKey}
-          onChange={userIdChangeHandler}
-          value={userLoginData[LoginUtilities.getLoginDataKeys().userNameKey]}
-        />
+        <form id="login-form" onSubmit={LoginHandler}>
+          <UserTypeSelection
+            label="--User Type --"
+            options={hospitalUerTypeOptions}
+            onChange={userTypeChangeHandler}
+          />
 
-        {/* Login Module User Password Input Text Field */}
-        <UsernameInput
-          type="password"
-          label="Password"
-          onChange={userPasswordChangeHandler}
-          value={
-            userLoginData[LoginUtilities.getLoginDataKeys().userPasswordKey]
-          }
-        />
+          {/* Login Module User ID Input Text Field */}
+          <UsernameInput
+            type="text"
+            label={LoginUtilities.getLoginLabelKeys().userNameKey}
+            onChange={userIdChangeHandler}
+            value={userLoginData[LoginUtilities.getLoginDataKeys().userNameKey]}
+          />
 
-        <ForgotPasswordButton
-          value="Forgot Password?"
-          onClickHandler={forgotPasswordButtonClickHandler}
-        />
-        <SubmitButton value="Login" />
-      </form>
-    </div>
+          {/* Login Module User Password Input Text Field */}
+          <UsernameInput
+            type="password"
+            label="Password"
+            onChange={userPasswordChangeHandler}
+            value={
+              userLoginData[LoginUtilities.getLoginDataKeys().userPasswordKey]
+            }
+          />
+
+          <ForgotPasswordButton
+            value="Forgot Password?"
+            onClickHandler={forgotPasswordButtonClickHandler}
+          />
+          <SubmitButton value="Login" />
+        </form>
+      </div>
+    </>
   );
 };
 
