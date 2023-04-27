@@ -1,9 +1,11 @@
-import classes from './ForgotPasswordButton.module.css'
- 
-const ForgotPasswordButton=(props)=>{
-return(
-    <div className={classes.pass} onClick={props.onClickHandler}>{props.value}</div>
-);
-}
+import classes from "./ForgotPasswordButton.module.css";
+
+const ForgotPasswordButton = (props) => {
+  return (
+    <button className={classes.pass} onClick={props.onClickHandler}>
+      {props.value}
+    </button>
+  );
+};
 
 export default ForgotPasswordButton;
