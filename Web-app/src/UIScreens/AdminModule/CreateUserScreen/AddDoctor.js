@@ -1,48 +1,30 @@
 import React, { useState } from "react";
-// import InputField from "../../../Components/Screens/UI Elements/MenuForm Elements/InputField";
 import classes from "./AddOptions.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import AdminAPIHandler from "../../../Controllers/AdminAPIHandler";
-// import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 
 const AddDoctor = (props) => {
-  // const [doctorData, setDoctorData] = useState({
-  //   userId: "",
-  //   password: "",
-  //   name: "",
-  //   licId: "",
-  //   contact: "",
-  //   userId: "",
-  //   docSpecialization: "",
-  // });
-
   const [doctorData, setDoctorData] = useState(
     AdminUtilities.getCreateUserInitialData()
   );
 
   const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
-    if (doctorRegisterResponseData.errorMessage === null) {
-      if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
-        cleanDataAfterDoctorRegistrationHandler(
-          doctorRegisterResponseData.registeredDoctorData
-        );
-      }
-      if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === false) {
-        showMessageBarAtTheBottom({
-          [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-            "Some error occured. Please try again later.",
-          [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-        });
-      }
-    } else if (doctorRegisterResponseData.registeredDoctorData === null) {
+
+    if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
+      cleanDataAfterDoctorRegistrationHandler(
+        doctorRegisterResponseData.registeredDoctorData
+      );
+    } else {
       showMessageBarAtTheBottom({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-          doctorRegisterResponseData.errorMessage,
+        doctorRegisterResponseData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -59,6 +41,8 @@ const AddDoctor = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Doctor registered successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
     setDoctorData(AdminUtilities.getCreateUserInitialData());
     props.refreshUsersListResponseHandler();
@@ -72,33 +56,24 @@ const AddDoctor = (props) => {
         propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        propData[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
-
-  
 
   const AddDoctorDataHandler = (event) => {
     event.preventDefault();
     console.log(doctorData);
 
-    //Validation for user contact number...
-    const userContactNumberMappedKey =
-    AdminUtilities.getCreateUserDataKeys().userContactKey;
-    const userContactNumber = doctorData[userContactNumberMappedKey];
-    const userContactNumberRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    );
+    const userValidationData =
+      AdminUtilities.checkAddDoctorDataValidations(doctorData);
 
-    //Show Alert Message in case of Invalid Contact Number...
     if (
-      userContactNumber.length !== userContactNumberRequiredLength
+      userValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
     ) {
-      showMessageBarAtTheBottom({
-        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .phoneNumberNotValidMessage,
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-      });
+      showMessageBarAtTheBottom(userValidationData);
       return;
     }
 
@@ -110,7 +85,9 @@ const AddDoctor = (props) => {
 
   const BackButtonPressedHandler = () => {
     console.log("BackButtonPressedHandler");
-    props.setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey);
+    props.setAdminOption(
+      AdminUtilities.getAdminMenuOptionsNameKeys().createDoctorKey
+    );
   };
 
   return (

@@ -134,6 +134,135 @@ const checkAddUserDataValidations = (userData) => {
   };
 };
 
+
+
+
+
+const checkAddDoctorDataValidations = (userData) => {
+ 
+  var validationData = {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+  };
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userIDKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid user name. It can't be Left blank.",
+      },
+    };
+  }
+
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userNameKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid name. It can't be Left blank.",
+      },
+    };
+  }
+
+
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userPasswordKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid password. It can't be Left blank.",
+      },
+    };
+  }
+
+
+    //Validation for user contact number...
+    const userContactNumberMappedKey =
+    AdminUtilities.getCreateUserDataKeys().userContactKey;
+    const userContactNumber = userData[userContactNumberMappedKey];
+    const userContactNumberRequiredLength = parseInt(
+      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    );
+
+    //Show Alert Message in case of Invalid Contact Number...
+    if (
+      userContactNumber.length !== userContactNumberRequiredLength
+    ) {
+      return {
+        ...validationData,
+        ...{
+          [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText().phoneNumberNotValidMessage,
+        },
+      };
+    }
+
+  
+    if (
+      UtilitiesMethods.getSpaceTrimmedLenght(
+        userData[getCreateUserDataKeys().doctorLicenseIDKey]
+      ) === 0
+    ) {
+      return {
+        ...validationData,
+        ...{
+          [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+            "Please enter valid license id. It can't be Left blank.",
+        },
+      };
+    }
+
+
+    if (
+      UtilitiesMethods.getSpaceTrimmedLenght(
+        userData[getCreateUserDataKeys().doctorSpecializationKey]
+      ) === 0
+    ) {
+      return {
+        ...validationData,
+        ...{
+          [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+            "Please enter valid specialisation. It can't be Left blank.",
+        },
+      };
+    }
+  
+
+ 
+
+  return {
+    ...validationData,
+    ...{
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    },
+  };
+};
+
+
+
+
+
+
+
+
+
 const AdminUtilities = {
   getCreateUserDataKeys,
   getCreateUserInitialData,
@@ -143,6 +272,7 @@ const AdminUtilities = {
   getAdminMenuOptionsNameKeys,
   getAdminMenuOptionsLabelKeys,
   checkAddUserDataValidations,
+  checkAddDoctorDataValidations
 };
 
 export default AdminUtilities;

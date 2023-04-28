@@ -19,7 +19,7 @@ const registerDoctor = async (props) => {
     postData: props.doctorData,
     responseDataHandler: (registeredDoctorData) => {
       console.log("Register Doctor Data In Admin Menu Response Data...");
-      console.log(registeredDoctorData.responseData);
+      console.log(registeredDoctorData);
 
       if (registeredDoctorData.responseError === null) {
         props.registerDoctorResponseHandler({
@@ -29,7 +29,7 @@ const registerDoctor = async (props) => {
         });
       } else if (registeredDoctorData.responseData === null) {
         props.registerDoctorResponseHandler({
-          isDoctorRegisteredSuccessfully: null,
+          isDoctorRegisteredSuccessfully: false,
           registeredDoctorData: null,
           errorMessage: registeredDoctorData.responseError.message,
         });
