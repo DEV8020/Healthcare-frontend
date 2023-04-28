@@ -124,18 +124,7 @@ const Login = (props) => {
         UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
       ] === true
     ) {
-      props.showBottomMessageBar({
-        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-          userValidationData[
-            UtilitiesKeys.getErrorMessageDataKeys().messageKey
-          ],
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-          userValidationData[
-            UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
-          ],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
-      });
+      props.showBottomMessageBar(userValidationData);
       return;
     }
 

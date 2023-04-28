@@ -63,6 +63,8 @@ const checkUserLoginValidations = (userLoginData) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Please enter valid username. It can't be Left blank.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
     };
   }
 
@@ -75,6 +77,8 @@ const checkUserLoginValidations = (userLoginData) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Please enter valid password. It can't be Left blank.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
     };
   }
 

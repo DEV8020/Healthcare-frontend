@@ -42,6 +42,132 @@ const getHospitalRegistrationFormLabelKeys = () => {
   };
 };
 
+const checkRegisterUserDataValidations = (userData, registerUserType) => {
+  //Validation for user contact number...
+  const userContactNumberMappedKey =
+    UtilitiesKeys.getCreateUserDataKeys().userContactKey;
+  const userContactNumber = userData[userContactNumberMappedKey];
+  const userContactNumberRequiredLength = parseInt(
+    UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+  );
+
+  var validationData = {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+  };
+
+  console.log(userData);
+  console.log(registerUserType);
+
+  //Show Alert Message in case of Invalid Contact Number...
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userIdKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid user name. It can't be Left blank.",
+      },
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userNameKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid name. It can't be Left blank.",
+      },
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userPasswordKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid password. It can't be Left blank.",
+      },
+    };
+  }
+
+  //Show Alert Message in case of Invalid Contact Number...
+  if (
+    registerUserType ===
+      SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
+        .createUserSupervisorOption &&
+    userContactNumber.length !== userContactNumberRequiredLength
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .phoneNumberNotValidMessage,
+      },
+    };
+  }
+
+  if (
+    registerUserType ===
+      SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
+        .createUserSupervisorOption &&
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userAddressKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid address. It can't be Left blank.",
+      },
+    };
+  }
+
+  //Validation for user Pin Code...
+  const userAddressPinCode =
+    userData[UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey];
+  const userPinCodeRequiredLength = parseInt(
+    UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+  );
+  //Show Alert Message in case of Invalid PIN CODE...
+  if (
+    registerUserType ===
+      SuperAdminUtilitiesKeys.getCreateUserOptionKeys()
+        .createUserSupervisorOption &&
+    userAddressPinCode.length !== userPinCodeRequiredLength
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .pinCodeNotValidMessage,
+      },
+    };
+  }
+  return {
+    ...validationData,
+    ...{
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    },
+  };
+};
+
 const checkAddHospitalDataValidations = (hospitalData) => {
   //Validation for user Pin Code...
   const hospitalAddressPinCode =
@@ -159,6 +285,7 @@ const getCreateUserFormLabelKeys = () => {
     userAddressLabel: "Address",
     userAddressPincodeLabel: "Pincode",
     hospitalIDLabel: "Hospital ID",
+    userTypeLabel: "User Type",
   };
 };
 
@@ -173,6 +300,7 @@ const SuperAdminUtilitiesKeys = {
   getHospitalRegistrationFormLabelKeys,
   getCreateUserFormLabelKeys,
   checkAddHospitalDataValidations,
+  checkRegisterUserDataValidations,
 };
 
 export default SuperAdminUtilitiesKeys;

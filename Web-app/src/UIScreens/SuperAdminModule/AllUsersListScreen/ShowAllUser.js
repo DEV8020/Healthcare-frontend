@@ -84,7 +84,7 @@ const ShowAllUser = (props) => {
           <div key={userData.authId} className={classes.plist}>
             {/* Div to display User ID Key... */}
             <div>
-              User ID :{" "}
+              {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel} : {" "}
               {
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
@@ -94,7 +94,7 @@ const ShowAllUser = (props) => {
 
             {/* Div to display User Name Key... */}
             <div>
-              User Name:{" "}
+            {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel} :{" "}
               {
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
@@ -104,7 +104,7 @@ const ShowAllUser = (props) => {
 
             {/* Div to display User Role Key... */}
             <div>
-              User Type :{" "}
+            {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userTypeLabel} :{" "}
               {SuperAdminUtilitiesKeys.getUserType(
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userRoleKey

@@ -70,6 +70,8 @@ const CreateUser = (props) => {
           SuperAdminUtilitiesKeys.getSuperAdminErrorMessagesText()
             .chooseHospilatIDFromList,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
       });
       return;
     }
@@ -80,50 +82,66 @@ const CreateUser = (props) => {
   const RegisterUserHandler = (event) => {
     event.preventDefault();
 
-    //Validation for user contact number...
-    const userContactNumberMappedKey =
-      UtilitiesKeys.getCreateUserDataKeys().userContactKey;
-    const userContactNumber =
-      props.selectedHospitalDataForAdminCreation[userContactNumberMappedKey];
-    const userContactNumberRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    );
+    const registerUserValidationdata =
+      SuperAdminUtilitiesKeys.checkRegisterUserDataValidations(
+        props.selectedHospitalDataForAdminCreation,
+        registerUserType,
+      );
 
-    //Show Alert Message in case of Invalid Contact Number...
     if (
-      registerUserType === createUserSupervisorOption &&
-      userContactNumber.length !== userContactNumberRequiredLength
+      registerUserValidationdata[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
     ) {
-      messageWithData({
-        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .phoneNumberNotValidMessage,
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-      });
+      messageWithData(registerUserValidationdata);
       return;
     }
 
-    //Validation for user Pin Code...
-    const userAddressPinCode =
-      props.selectedHospitalDataForAdminCreation[
-        UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
-      ];
-    const userPinCodeRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
-    );
-    //Show Alert Message in case of Invalid PIN CODE...
-    if (
-      registerUserType === createUserSupervisorOption &&
-      userAddressPinCode.length !== userPinCodeRequiredLength
-    ) {
-      messageWithData({
-        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .pinCodeNotValidMessage,
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-      });
-      return;
-    }
+    // return;
+    // //Validation for user contact number...
+    // const userContactNumberMappedKey =
+    //   UtilitiesKeys.getCreateUserDataKeys().userContactKey;
+    // const userContactNumber =
+    //   props.selectedHospitalDataForAdminCreation[userContactNumberMappedKey];
+    // const userContactNumberRequiredLength = parseInt(
+    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    // );
+
+    // //Show Alert Message in case of Invalid Contact Number...
+    // if (
+    //   registerUserType === createUserSupervisorOption &&
+    //   userContactNumber.length !== userContactNumberRequiredLength
+    // ) {
+    //   messageWithData({
+    //     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+    //       UtilitiesKeys.getGeneralValidationMessagesText()
+    //         .phoneNumberNotValidMessage,
+    //     [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+    //   });
+    //   return;
+    // }
+
+    // //Validation for user Pin Code...
+    // const userAddressPinCode =
+    //   props.selectedHospitalDataForAdminCreation[
+    //     UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
+    //   ];
+    // const userPinCodeRequiredLength = parseInt(
+    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+    // );
+    // //Show Alert Message in case of Invalid PIN CODE...
+    // if (
+    //   registerUserType === createUserSupervisorOption &&
+    //   userAddressPinCode.length !== userPinCodeRequiredLength
+    // ) {
+    //   messageWithData({
+    //     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+    //       UtilitiesKeys.getGeneralValidationMessagesText()
+    //         .pinCodeNotValidMessage,
+    //     [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+    //   });
+    //   return;
+    // }
 
     //Hit API On Successfully validated user data for Registration...
     SuperAdminAPIHandler.AddNewUserData({
@@ -138,6 +156,8 @@ const CreateUser = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop.isErrorMessage,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 
