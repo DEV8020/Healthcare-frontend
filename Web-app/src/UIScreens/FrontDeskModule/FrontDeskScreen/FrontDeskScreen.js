@@ -37,8 +37,19 @@ const FrontDeskScreen = (props) => {
   };
 
   const searchButtonPressHandler = (patientName) => {
-    console.log("searchButtonPressHandler");
-    console.log(patientName);
+
+    if (UtilitiesMethods.getSpaceTrimmedLenght(patientName) === 0) {
+      showMessageBarAtTheBottom({
+        [UtilitiesMethods.getErrorMessageKey()]:
+          "Please enter patient id to search. It can't be left blank.",
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+          true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey
+      });
+      return;
+    }
+
     setIsDetailViewNeedRefresh((isRefresh) => {
       return !isRefresh;
     });
@@ -69,6 +80,10 @@ const FrontDeskScreen = (props) => {
         propData[UtilitiesMethods.getErrorMessageKey()],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        propData[
+            UtilitiesKeys.getErrorMessageDataKeys().messageType
+        ],
     });
   };
 
