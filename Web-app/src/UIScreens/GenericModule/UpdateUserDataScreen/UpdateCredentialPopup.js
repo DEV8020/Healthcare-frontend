@@ -85,14 +85,14 @@ const UpdateCredentialPopup = (props) => {
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
 
-    const userContactNumberRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    );
+    // const userContactNumberRequiredLength = parseInt(
+    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    // );
 
-    if (selectedUserType === "Supervisor") {
+    if (selectedUserType === "Supervisor" || selectedUserType === "Admin") {
       const superVisorValidationData =
         SuperAdminUtilitiesKeys.checkSupervisorValidationData(
-          userDataToBeUpdated
+          userDataToBeUpdated, (selectedUserType === "Admin")
         );
 
       if (

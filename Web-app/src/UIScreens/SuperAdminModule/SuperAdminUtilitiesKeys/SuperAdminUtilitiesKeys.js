@@ -231,7 +231,7 @@ const checkAddHospitalDataValidations = (hospitalData) => {
   };
 };
 
-const checkSupervisorValidationData = (userData) => {
+const checkSupervisorValidationData = (userData, isAdmin) => {
   var validationData = {
     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
     [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
@@ -278,7 +278,7 @@ const checkSupervisorValidationData = (userData) => {
 
 
 
-  if (
+  if ( isAdmin === false &&
     UtilitiesMethods.getSpaceTrimmedLenght(
       userData[SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey]
     ) !== userContactNumberRequiredLength
