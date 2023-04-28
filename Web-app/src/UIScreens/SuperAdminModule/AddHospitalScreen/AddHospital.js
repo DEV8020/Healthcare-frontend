@@ -35,23 +35,17 @@ const AddHospital = (props) => {
   const AddHospitalDataHandler = (event) => {
     event.preventDefault();
 
-    //Validation for user Pin Code...
-    const hospitalAddressPinCode =
-      hospitalRegistrationData[
-        UtilitiesKeys.getHospitalRegistrationDataKeys().pinCodeKey
-      ];
-    const userPinCodeRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
-    );
+    const hospitalValidationData =
+      SuperAdminUtilitiesKeys.checkAddHospitalDataValidations(
+        hospitalRegistrationData
+      );
 
-    //Show Alert Message in case of Invalid PIN CODE...
-    if (hospitalAddressPinCode.length !== userPinCodeRequiredLength) {
-      showMessageAtBottomBar({
-        message:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .pinCodeNotValidMessage,
-        isErrorMessage: true,
-      });
+    if (
+      hospitalValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
+    ) {
+      props.showBottomMessageBar(hospitalValidationData);
       return;
     }
 
@@ -69,9 +63,11 @@ const AddHospital = (props) => {
     if (hospitalData.isHospitalAdded === true) {
       addHospitalSuccessHandler();
     } else if (hospitalData.isHospitalAdded === false) {
-      showMessageAtBottomBar({
-        message: hospitalData.errorMessage,
-        isErrorMessage: true,
+      props.showBottomMessageBar({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          hospitalData.errorMessage,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -79,24 +75,15 @@ const AddHospital = (props) => {
   //Method for Successfully Added Hospital Response...
   const addHospitalSuccessHandler = () => {
     setHospitalRegistrationData(hospitalRegistrationInitialData);
-    showMessageAtBottomBar({
-      message:
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         UtilitiesKeys.getHospitalRegistrationMessagesText().successMessage,
-      isErrorMessage: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
   };
 
   //############# API Response Handler Methods Ends Here #############
-
-  //Message to display the Bottom Message Display Bar...
-  const showMessageAtBottomBar = (prop) => {
-    props.showBottomMessageBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        prop.isErrorMessage,
-    });
-  };
-
 
   return (
     <div>
@@ -107,7 +94,10 @@ const AddHospital = (props) => {
           {/* Hospital Name Input Key for Hospital Registration */}
           <InputTextField
             type="text"
-            label={SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().nameKey}
+            label={
+              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys()
+                .nameKey
+            }
             onChange={HospitalDataChangeHandler}
             mappedKey={UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey}
             value={
@@ -121,7 +111,8 @@ const AddHospital = (props) => {
           <InputTextField
             type="text"
             label={
-              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().addressKey
+              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys()
+                .addressKey
             }
             onChange={HospitalDataChangeHandler}
             mappedKey={
@@ -137,7 +128,8 @@ const AddHospital = (props) => {
           {/* Hospital Pin Code Input Key for Hospital Registration */}
           <InputNumericTextField
             label={
-              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys().pinCodeKey
+              SuperAdminUtilitiesKeys.getHospitalRegistrationFormLabelKeys()
+                .pinCodeKey
             }
             onChange={HospitalDataChangeHandler}
             mappedKey={

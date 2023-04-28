@@ -1,5 +1,8 @@
 //########################## Super Admin Menu Keys  ##########################
 
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+
 //Super Admin Menu Create Options Keys...
 const getCreateUserOptionKeys = () => {
   return {
@@ -22,7 +25,6 @@ const getSuperAdminMenuOptionsNameKeys = () => {
   };
 };
 
-
 const getSuperAdminMenuOptionsLabelKeys = () => {
   return {
     hospitalRegistrationKey: "Hospital Registration",
@@ -40,6 +42,68 @@ const getHospitalRegistrationFormLabelKeys = () => {
   };
 };
 
+const checkAddHospitalDataValidations = (hospitalData) => {
+  //Validation for user Pin Code...
+  const hospitalAddressPinCode =
+    hospitalData[UtilitiesKeys.getHospitalRegistrationDataKeys().pinCodeKey];
+  const userPinCodeRequiredLength = parseInt(
+    UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+  );
+
+  var validationData = {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+  };
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      hospitalData[UtilitiesKeys.getHospitalRegistrationDataKeys().nameKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid hospital name. It can't be Left blank.",
+      },
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      hospitalData[UtilitiesKeys.getHospitalRegistrationDataKeys().addressKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid hospital address. It can't be Left blank.",
+      },
+    };
+  }
+
+  //Show Alert Message in case of Invalid PIN CODE...
+  if (hospitalAddressPinCode.length !== userPinCodeRequiredLength) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .pinCodeNotValidMessage,
+      },
+    };
+  }
+
+  return {
+    ...validationData,
+    ...{
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    },
+  };
+};
 
 const getUserType = (userType) => {
   if (userType === "ROLE_SUPER_ADMIN") {
@@ -50,13 +114,11 @@ const getUserType = (userType) => {
     return "Supervisor";
   } else if (userType === "ROLE_DOCTOR") {
     return "Doctor";
-  }else if(userType === "ROLE_FIELD_WORKER") {
-    return "FieldWorker"
+  } else if (userType === "ROLE_FIELD_WORKER") {
+    return "FieldWorker";
   }
   return "Front Desk";
 };
-
-
 
 //Create User Data Keys...
 const getCreateUserDataKeys = () => {
@@ -73,22 +135,19 @@ const getCreateUserDataKeys = () => {
   };
 };
 
-
 //User Data Initial data for user creation in Super Admin Menu...
 const getCreateUserInitialData = () => {
   return {
-    [getCreateUserDataKeys().userNameKey] : "",
-    [getCreateUserDataKeys().userIdKey] : "",
-    [getCreateUserDataKeys().userPasswordKey] : "",
-    [getCreateUserDataKeys().userTypeKey] : "",
-    [getCreateUserDataKeys().userContactKey] : "",
-    [getCreateUserDataKeys().userAddressKey] : "",
-    [getCreateUserDataKeys().hospitalIDKey] : "",
-    [getCreateUserDataKeys().userAddressPinCodeKey] : "",
+    [getCreateUserDataKeys().userNameKey]: "",
+    [getCreateUserDataKeys().userIdKey]: "",
+    [getCreateUserDataKeys().userPasswordKey]: "",
+    [getCreateUserDataKeys().userTypeKey]: "",
+    [getCreateUserDataKeys().userContactKey]: "",
+    [getCreateUserDataKeys().userAddressKey]: "",
+    [getCreateUserDataKeys().hospitalIDKey]: "",
+    [getCreateUserDataKeys().userAddressPinCodeKey]: "",
   };
 };
-
-
 
 //Create User Form Input Field Label Keys...
 const getCreateUserFormLabelKeys = () => {
@@ -112,7 +171,8 @@ const SuperAdminUtilitiesKeys = {
   getSuperAdminMenuOptionsNameKeys,
   getSuperAdminMenuOptionsLabelKeys,
   getHospitalRegistrationFormLabelKeys,
-  getCreateUserFormLabelKeys
+  getCreateUserFormLabelKeys,
+  checkAddHospitalDataValidations,
 };
 
 export default SuperAdminUtilitiesKeys;

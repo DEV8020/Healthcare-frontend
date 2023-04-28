@@ -76,7 +76,6 @@ const SuperAdminScreen = (props) => {
   };
 
   const updateUserListAfterDataUpdateHandler = () => {
-    // console.log("updateUserListAfterDataUpdateHandler called in superadminscreen.js");
     setIsUserListDataToLoad((isListToUpdate) => {
       return !isListToUpdate;
     });
@@ -130,10 +129,10 @@ const SuperAdminScreen = (props) => {
 
   return (
     <div>
-      <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="SuperAdmin" onClick={logoutSA} />
+      <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="Super Admin" onClick={logoutSA} />
 
       <div className={classes.center}>
-        <h2> SuperAdmin Menu</h2>
+        <h2> Super Admin Menu</h2>
 
         <div className={classes.SA_menu}>
           <Button
