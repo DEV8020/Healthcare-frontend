@@ -9,7 +9,6 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UsernameInput from "../../../Component/LoginModule/UserLoginInputTextField/UserNameInput";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 import NavBar from "../../../Components/Screens/UI Elements/NavBar/NavBar";
-import MessageComponent from "../../../Components/Screens/MessageComponent/MessageComponent";
 
 const Login = (props) => {
   const [userLoginData, setUserLoginData] = useState(
@@ -76,12 +75,14 @@ const Login = (props) => {
 
   const userLoginResponseHandler = (userLoginResponseData) => {
     const userID = userLoginData[LoginUtilities.getLoginDataKeys().userNameKey];
-    const userRoleType = LoginUtilities.getLoginUserTypeKeys().doctorTypeKey;
 
     if (userLoginResponseData.isLoginFlag === true) {
-      showMessageAtBottomBar({
-        message: userID + " logged in successfully.",
-        isErrorMessage: false,
+      props.showBottomMessageBar({
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          userID + " logged in successfully.",
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
       });
       UtilitiesMethods.processUserLoginData(
         userLoginResponseData.loggedInUserData
@@ -98,17 +99,10 @@ const Login = (props) => {
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           userLoginResponseData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
-  };
-
-  const showMessageAtBottomBar = (prop) => {
-    UtilitiesMethods.showMessageBarAtTheBottom({
-      message: prop.message,
-      isErrorMessage: prop.isErrorMessage,
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-    });
   };
 
   const setUserAsLoggedIn = () => {
@@ -122,23 +116,29 @@ const Login = (props) => {
     console.log("LoginHandler called");
     console.log(userLoginData);
 
-    // console.log();
+    const userValidationData =
+      LoginUtilities.checkUserLoginValidations(userLoginData);
 
-    //Validation for User Type not selected for login...
     if (
-      UtilitiesMethods.getSpaceTrimmedLenght(
-        userLoginData[LoginUtilities.getLoginDataKeys().userRoleKey]
-      ) === 0
+      userValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
     ) {
-      //Error message for the User Type not selected...
       props.showBottomMessageBar({
-        message:
-          LoginUtilities.getLoginModuleValidationMessagesText()
-            .userTypeNotSelected,
-        isErrorMessage: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          userValidationData[
+            UtilitiesKeys.getErrorMessageDataKeys().messageKey
+          ],
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+          userValidationData[
+            UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+          ],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
       });
       return;
     }
+
     LoginController.GetUserLoginData({
       userData: userLoginData,
       userLoginResponseHandler: userLoginResponseHandler,

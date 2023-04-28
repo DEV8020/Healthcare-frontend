@@ -1,5 +1,8 @@
 //########################## Login Menu Option Keys  ##########################
 
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+
 //Login Module Data Keys...
 const getLoginDataKeys = () => {
   return {
@@ -30,9 +33,12 @@ const getLoginInitialData = () => {
 const getLoginModuleValidationMessagesText = () => {
   return {
     userTypeNotSelected: "Please select valid user role to proceed.",
-    forgotPasswordDBAdminMessage: "Please contact database administrator to recover your password.",
-    forgotPasswordSuperAdminMessage: "Please contact super admin to recover your password.",
-    forgotPasswordAdminMessage: "Please contact admin to recover your password.",
+    forgotPasswordDBAdminMessage:
+      "Please contact database administrator to recover your password.",
+    forgotPasswordSuperAdminMessage:
+      "Please contact super admin to recover your password.",
+    forgotPasswordAdminMessage:
+      "Please contact admin to recover your password.",
   };
 };
 
@@ -43,6 +49,38 @@ const getLoginUserTypeKeys = () => {
     supervisorTypeKey: "Supervisor",
     doctorTypeKey: "Doctor",
     frontDeskTypeKey: "Front Desk",
+  };
+};
+
+const checkUserLoginValidations = (userLoginData) => {
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userLoginData[getLoginDataKeys().userNameKey]
+    ) === 0
+  ) {
+    return {
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        "Please enter valid username. It can't be Left blank.",
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userLoginData[getLoginDataKeys().userPasswordKey]
+    ) === 0
+  ) {
+    return {
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        "Please enter valid password. It can't be Left blank.",
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+    };
+  }
+
+  return {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
   };
 };
 
@@ -69,6 +107,7 @@ const LoginUtilities = {
   getLoginModuleValidationMessagesText,
   getLoggedInUserRoleTypeForServer,
   getLoginUserTypeKeys,
+  checkUserLoginValidations,
 };
 
 export default LoginUtilities;
