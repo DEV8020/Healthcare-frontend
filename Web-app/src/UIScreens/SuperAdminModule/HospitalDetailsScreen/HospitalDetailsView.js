@@ -4,7 +4,6 @@ import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements
 
 const HospitalDetailsView = (props) => {
 
-
   const addHospitalCallBackHandler = (hospitalData) => {
     console.log("addHospitalCallBackHandler called");
     console.log(hospitalData);
@@ -19,10 +18,9 @@ const HospitalDetailsView = (props) => {
   if (props.hospitalsListData.length !== 0) {
     innerLoopData = props.hospitalsListData.map((hospitalData) => (
       <div key={hospitalData.hospId} className={classes.plist}>
-        <div>ID:{hospitalData.hospId}</div>
-        <div>Hospital Name:{hospitalData.name}</div>
-        <div>Address:{hospitalData.address}</div>
-        {/* <AddButton */}
+        <div>ID : {hospitalData.hospId}</div>
+        <div>Name : {hospitalData.name}</div>
+        <div>Address : {hospitalData.address}</div>
         <AddButton
           value="Add"
           onClick={() => addHospitalCallBackHandler(hospitalData)}
@@ -33,7 +31,7 @@ const HospitalDetailsView = (props) => {
 
   return (
     <div className={classes.center}>
-      <h2> Hospital List</h2>
+      <h2> Hospitals List</h2>
       <div className={classes.ul}>{innerLoopData}</div>
     </div>
   );
