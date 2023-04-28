@@ -14,6 +14,7 @@ const getCreateUserDataKeys = () => {
     doctorLicenseIDKey: "licId",
     doctorSpecializationKey: "docSpecialization",
     userTypeKey: "role",
+   
   };
 };
 
@@ -35,6 +36,7 @@ const getCreateFrontDeskLabelKeys = () => {
     frontDeskUserIDKey: "Username",
     frontDeskUserNameKey: "Name",
     frontDeskPasswordKey: "Password",
+    frontDeskUserTypeKey: "User Type",
   };
 };
 

@@ -167,17 +167,10 @@ const ShowHospitalUsers = (props) => {
             }
             className={classes.plist}
           >
-            <div>
-              User Type : {" "}
-              {SuperAdminUtilitiesKeys.getUserType(
-                hospitalUserData[
-                  AdminUtilities.getCreateUserDataKeys().userTypeKey
-                ]
-              )}
-            </div>
+            
 
             <div>
-              User ID : {" "}
+            {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserIDKey} : {" "}
               {
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userIDKey
@@ -187,13 +180,24 @@ const ShowHospitalUsers = (props) => {
 
 
             <div>
-              User Name : {" "}
+            {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserNameKey} : {" "}
               {
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userNameKey
                 ]
               }
             </div>
+
+            <div>
+              {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserTypeKey} : {" "}
+              {SuperAdminUtilitiesKeys.getUserType(
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userTypeKey
+                ]
+              )}
+            </div>
+
+
             {/* <div>
               Password :{" "}
               {

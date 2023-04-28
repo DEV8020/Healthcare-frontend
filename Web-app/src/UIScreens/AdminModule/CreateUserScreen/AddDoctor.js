@@ -41,7 +41,7 @@ const AddDoctor = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Doctor registered successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
         UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
     setDoctorData(AdminUtilities.getCreateUserInitialData());
