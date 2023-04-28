@@ -105,22 +105,6 @@ const UpdateCredentialPopup = (props) => {
       }
     }
 
-    // if (
-    //   selectedUserType === "Supervisor" &&
-    //   UtilitiesMethods.getSpaceTrimmedLenght(
-    //     userDataToBeUpdated[
-    //       SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
-    //     ]
-    //   ) !== userContactNumberRequiredLength
-    // ) {
-    //   props.displayMessagesInParentViewHandler({
-    //     message:
-    //       UtilitiesKeys.getGeneralValidationMessagesText()
-    //         .phoneNumberNotValidMessage,
-    //     isErrorMessage: true,
-    //   });
-    //   return;
-    // }
 
     if (selectedUserType === "FieldWorker") {
       // http://localhost:9191/supervisor/updateFieldWorker
@@ -137,6 +121,15 @@ const UpdateCredentialPopup = (props) => {
     if (selectedUserType === "Doctor" || selectedUserType === "Front Desk") {
       console.log("userDataToBeUpdated in doctor option");
       console.log(userDataToBeUpdated);
+
+      const validationData = AdminUtilities.checkAddUserDataValidations(userDataToBeUpdated, true);
+
+      if(validationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true){
+        props.displayMessagesInParentViewHandler(validationData);
+        return;
+      }
 
       AdminAPIHandler.updateUserRegistrationData({
         userData: userDataToBeUpdated,
@@ -163,12 +156,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
+          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
+        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
       });
     }
   };
@@ -184,12 +179,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
+          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
+        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
       });
     }
   };

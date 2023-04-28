@@ -58,6 +58,8 @@ const ShowHospitalUsers = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
 
     // UtilitiesMethods.showMessageBarAtTheBottom({

@@ -24,7 +24,7 @@ const AddFrontDesk = (props) => {
     event.preventDefault();
 
     const userValidationData = AdminUtilities.checkAddUserDataValidations(
-      frontDeskRegistrationData
+      frontDeskRegistrationData, false
     );
 
     if (

@@ -77,7 +77,7 @@ const getAdminMenuOptionsLabelKeys = () => {
   };
 };
 
-const checkAddUserDataValidations = (userData) => {
+const checkAddUserDataValidations = (userData, isUpdateScreen) => {
  
   var validationData = {
     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
@@ -114,7 +114,7 @@ const checkAddUserDataValidations = (userData) => {
     };
   }
 
-  if (
+  if (isUpdateScreen === false &&
     UtilitiesMethods.getSpaceTrimmedLenght(
       userData[getCreateUserDataKeys().userPasswordKey]
     ) === 0
