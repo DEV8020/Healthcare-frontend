@@ -92,7 +92,8 @@ const UpdateCredentialPopup = (props) => {
     if (selectedUserType === "Supervisor" || selectedUserType === "Admin") {
       const superVisorValidationData =
         SuperAdminUtilitiesKeys.checkSupervisorValidationData(
-          userDataToBeUpdated, (selectedUserType === "Admin")
+          userDataToBeUpdated,
+          selectedUserType === "Admin"
         );
 
       if (
@@ -104,7 +105,6 @@ const UpdateCredentialPopup = (props) => {
         return;
       }
     }
-
 
     if (selectedUserType === "FieldWorker") {
       // http://localhost:9191/supervisor/updateFieldWorker
@@ -122,12 +122,32 @@ const UpdateCredentialPopup = (props) => {
       console.log("userDataToBeUpdated in doctor option");
       console.log(userDataToBeUpdated);
 
-      const validationData = AdminUtilities.checkAddUserDataValidations(userDataToBeUpdated, true);
+      const validationData = AdminUtilities.checkAddUserDataValidations(
+        userDataToBeUpdated,
+        true
+      );
 
-      if(validationData[
-        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
-      ] === true){
+      if (
+        selectedUserType === "Front Desk" &&
+        validationData[
+          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+        ] === true
+      ) {
         props.displayMessagesInParentViewHandler(validationData);
+        return;
+      }
+
+      const validationDoctorData = AdminUtilities.checkAddDoctorDataValidations(
+        userDataToBeUpdated,
+        true
+      );
+      if (
+        selectedUserType === "Doctor" &&
+        validationDoctorData[
+          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+        ] === true
+      ) {
+        props.displayMessagesInParentViewHandler(validationDoctorData);
         return;
       }
 
@@ -156,14 +176,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
-          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+          messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
-        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+        messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -179,14 +199,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
-          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+          messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
-        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+        messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -200,14 +220,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
-          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+          messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
-        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+        messageType: UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -228,7 +248,7 @@ const UpdateCredentialPopup = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };

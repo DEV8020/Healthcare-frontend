@@ -66,7 +66,7 @@ const AddDoctor = (props) => {
     console.log(doctorData);
 
     const userValidationData =
-      AdminUtilities.checkAddDoctorDataValidations(doctorData);
+      AdminUtilities.checkAddDoctorDataValidations(doctorData, false);
 
     if (
       userValidationData[

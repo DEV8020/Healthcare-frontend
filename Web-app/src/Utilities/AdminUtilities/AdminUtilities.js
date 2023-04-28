@@ -140,7 +140,7 @@ const checkAddUserDataValidations = (userData, isUpdateScreen) => {
 
 
 
-const checkAddDoctorDataValidations = (userData) => {
+const checkAddDoctorDataValidations = (userData, isUpdateScreen) => {
  
   var validationData = {
     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
@@ -180,7 +180,7 @@ const checkAddDoctorDataValidations = (userData) => {
 
 
 
-  if (
+  if (isUpdateScreen === false &&
     UtilitiesMethods.getSpaceTrimmedLenght(
       userData[getCreateUserDataKeys().userPasswordKey]
     ) === 0
