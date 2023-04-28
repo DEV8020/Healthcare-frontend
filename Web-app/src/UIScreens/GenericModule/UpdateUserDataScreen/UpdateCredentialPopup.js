@@ -86,7 +86,7 @@ const UpdateCredentialPopup = (props) => {
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log("*******************UpdateCredentialSubmitHandler called");
+    // console.log("*******************UpdateCredentialSubmitHandler called");
 
     // const userContactNumberRequiredLength = parseInt(
     //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
@@ -110,8 +110,8 @@ const UpdateCredentialPopup = (props) => {
     }
 
 
-console.log("selectedUserType");
-    console.log(selectedUserType);
+// console.log("selectedUserType");
+//     console.log(selectedUserType);
     if (selectedUserType === "FieldWorker") {
 
     
@@ -145,34 +145,43 @@ console.log("selectedUserType");
       console.log("userDataToBeUpdated in doctor option");
       console.log(userDataToBeUpdated);
 
-      const validationData = AdminUtilities.checkAddUserDataValidations(
-        userDataToBeUpdated,
-        true
-      );
+      if(selectedUserType === "Front Desk"){
 
-      if (
-        selectedUserType === "Front Desk" &&
-        validationData[
-          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
-        ] === true
-      ) {
-        props.displayMessagesInParentViewHandler(validationData);
-        return;
+        const validationData = AdminUtilities.checkAddUserDataValidations(
+          userDataToBeUpdated,
+          true
+        );
+  
+        if (
+          selectedUserType === "Front Desk" &&
+          validationData[
+            UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+          ] === true
+        ) {
+          props.displayMessagesInParentViewHandler(validationData);
+          return;
+        }
+      }else{
+
+        const validationDoctorData = AdminUtilities.checkAddDoctorDataValidations(
+          userDataToBeUpdated,
+          true
+        );
+        if (
+          selectedUserType === "Doctor" &&
+          validationDoctorData[
+            UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+          ] === true
+        ) {
+          props.displayMessagesInParentViewHandler(validationDoctorData);
+          return;
+        }
+
       }
 
-      const validationDoctorData = AdminUtilities.checkAddDoctorDataValidations(
-        userDataToBeUpdated,
-        true
-      );
-      if (
-        selectedUserType === "Doctor" &&
-        validationDoctorData[
-          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
-        ] === true
-      ) {
-        props.displayMessagesInParentViewHandler(validationDoctorData);
-        return;
-      }
+      
+
+      
 
       AdminAPIHandler.updateUserRegistrationData({
         userData: userDataToBeUpdated,
