@@ -1,5 +1,8 @@
 //########################## Admin Menu Keys  ##########################
 
+import UtilitiesKeys from "../UtilitiesKeys";
+import UtilitiesMethods from "../UtilitiesMethods";
+
 //Admin Menu Create User Options Keys...
 const getCreateUserDataKeys = () => {
   return {
@@ -56,23 +59,80 @@ const getCreateUserInitialData = () => {
   };
 };
 
-
 const getAdminMenuOptionsNameKeys = () => {
-    return {
-      showHospitalsUsersKey: "showHospitalUsers",
-      createDoctorKey: "addDoctor",
-      createFrontDeskKey: "addFrontDesk",
-    };
+  return {
+    showHospitalsUsersKey: "showHospitalUsers",
+    createDoctorKey: "addDoctor",
+    createFrontDeskKey: "addFrontDesk",
   };
-  
-  const getAdminMenuOptionsLabelKeys = () => {
-    return {
-      showHospitalsUsersKey: "Show Hospital Users",
-      createDoctorKey: "Doctor Registration",
-      createFrontDeskKey: "Front Desk Registration",
-    };
+};
+
+const getAdminMenuOptionsLabelKeys = () => {
+  return {
+    showHospitalsUsersKey: "Show Hospital Users",
+    createDoctorKey: "Doctor Registration",
+    createFrontDeskKey: "Front Desk Registration",
+  };
+};
+
+const checkAddUserDataValidations = (userData) => {
+ 
+  var validationData = {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
   };
 
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userIDKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid user name. It can't be Left blank.",
+      },
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userNameKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid name. It can't be Left blank.",
+      },
+    };
+  }
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userPasswordKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid password. It can't be Left blank.",
+      },
+    };
+  }
+
+  return {
+    ...validationData,
+    ...{
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    },
+  };
+};
 
 const AdminUtilities = {
   getCreateUserDataKeys,
@@ -82,6 +142,7 @@ const AdminUtilities = {
   getCreateFrontDeskLabelKeys,
   getAdminMenuOptionsNameKeys,
   getAdminMenuOptionsLabelKeys,
+  checkAddUserDataValidations,
 };
 
 export default AdminUtilities;

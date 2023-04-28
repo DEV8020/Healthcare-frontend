@@ -10,7 +10,6 @@ const AddFrontDesk = (props) => {
   const [frontDeskRegistrationData, setFrontDeskRegistrationData] = useState(
     AdminUtilities.getCreateFrontDeskInitialData()
   );
- 
 
   //########################## Data Change Event Handler Methods  ##########################
   const updateFrontDeskRegistrationData = (dataToUpdate) => {
@@ -23,6 +22,20 @@ const AddFrontDesk = (props) => {
 
   const AddFrontDeskDataHandler = (event) => {
     event.preventDefault();
+
+    const userValidationData = AdminUtilities.checkAddUserDataValidations(
+      frontDeskRegistrationData
+    );
+
+    if (
+      userValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
+    ) {
+      showMessageBarAtTheBottom(userValidationData);
+      return;
+    }
+
     AdminAPIHandler.registerFrontDesk({
       frontDeskData: frontDeskRegistrationData,
       registerFrontDeskResponseHandler: registerFrontDeskResponseHandler,
@@ -39,18 +52,15 @@ const AddFrontDesk = (props) => {
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           frontDeskRegistrationData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
 
   //Message Bar At The Bottom to display messages...
   const showMessageBarAtTheBottom = (propData) => {
-    props.showMessageAtBottomBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    });
+    props.showMessageAtBottomBar(propData);
   };
 
   const cleanDataAfterFrontDeskRegistrationHandler = () => {
@@ -58,6 +68,8 @@ const AddFrontDesk = (props) => {
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Front Desk registered successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
 
     setFrontDeskRegistrationData(
@@ -68,7 +80,9 @@ const AddFrontDesk = (props) => {
   };
 
   const BackButtonPressedHandler = () => {
-    props.setAdminOption(AdminUtilities.getAdminMenuOptionsNameKeys().createFrontDeskKey);
+    props.setAdminOption(
+      AdminUtilities.getAdminMenuOptionsNameKeys().createFrontDeskKey
+    );
   };
 
   return (
@@ -77,7 +91,6 @@ const AddFrontDesk = (props) => {
         <h1> Add Front Desk Menu</h1>
 
         <form id="addFD-form" onSubmit={AddFrontDeskDataHandler}>
-         
           <InputTextField
             label={
               AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserIDKey
