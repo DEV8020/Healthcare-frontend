@@ -231,6 +231,76 @@ const checkAddHospitalDataValidations = (hospitalData) => {
   };
 };
 
+const checkSupervisorValidationData = (userData) => {
+  var validationData = {
+    [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
+    [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
+    [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+  };
+
+  const userContactNumberRequiredLength = parseInt(
+    UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+  );
+
+
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userIdKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid user name. It can't be Left blank.",
+      },
+    };
+  }
+
+
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[getCreateUserDataKeys().userNameKey]
+    ) === 0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter valid name. It can't be Left blank.",
+      },
+    };
+  }
+
+
+
+
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(
+      userData[SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey]
+    ) !== userContactNumberRequiredLength
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          UtilitiesKeys.getGeneralValidationMessagesText()
+            .phoneNumberNotValidMessage,
+      },
+    };
+  }
+
+  return {
+    ...validationData,
+    ...{
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+    },
+  };
+};
+
 const getUserType = (userType) => {
   if (userType === "ROLE_SUPER_ADMIN") {
     return "Super Admin";
@@ -301,6 +371,7 @@ const SuperAdminUtilitiesKeys = {
   getCreateUserFormLabelKeys,
   checkAddHospitalDataValidations,
   checkRegisterUserDataValidations,
+  checkSupervisorValidationData
 };
 
 export default SuperAdminUtilitiesKeys;

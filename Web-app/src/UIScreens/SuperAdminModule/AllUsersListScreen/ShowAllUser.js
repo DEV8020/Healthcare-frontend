@@ -23,12 +23,14 @@ const ShowAllUser = (props) => {
     //   alertMessageElement: props.setAlertMessage,
     //   alertMessageFlag: props.setAlertFlag,
     // });
-    messageWithData({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    });
+    messageWithData(prop
+      // {
+      // [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+      //   prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+      // [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+      //   prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+    // }
+    );
   };
 
   // UtilitiesKeys
@@ -58,6 +60,8 @@ const ShowAllUser = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
     });
   };
 
@@ -132,12 +136,10 @@ const ShowAllUser = (props) => {
         <UpdateCredentialPopup
           onUserDataUpdateHandler={onUserDataUpdateHandler}
           onClose={handleCredentialPopupClose}
-          // d_id={UpdateCredentialUserId}
           userDataToBeUpdated={userDataToBeUpdated}
           displayMessagesInParentViewHandler={
             displayMessagesInParentViewHandler
           }
-          // updateDataToUpdateHandler={updateDataToUpdateHandler}
         />
       )}
     </div>

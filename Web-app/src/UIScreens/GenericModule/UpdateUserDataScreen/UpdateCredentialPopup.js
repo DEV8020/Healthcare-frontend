@@ -89,22 +89,38 @@ const UpdateCredentialPopup = (props) => {
       UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
     );
 
-    if (
-      selectedUserType === "Supervisor" &&
-      UtilitiesMethods.getSpaceTrimmedLenght(
-        userDataToBeUpdated[
-          SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
-        ]
-      ) !== userContactNumberRequiredLength
-    ) {
-      props.displayMessagesInParentViewHandler({
-        message:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .phoneNumberNotValidMessage,
-        isErrorMessage: true,
-      });
-      return;
+    if (selectedUserType === "Supervisor") {
+      const superVisorValidationData =
+        SuperAdminUtilitiesKeys.checkSupervisorValidationData(
+          userDataToBeUpdated
+        );
+
+      if (
+        superVisorValidationData[
+          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+        ] === true
+      ) {
+        props.displayMessagesInParentViewHandler(superVisorValidationData);
+        return;
+      }
     }
+
+    // if (
+    //   selectedUserType === "Supervisor" &&
+    //   UtilitiesMethods.getSpaceTrimmedLenght(
+    //     userDataToBeUpdated[
+    //       SuperAdminUtilitiesKeys.getCreateUserDataKeys().userContactKey
+    //     ]
+    //   ) !== userContactNumberRequiredLength
+    // ) {
+    //   props.displayMessagesInParentViewHandler({
+    //     message:
+    //       UtilitiesKeys.getGeneralValidationMessagesText()
+    //         .phoneNumberNotValidMessage,
+    //     isErrorMessage: true,
+    //   });
+    //   return;
+    // }
 
     if (selectedUserType === "FieldWorker") {
       // http://localhost:9191/supervisor/updateFieldWorker
@@ -187,12 +203,14 @@ const UpdateCredentialPopup = (props) => {
         showErrorMessage({
           message: "Some error occured.",
           isErrorMessage: true,
+          messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
         });
       }
     } else if (modifiedUserData.userUpdatedData === null) {
       showErrorMessage({
         message: modifiedUserData.errorMessage,
         isErrorMessage: true,
+        messageType : UtilitiesKeys.getAlertMessageTypeKeys().errorKey
       });
     }
   };
@@ -213,6 +231,8 @@ const UpdateCredentialPopup = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 
