@@ -144,12 +144,15 @@ const Login = (props) => {
     { option: LoginUtilities.getLoginUserTypeKeys().frontDeskTypeKey },
   ];
 
+  var userRoleType =
+    userLoginData[LoginUtilities.getLoginDataKeys().userRoleKey];
+
   return (
     <>
       <NavBar />
 
       <div className={classes.center}>
-        <h1> Hospital Login</h1>
+        <h1> {userRoleType} Login</h1>
 
         <form id="login-form" onSubmit={LoginHandler}>
           <UserTypeSelection
