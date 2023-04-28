@@ -5,6 +5,7 @@ import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import SupervisorUtilitiesKeys from "../../../Utilities/SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
 
 const FieldWorkerList = (props) => {
   const [fieldWorkerList, setFieldWorkerList] = useState([]);
@@ -41,6 +42,7 @@ const FieldWorkerList = (props) => {
     displayMessagesInParentViewHandler({
       message: "User data updated successfully.",
       isErrorMessage: false,
+
     });
 
     setIsRefreshFieldWorkerList((isRefresh) => {
@@ -89,6 +91,8 @@ props.resetFieldWorkerDisplaySideView();
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
     });
   };
 
@@ -119,8 +123,8 @@ props.resetFieldWorkerDisplaySideView();
         {fieldWorkerList.map((fieldworkerdata) => (
           <div key={fieldworkerdata.authId} className={classes.plist}>
             <div>ID : {fieldworkerdata.authId}</div>
-            <div>userId : {fieldworkerdata.username}</div>
-            <div>Name : {fieldworkerdata.name}</div>
+            <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().userIDKey} : {fieldworkerdata.username}</div>
+            <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().nameKey} : {fieldworkerdata.name}</div>
             <div>Contact No. : {fieldworkerdata.contact}</div>
 
             <div>

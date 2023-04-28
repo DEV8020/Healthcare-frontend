@@ -12,6 +12,7 @@ import { Menu } from "@mui/material";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import AdminUtilities from "../../../Utilities/AdminUtilities/AdminUtilities";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
+import SupervisorUtilitiesKeys from "../../../Utilities/SupervisorUtilitiesKeys/SupervisorUtilitiesKeys";
 
 const UpdateCredentialPopup = (props) => {
   const [userDataToBeUpdated, setUserDataToBeUpdated] = useState({});
@@ -85,6 +86,8 @@ const UpdateCredentialPopup = (props) => {
   const UpdateCredentialSubmitHandler = (event) => {
     event.preventDefault();
 
+    console.log("*******************UpdateCredentialSubmitHandler called");
+
     // const userContactNumberRequiredLength = parseInt(
     //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
     // );
@@ -106,8 +109,28 @@ const UpdateCredentialPopup = (props) => {
       }
     }
 
+
+console.log("selectedUserType");
+    console.log(selectedUserType);
     if (selectedUserType === "FieldWorker") {
+
+    
       // http://localhost:9191/supervisor/updateFieldWorker
+
+      const fieldWorkerValidationData =
+        SupervisorUtilitiesKeys.checkFieldWorkerValidationData(
+          userDataToBeUpdated,
+          true
+        );
+
+      if (
+        fieldWorkerValidationData[
+          UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+        ] === true
+      ) {
+        props.displayMessagesInParentViewHandler(fieldWorkerValidationData);
+        return;
+      }
 
       SupervisorAPIHandler.updateFieldWorkerRegistrationData({
         userData: userDataToBeUpdated,

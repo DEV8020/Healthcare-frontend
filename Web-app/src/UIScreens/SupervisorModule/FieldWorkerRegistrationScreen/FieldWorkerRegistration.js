@@ -28,45 +28,29 @@ const FieldWorkerRegistration = (props) => {
     console.log("selectedDataFromFieldWorkerRegistration");
     console.log(selectedDataFromFieldWorkerRegistration);
 
-    //Validation for user contact number...
-    const userContactNumber =
-      selectedDataFromFieldWorkerRegistration[
-        SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys().contactKey
-      ];
-    const userContactNumberRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    );
 
-    //Show Alert Message in case of Invalid Contact Number...
-    if (userContactNumber.length !== userContactNumberRequiredLength) {
-      showMessageAtBottomBar({
-        message:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .phoneNumberNotValidMessage,
-        isErrorMessage: false,
-      });
-      return;
-    }
 
-    //Validation for user Pin Code...
-    const userAddressPinCode =
-      selectedDataFromFieldWorkerRegistration[
-        SupervisorUtilitiesKeys.getFieldWorkerRegistrationDataKeys().pinCodeKey
-      ];
-    const userPinCodeRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
-    );
-    //Show Alert Message in case of Invalid PIN CODE...
-    if (userAddressPinCode.length !== userPinCodeRequiredLength) {
-      showMessageAtBottomBar({
-        message:
-          UtilitiesKeys.getGeneralValidationMessagesText()
-            .pinCodeNotValidMessage,
-        isErrorMessage: false,
-      });
-      return;
-    }
+    const userValidationData =
+    SupervisorUtilitiesKeys.checkFieldWorkerValidationData(selectedDataFromFieldWorkerRegistration, false);
 
+  if (
+    userValidationData[
+      UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+    ] === true
+  ) {
+    showMessageAtBottomBar(userValidationData);
+    return;
+  }
+
+
+
+
+
+
+
+
+
+   
     FieldWorkerAPIHandler.registerFieldWorker({
       fieldWorkerData: selectedDataFromFieldWorkerRegistration,
       registerNewFieldWorkerResponseCallBack:
@@ -111,6 +95,8 @@ const FieldWorkerRegistration = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 

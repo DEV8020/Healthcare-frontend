@@ -57,6 +57,8 @@ const SuperVisorScreen = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
     });
   };
 
@@ -158,7 +160,7 @@ const SuperVisorScreen = (props) => {
       <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="SuperVisor" onClick={logoutSV} />
 
       <div className={classes.center}>
-        <h2> SuperVisor Menu</h2>
+        <h2> Supervisor Menu</h2>
 
         <div className={classes.SV_menu}>
           <Button
