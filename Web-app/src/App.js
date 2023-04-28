@@ -13,10 +13,10 @@ import LoginUtilities from "./UIScreens/LoginModule/LoginUtilities/LoginUtilitie
 
 function App() {
 
-
   const [user, setUser] = useState(null);
   const [alertFlag, setAlertFlag] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertInfo, setAlertInfo] = useState("info");
 
   const OnLoginHandler = (userObject) => {
     console.log("OnLoginHandler");
@@ -26,7 +26,13 @@ function App() {
   };
 
   const showBottomMessageBar = (errorMessageData) => {
+    console.log("**************************************");
     console.log(errorMessageData);
+    if(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageType] === null){
+     setAlertInfo("success");
+    }else{
+      setAlertInfo(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageType]);
+    }
     setAlertMessage(errorMessageData[UtilitiesKeys.getErrorMessageDataKeys().messageKey]);
     setAlertFlag(true);
   };
@@ -47,7 +53,7 @@ function App() {
     <>
       {alertFlag === true && (
         <Snackbar open={alertFlag}>
-          <Alert severity="success" sx={{ width: "100%" }}>
+          <Alert severity={alertInfo} sx={{ width: "100%" }}>
             {alertMessage}
           </Alert>
         </Snackbar>
@@ -55,8 +61,6 @@ function App() {
       {user === null && (
         <Login
           onLogin={OnLoginHandler}
-          setAlertFlag={setAlertFlag}
-          setAlertMessage={setAlertMessage}
           showBottomMessageBar={showBottomMessageBar}
         />
       )}

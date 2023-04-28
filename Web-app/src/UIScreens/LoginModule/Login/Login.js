@@ -18,15 +18,35 @@ const Login = (props) => {
 
   //Function to handle forgot password fucntionality...
   const forgotPasswordButtonClickHandler = () => {
-    // MessageComponent showMessageScreen method to display appropriate message...
-    MessageComponent.showMessageScreen({
-      message: {
-        message: "Please contact admin to recover your password.",
-        isTrueFlag: true,
-      },
-      alertMessageElement: props.setAlertMessage,
-      alertMessageFlag: props.setAlertFlag,
-      isErrorMessage: true,
+    var message =
+      LoginUtilities.getLoginModuleValidationMessagesText()
+        .forgotPasswordDBAdminMessage;
+
+    if (
+      userLoginData[[LoginUtilities.getLoginDataKeys().userRoleKey]] ===
+        LoginUtilities.getLoginUserTypeKeys().adminTypeKey ||
+      userLoginData[[LoginUtilities.getLoginDataKeys().userRoleKey]] ===
+        LoginUtilities.getLoginUserTypeKeys().supervisorTypeKey
+    ) {
+      message =
+        LoginUtilities.getLoginModuleValidationMessagesText()
+          .forgotPasswordSuperAdminMessage;
+    } else if (
+      userLoginData[[LoginUtilities.getLoginDataKeys().userRoleKey]] ===
+        LoginUtilities.getLoginUserTypeKeys().frontDeskTypeKey ||
+      userLoginData[[LoginUtilities.getLoginDataKeys().userRoleKey]] ===
+        LoginUtilities.getLoginUserTypeKeys().doctorTypeKey
+    ) {
+      message =
+        LoginUtilities.getLoginModuleValidationMessagesText()
+          .forgotPasswordAdminMessage;
+    }
+
+    props.showBottomMessageBar({
+      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        UtilitiesKeys.getAlertMessageTypeKeys().infoKey,
     });
   };
 

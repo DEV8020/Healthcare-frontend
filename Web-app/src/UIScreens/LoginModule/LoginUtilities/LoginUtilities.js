@@ -30,9 +30,11 @@ const getLoginInitialData = () => {
 const getLoginModuleValidationMessagesText = () => {
   return {
     userTypeNotSelected: "Please select valid user role to proceed.",
+    forgotPasswordDBAdminMessage: "Please contact database administrator to recover your password.",
+    forgotPasswordSuperAdminMessage: "Please contact super admin to recover your password.",
+    forgotPasswordAdminMessage: "Please contact admin to recover your password.",
   };
 };
-
 
 const getLoginUserTypeKeys = () => {
   return {
