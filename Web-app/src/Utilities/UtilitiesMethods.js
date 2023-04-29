@@ -76,10 +76,10 @@ const getAttributesDataForDoctor = () => {
 const getEncryptedData = (userData) => {
   var encryptedUserData = {};
   Object.keys(userData).map((key, index) => {
-    console.log(aesUtil.encrypt("password", userData[key]));
+    console.log(aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]));
     encryptedUserData = {
       ...encryptedUserData,
-      ...{ [key]: aesUtil.encrypt("password", userData[key]) },
+      ...{ [key]: aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]) },
     };
   });
   return encryptedUserData;

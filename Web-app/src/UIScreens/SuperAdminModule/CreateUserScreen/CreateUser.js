@@ -7,6 +7,7 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
 import SuperAdminUtilitiesKeys from "../SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
 import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 const CreateUser = (props) => {
   const [refreshHospitalList, setRefreshHospitalList] = useState(false);
@@ -66,11 +67,11 @@ const CreateUser = (props) => {
     const hospitalIDKey = UtilitiesKeys.getCreateUserDataKeys().hospitalIDKey;
     if (hospitalIDKey in userEnteredData) {
       messageWithData({
-        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+        [UtilitiesMethods.getErrorMessageKey()]:
           SuperAdminUtilitiesKeys.getSuperAdminErrorMessagesText()
             .chooseHospilatIDFromList,
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
           UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
       });
       return;
@@ -85,7 +86,7 @@ const CreateUser = (props) => {
     const registerUserValidationdata =
       SuperAdminUtilitiesKeys.checkRegisterUserDataValidations(
         props.selectedHospitalDataForAdminCreation,
-        registerUserType,
+        registerUserType
       );
 
     if (
@@ -97,52 +98,6 @@ const CreateUser = (props) => {
       return;
     }
 
-    // return;
-    // //Validation for user contact number...
-    // const userContactNumberMappedKey =
-    //   UtilitiesKeys.getCreateUserDataKeys().userContactKey;
-    // const userContactNumber =
-    //   props.selectedHospitalDataForAdminCreation[userContactNumberMappedKey];
-    // const userContactNumberRequiredLength = parseInt(
-    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    // );
-
-    // //Show Alert Message in case of Invalid Contact Number...
-    // if (
-    //   registerUserType === createUserSupervisorOption &&
-    //   userContactNumber.length !== userContactNumberRequiredLength
-    // ) {
-    //   messageWithData({
-    //     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-    //       UtilitiesKeys.getGeneralValidationMessagesText()
-    //         .phoneNumberNotValidMessage,
-    //     [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-    //   });
-    //   return;
-    // }
-
-    // //Validation for user Pin Code...
-    // const userAddressPinCode =
-    //   props.selectedHospitalDataForAdminCreation[
-    //     UtilitiesKeys.getCreateUserDataKeys().userAddressPinCodeKey
-    //   ];
-    // const userPinCodeRequiredLength = parseInt(
-    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
-    // );
-    // //Show Alert Message in case of Invalid PIN CODE...
-    // if (
-    //   registerUserType === createUserSupervisorOption &&
-    //   userAddressPinCode.length !== userPinCodeRequiredLength
-    // ) {
-    //   messageWithData({
-    //     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-    //       UtilitiesKeys.getGeneralValidationMessagesText()
-    //         .pinCodeNotValidMessage,
-    //     [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
-    //   });
-    //   return;
-    // }
-
     //Hit API On Successfully validated user data for Registration...
     SuperAdminAPIHandler.AddNewUserData({
       registerUserData: props.selectedHospitalDataForAdminCreation,
@@ -152,13 +107,16 @@ const CreateUser = (props) => {
 
   //Method to show Message on Bottom Bar...
   const messageWithData = (prop) => {
-    props.showBottomMessageBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        prop.isErrorMessage,
-      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
-    });
+    console.log("messageWithData");
+    console.log(prop);
+    props.showBottomMessageBar(prop);
+    // props.showBottomMessageBar({
+    //   [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: prop.message,
+    //   [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+    //     prop.isErrorMessage,
+    //   [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+    //     prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
+    // });
   };
 
   //############# API Response Handler Methods #############
@@ -181,6 +139,8 @@ const CreateUser = (props) => {
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           newUserData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+        UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -193,6 +153,8 @@ const CreateUser = (props) => {
     messageWithData({
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: message,
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+      [UtilitiesMethods.getMessageTypeKey()]:
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
     const userType = props.selectedHospitalDataForAdminCreation.userType;
     setRegisterUserType(props.selectedHospitalDataForAdminCreation.userType);
