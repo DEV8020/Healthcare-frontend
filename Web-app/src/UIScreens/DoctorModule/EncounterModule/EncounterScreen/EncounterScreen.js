@@ -32,7 +32,7 @@ const EncounterScreen = (props) => {
   // console.log(folloupsData);
 
   const [doctorFollowUpData, setDoctorFollowUpData] = useState([
-    DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
+    // DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
   ]);
 
   //   // AddFollowup
@@ -55,6 +55,7 @@ const EncounterScreen = (props) => {
   // selectedEncounterID={selectedEncounterID}
 
   const backButtonD = () => {
+    props.refreshDoctorEncounterListHanlder();
     props.setCreateEncounter(false);
   };
 

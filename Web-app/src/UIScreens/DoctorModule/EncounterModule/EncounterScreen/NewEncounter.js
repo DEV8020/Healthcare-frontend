@@ -4,6 +4,7 @@ import classes from "./NewEncounter.module.css";
 import NewEncounterCell from "./NewEncounterCell";
 import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
 import UtilitiesKeys from "../../../../Utilities/UtilitiesKeys";
+import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 // import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 
 const NewEncounter = (props) => {
@@ -26,17 +27,21 @@ const NewEncounter = (props) => {
 
   const addPatientEncounterResponseHandler = (addPatientEncounterData) => {
     if (addPatientEncounterData.isEncounterCreated === false) {
-      showMessageBarAtTheBottom({
+      props.showMessageAtBottomBar({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           addPatientEncounterData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
       return;
     }
-    showMessageBarAtTheBottom({
+    props.showMessageAtBottomBar({
       [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
         "Encounter Created successfully.",
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
+      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+      [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
 
     console.log("************************************");
@@ -54,14 +59,15 @@ const NewEncounter = (props) => {
   };
 
   //Message Bar At The Bottom to display messages...
-  const showMessageBarAtTheBottom = (propData) => {
-    props.showMessageAtBottomBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    });
-  };
+  // const showMessageBarAtTheBottom = (propData) => {
+  //   props.showMessageAtBottomBar();
+  //   // props.showMessageAtBottomBar({
+  //   //   [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+  //   //     propData[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
+  //   //   [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
+  //   //     propData[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
+  //   // });
+  // };
 
   return (
     <div className={classes.center}>
