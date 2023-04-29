@@ -30,7 +30,10 @@ const getDoctorAddFollowUpLabelKeys = () => {
   };
 };
 
-const checkPrescriptionDataValidation = (prescriptionData, isConsentClicked) => {
+const checkPrescriptionDataValidation = (
+  prescriptionData,
+  isConsentClicked
+) => {
   var validationData = {
     [UtilitiesKeys.getErrorMessageDataKeys().messageKey]: "",
     [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
@@ -38,20 +41,19 @@ const checkPrescriptionDataValidation = (prescriptionData, isConsentClicked) => 
     [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
   };
 
-
- //####################### Patient's Symptoms Data Validation #######################
- if (
-  UtilitiesMethods.getSpaceTrimmedLenght(prescriptionData.additionalNotes) === 0
-) {
-  return {
-    ...validationData,
-    ...{
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        "Please enter symptoms. It can't be Left blank.",
-    },
-  };
-}
-
+  //####################### Patient's Symptoms Data Validation #######################
+  if (
+    UtilitiesMethods.getSpaceTrimmedLenght(prescriptionData.additionalNotes) ===
+    0
+  ) {
+    return {
+      ...validationData,
+      ...{
+        [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
+          "Please enter symptoms. It can't be Left blank.",
+      },
+    };
+  }
 
   //####################### Patient's precription Data Validation #######################
   if (
@@ -65,7 +67,6 @@ const checkPrescriptionDataValidation = (prescriptionData, isConsentClicked) => 
       },
     };
   }
-
 
   //####################### Patient's consent checkbox Data Validation #######################
   if (isConsentClicked === false) {
@@ -95,12 +96,65 @@ const getDoctorFollowUpInitialData = () => {
   };
 };
 
+const getReadingsParsedData = (followUpData) => {
+  console.log("getReadingsParsedData");
+  console.log(followUpData);
+  if (followUpData.flag === false) {
+    return "Readings Data : NA";
+  }
+
+  let readingsData = "";
+
+  Object.keys(followUpData.readings).map((key, index) => {
+    console.log(key);
+    console.log(followUpData.readings[key]);
+
+    if (followUpData.readings[key] !== "FALSE") {
+      readingsData =
+        readingsData + "" + key + " : " + (followUpData.readings[key] === "TRUE"
+          ? "NA"
+          : followUpData.readings[key]) + "\n";
+      // readingsData = readingsData + "" + key + " : " + (followUpData.readings[key]) === "TRUE" ? "NA": followUpData.readings[key] + "\n";
+    }
+  });
+  console.log("**********888readingsData**********888");
+  console.log(readingsData);
+
+  return UtilitiesMethods.getSpaceTrimmedLenght(readingsData) === 0
+    ? "NA"
+    : readingsData;
+};
+
+// const isReadingsDataEmpty = (followUpData) => {
+
+//   console.log(followUpData);
+//   if (followUpData.flag === false) {
+//     console.log("true");
+//     return true;
+//   }
+
+//   Object.keys(followUpData.readings).map((key, index) => {
+//     console.log(followUpData.readings[key]);
+//     if (
+//       followUpData.readings[key] !== "FALSE" &&
+//       followUpData.readings[key] !== "TRUE"
+//     ) {
+//       console.log("false");
+//       return false;
+//     }
+//   });
+//   console.log("true");
+//   return true;
+// };
+
 const DoctorUtilitiesKeys = {
   getDoctorMenuOptionsNameKeys,
   getDoctorMenuOptionsLabelKeys,
   getDoctorFollowUpInitialData,
   getDoctorAddFollowUpLabelKeys,
   checkPrescriptionDataValidation,
+  getReadingsParsedData,
+  // isReadingsDataEmpty,
 };
 
 export default DoctorUtilitiesKeys;

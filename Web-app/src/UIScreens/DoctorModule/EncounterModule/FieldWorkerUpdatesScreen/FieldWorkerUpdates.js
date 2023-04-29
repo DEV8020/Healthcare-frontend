@@ -1,6 +1,7 @@
 import classes from "./FieldWorkerUpdates.module.css";
 import React, { useEffect, useState } from "react";
 import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
+import DoctorUtilitiesKeys from "../../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
 
 const FieldWorkerUpdates = (props) => {
   const [followUpUpdateList, setFollowUpUpdateList] = useState([]);
@@ -26,6 +27,9 @@ const FieldWorkerUpdates = (props) => {
     }
     setFollowUpUpdateList(followUpUpdateData.followUpsData);
   };
+
+  console.log("followUpUpdateList");
+  console.log(followUpUpdateList);
 
   return (
     <div className={classes.center}>
@@ -53,6 +57,36 @@ const FieldWorkerUpdates = (props) => {
               Field Worker Mesaage :{" "}
               {followup.fieldWorkerRemarks ? followup.fieldWorkerRemarks : "NA"}
             </div>
+
+             
+            <div style={{ whiteSpace: "pre" }}>
+              {DoctorUtilitiesKeys.getReadingsParsedData(followup)}
+            </div>
+
+            {/* Object.keys(followUpData.readings).map((key, index) => {
+    console.log(followUpData.readings[key]);
+    if (
+      followUpData.readings[key] !== "FALSE" &&
+      followUpData.readings[key] !== "TRUE"
+    ) {
+      console.log("false");
+      return false;
+    }
+  });
+{} */}
+
+            {/* {Object.keys(followup.readings).map((key, index) => {
+              console.log(followup.readings[key])
+              {(followup.readings[key] !== false) && <div>
+              {key} :{" "}
+              {DoctorUtilitiesKeys.getReadingsParsedData(followup)}
+            </div>}
+            })} */}
+
+            {/* {DoctorUtilitiesKeys.isReadingsDataEmpty(followup) === false && <div>
+              Readings Data :{" "}
+              {DoctorUtilitiesKeys.getReadingsParsedData(followup)}
+            </div>} */}
           </div>
         ))}
       </div>
