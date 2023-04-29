@@ -6,6 +6,7 @@ import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
 const CreateAppointment = (props) => {
   const [PatientId, setPatientId] = useState("");
@@ -21,7 +22,7 @@ const CreateAppointment = (props) => {
   const AddAppointmentHandler = (event) => {
     console.log("AddAppointmentHandler called");
     event.preventDefault();
-    
+
     FrontDeskAPIHandler.AddPatientEncounterAPICall({
       encounterData: {
         patientId: PatientId,
@@ -32,12 +33,15 @@ const CreateAppointment = (props) => {
   };
 
   const showErrorMessageScreen = (propData) => {
-    props.showMessageBarAtTheBottom({
-      [UtilitiesMethods.getErrorMessageKey()]:
-        propData[UtilitiesMethods.getErrorMessageKey()],
-      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
-        propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
-    });
+    props.showMessageBarAtTheBottom(propData);
+    // props.showMessageBarAtTheBottom({
+    //   [UtilitiesMethods.getErrorMessageKey()]:
+    //     propData[UtilitiesMethods.getErrorMessageKey()],
+    //   [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+    //     propData[UtilitiesMethods.getIsMessageErrorMessageKey()],
+    //     [UtilitiesMethods.getMessageTypeKey()]:
+    //     propData[UtilitiesMethods.getErrorMessageKey()],
+    // });
   };
 
   const addPatientNewEncounterResponseCallBack = (
@@ -46,18 +50,22 @@ const CreateAppointment = (props) => {
     console.log("addPatientNewEncounterResponseCallBack");
     console.log(patientEncounterResponseData);
 
-    if (patientEncounterResponseData.isEncounterAdded === true){
+    if (patientEncounterResponseData.isEncounterAdded === true) {
       showErrorMessageScreen({
         [UtilitiesMethods.getErrorMessageKey()]:
           "Appointment created for Patient ID : " + PatientId,
         [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
       });
       setPatientId("");
-    }else{
+    } else {
       showErrorMessageScreen({
         [UtilitiesMethods.getErrorMessageKey()]:
           patientEncounterResponseData.errorMessage,
         [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
 
@@ -95,6 +103,8 @@ const CreateAppointment = (props) => {
         [UtilitiesMethods.getErrorMessageKey()]:
           "Please enter Patiend Id to view details. It can't be left blank.",
         [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
       return;
     }
@@ -106,13 +116,10 @@ const CreateAppointment = (props) => {
     props.searchButtonPressHandler(patientNameToBeSearched);
   };
 
-
   const searchTextFieldChangeHandler = (userNameData) => {
     props.resetPatientDetailViewFlags();
     setPatientNameToBeSearched(userNameData.name);
   };
-
-
 
   return (
     <div>
@@ -120,7 +127,6 @@ const CreateAppointment = (props) => {
         <h1>Appointment</h1>
 
         <form onSubmit={SearchPatientByNameButtonHandler}>
-         
           {/* Input Text Field for Patient Name to be Searched... */}
           <InputTextField
             label="Search Patient by name"
@@ -133,8 +139,7 @@ const CreateAppointment = (props) => {
         </form>
 
         <form onSubmit={AddAppointmentHandler}>
-
-        <InputNumericTextField
+          <InputNumericTextField
             label="PatientId"
             mappedKey="patientId"
             onChange={PatientIdChangeHandler}
