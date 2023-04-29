@@ -8,8 +8,8 @@ import InputNumericTextField from "../../../Component/InputNumber/InputNumericTe
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
-// import UserTypeSelection from "../../../Component/LoginModule/UserTypeSelection/UserTypeSelection";
 import UserGenderTypeSelection from "../../../Component/LoginModule/UserGenderTypeSelection/UserGenderTypeSelection";
+import FrontDeskUtilitiesMethods from "../../../Utilities/FrontDeskUtilitiesKeys/FrontDeskUtilitiesMethods";
 
 const PatientRegistration = (props) => {
   const [patientRegistrationData, setPatientRegistrationData] = useState(
@@ -33,56 +33,71 @@ const PatientRegistration = (props) => {
   const AddPatientDataHandler = (event) => {
     event.preventDefault();
 
-    //####################### Patient's Contact Number Validation #######################
+    const userValidationData =
+      FrontDeskUtilitiesMethods.checkPatientRegistrationValidationData(
+        patientRegistrationData);
 
-    //Validation for user contact number...
-    const userContactNumber =
-      patientRegistrationData[
-        FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().contactKey
-      ];
-    const userContactNumberRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
-    );
-
-    console.log(patientRegistrationData);
-
-    console.log(userContactNumber);
-
-    //Show Alert Message in case of Invalid Contact Number...
-    if (userContactNumber.length !== userContactNumberRequiredLength) {
-      showErrorMessageScreen(
-        UtilitiesKeys.getGeneralValidationMessagesText()
-          .phoneNumberNotValidMessage,
-        true
-      );
-      return;
-    }
-
-    //####################### Patient's Pin Code Validation #######################
-
-    //Validation for user Pin Code...
-    const userPinCodeMappedKey =
-      FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().pinCodeKey;
-    // const patientAddressPinCode = patientRegistrationData[userPinCodeMappedKey];
-    const userPinCodeRequiredLength = parseInt(
-      UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
-    );
-
-    console.log("******************************");
-    console.log(patientRegistrationData);
-    console.log(userPinCodeMappedKey);
-
-    //Show Alert Message in case of Invalid PIN CODE...
     if (
-      patientRegistrationData[userPinCodeMappedKey].length !==
-      userPinCodeRequiredLength
+      userValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
     ) {
-      showErrorMessageScreen(
-        UtilitiesKeys.getGeneralValidationMessagesText().pinCodeNotValidMessage,
-        true
-      );
+      showMessageAtBottomBar(userValidationData);
       return;
     }
+
+    // //####################### Patient's Contact Number Validation #######################
+
+    // //Validation for user contact number...
+    // const userContactNumber =
+    //   patientRegistrationData[
+    //     FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().contactKey
+    //   ];
+    // const userContactNumberRequiredLength = parseInt(
+    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userContactNumberLength
+    // );
+
+    // console.log(patientRegistrationData);
+
+    // console.log(userContactNumber);
+
+    // //Show Alert Message in case of Invalid Contact Number...
+    // if (userContactNumber.length !== userContactNumberRequiredLength) {
+    //   showErrorMessageScreen(
+    //     UtilitiesKeys.getGeneralValidationMessagesText()
+    //       .phoneNumberNotValidMessage,
+    //     true,
+    //     UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+    //   );
+    //   return;
+    // }
+
+    // //####################### Patient's Pin Code Validation #######################
+
+    // //Validation for user Pin Code...
+    // const userPinCodeMappedKey =
+    //   FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().pinCodeKey;
+    // // const patientAddressPinCode = patientRegistrationData[userPinCodeMappedKey];
+    // const userPinCodeRequiredLength = parseInt(
+    //   UtilitiesKeys.getInputFieldLengthValidationKeys().userPinCodeLength
+    // );
+
+    // console.log("******************************");
+    // console.log(patientRegistrationData);
+    // console.log(userPinCodeMappedKey);
+
+    // //Show Alert Message in case of Invalid PIN CODE...
+    // if (
+    //   patientRegistrationData[userPinCodeMappedKey].length !==
+    //   userPinCodeRequiredLength
+    // ) {
+    //   showErrorMessageScreen(
+    //     UtilitiesKeys.getGeneralValidationMessagesText().pinCodeNotValidMessage,
+    //     true,
+    //     UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+    //   );
+    //   return;
+    // }
 
     //Front Desk : Register New Patient API call...
     FrontDeskAPIHandler.RegisterNewPatientAPICall({
@@ -91,11 +106,18 @@ const PatientRegistration = (props) => {
     });
   };
 
-  const showErrorMessageScreen = (errorMessage, isError) => {
+  const showErrorMessageScreen = (errorMessage, isError, messageType) => {
     props.showMessageBarAtTheBottom({
       [UtilitiesMethods.getErrorMessageKey()]: errorMessage,
       [UtilitiesMethods.getIsMessageErrorMessageKey()]: isError,
+      [UtilitiesMethods.getMessageTypeKey()]: messageType,
     });
+  };
+
+
+
+  const showMessageAtBottomBar = (prop) => {
+    props.showMessageBarAtTheBottom(prop);
   };
 
   const registerNewPatientResponseCallBack = (newPatientResponseData) => {
@@ -107,11 +129,16 @@ const PatientRegistration = (props) => {
         patientRegistrationData[
           FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().nameKey
         ] + " has been registered successfully.",
-        false
+        false,
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey
       );
       resetPatientDataAfterRegister();
     } else {
-      showErrorMessageScreen(newPatientResponseData.errorMessage, true);
+      showErrorMessageScreen(
+        newPatientResponseData.errorMessage,
+        true,
+        UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+      );
     }
   };
 

@@ -56,6 +56,10 @@ const getIsMessageErrorMessageKey = () => {
   return [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey];
 };
 
+const getMessageTypeKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().messageType];
+};
+
 const setAttributesDataForDoctor = (attributesData) => {
   localStorage.setItem("attributes", JSON.stringify(attributesData));
 };
@@ -72,10 +76,10 @@ const getAttributesDataForDoctor = () => {
 const getEncryptedData = (userData) => {
   var encryptedUserData = {};
   Object.keys(userData).map((key, index) => {
-    console.log(aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]));
+    console.log(aesUtil.encrypt("password", userData[key]));
     encryptedUserData = {
       ...encryptedUserData,
-      ...{ [key]: aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]) },
+      ...{ [key]: aesUtil.encrypt("password", userData[key]) },
     };
   });
   return encryptedUserData;
@@ -95,6 +99,7 @@ const UtilitiesMethods = {
   getAttributesDataForDoctor,
   setAttributesDataForDoctor,
   getEncryptedData,
+  getMessageTypeKey
 };
 
 export default UtilitiesMethods;
