@@ -28,29 +28,21 @@ const FieldWorkerRegistration = (props) => {
     console.log("selectedDataFromFieldWorkerRegistration");
     console.log(selectedDataFromFieldWorkerRegistration);
 
-
-
     const userValidationData =
-    SupervisorUtilitiesKeys.checkFieldWorkerValidationData(selectedDataFromFieldWorkerRegistration, false);
+      SupervisorUtilitiesKeys.checkFieldWorkerValidationData(
+        selectedDataFromFieldWorkerRegistration,
+        false
+      );
 
-  if (
-    userValidationData[
-      UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
-    ] === true
-  ) {
-    showMessageAtBottomBar(userValidationData);
-    return;
-  }
+    if (
+      userValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
+    ) {
+      showMessageAtBottomBar(userValidationData);
+      return;
+    }
 
-
-
-
-
-
-
-
-
-   
     FieldWorkerAPIHandler.registerFieldWorker({
       fieldWorkerData: selectedDataFromFieldWorkerRegistration,
       registerNewFieldWorkerResponseCallBack:
@@ -65,6 +57,8 @@ const FieldWorkerRegistration = (props) => {
       showMessageAtBottomBar({
         message: fieldWorkerRegistrationResponseData.errorMessage,
         isErrorMessage: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
       return;
     }
@@ -72,6 +66,8 @@ const FieldWorkerRegistration = (props) => {
     showMessageAtBottomBar({
       message: "Field Worker registered successfully.",
       isErrorMessage: false,
+      [UtilitiesMethods.getMessageTypeKey()]:
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
 
     setSelectedDataFromFieldWorkerRegistration(
@@ -95,7 +91,7 @@ const FieldWorkerRegistration = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
