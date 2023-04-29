@@ -109,6 +109,8 @@ props.resetFieldWorkerDisplaySideView();
   //   });
   // };
 
+  console.log(fieldWorkerList);
+
   return (
     <div className={classes.center}>
       <h1> Field Worker List</h1>
@@ -126,6 +128,7 @@ props.resetFieldWorkerDisplaySideView();
             <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().userIDKey} : {fieldworkerdata.username}</div>
             <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().nameKey} : {fieldworkerdata.name}</div>
             <div>Contact No. : {fieldworkerdata.contact}</div>
+            <div>Last Sync Date : {fieldworkerdata.lastSyncDate}</div>
 
             <div>
               <AddButton

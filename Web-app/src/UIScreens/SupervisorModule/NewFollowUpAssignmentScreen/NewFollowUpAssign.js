@@ -13,6 +13,8 @@ const NewFollowUpAssign = (props) => {
     setIsUnAssignedFollowUpListToRefresh,
   ] = useState(true);
 
+  console.log("########################  Unassigned Patient Follow Ups  ########################");
+
   //########################  Unassigned Patient Follow Ups  ########################
 
   //API Call...

@@ -6,6 +6,9 @@ const FieldWorkerDetails = (props) => {
   const isDetailViewSelected = props.isFieldWorkerDetailViewSelected;
   const [displayDataList, setDisplayDataList] = useState([]);
 
+
+  console.log("const FieldWorkerDetails = (props) => {");
+
   useEffect(() => {
     const list = isDetailViewSelected
       ? props.fieldWorkerFollowUpsList
@@ -16,6 +19,9 @@ const FieldWorkerDetails = (props) => {
     props.fieldWorkerAssignedPatientsList,
     props.isFieldWorkerDetailViewSelected,
   ]);
+
+
+  console.log(displayDataList);
 
   const noDataMessage = isDetailViewSelected
     ? "No Follow Ups assigned to the selected field worker."
