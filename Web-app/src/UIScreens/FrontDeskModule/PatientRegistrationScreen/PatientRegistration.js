@@ -116,19 +116,27 @@ const PatientRegistration = (props) => {
   };
 
   const resetPatientDataAfterRegister = () => {
+    const selectedGender =
+      patientRegistrationData[
+        FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys().patientGenderKey
+      ];
 
-    const selectedGender = patientRegistrationData[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-      .patientGenderKey];
+    console.log("*******************************************");
+    console.log({
+      ...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(),
+      ...{
+        [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+          .patientGenderKey]: selectedGender,
+      },
+    });
 
-
-console.log("*******************************************");
-console.log({...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-  .patientGenderKey] : selectedGender}});
-
-    PatientDataChangeHandler(
-      {...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{[FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
-        .patientGenderKey] : selectedGender}}
-    );
+    PatientDataChangeHandler({
+      ...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(),
+      ...{
+        [FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
+          .patientGenderKey]: selectedGender,
+      },
+    });
   };
 
   const registerUserGenderTypeChangeHandler = (event) => {
@@ -192,10 +200,12 @@ console.log({...FrontDeskUtilitiesKeys.getPatientRegistrationInitialData(), ...{
           />
           {/* <UserTypeSelection */}
           <UserGenderTypeSelection
-            label={patientRegistrationData[
+            label={
+              patientRegistrationData[
                 FrontDeskUtilitiesKeys.getPatientRegistrationDataKeys()
                   .patientGenderKey
-              ]}
+              ]
+            }
             options={superAdminUserType}
             onChange={registerUserGenderTypeChangeHandler}
           />

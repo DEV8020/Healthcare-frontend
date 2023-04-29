@@ -4,8 +4,8 @@ import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 // const serverURL = `http://192.168.9.225:9191/`;
 //const serverURL = `http://172.16.140.248:9191/`;
 // const serverURL = `http://192.168.223.225:9191/`;
-const serverURL = process.env.REACT_APP_SERVER_URL;//`http://192.168.219.225:9191/`; //Darshan Server
-
+const serverURL = `http://192.168.233.225:9191/`; //Darshan Server
+//process.env.REACT_APP_SERVER_URL;
 const getHeaderConfigurationsList = () => {
   return {
     headers: {

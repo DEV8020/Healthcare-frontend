@@ -5,12 +5,13 @@ import GlobalServiceHandler from "./GlobalServiceHandler";
 const RegisterNewPatientAPICall = async (props) => {
   console.log("RegisterNewPatientAPICall");
   console.log(props.patientData);
+  const encryptedData = UtilitiesMethods.getEncryptedData(props.patientData);
 
   await GlobalServiceHandler.hitCustomResponsePostService({
     childURL:
       APIURLUtilities.getFrontDeskAPIChildURLKeys()
         .frontDeskPatientRegistrationAPIKey,
-    postData: props.patientData,
+    postData: encryptedData,
     responseDataHandler: (registerNewPatientResponseData) => {
       console.log("registerNewPatientResponseData");
       console.log(registerNewPatientResponseData);

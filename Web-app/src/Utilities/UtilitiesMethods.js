@@ -1,5 +1,7 @@
 import MessageComponent from "../Components/Screens/MessageComponent/MessageComponent";
+import { aesUtil } from "./EncryptionUtility/aesUtil";
 import UtilitiesKeys from "./UtilitiesKeys";
+import CryptoJS from "crypto-js";
 
 const getSpaceTrimmedLenght = (stringToMeasure) => {
   const lengthOfSpace = stringToMeasure.replace(/\s/g, "").length;
@@ -62,6 +64,23 @@ const getAttributesDataForDoctor = () => {
   return JSON.parse(localStorage.getItem("attributes"));
 };
 
+// aesUtil.encrypt("mypassword123", "plain text");
+// -> ciphertext
+// aesUtil.decrypt("mypassword123", "ciphertext");
+// -> plain text
+
+const getEncryptedData = (userData) => {
+  var encryptedUserData = {};
+  Object.keys(userData).map((key, index) => {
+    console.log(aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]));
+    encryptedUserData = {
+      ...encryptedUserData,
+      ...{ [key]: aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]) },
+    };
+  });
+  return encryptedUserData;
+};
+
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
   showMessageBarAtTheBottom,
@@ -74,7 +93,8 @@ const UtilitiesMethods = {
   getErrorMessageKey,
   getIsMessageErrorMessageKey,
   getAttributesDataForDoctor,
-  setAttributesDataForDoctor
+  setAttributesDataForDoctor,
+  getEncryptedData,
 };
 
 export default UtilitiesMethods;
