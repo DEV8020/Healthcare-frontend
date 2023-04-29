@@ -61,12 +61,12 @@ const PatientSearchList = (props) => {
 
   return (
     <div className={classes.center}>
-      <h2> User List</h2>
+      <h2> Patient List</h2>
 
       {searchPatientList.length === 0 && (
         <div>
           <h3 style={{ textAlign: "center" }}>
-            No users to display wtih this name.
+            No patients to display with this name.
           </h3>
         </div>
       )}

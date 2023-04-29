@@ -71,12 +71,7 @@ setDoctorPendingEncounterData(doctorPendingEncounterData.encounterData);
   };
 
   const showMessageBarAtTheBottom = (prop) => {
-    props.showBottomMessageBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    });
+    props.showBottomMessageBar(prop);
   };
 
   const logoutD = () => {

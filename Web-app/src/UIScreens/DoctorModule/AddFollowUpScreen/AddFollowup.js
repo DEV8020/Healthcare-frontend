@@ -7,14 +7,8 @@ import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 
 function AddFollowup(props) {
-  // const [followUpsList, setFollowUpsList] = useState([
-  //   DoctorUtilitiesKeys.getDoctorFollowUpInitialData(),
-  // ]);
 
   const followUpsList = props.doctorFollowUpData;
-
-  // doctorFollowUpData={doctorFollowUpData}
-          // setDoctorFollowUpData={setDoctorFollowUpData}
 
   const handleAddfollowups = () => {
     const initialFollowUpLists = followUpsList;
@@ -66,14 +60,15 @@ function AddFollowup(props) {
     var isRemarkDateNotAddded = false;
     followUpsList.map((followUpData) => {
       if (
-        UtilitiesMethods.getSpaceTrimmedLenght(followUpData[followUpDateKey]) === 0
+        UtilitiesMethods.getSpaceTrimmedLenght(
+          followUpData[followUpDateKey]
+        ) === 0
       ) {
         isRemarkDateNotAddded = true;
       }
     });
     return isRemarkDateNotAddded;
   };
-
 
   const isRemarkAddedError = () => {
     var isRemarkNotAddded = false;
@@ -88,12 +83,7 @@ function AddFollowup(props) {
   };
 
   const showMessageBarAtTheBottom = (prop) => {
-    props.showBottomMessageBar({
-      [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
-      [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    });
+    props.showBottomMessageBar(prop);
   };
 
   const handleFollowupPopUpFormSubmit = () => {
@@ -101,8 +91,9 @@ function AddFollowup(props) {
       showMessageBarAtTheBottom({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           "Please add all the remarks. It can't be left blank.",
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-          false
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
       });
       return;
     }
@@ -111,8 +102,9 @@ function AddFollowup(props) {
       showMessageBarAtTheBottom({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
           "Please add all the followup dates. It can't be left blank.",
-        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
-          false
+        [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().warningKey,
       });
       return;
     }

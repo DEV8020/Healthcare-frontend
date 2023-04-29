@@ -5,10 +5,12 @@ import TextBox from "../../../../Components/Screens/UI Elements/MenuForm Element
 import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
 import AddButton from "../../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
 import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
+import DoctorUtilitiesKeys from "../../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
+import UtilitiesKeys from "../../../../Utilities/UtilitiesKeys";
 
 const Prescription = (props) => {
   const [PrescriptionData, setPrescriptionData] = useState("");
-  const [AdditionalNotes, setAdditionalNotes] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const PrescriptionDataChangeHandler = (event) => {
     updateDoctorPresciptionData({ prescription: event.target.value });
@@ -24,19 +26,25 @@ const Prescription = (props) => {
     });
   };
 
-  //
-
   const PrescriptionSubmitHandler = (event) => {
     event.preventDefault();
 
     console.log("Data to be sent in precription is to be sent to server is");
     console.log(props.doctorPrescriptionData);
-
     console.log(props.folloupsData);
 
-    // /folloupsData
-
-    // return;
+    const doctorValidationData =
+      DoctorUtilitiesKeys.checkPrescriptionDataValidation(
+        props.doctorPrescriptionData, isChecked
+      );
+    if (
+      doctorValidationData[
+        UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey
+      ] === true
+    ) {
+      showMessageBarAtTheBottom(doctorValidationData);
+      return;
+    }
 
     //Hitting the API call for Create Patient Encounter...
     DoctorAPIHandler.savePatientEncounterData({
@@ -55,7 +63,7 @@ const Prescription = (props) => {
     if (encounterResponseData.isEncounterCreated === false) {
       showMessageBarAtTheBottom({
         [UtilitiesMethods.getErrorMessageKey()]:
-        encounterResponseData.errorMessage,
+          encounterResponseData.errorMessage,
         [UtilitiesMethods.getIsMessageErrorMessageKey()]: true,
       });
       return;
@@ -63,19 +71,28 @@ const Prescription = (props) => {
     setPrescriptionData("");
     showMessageBarAtTheBottom({
       [UtilitiesMethods.getErrorMessageKey()]:
-        "Prescription successfully added.",
+        "Encounter completed successfully.",
       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
     });
     props.callBackHandlerOnEncounterCreate();
   };
 
   const showMessageBarAtTheBottom = (prop) => {
-    props.showBottomMessageBar({
-      [UtilitiesMethods.getErrorMessageKey()]:
-        prop[UtilitiesMethods.getErrorMessageKey()],
-      [UtilitiesMethods.getIsMessageErrorMessageKey()]:
-        prop[UtilitiesMethods.getIsMessageErrorMessageKey()],
+    props.showBottomMessageBar(prop);
+    // props.showBottomMessageBar({
+    //   [UtilitiesMethods.getErrorMessageKey()]:
+    //     prop[UtilitiesMethods.getErrorMessageKey()],
+    //   [UtilitiesMethods.getIsMessageErrorMessageKey()]:
+    //     prop[UtilitiesMethods.getIsMessageErrorMessageKey()],
+    // });
+  };
+
+  const consentButtonClickHandler = () => {
+    setIsChecked((isCheck) => {
+      return !isCheck;
     });
+
+    console.log("consentButtonClickHandler called");
   };
 
   // const showMessageBottomBar = () => {
@@ -88,8 +105,7 @@ const Prescription = (props) => {
         <h1>Appointment</h1>
 
         <form onSubmit={PrescriptionSubmitHandler}>
-
-        <TextBox.TextBox2
+          <TextBox.TextBox2
             type="text"
             label="Symptoms"
             value={props.doctorPrescriptionData.additionalNotes}
@@ -102,7 +118,16 @@ const Prescription = (props) => {
             value={props.doctorPrescriptionData.prescription}
             onChange={PrescriptionDataChangeHandler}
           />
-          
+
+          <div>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onClick={consentButtonClickHandler}
+            />
+            <span>   Please check this button to share your data.</span>
+          </div>
+
           <div>
             <MenuSubmitButton value="Submit" />
 
