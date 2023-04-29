@@ -57,8 +57,8 @@ const SuperVisorScreen = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 
@@ -71,6 +71,8 @@ const SuperVisorScreen = (props) => {
       [UtilitiesMethods.getErrorMessageKey()]:
         "Selected Field Worker : " + fieldWorkerData.name,
       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+      [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
     setFieldWorkerStatus(true);
     loadFieldWorkerDetailsData(fieldWorkerData);
@@ -84,6 +86,8 @@ const SuperVisorScreen = (props) => {
       [UtilitiesMethods.getErrorMessageKey()]:
         "Selected Field Worker : " + fieldWorkerData.name,
       [UtilitiesMethods.getIsMessageErrorMessageKey()]: false,
+      [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
     resetFieldWorkerDisplaySideView();
     setIsShowAssignedPatientList(true);
@@ -108,6 +112,8 @@ const SuperVisorScreen = (props) => {
       showMessageAtBottomBar({
         message: fieldWorkerAssignedPatientsData.errorMessage,
         isErrorMessage: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
     setFieldWorkerAssignedPatientsList(
@@ -157,7 +163,11 @@ const SuperVisorScreen = (props) => {
 
   return (
     <div>
-      <NavBar value={UtilitiesKeys.getLogOutButtonText()} label="SuperVisor" onClick={logoutSV} />
+      <NavBar
+        value={UtilitiesKeys.getLogOutButtonText()}
+        label="SuperVisor"
+        onClick={logoutSV}
+      />
 
       <div className={classes.center}>
         <h2> Supervisor Menu</h2>

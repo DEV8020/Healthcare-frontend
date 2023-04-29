@@ -11,6 +11,8 @@ const NewEncounterCell = (props) => {
 //   console.log(encounterData);
 //   console.log(props.encounterUserData);
 
+console.log(props.isPendingQueue);
+
   const CreateEncounterHandler = () => {
     console.log("CreateEncounterHandler");
     console.log(props.encounterUserData);
@@ -28,7 +30,7 @@ const NewEncounterCell = (props) => {
       </div>
       <AddButton
         key={props.encounterUserData.patient.patientId}
-        value="Create Appointment"
+        value={!props.isPendingQueue ? "Continue":"Create Appointment"}
         onClick={CreateEncounterHandler}
       />
     </div>

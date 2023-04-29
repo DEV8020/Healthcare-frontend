@@ -15,7 +15,7 @@ const getDoctorMenuOptionsNameKeys = () => {
 const getDoctorMenuOptionsLabelKeys = () => {
   return {
     newEncounterKey: "New Appointment",
-    patientUpdateKey: "Patient Updates",
+    patientUpdateKey: "FollowUp Updates",
     viewHistoryKey: "View History",
     createPrescriptionKey: "Prescription",
     pendingEncounterKey: "Pending Appointment",

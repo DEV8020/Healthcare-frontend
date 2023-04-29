@@ -41,7 +41,7 @@ const NewEncounter = (props) => {
         "Encounter Created successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: false,
       [UtilitiesMethods.getMessageTypeKey()]:
-          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
 
     console.log("************************************");
@@ -71,7 +71,11 @@ const NewEncounter = (props) => {
 
   return (
     <div className={classes.center}>
-      <h1> Create New Appointment</h1>
+      <h1>
+        {props.isPendingEncounterScreen
+          ? "Pending Appointments"
+          : "Create New Appointment"}{" "}
+      </h1>
 
       {props.isPendingEncounterScreen === false &&
         props.doctorEncounterData.length === 0 && (
@@ -95,6 +99,7 @@ const NewEncounter = (props) => {
             <NewEncounterCell
               encounterUserData={encounterData}
               CreateEncounterHandler={CreateEncounterHandler}
+              isPendingQueue={true}
             />
           ))}
 
@@ -103,6 +108,7 @@ const NewEncounter = (props) => {
             <NewEncounterCell
               encounterUserData={encounterData}
               CreateEncounterHandler={unsavedEncounterHandler}
+              isPendingQueue={false}
             />
           ))}
       </div>

@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import classes from "./NewFollowUpAssign.module.css";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UnAssignedFollowUpCell from "../../../ReusableComponents/SupervisorModule/UnassignedFollowUpCell/UnAssignedFollowUpCell";
+import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
+import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
 
+// UtilitiesKeys
 const NewFollowUpAssign = (props) => {
   const [unAssignedFollowUpsData, setUnAssignedFollowUpsData] = useState([]);
   const [
@@ -36,6 +39,8 @@ const NewFollowUpAssign = (props) => {
       props.showMessageAtBottomBar({
         message: unAssignedFollowUpsData.errorMessage,
         isErrorMessage: true,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey
       });
     }
   };
@@ -58,6 +63,8 @@ const NewFollowUpAssign = (props) => {
       props.showMessageAtBottomBar({
         message: "Follow Ups Assigned to Field Worker.",
         isErrorMessage: false,
+        [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey
       });
       setUnAssignedFollowUpsData([]);
       setIsUnAssignedFollowUpListToRefresh((isRefresh) => {
@@ -69,6 +76,8 @@ const NewFollowUpAssign = (props) => {
     props.showMessageAtBottomBar({
       message: assignedFollowUpData.errorMessage,
       isErrorMessage: true,
+      [UtilitiesMethods.getMessageTypeKey()]:
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey
     });
   };
 
