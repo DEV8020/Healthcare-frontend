@@ -12,8 +12,8 @@
 
 .popup_content {
   position: absolute;
-  top: 61%;
-  left: 63%;
+  top: 60%;
+  left: 60%;
   transform: translate(-50%, -50%);
   width: 700px;
   height: 550px;
@@ -30,7 +30,7 @@
 }
 
 .popup_content form {
-  padding-left: 40px;
+  padding: 20px;
   box-sizing: border-box;
 }
 

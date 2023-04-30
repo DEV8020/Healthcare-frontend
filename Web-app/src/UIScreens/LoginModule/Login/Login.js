@@ -161,8 +161,7 @@ const Login = (props) => {
       <NavBar />
 
       <div className={classes.center}>
-        <h1> {userRoleType} Login</h1>
-
+        <h1>{userRoleType} Login</h1>
         <form id="login-form" onSubmit={LoginHandler}>
           <UserTypeSelection
             label="--User Type --"
@@ -190,7 +189,6 @@ const Login = (props) => {
 
           <SubmitButton value="Login" />
         </form>
-
         <ForgotPasswordButton
           value="Forgot Password?"
           onClickHandler={forgotPasswordButtonClickHandler}

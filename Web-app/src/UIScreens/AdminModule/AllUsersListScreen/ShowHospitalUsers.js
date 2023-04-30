@@ -58,7 +58,7 @@ const ShowHospitalUsers = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
 
@@ -113,7 +113,6 @@ const ShowHospitalUsers = (props) => {
     props.refreshUsersListResponseHandler();
   };
 
-
   // UtilitiesKeys
   const handleCredentialPopupClose = () => {
     setShowUpdateCredentialPopup(false);
@@ -140,16 +139,14 @@ const ShowHospitalUsers = (props) => {
   // </>;
 
   return (
-    <div className={classes.center}>
+    <div className={classes.center_AD}>
       <h2> All Hospital Users</h2>
 
       {hospitalUserList === null ||
         (hospitalUserList.length === 0 && (
           <div>
             {" "}
-            <h3 style={{ textAlign: "center" }}>
-              No users to display.
-            </h3>
+            <h3 style={{ textAlign: "center" }}>No users to display.</h3>
           </div>
         ))}
 
@@ -161,18 +158,17 @@ const ShowHospitalUsers = (props) => {
         </div>
       )} */}
 
-      <div className={classes.ul}>
+      <div className={classes.ul_AD}>
         {hospitalUserList.map((hospitalUserData) => (
           <div
             key={
               hospitalUserData[AdminUtilities.getCreateUserDataKeys().userIDKey]
             }
-            className={classes.plist}
+            className={classes.plist_AD}
           >
-            
-
             <div>
-            {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserIDKey} : {" "}
+              {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserIDKey}{" "}
+              :{" "}
               {
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userIDKey
@@ -180,9 +176,12 @@ const ShowHospitalUsers = (props) => {
               }
             </div>
 
-
             <div>
-            {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserNameKey} : {" "}
+              {
+                AdminUtilities.getCreateFrontDeskLabelKeys()
+                  .frontDeskUserNameKey
+              }{" "}
+              :{" "}
               {
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userNameKey
@@ -191,14 +190,17 @@ const ShowHospitalUsers = (props) => {
             </div>
 
             <div>
-              {AdminUtilities.getCreateFrontDeskLabelKeys().frontDeskUserTypeKey} : {" "}
+              {
+                AdminUtilities.getCreateFrontDeskLabelKeys()
+                  .frontDeskUserTypeKey
+              }{" "}
+              :{" "}
               {SuperAdminUtilitiesKeys.getUserType(
                 hospitalUserData[
                   AdminUtilities.getCreateUserDataKeys().userTypeKey
                 ]
               )}
             </div>
-
 
             {/* <div>
               Password :{" "}
@@ -208,10 +210,25 @@ const ShowHospitalUsers = (props) => {
                 ]
               }
             </div> */}
+            {/* <div
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+
+                width: 400,
+              }}
+              key={
+                hospitalUserData[
+                  AdminUtilities.getCreateUserDataKeys().userIDKey
+                ]
+              }
+            > */}
             <AddButton
               value="Update"
               onClick={() => changeHospitalUserDataHandler(hospitalUserData)}
             />
+            {/* </div> */}
           </div>
         ))}
       </div>

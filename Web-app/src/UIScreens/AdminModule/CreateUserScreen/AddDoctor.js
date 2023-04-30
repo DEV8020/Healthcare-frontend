@@ -13,7 +13,6 @@ const AddDoctor = (props) => {
   );
 
   const registerDoctorResponseHandler = (doctorRegisterResponseData) => {
-
     if (doctorRegisterResponseData.isDoctorRegisteredSuccessfully === true) {
       cleanDataAfterDoctorRegistrationHandler(
         doctorRegisterResponseData.registeredDoctorData
@@ -21,7 +20,7 @@ const AddDoctor = (props) => {
     } else {
       showMessageBarAtTheBottom({
         [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
-        doctorRegisterResponseData.errorMessage,
+          doctorRegisterResponseData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
         [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
           UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
@@ -65,8 +64,10 @@ const AddDoctor = (props) => {
     event.preventDefault();
     console.log(doctorData);
 
-    const userValidationData =
-      AdminUtilities.checkAddDoctorDataValidations(doctorData, false);
+    const userValidationData = AdminUtilities.checkAddDoctorDataValidations(
+      doctorData,
+      false
+    );
 
     if (
       userValidationData[
@@ -93,7 +94,7 @@ const AddDoctor = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Add Doctor Menu</h1>
+        <h2> Doctor Registration Form</h2>
 
         <form id="addDoctor-form" onSubmit={AddDoctorDataHandler}>
           {/* User ID Input Key for User Registration */}
@@ -168,7 +169,15 @@ const AddDoctor = (props) => {
             }
           />
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 30,
+              left: 0,
+              width: "95%",
+              textAlign: "right",
+            }}
+          >
             <MenuSubmitButton value="Register" />
           </div>
         </form>

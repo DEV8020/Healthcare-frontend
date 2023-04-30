@@ -4,18 +4,16 @@
   height: 70px;
   border: 1px solid;
   background: #2691d9;
- border-radius: 5px;
-  font-size: 18px;
+  border-radius: 5px;
+  font-size: 16px;
   color: #e9f4fb;
   font-weight: 700;
   cursor: pointer;
   outline: none;
-  
-  
-  }
-  
+}
+
 .button:hover {
-    border: 2px solid #1b0dde;
-    background-color:#1b0dde;
-    transition: .5s;
+  border: 2px solid #1b0dde;
+  background-color: #1b0dde;
+  transition: 0.5s;
 }

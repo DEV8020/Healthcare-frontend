@@ -109,12 +109,9 @@ const UpdateCredentialPopup = (props) => {
       }
     }
 
-
-// console.log("selectedUserType");
-//     console.log(selectedUserType);
+    // console.log("selectedUserType");
+    //     console.log(selectedUserType);
     if (selectedUserType === "FieldWorker") {
-
-    
       // http://localhost:9191/supervisor/updateFieldWorker
 
       const fieldWorkerValidationData =
@@ -145,13 +142,12 @@ const UpdateCredentialPopup = (props) => {
       console.log("userDataToBeUpdated in doctor option");
       console.log(userDataToBeUpdated);
 
-      if(selectedUserType === "Front Desk"){
-
+      if (selectedUserType === "Front Desk") {
         const validationData = AdminUtilities.checkAddUserDataValidations(
           userDataToBeUpdated,
           true
         );
-  
+
         if (
           selectedUserType === "Front Desk" &&
           validationData[
@@ -161,12 +157,12 @@ const UpdateCredentialPopup = (props) => {
           props.displayMessagesInParentViewHandler(validationData);
           return;
         }
-      }else{
-
-        const validationDoctorData = AdminUtilities.checkAddDoctorDataValidations(
-          userDataToBeUpdated,
-          true
-        );
+      } else {
+        const validationDoctorData =
+          AdminUtilities.checkAddDoctorDataValidations(
+            userDataToBeUpdated,
+            true
+          );
         if (
           selectedUserType === "Doctor" &&
           validationDoctorData[
@@ -176,12 +172,7 @@ const UpdateCredentialPopup = (props) => {
           props.displayMessagesInParentViewHandler(validationDoctorData);
           return;
         }
-
       }
-
-      
-
-      
 
       AdminAPIHandler.updateUserRegistrationData({
         userData: userDataToBeUpdated,
@@ -433,7 +424,21 @@ const UpdateCredentialPopup = (props) => {
             isRequired={false}
           />
 
-          <div>
+          <div
+            style={{
+              paddingRight: 70,
+
+              position: "absolute",
+              bottom: 20,
+              left: 60,
+              width: "90%",
+              textAlign: "flex",
+              justifyContent: "right",
+              marginInline: 40,
+
+              flexDirection: "row",
+            }}
+          >
             <MenuSubmitButton value="Update" />
             <MenuSubmitButton value="Cancel" onClick={props.onClose} />
           </div>

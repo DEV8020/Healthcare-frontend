@@ -88,7 +88,7 @@ const AddHospital = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Add Hospital Menu</h1>
+        <h2> Add Hospital Menu</h2>
 
         <form id="addHospital-form" onSubmit={AddHospitalDataHandler}>
           {/* Hospital Name Input Key for Hospital Registration */}
@@ -150,9 +150,8 @@ const AddHospital = (props) => {
               position: "absolute",
               bottom: 20,
               left: 0,
-              width: "100%",
-              justifyItems: "center",
-              alignItems: "center",
+              width: "95%",
+              textAlign: "right",
             }}
           >
             <MenuSubmitButton value="Register" />

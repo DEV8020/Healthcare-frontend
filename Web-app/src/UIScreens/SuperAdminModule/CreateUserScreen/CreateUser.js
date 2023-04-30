@@ -333,11 +333,10 @@ const CreateUser = (props) => {
           <div
             style={{
               position: "absolute",
-              bottom: 20,
+              bottom: 30,
               left: 0,
-              width: "100%",
-              justifyItems: "center",
-              alignItems: "center",
+              width: "95%",
+              textAlign: "right",
             }}
           >
             <MenuSubmitButton value="Register" />

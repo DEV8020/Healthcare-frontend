@@ -1,51 +1,48 @@
-
-.center{
+.center {
   position: absolute;
-  top:53%;
-  left:57%;
+  top: 56%;
+  left: 53%;
   transform: translate(-50%, -50%);
   width: 700px;
-  height:600px;
+  height: 600px;
   background: white;
   border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
 }
-.center h1{
-  
+.center h1 {
   text-align: center;
   padding: 20px 0;
+  font-size: 24px;
   border-bottom: 1px solid silver;
   margin-bottom: 10px;
 }
-.center form{
+.center form {
   padding-left: 40px;
   box-sizing: border-box;
 }
-.NavBar{
+.NavBar {
   width: 100%;
   display: inline-flex;
-  background-color:black;
+  background-color: black;
   color: white;
   padding-bottom: 0.5%;
   padding-top: 0.5%;
   padding-left: 7%;
-  height:60px;
+  height: 60px;
   border: 1px solid rgb(23, 23, 23);
   border-radius: 2px;
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.202);
   font-size: 30px;
-
 }
 
-
 .back_btn {
-  background:black;
+  background: black;
   display: inline-block;
   position: relative;
   width: 120px;
-  height:98%;
+  height: 98%;
   border: white;
-  
+
   border-radius: 2px;
   font-size: 15px;
   color: white;
@@ -53,22 +50,10 @@
   cursor: pointer;
   outline: none;
   margin-left: 80%;
-
 }
 
 .back_btn:hover {
-  
   background-color: white;
   border: red;
   color: black;
 }
-
-
-
-
-
-
-
-
-
-

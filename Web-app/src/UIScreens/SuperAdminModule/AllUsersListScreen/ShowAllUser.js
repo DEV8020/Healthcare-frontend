@@ -23,13 +23,14 @@ const ShowAllUser = (props) => {
     //   alertMessageElement: props.setAlertMessage,
     //   alertMessageFlag: props.setAlertFlag,
     // });
-    messageWithData(prop
+    messageWithData(
+      prop
       // {
       // [UtilitiesKeys.getErrorMessageDataKeys().messageKey]:
       //   prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       // [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
       //   prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-    // }
+      // }
     );
   };
 
@@ -60,8 +61,8 @@ const ShowAllUser = (props) => {
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 
@@ -72,8 +73,8 @@ const ShowAllUser = (props) => {
   // };
 
   return (
-    <div className={classes.center}>
-      <h2> User List</h2>
+    <div className={classes.center_SA}>
+      <h2>User List</h2>
 
       {allRegisteredUsersList.length === 0 && (
         <div>
@@ -83,12 +84,13 @@ const ShowAllUser = (props) => {
         </div>
       )}
 
-      <div className={classes.ul}>
+      <div className={classes.ul_SA}>
         {allRegisteredUsersList.map((userData) => (
-          <div key={userData.authId} className={classes.plist}>
+          <div key={userData.authId} className={classes.plist_SA}>
             {/* Div to display User ID Key... */}
             <div>
-              {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel} : {" "}
+              {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userIdLabel}{" "}
+              :{" "}
               {
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userIdKey
@@ -98,7 +100,11 @@ const ShowAllUser = (props) => {
 
             {/* Div to display User Name Key... */}
             <div>
-            {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userNameLabel} :{" "}
+              {
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                  .userNameLabel
+              }{" "}
+              :{" "}
               {
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userNameKey
@@ -108,7 +114,11 @@ const ShowAllUser = (props) => {
 
             {/* Div to display User Role Key... */}
             <div>
-            {SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys().userTypeLabel} :{" "}
+              {
+                SuperAdminUtilitiesKeys.getCreateUserFormLabelKeys()
+                  .userTypeLabel
+              }{" "}
+              :{" "}
               {SuperAdminUtilitiesKeys.getUserType(
                 userData[
                   SuperAdminUtilitiesKeys.getCreateUserDataKeys().userRoleKey

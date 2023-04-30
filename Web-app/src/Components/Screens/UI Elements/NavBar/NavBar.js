@@ -5,7 +5,7 @@ const APP_NAME = "HealthCentral";
 const NavBar = (props) => {
   return (
     <span className={classes.NavBar}>
-      <img src={require("../../../../assets/app_logo.jpeg")} />
+      <img src={require("../../../../assets/logo.jpg")} />
 
       {APP_NAME}
       <button

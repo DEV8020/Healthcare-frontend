@@ -24,7 +24,8 @@ const AddFrontDesk = (props) => {
     event.preventDefault();
 
     const userValidationData = AdminUtilities.checkAddUserDataValidations(
-      frontDeskRegistrationData, false
+      frontDeskRegistrationData,
+      false
     );
 
     if (
@@ -69,7 +70,7 @@ const AddFrontDesk = (props) => {
         "Front Desk registered successfully.",
       [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
       [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
+        UtilitiesKeys.getAlertMessageTypeKeys().successKey,
     });
 
     setFrontDeskRegistrationData(
@@ -88,7 +89,7 @@ const AddFrontDesk = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Add Front Desk Menu</h1>
+        <h2>Front Desk Registration Form</h2>
 
         <form id="addFD-form" onSubmit={AddFrontDeskDataHandler}>
           <InputTextField
@@ -130,7 +131,15 @@ const AddFrontDesk = (props) => {
             }
           />
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 30,
+              left: 0,
+              width: "95%",
+              textAlign: "right",
+            }}
+          >
             <MenuSubmitButton value="Register" />
           </div>
         </form>

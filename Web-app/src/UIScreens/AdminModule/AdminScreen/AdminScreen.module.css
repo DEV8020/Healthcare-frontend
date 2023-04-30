@@ -1,27 +1,21 @@
-
-.center{
+.center {
   position: absolute;
-  top: 36%;
-  left: 20%;
+  top: 30%;
+  left: 16%;
   transform: translate(-50%, -50%);
   width: 400px;
-  height:350px;
+  height: 220px;
   background: white;
   border-radius: 10px;
-  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
 }
-.center h2{
+.center h2 {
+  font-size: 18px;
   text-align: center;
   padding: 20px 0;
   border-bottom: 1px solid silver;
+  color: #04273f;
 }
-.Admin_menu{
- 
+.Admin_menu {
   box-sizing: border-box;
 }
-
-
-
-
-
-
