@@ -1,13 +1,25 @@
+import SuperAdminUtilitiesKeys from "../UIScreens/SuperAdminModule/SuperAdminUtilitiesKeys/SuperAdminUtilitiesKeys";
+import UtilitiesKeys from "../Utilities/UtilitiesKeys";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const updateUserData = async (props) => {
   console.log("updateUserData in super admin user related api handler");
   console.log(props.userData);
 
-  var childURL = "updateAdmin";
+  var childURL =
+    APIURLUtilities.getSuperAdminAPIChildURLKeys().superAdminUpdateAdminAPIKey;
 
-  if (props.userData.userType === "Supervisor") {
-    childURL = "updateSupervisor";
+  const userType = SuperAdminUtilitiesKeys.getUserType(
+    props.userData[SuperAdminUtilitiesKeys.getCreateUserDataKeys().userRoleKey]
+  );
+
+  if ([SuperAdminUtilitiesKeys.getCreateUserDataKeys().userRoleKey]) {
+  }
+  if (userType === UtilitiesKeys.getUserTypeKeys().superVisorKey) {
+    childURL =
+      APIURLUtilities.getSuperAdminAPIChildURLKeys()
+        .superAdminUpdateSuperVisorAPIKey;
   }
 
   await GlobalServiceHandler.hitPutService({
@@ -17,7 +29,7 @@ const updateUserData = async (props) => {
       console.log(
         "addNewUserServiceData in SuperAdminUserRelatedAPIHandler file is"
       );
-      console.log(updatedUserData.responseData.data);
+      console.log(updatedUserData.responseData);
 
       if (updatedUserData.responseError === null) {
         props.modifyUserDataResponseHandler({
@@ -27,7 +39,7 @@ const updateUserData = async (props) => {
         });
       } else if (updatedUserData.responseData === null) {
         props.modifyUserDataResponseHandler({
-          isUserDataUpdated: null,
+          isUserDataUpdated: false,
           userUpdatedData: null,
           errorMessage: updatedUserData.responseError.message,
         });

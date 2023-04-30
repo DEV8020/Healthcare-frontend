@@ -1,20 +1,22 @@
-import React from 'react'
-import classes from "./NavBar.module.css"
+import React from "react";
+import classes from "./NavBar.module.css";
 
-
-
-
+const APP_NAME = "HealthCentral";
 const NavBar = (props) => {
-  
   return (
     <span className={classes.NavBar}>
-    {props.label}<button value={props.value} className={classes.back_btn} onClick={props.onClick}>
-    {props.value}
+      <img src={require("../../../../assets/logo.jpg")} />
+
+      {APP_NAME}
+      <button
+        value={props.value}
+        className={classes.back_btn}
+        onClick={props.onClick}
+      >
+        {props.value}
       </button>
     </span>
-);
-}
-  
+  );
+};
 
-
-export default NavBar
+export default NavBar;

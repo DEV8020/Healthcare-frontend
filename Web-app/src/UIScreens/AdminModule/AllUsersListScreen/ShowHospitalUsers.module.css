@@ -1,0 +1,79 @@
+.ul_AD {
+  position: absolute;
+  top: 20%;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  overflow-y: auto;
+
+  padding: 10;
+  margin-top: 10px;
+
+  border: none;
+
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border-bottom: 1px solid silver;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ul_AD::-webkit-scrollbar {
+  width: 7px;
+}
+
+.ul_AD::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.ul_AD::-webkit-scrollbar-thumb {
+  background: #0d5d93;
+  border-radius: 10px;
+}
+
+.ul_AD::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.center_AD {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 580px;
+  height: 450px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+}
+.center_AD h2 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+  margin-bottom: 10px;
+}
+.center_AD form {
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+.plist_AD {
+  width: 100%;
+
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+
+  border-bottom: 1px solid rgb(113, 110, 110);
+}
+.plist_AD:last-child {
+  border-bottom: none;
+}
+
+.plist_AD:nth-child(even) {
+  background: #519acb8b;
+  color: #04273f;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.plist_AD:nth-child(odd) {
+  background: #519acb8b;
+  color: #04273f;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}

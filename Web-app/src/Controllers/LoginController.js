@@ -1,24 +1,39 @@
+import LoginUtilities from "../UIScreens/LoginModule/LoginUtilities/LoginUtilities";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 const GetUserLoginData = async (props) => {
-    console.log(props.userData);
-  await GlobalServiceHandler.hitCustomResponsePostService({
-    childURL: "login",
-    postData: props.userData,
+
+  //Extracting User Type Value...
+  const userType =
+    props.userData[LoginUtilities.getLoginDataKeys().userRoleKey];
+
+  //Extracting User Type Value and replace with Value modified as per server need...
+  const userUpdatedData = {
+    ...props.userData,
+    ...{
+      [LoginUtilities.getLoginDataKeys().userRoleKey]:
+        LoginUtilities.getLoggedInUserRoleTypeForServer(userType),
+    },
+  };
+
+  await GlobalServiceHandler.hitPostServiceWithOutBearer({
+    childURL: APIURLUtilities.getAPIChildURLKeys().loginAPIKey,
+    postData: userUpdatedData,
     responseDataHandler: (loginServiceData) => {
-      console.log(loginServiceData);
+      //Login respone parsing in case of Success...
       if (loginServiceData.responseError === null) {
         props.userLoginResponseHandler({
-          isLoginFlag : true,
+          isLoginFlag: true,
           loggedInUserData: loginServiceData.responseData.data,
           errorMessage: null,
         });
-      } else if (loginServiceData.responseData === null) {
-        console.log("Entered in error block");
-        console.log(loginServiceData.responseError.message);
+      } 
+      //Login respone parsing in case of Error...
+      else if (loginServiceData.responseData === null) {
         props.userLoginResponseHandler({
           isLoginFlag: false,
-          loggedInUserData : null,
+          loggedInUserData: null,
           errorMessage: loginServiceData.responseError.message,
         });
       }
@@ -26,5 +41,38 @@ const GetUserLoginData = async (props) => {
   });
 };
 
-const LoginController = { GetUserLoginData };
+
+
+const GetDoctorFollowUpAttributesData = async (props) => {
+
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL: APIURLUtilities.getAPIChildURLKeys().doctorFollowAttributesKey,
+    
+    responseDataHandler: (followAttributesData) => {
+      //Reading Doctor Follow Up Custom Attributes respone parsing in case of Success...
+      console.log(followAttributesData);
+      if (followAttributesData.responseError === null) {
+        props.getDoctorFollowUpAttributesResponseHandler({
+          isListRecievedFlag: true,
+          attributesData: followAttributesData.responseData.data,
+          errorMessage: null,
+        });
+      } 
+      //Reading Doctor Follow Up Custom Attributes respone parsing in case of Error...
+      else if (followAttributesData.responseData === null) {
+        props.getDoctorFollowUpAttributesResponseHandler({
+          isListRecievedFlag: false,
+          attributesData: [],
+          errorMessage: followAttributesData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+
+
+
+
+const LoginController = { GetUserLoginData , GetDoctorFollowUpAttributesData};
 export default LoginController;

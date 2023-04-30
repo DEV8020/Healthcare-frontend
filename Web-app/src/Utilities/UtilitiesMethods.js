@@ -1,4 +1,7 @@
 import MessageComponent from "../Components/Screens/MessageComponent/MessageComponent";
+import { aesUtil } from "./EncryptionUtility/aesUtil";
+import UtilitiesKeys from "./UtilitiesKeys";
+import CryptoJS from "crypto-js";
 
 const getSpaceTrimmedLenght = (stringToMeasure) => {
   const lengthOfSpace = stringToMeasure.replace(/\s/g, "").length;
@@ -22,26 +25,65 @@ const showMessageBarAtTheBottom = (props) => {
 };
 
 const cleanUpUserDataOnLogOut = () => {
-  localStorage.removeItem("authId");
-  localStorage.removeItem("userId");
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
 };
-
-
 
 const processUserLoginData = (userLoggedInData) => {
   console.log("processUserLoginData");
   console.log(userLoggedInData);
-
-  // if (userLoggedInData.userType === "Front Desk") {
-    localStorage.setItem("authId", userLoggedInData.authId);
-    localStorage.setItem("userId", userLoggedInData.userId);
-  // }
+  localStorage.setItem("token", userLoggedInData.token);
+  localStorage.setItem("username", userLoggedInData.username);
 };
 
 const getUSerIDForLoggedInUser = () => {
   return localStorage.getItem("userId");
 };
 
+const getAuthTokenForLoggedInUser = () => {
+  return localStorage.getItem("token");
+};
+
+const getUserNameForLoggedInUser = () => {
+  return localStorage.getItem("username");
+};
+
+const getErrorMessageKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().messageKey];
+};
+
+const getIsMessageErrorMessageKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey];
+};
+
+const getMessageTypeKey = () => {
+  return [UtilitiesKeys.getErrorMessageDataKeys().messageType];
+};
+
+const setAttributesDataForDoctor = (attributesData) => {
+  localStorage.setItem("attributes", JSON.stringify(attributesData));
+};
+
+const getAttributesDataForDoctor = () => {
+  return JSON.parse(localStorage.getItem("attributes"));
+};
+
+// aesUtil.encrypt("mypassword123", "plain text");
+// -> ciphertext
+// aesUtil.decrypt("mypassword123", "ciphertext");
+// -> plain text
+
+const getEncryptedData = (userData) => {
+  var encryptedUserData = {};
+  Object.keys(userData).map((key, index) => {
+    console.log(aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]));
+    encryptedUserData = {
+      ...encryptedUserData,
+      ...{ [key]: aesUtil.encrypt(process.env.REACT_APP_SECRET_PASS, userData[key]) },
+    };
+  });
+  return encryptedUserData;
+};
 
 const UtilitiesMethods = {
   getSpaceTrimmedLenght,
@@ -49,7 +91,15 @@ const UtilitiesMethods = {
   getSupervisorIDForGlobalUserAPICalls,
   processUserLoginData,
   cleanUpUserDataOnLogOut,
-  getUSerIDForLoggedInUser
+  getUSerIDForLoggedInUser,
+  getAuthTokenForLoggedInUser,
+  getUserNameForLoggedInUser,
+  getErrorMessageKey,
+  getIsMessageErrorMessageKey,
+  getAttributesDataForDoctor,
+  setAttributesDataForDoctor,
+  getEncryptedData,
+  getMessageTypeKey
 };
 
 export default UtilitiesMethods;

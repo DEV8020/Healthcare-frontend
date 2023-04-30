@@ -1,40 +1,47 @@
-.NavBar{
-    width: 100%;
-    display: inline-flex;
-    background-color:#2691d9;
-    color: white;
-    padding-bottom: 0.5%;
-    padding-top: 0.5%;
-    padding-left: 7%;
-    height:60px;
-    border: 1px solid #2691d9;
-    border-radius: 2px;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.202);
-    font-size: 30px;
-  
-  }
-  
-  
-  .back_btn {
-    background:transparent;
-    display: inline-block;
-    position: relative;
-    width: 120px;
-    height:98%;
-    border: white;
-    
-    border-radius: 2px;
-    font-size: 15px;
-    color: white;
-    font-weight: 400;
-    cursor: pointer;
-    outline: none;
-    margin-left: 70%;
-  
-  }
-  
-  .back_btn:hover {
-    
-    background-color: white;
-    color: black;
-  }
+.NavBar {
+  width: 100%;
+  display: inline-flex;
+  background-color: #2691d9;
+  color: white;
+  padding-bottom: 0.5%;
+  padding-top: 0.5%;
+  padding-left: 7%;
+  height: 60px;
+  border: 1px solid #2691d9;
+  border-radius: 2px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.202);
+  font-size: 30px;
+  font-weight: bold;
+}
+.NavBar img {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin-right: 10px;
+  width: 80px;
+  height: 60px;
+  /* border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px; */
+}
+
+.back_btn {
+  background: transparent;
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 98%;
+  border: white;
+
+  border-radius: 2px;
+  font-size: 15px;
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+  margin-left: 70%;
+}
+
+.back_btn:hover {
+  background-color: white;
+  color: black;
+}

@@ -1,0 +1,22 @@
+.center {
+  position: absolute;
+  top: 54%;
+  left: 53%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 550px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+}
+.center h2 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+  margin-bottom: 10px;
+}
+.center form {
+  border-width: 1;
+  padding-left: 40px;
+  box-sizing: border-box;
+}

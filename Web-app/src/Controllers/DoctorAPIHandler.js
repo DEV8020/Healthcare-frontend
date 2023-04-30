@@ -1,14 +1,15 @@
 import UtilitiesMethods from "../Utilities/UtilitiesMethods";
+import APIURLUtilities from "./APIURLUtilities";
 import GlobalServiceHandler from "./GlobalServiceHandler";
 
 //Register Field Worker In Supervisor Menu API Handler Method...
 const getFollowUpUpdates = async (props) => {
   // console.log("Register Field Worker In Supervisor Menu...");
   // console.log(props.fieldWorkerData);
-
+  //doctorGetFollowedUpListAPIKey
   var childURL =
-    "getListOfFollowUpsAssignedBy/" +
-    UtilitiesMethods.getUSerIDForLoggedInUser();
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetFollowedUpListAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser();
   console.log(childURL);
 
   await GlobalServiceHandler.hitCustomResponseGetService({
@@ -35,12 +36,53 @@ const getFollowUpUpdates = async (props) => {
   });
 };
 
+
+
+////http://localhost:9191/doctor/pendingQueue/{DoctorUsername}
+const getDoctorPendingEncounterUpdates = async (props) => {
+
+  var childURL =
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetPendingEncounterAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser();
+  console.log(childURL);
+
+  await GlobalServiceHandler.hitCustomResponseGetService({
+    childURL: childURL,
+    //   postData: props.fieldWorkerData,
+    responseDataHandler: (pendingEncounterData) => {
+      console.log("Register Field Worker Data In Admin Menu Response Data...");
+      console.log(pendingEncounterData.responseData);
+//      doctorPendingEncounterUpdatesData: doctorPendingEncounterUpdatesData,
+
+      if (pendingEncounterData.responseError === null) {
+        props.doctorPendingEncounterUpdatesData({
+          isEncounterDataRecieved: true,
+          encounterData: pendingEncounterData.responseData.data,
+          errorMessage: null,
+        });
+      } else if (pendingEncounterData.responseData === null) {
+        props.doctorPendingEncounterUpdatesData({
+          isEncounterDataRecieved: false,
+          encounterData: [],
+          errorMessage: pendingEncounterData.responseError.message,
+        });
+      }
+    },
+  });
+};
+
+
+
+
+
 //Register Field Worker In Supervisor Menu API Handler Method...
 const getDoctorEncounterUpdates = async (props) => {
   // console.log("Register Field Worker In Supervisor Menu...");
   // console.log(props.fieldWorkerData);
 
-  var childURL = "pendingQueue/" + UtilitiesMethods.getUSerIDForLoggedInUser();
+  var childURL =
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetEncounterListAPIKey +
+    UtilitiesMethods.getUserNameForLoggedInUser();
   console.log(childURL);
 
   await GlobalServiceHandler.hitCustomResponseGetService({
@@ -69,7 +111,9 @@ const getDoctorEncounterUpdates = async (props) => {
 
 //Register Field Worker In Supervisor Menu API Handler Method...
 const getPatientHistoryUpdates = async (props) => {
-  var childURL = "getMedicalHistory/" + props.patientID;
+  var childURL =
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorGetMedcialHistoryAPIKey +
+    props.patientID;
   console.log(childURL);
 
   await GlobalServiceHandler.hitCustomResponseGetService({
@@ -145,18 +189,19 @@ const savePatientEncounterData = async (props) => {
     encounterId: props.encounterID,
     prescription: props.prescriptionData.prescription,
     symptoms: props.prescriptionData.additionalNotes,
-    followUpList : followUpDataList
+    followUpList: followUpDataList,
   };
 
-console.log("patientEncounterData called");
+  console.log("patientEncounterData called");
   console.log(patientEncounterData);
-  var childURL = "saveEncounter"; //+ UtilitiesMethods.getUSerIDForLoggedInUser();
-  console.log(childURL);
+  // var childURL = "saveEncounter"; //+ UtilitiesMethods.getUSerIDForLoggedInUser();
+  // console.log(childURL);
 
-//   return;
+    // return;
 
   await GlobalServiceHandler.hitPutService({
-    childURL: childURL,
+    childURL:
+      APIURLUtilities.getDoctorAPIChildURLKeys().doctorSaveEncounterAPIKey,
     postData: patientEncounterData,
     responseDataHandler: (createdEncounterData) => {
       console.log(
@@ -185,16 +230,18 @@ const addPatientEncounterData = async (props) => {
   console.log("create patient encounter In Doctor Menu...");
   console.log(props.patientData);
 
+  //http://localhost:9191/doctor/addEncounters/{patientid}/{doctorUserName}
+
   // patientData: encounterData,
   //   addPatientEncounterResponseHandler: addPatientEncounterResponseHandler,
 
   //http://localhost:9191/addEncounter/{patientId}/{userId}
 
   var childURL =
-    "addEncounter/" +
+    APIURLUtilities.getDoctorAPIChildURLKeys().doctorAddEncounterAPIKey +
     props.patientData.patient.patientId +
     "/" +
-    UtilitiesMethods.getUSerIDForLoggedInUser();
+    UtilitiesMethods.getUserNameForLoggedInUser();
   console.log(childURL);
   console.log("child URL present");
 
@@ -230,6 +277,7 @@ const DoctorAPIHandler = {
   getPatientHistoryUpdates,
   savePatientEncounterData,
   addPatientEncounterData,
+  getDoctorPendingEncounterUpdates
 };
 
 export default DoctorAPIHandler;
