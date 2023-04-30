@@ -140,7 +140,7 @@ const CreateUser = (props) => {
           newUserData.errorMessage,
         [UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey]: true,
         [UtilitiesMethods.getMessageTypeKey()]:
-        UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -330,7 +330,16 @@ const CreateUser = (props) => {
             )}
           </>
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: 0,
+              width: "100%",
+              justifyItems: "center",
+              alignItems: "center",
+            }}
+          >
             <MenuSubmitButton value="Register" />
           </div>
         </form>

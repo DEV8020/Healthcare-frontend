@@ -3,8 +3,8 @@ import UtilitiesMethods from "../Utilities/UtilitiesMethods";
 
 // const serverURL = `http://192.168.9.225:9191/`;
 //const serverURL = `http://172.16.140.248:9191/`;
-// const serverURL = `http://192.168.223.225:9191/`;
-const serverURL = `http://192.168.219.225:9191/`; //Darshan Server
+const serverURL = `http://192.168.233.225:9191/`;
+// const serverURL = `http://192.168.219.225:9191/`; //Darshan Server
 //process.env.REACT_APP_SERVER_URL;
 const getHeaderConfigurationsList = () => {
   return {
@@ -19,8 +19,6 @@ const getHeaderConfigurationsList = () => {
     },
   };
 };
-
-
 
 const hitGetServiceWithOutBearer = async (props) => {
   try {
@@ -54,8 +52,6 @@ const hitGetServiceWithOutBearer = async (props) => {
     });
   }
 };
-
-
 
 const hitPostServiceWithOutBearer = async (props) => {
   try {
@@ -215,7 +211,6 @@ const hitGetService = async (props) => {
   }
 };
 
-
 //Method to Hit the GET request in the API...
 const hitCustomResponseGetService = async (props) => {
   try {
@@ -246,9 +241,6 @@ const hitCustomResponseGetService = async (props) => {
   }
 };
 
-
-
-
 //Method to handle the response of the API Calls...
 const handleAPICallReponseData = (prop) => {
   if (prop.response.status === 200) {
@@ -256,15 +248,13 @@ const handleAPICallReponseData = (prop) => {
       responseData: prop.response,
       responseError: null,
     });
-  } 
-  else{
+  } else {
     prop.responseHandler({
       responseData: null,
       responseError: Error(prop.response.data.message),
     });
   }
 };
-
 
 //Method to Hit the PUT request in the API...
 const hitPutService = async (props) => {
@@ -304,6 +294,6 @@ const GlobalServiceHandler = {
   hitCustomResponseGetService,
   getHeaderConfigurationsList,
   hitPostServiceWithOutBearer,
-  hitGetServiceWithOutBearer
+  hitGetServiceWithOutBearer,
 };
 export default GlobalServiceHandler;

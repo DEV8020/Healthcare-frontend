@@ -1,12 +1,13 @@
 select {
   width: 60%;
+  height: 100px;
   background-color: none;
-  border:1px solid #a6a6a6;
+  border: 1px solid #a6a6a6;
   border-radius: 10px;
   height: 30px;
   margin-top: 20px;
   margin-bottom: 10px;
-  margin-left: 5px;
+  margin-left: 10px;
   color: #a6a6a6;
   font-size: 16px;
   outline: none;
@@ -18,8 +19,7 @@ option {
   border: none;
   outline: none;
 }
-select:focus{
-  border:2px solid #2691d9;
+select:focus {
+  border: 2px solid #2691d9;
   color: #2691d9;
 }
-
