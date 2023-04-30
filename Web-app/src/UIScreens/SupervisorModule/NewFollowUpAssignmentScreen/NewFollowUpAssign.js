@@ -13,7 +13,9 @@ const NewFollowUpAssign = (props) => {
     setIsUnAssignedFollowUpListToRefresh,
   ] = useState(true);
 
-  console.log("########################  Unassigned Patient Follow Ups  ########################");
+  console.log(
+    "########################  Unassigned Patient Follow Ups  ########################"
+  );
 
   //########################  Unassigned Patient Follow Ups  ########################
 
@@ -42,7 +44,7 @@ const NewFollowUpAssign = (props) => {
         message: unAssignedFollowUpsData.errorMessage,
         isErrorMessage: true,
         [UtilitiesMethods.getMessageTypeKey()]:
-          UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+          UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
       });
     }
   };
@@ -66,7 +68,7 @@ const NewFollowUpAssign = (props) => {
         message: "Follow Ups Assigned to Field Worker.",
         isErrorMessage: false,
         [UtilitiesMethods.getMessageTypeKey()]:
-          UtilitiesKeys.getAlertMessageTypeKeys().successKey
+          UtilitiesKeys.getAlertMessageTypeKeys().successKey,
       });
       setUnAssignedFollowUpsData([]);
       setIsUnAssignedFollowUpListToRefresh((isRefresh) => {
@@ -79,7 +81,7 @@ const NewFollowUpAssign = (props) => {
       message: assignedFollowUpData.errorMessage,
       isErrorMessage: true,
       [UtilitiesMethods.getMessageTypeKey()]:
-          UtilitiesKeys.getAlertMessageTypeKeys().errorKey
+        UtilitiesKeys.getAlertMessageTypeKeys().errorKey,
     });
   };
 
@@ -87,7 +89,7 @@ const NewFollowUpAssign = (props) => {
     <>
       {
         <div className={classes.center}>
-          <h1> Assign Follow ups </h1>
+          <h2> Assign Follow ups </h2>
           <div className={classes.ul}>
             {unAssignedFollowUpsData.length === 0 && (
               <div>

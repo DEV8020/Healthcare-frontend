@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./FieldWorkerList.module.css";
-import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../Components/Screens/UI Elements/Supervisor UI Elements/addButton";
 import SupervisorAPIHandler from "../../../Controllers/SupervisorAPIHandler";
 import UpdateCredentialPopup from "../../GenericModule/UpdateUserDataScreen/UpdateCredentialPopup";
 import UtilitiesKeys from "../../../Utilities/UtilitiesKeys";
@@ -42,7 +42,6 @@ const FieldWorkerList = (props) => {
     displayMessagesInParentViewHandler({
       message: "User data updated successfully.",
       isErrorMessage: false,
-
     });
 
     setIsRefreshFieldWorkerList((isRefresh) => {
@@ -66,7 +65,7 @@ const FieldWorkerList = (props) => {
     // console.log(fieldworkerdata);
     // showUpdateCredentialPopup(true);
     changeUserDataHandler(fieldworkerdata);
-props.resetFieldWorkerDisplaySideView();
+    props.resetFieldWorkerDisplaySideView();
     //resetFieldWorkerDisplaySideView
   };
 
@@ -91,8 +90,8 @@ props.resetFieldWorkerDisplaySideView();
         prop[UtilitiesKeys.getErrorMessageDataKeys().messageKey],
       [UtilitiesMethods.getIsMessageErrorMessageKey()]:
         prop[UtilitiesKeys.getErrorMessageDataKeys().isErrorMessageKey],
-        [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
-        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType]
+      [UtilitiesKeys.getErrorMessageDataKeys().messageType]:
+        prop[UtilitiesKeys.getErrorMessageDataKeys().messageType],
     });
   };
 
@@ -113,7 +112,7 @@ props.resetFieldWorkerDisplaySideView();
 
   return (
     <div className={classes.center}>
-      <h1> Field Worker List</h1>
+      <h2> Field Worker List</h2>
 
       {fieldWorkerList.length === 0 && (
         <div>
@@ -125,12 +124,28 @@ props.resetFieldWorkerDisplaySideView();
         {fieldWorkerList.map((fieldworkerdata) => (
           <div key={fieldworkerdata.authId} className={classes.plist}>
             <div>ID : {fieldworkerdata.authId}</div>
-            <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().userIDKey} : {fieldworkerdata.username}</div>
-            <div>{SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys().nameKey} : {fieldworkerdata.name}</div>
+            <div>
+              {
+                SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys()
+                  .userIDKey
+              }{" "}
+              : {fieldworkerdata.username}
+            </div>
+            <div>
+              {
+                SupervisorUtilitiesKeys.getFieldWorkerRegistrationLabelKeys()
+                  .nameKey
+              }{" "}
+              : {fieldworkerdata.name}
+            </div>
             <div>Contact No. : {fieldworkerdata.contact}</div>
             <div>Last Sync Date : {fieldworkerdata.lastSyncDate}</div>
 
-            <div>
+            <div
+              style={{
+                flexDirection: "row",
+              }}
+            >
               <AddButton
                 value="Details"
                 onClick={() => getFieldWorkerDetailsHandler(fieldworkerdata)}

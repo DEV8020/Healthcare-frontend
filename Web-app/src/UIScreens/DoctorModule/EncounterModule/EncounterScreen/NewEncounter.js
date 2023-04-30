@@ -71,11 +71,11 @@ const NewEncounter = (props) => {
 
   return (
     <div className={classes.center}>
-      <h1>
+      <h2>
         {props.isPendingEncounterScreen
           ? "Pending Appointments"
           : "Create New Appointment"}{" "}
-      </h1>
+      </h2>
 
       {props.isPendingEncounterScreen === false &&
         props.doctorEncounterData.length === 0 && (

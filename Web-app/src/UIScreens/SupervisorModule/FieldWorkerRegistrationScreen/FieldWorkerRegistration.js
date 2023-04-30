@@ -103,7 +103,7 @@ const FieldWorkerRegistration = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Register Field Worker</h1>
+        <h2> Register Field Worker</h2>
 
         <form id="addFieldWorker-form" onSubmit={AddFieldWorkerDataHandler}>
           {/* Field Worker User ID Input Text Field */}
@@ -228,7 +228,15 @@ const FieldWorkerRegistration = (props) => {
             }
           />
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 30,
+              left: 0,
+              width: "95%",
+              textAlign: "right",
+            }}
+          >
             <MenuSubmitButton value="Register" />
             {/* <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} /> */}
           </div>

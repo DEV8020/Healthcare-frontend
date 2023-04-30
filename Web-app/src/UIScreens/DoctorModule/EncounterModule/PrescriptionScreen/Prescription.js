@@ -3,7 +3,7 @@ import classes from "./Prescription.module.css";
 import MenuSubmitButton from "../../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import TextBox from "../../../../Components/Screens/UI Elements/MenuForm Elements/TextBox";
 import DoctorAPIHandler from "../../../../Controllers/DoctorAPIHandler";
-import AddButton from "../../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../../Components/Screens/UI Elements/Frontdesk UI Elements/addButton";
 import UtilitiesMethods from "../../../../Utilities/UtilitiesMethods";
 import DoctorUtilitiesKeys from "../../../../Utilities/DoctorUtilities/DoctorUtilitiesKeys";
 import UtilitiesKeys from "../../../../Utilities/UtilitiesKeys";
@@ -35,7 +35,8 @@ const Prescription = (props) => {
 
     const doctorValidationData =
       DoctorUtilitiesKeys.checkPrescriptionDataValidation(
-        props.doctorPrescriptionData, isChecked
+        props.doctorPrescriptionData,
+        isChecked
       );
     if (
       doctorValidationData[
@@ -102,7 +103,7 @@ const Prescription = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1>Appointment</h1>
+        <h2>Appointment</h2>
 
         <form onSubmit={PrescriptionSubmitHandler}>
           <TextBox.TextBox2
@@ -119,16 +120,26 @@ const Prescription = (props) => {
             onChange={PrescriptionDataChangeHandler}
           />
 
-          <div>
+          <div style={{ marginLeft: 20 }}>
             <input
               type="checkbox"
               checked={isChecked}
               onClick={consentButtonClickHandler}
+              style={{ height: 15, width: 15 }}
             />
-            <span>   Please check this button to share your data.</span>
+            <span> Please check this button to share your data.</span>
           </div>
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 30,
+              right: 20,
+
+              width: "90%",
+              textAlign: "right",
+            }}
+          >
             <MenuSubmitButton value="Submit" />
 
             <AddButton
