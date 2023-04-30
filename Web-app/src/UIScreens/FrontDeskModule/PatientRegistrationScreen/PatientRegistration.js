@@ -35,7 +35,8 @@ const PatientRegistration = (props) => {
 
     const userValidationData =
       FrontDeskUtilitiesMethods.checkPatientRegistrationValidationData(
-        patientRegistrationData);
+        patientRegistrationData
+      );
 
     if (
       userValidationData[
@@ -114,8 +115,6 @@ const PatientRegistration = (props) => {
     });
   };
 
-
-
   const showMessageAtBottomBar = (prop) => {
     props.showMessageBarAtTheBottom(prop);
   };
@@ -185,7 +184,7 @@ const PatientRegistration = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1> Register Patient</h1>
+        <h2> Register Patient</h2>
 
         <form id="addPatient-form" onSubmit={AddPatientDataHandler}>
           {/* Patient's Name Text Field... */}
@@ -306,7 +305,15 @@ const PatientRegistration = (props) => {
             }
           />
 
-          <div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 30,
+              left: 0,
+              width: "95%",
+              textAlign: "right",
+            }}
+          >
             <MenuSubmitButton value="Register" />
             {/* <MenuSubmitButton value="Cancel" onClick={cancelButtonHandler} /> */}
           </div>

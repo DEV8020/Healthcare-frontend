@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./CreateAppointment.module.css";
 import MenuSubmitButton from "../../../Components/Screens/UI Elements/MenuSubmitButton/MenuSubmitButton";
 import FrontDeskAPIHandler from "../../../Controllers/FrontDeskAPIHandler";
-import AddButton from "../../../Components/Screens/UI Elements/MenuForm Elements/addButton";
+import AddButton from "../../../Components/Screens/UI Elements/AdminMenuForm Elements/addButton";
 import UtilitiesMethods from "../../../Utilities/UtilitiesMethods";
 import InputTextField from "../../../Component/InputTextField/InputTextField";
 import InputNumericTextField from "../../../Component/InputNumber/InputNumericTextField";
@@ -124,7 +124,7 @@ const CreateAppointment = (props) => {
   return (
     <div>
       <div className={classes.center}>
-        <h1>Appointment</h1>
+        <h2>Appointment</h2>
 
         <form onSubmit={SearchPatientByNameButtonHandler}>
           {/* Input Text Field for Patient Name to be Searched... */}
